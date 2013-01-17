@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using VertexArmy.Global;
+using VertexArmy.Graphics;
 
 namespace VertexArmy.States
 {
@@ -269,6 +270,7 @@ namespace VertexArmy.States
 
 			_soundCloakEnabled = _contentManager.Load<SoundEffect>( @"sounds\cloak_enable" );
 			_soundCloakEnabledInstance = _soundCloakEnabled.CreateInstance();
+
 		}
 
 		public void OnClose()

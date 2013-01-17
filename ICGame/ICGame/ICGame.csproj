@@ -73,6 +73,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Global\CursorManager.cs" />
+    <Compile Include="Graphics\GlobalMatrix.cs" />
+    <Compile Include="Graphics\ObjectSceneNode.cs" />
+    <Compile Include="Graphics\RobotSceneNode.cs" />
+    <Compile Include="Graphics\SceneNode.cs" />
     <Compile Include="Input\IInputSystem.cs" />
     <Compile Include="Input\PCInputSystem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -123,9 +127,7 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Graphics\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.targets" />
   <!--

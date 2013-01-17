@@ -1,0 +1,24 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ICGame", "ICGame\ICGame\ICGame.csproj", "{9F6FDEC6-AE5F-4F03-B155-F6082785749B}"
+EndProject
+Project("{96E2B04D-8817-42C6-938A-82C39BA4D311}") = "ICGameContent", "ICGame\ICGameContent\ICGameContent.contentproj", "{F560ACE9-10D8-4170-A156-FC4AEA2F1DAD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9F6FDEC6-AE5F-4F03-B155-F6082785749B}.Debug|x86.ActiveCfg = Debug|x86
+		{9F6FDEC6-AE5F-4F03-B155-F6082785749B}.Debug|x86.Build.0 = Debug|x86
+		{9F6FDEC6-AE5F-4F03-B155-F6082785749B}.Release|x86.ActiveCfg = Release|x86
+		{9F6FDEC6-AE5F-4F03-B155-F6082785749B}.Release|x86.Build.0 = Release|x86
+		{F560ACE9-10D8-4170-A156-FC4AEA2F1DAD}.Debug|x86.ActiveCfg = Debug|x86
+		{F560ACE9-10D8-4170-A156-FC4AEA2F1DAD}.Release|x86.ActiveCfg = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -79,6 +79,9 @@
     <Compile Include="Graphics\SceneNode.cs" />
     <Compile Include="Input\IInputSystem.cs" />
     <Compile Include="Input\PCInputSystem.cs" />
+    <Compile Include="Level\Level.cs" />
+    <Compile Include="Level\LevelChunk.cs" />
+    <Compile Include="Level\LevelManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="MainGame.cs" />

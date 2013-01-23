@@ -1,31 +1,16 @@
 ﻿
-using System;
-using System.IO;
-
 namespace ICGame.LevelGenerator
 {
 	public class Program
 	{
 		public static void Main( string[] args )
 		{
-			string targetPath = args.Length > 0 ? args[0] : "../../../ICGame/Content/Levels/";
+			string targetPath = args.Length > 0 ? args[0] : "../../../../ICGame/Content/Levels/";
+			string serializationType = args.Length > 1 ? args[1] : "xml";
 
-			Console.WriteLine( "Generating levels in " + targetPath );
-
-			GenerateLevels( targetPath );
+			Generator generator = new Generator( targetPath, serializationType );
+			generator.GenerateLevels();
 		}
 
-		private static void GenerateLevels( string targetPath )
-		{
-			GenerateTutorial( targetPath );
-		}
-
-		private static void GenerateTutorial( string targetPath )
-		{
-			string tutorialPath = targetPath + "tutorial.level";
-			using ( StreamWriter streamWriter = new StreamWriter( tutorialPath ) )
-			{
-			}
-		}
 	}
 }

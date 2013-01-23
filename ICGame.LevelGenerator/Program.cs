@@ -8,7 +8,7 @@ namespace ICGame.LevelGenerator
 	{
 		public static void Main( string[] args )
 		{
-			string targetPath = args.Length > 0 ? args[0] : "../../../ICGame/ICGame/Content/Levels/";
+			string targetPath = args.Length > 0 ? args[0] : "../../../ICGame/Content/Levels/";
 
 			Console.WriteLine( "Generating levels in " + targetPath );
 

@@ -7,6 +7,7 @@
 		Pause,
 		Presentation,
 		RoomPreview,
-		ModelView
+		ModelView,
+		LevelLoading,
 	};
 }

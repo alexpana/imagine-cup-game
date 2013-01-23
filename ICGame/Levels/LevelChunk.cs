@@ -1,5 +1,5 @@
 ﻿
-namespace VertexArmy.Level
+namespace VertexArmy.Levels
 {
 	public class LevelChunk
 	{

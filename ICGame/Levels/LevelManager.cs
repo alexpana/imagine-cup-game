@@ -1,11 +1,14 @@
 ﻿
 using System.Collections.Generic;
+using System.IO;
+using System.Xml.Serialization;
+using Microsoft.Xna.Framework;
 
-namespace VertexArmy.Level
+namespace VertexArmy.Levels
 {
 	public class LevelManager
 	{
-		public LevelManager Instance { get { return LevelManagerInstanceHolder.Instance; } }
+		public static LevelManager Instance { get { return LevelManagerInstanceHolder.Instance; } }
 
 		private readonly Dictionary<string, Level> _loadedLevels;
 
@@ -24,9 +27,18 @@ namespace VertexArmy.Level
 
 		private Level LoadLevel( string name )
 		{
-			Level level = new Level { Name = name };
-			//TODO: load from Filesystem
-			return level;
+			try
+			{
+				using ( Stream stream = TitleContainer.OpenStream( @"Content\Levels\" + name + @".level" ) )
+				{
+					XmlSerializer serializer = new XmlSerializer( typeof( Level ) );
+					return ( Level ) serializer.Deserialize( stream );
+				}
+			}
+			catch ( FileNotFoundException e )
+			{
+				return null;
+			}
 		}
 
 		private LevelManager()
@@ -37,7 +49,9 @@ namespace VertexArmy.Level
 		#region Singleton
 		private static class LevelManagerInstanceHolder
 		{
+			// ReSharper disable MemberHidesStaticFromOuterClass
 			public static readonly LevelManager Instance = new LevelManager();
+			// ReSharper restore MemberHidesStaticFromOuterClass
 		}
 		#endregion
 	}

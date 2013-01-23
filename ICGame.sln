@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ICGameContent", "ICGame\ICG
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ICGame.Tests", "ICGame.Tests\ICGame.Tests.csproj", "{C867F016-68C8-4FB6-9C1F-070E2EE75EEE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ICGame.LevelGenerator", "ICGame.LevelGenerator\ICGame.LevelGenerator.csproj", "{605901A8-C8F7-40A3-9DCC-5885D5479FA0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,6 +45,16 @@ Global
 		{C867F016-68C8-4FB6-9C1F-070E2EE75EEE}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{C867F016-68C8-4FB6-9C1F-070E2EE75EEE}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{C867F016-68C8-4FB6-9C1F-070E2EE75EEE}.Release|x86.ActiveCfg = Release|Any CPU
+		{605901A8-C8F7-40A3-9DCC-5885D5479FA0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{605901A8-C8F7-40A3-9DCC-5885D5479FA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{605901A8-C8F7-40A3-9DCC-5885D5479FA0}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{605901A8-C8F7-40A3-9DCC-5885D5479FA0}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{605901A8-C8F7-40A3-9DCC-5885D5479FA0}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{605901A8-C8F7-40A3-9DCC-5885D5479FA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{605901A8-C8F7-40A3-9DCC-5885D5479FA0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{605901A8-C8F7-40A3-9DCC-5885D5479FA0}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{605901A8-C8F7-40A3-9DCC-5885D5479FA0}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{605901A8-C8F7-40A3-9DCC-5885D5479FA0}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

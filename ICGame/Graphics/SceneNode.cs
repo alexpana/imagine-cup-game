@@ -49,7 +49,7 @@ namespace VertexArmy.Graphics
 					_absoluteTransformation = _parent.GetAbsoluteTransformation();
 				}
 
-				_absoluteTransformation *= GetRelativeTransformation();
+				_absoluteTransformation = GetRelativeTransformation( ) * _absoluteTransformation;
 
 				for(int i = 0, l = _children.Count; i < l; ++i)
 				{
@@ -65,9 +65,10 @@ namespace VertexArmy.Graphics
 			if(_recomputeRelativeTransformation)
 			{
 				_relativeTransformation = Matrix.Identity;
-				_relativeTransformation = Matrix.CreateTranslation(_position);
-				_relativeTransformation = Matrix.Transform(_relativeTransformation, _rotation);
-				_relativeTransformation *= Matrix.CreateScale(_scale);
+				_relativeTransformation *= Matrix.CreateScale( _scale );
+				_relativeTransformation *= Matrix.Transform(_relativeTransformation, _rotation);
+				_relativeTransformation *= Matrix.CreateTranslation( _position );
+				
 				_recomputeRelativeTransformation = false;
 			}
 			return _relativeTransformation;

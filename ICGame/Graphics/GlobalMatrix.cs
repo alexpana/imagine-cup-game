@@ -91,9 +91,9 @@ namespace VertexArmy.Graphics
 				if(_matWorldViewProjectionF)
 				{
 					_matWorldViewProjection =
-						_stacks[( int ) EMatrix.Projection][_si[( int ) EMatrix.Projection]] *
+						_stacks[(int)EMatrix.World][_si[(int)EMatrix.World]] *
 						_stacks[(int)EMatrix.View][_si[(int)EMatrix.View]] *
-						_stacks[(int)EMatrix.World][_si[(int)EMatrix.World]];
+						_stacks[( int ) EMatrix.Projection][_si[( int ) EMatrix.Projection]];
 					_matWorldViewProjectionF = false;
 				}
 				return _matWorldViewProjection;

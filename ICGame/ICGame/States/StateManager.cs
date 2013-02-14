@@ -49,6 +49,8 @@ namespace VertexArmy.States
 					return new GameStateRoomPreview( contentManager );
 				case GameState.ModelView:
 					return new GameStateModelViewer( contentManager );
+				case GameState.PhysicsPresentation:
+					return new GameStatePhysics( contentManager );
 			}
 			return null;
 		}

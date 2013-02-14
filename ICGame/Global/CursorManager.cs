@@ -55,8 +55,8 @@ namespace VertexArmy.Global
 
 		private void Initialize()
 		{
-			RegisterCursor( CursorType.PanHandOpen, new Cursor( @"images\cursor_hand_open" ) );
-			RegisterCursor( CursorType.PanHandClosed, new Cursor( @"images\cursor_hand_closed" ) );
+			RegisterCursor( CursorType.PanHandOpen, new Cursor( "images/cursor_hand_open" ) );
+			RegisterCursor( CursorType.PanHandClosed, new Cursor( "images/cursor_hand_closed" ) );
 
 			SetActiveCursor( CursorType.PanHandOpen );
 		}

@@ -8,6 +8,7 @@
 		Presentation,
 		RoomPreview,
 		ModelView,
-		PhysicsPresentation
+		PhysicsPresentation,
+		LevelLoading
 	};
 }

@@ -105,7 +105,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Farseer Physics Engine 3.3.1 XNA\Farseer Physics XNA.csproj">
+    <ProjectReference Include="..\Farseer Physics Engine 3.3.1 XNA\Farseer Physics XNA.csproj">
       <Project>{0a850700-1abb-4288-a391-6726b90ebeb9}</Project>
       <Name>Farseer Physics XNA</Name>
     </ProjectReference>

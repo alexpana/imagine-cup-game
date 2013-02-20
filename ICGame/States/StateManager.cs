@@ -49,10 +49,10 @@ namespace VertexArmy.States
 					return new GameStateRoomPreview( contentManager );
 				case GameState.ModelView:
 					return new GameStateModelViewer( contentManager );
-				case GameState.PhysicsPresentation:
-					return new GameStatePhysics( contentManager );
 				case GameState.LevelLoading:
 					return new GameStateLevelLoading( contentManager );
+				case GameState.PhysicsPresentationTank:
+					return new GameStatePhysicsTank( contentManager );
 			}
 			return null;
 		}

@@ -99,6 +99,7 @@
     <Compile Include="States\GameStatePresentation.cs" />
     <Compile Include="Global\Platform.cs" />
     <Compile Include="States\GameStateRoomPreview.cs" />
+    <Compile Include="Utilities\ConvertUnits.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />

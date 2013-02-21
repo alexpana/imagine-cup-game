@@ -1,3 +1,4 @@
+using FarseerPhysics.Dynamics;
 using Microsoft.Xna.Framework;
 using VertexArmy.Global;
 using VertexArmy.Input;
@@ -12,6 +13,7 @@ namespace VertexArmy
 			Platform.Instance.DeviceManager = new GraphicsDeviceManager( this );
 			Platform.Instance.DeviceManager.PreferredBackBufferWidth = 800;
 			Platform.Instance.DeviceManager.PreferredBackBufferHeight = 600;
+			Platform.Instance.PhysicsWorld = new World( new Vector2( 0f, 9.82f ) );
 			Platform.Instance.Game = this;
 			Content.RootDirectory = "Content";
 		}

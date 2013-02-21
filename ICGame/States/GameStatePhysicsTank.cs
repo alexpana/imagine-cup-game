@@ -21,8 +21,6 @@ namespace VertexArmy.States
 		private Matrix _projection;
 		private Matrix _view;
 
-		private World _physicsWorld;
-
 		//private Body _floorBody;
 		private Body _ground;
 
@@ -62,7 +60,7 @@ namespace VertexArmy.States
 				}
 			}
 
-			_physicsWorld.Step( Math.Min( ( float ) dt.ElapsedGameTime.TotalMilliseconds * 0.001f, ( 1f / 30f ) ) );
+			Platform.Instance.PhysicsWorld.Step( Math.Min( ( float ) dt.ElapsedGameTime.TotalMilliseconds * 0.001f, ( 1f / 30f ) ) );
 
 			_tank.Move( 0f );
 			if ( Keyboard.GetState( PlayerIndex.One ).IsKeyDown( Keys.Left ) )
@@ -124,10 +122,9 @@ namespace VertexArmy.States
 		}
 
 		public void LoadPhysicsContent()
-		{
-			_physicsWorld = new World(new Vector2(0f, 9.82f));
+		{			
 
-			_ground = new Body( _physicsWorld );
+			_ground = new Body( Platform.Instance.PhysicsWorld );
 			{
 				Vertices terrain = new Vertices( );
 				terrain.Add( new Vector2( -20f, 15f ) );
@@ -174,13 +171,13 @@ namespace VertexArmy.States
 				_ground.Friction = 1.2f;
 				_ground.Restitution = 0f;
 			}
-			_tank = new PhysicsEntityTank( _physicsWorld, new Vector2(50f, 5f));
+			_tank = new PhysicsEntityTank( Platform.Instance.PhysicsWorld, new Vector2(50f, 5f));
 
-			Body rec = BodyFactory.CreateRectangle( _physicsWorld, 2f, 2f, 0.3f );
+			Body rec = BodyFactory.CreateRectangle( Platform.Instance.PhysicsWorld, 2f, 2f, 0.3f );
 			rec.Position = new Vector2(100f, 10f);
 			rec.BodyType = BodyType.Dynamic;
 
-			rec = BodyFactory.CreateRectangle( _physicsWorld, 2f, 10f, 1f );
+			rec = BodyFactory.CreateRectangle( Platform.Instance.PhysicsWorld, 2f, 10f, 1f );
 			rec.Position = new Vector2( 249f, 10f );
 			rec.BodyType = BodyType.Dynamic;
 
@@ -194,7 +191,7 @@ namespace VertexArmy.States
 			_actionFreeze = false;
 			_actionReset = false;
 			LoadPhysicsContent();
-			_debugView = new DebugViewXNA( _physicsWorld );
+			_debugView = new DebugViewXNA( Platform.Instance.PhysicsWorld );
 			
 			_debugView.LoadContent( Platform.Instance.Device, Platform.Instance.Content );
 			_debugView.RemoveFlags( DebugViewFlags.Joint );

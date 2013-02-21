@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using FarseerPhysics.Dynamics;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using VertexArmy.Input;
@@ -27,6 +28,8 @@ namespace VertexArmy.Global
 		}
 
 		public IInputSystem Input { get; set; }
+
+		public World PhysicsWorld { get; set; }
 
 		#region Singleton
 

@@ -1,21 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
 using FarseerPhysics;
-using FarseerPhysics.Collision.Shapes;
 using FarseerPhysics.Common;
-using FarseerPhysics.Common.Decomposition;
 using FarseerPhysics.Dynamics;
 using FarseerPhysics.DebugViews;
-using FarseerPhysics.Controllers;
-using FarseerPhysics.Dynamics.Joints;
 using FarseerPhysics.Factories;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using VertexArmy.Global;
-using VertexArmy.Physics.SpecialEntities;
+using VertexArmy.Entities.Physics;
 
 namespace VertexArmy.States
 {
@@ -34,13 +27,13 @@ namespace VertexArmy.States
 		private Body _ground;
 
 		private float _cameraPosition;
-		private const float _cameraError = 0.7f;
-		private bool _cameraMoving = false;
+		private float _cameraError = 0.7f;
+		private bool _cameraMoving;
 		private float _cameraStep;
 
 		private PhysicsEntityTank _tank;
-		private bool _actionFreeze = false;
-		private bool _actionReset = false;
+		private bool _actionFreeze;
+		private bool _actionReset;
 
 		public GameStatePhysicsTank( ContentManager content )
 		{
@@ -117,8 +110,8 @@ namespace VertexArmy.States
 		public void OnRender( GameTime dt )
 		{
 			_projection = Matrix.CreateOrthographicOffCenter( 
-						_cameraPosition - Platform.Instance.Device.Viewport.Width / 2 * 0.05f,
-						_cameraPosition + Platform.Instance.Device.Viewport.Width / 2 * 0.05f,
+						_cameraPosition - Platform.Instance.Device.Viewport.Width / 2f * 0.05f,
+						_cameraPosition + Platform.Instance.Device.Viewport.Width / 2f * 0.05f,
 						Platform.Instance.Device.Viewport.Height * 0.05f,
 						0f,
 						0f,			 
@@ -197,6 +190,9 @@ namespace VertexArmy.States
 
 		public void OnEnter()
 		{
+			_cameraMoving = false;
+			_actionFreeze = false;
+			_actionReset = false;
 			LoadPhysicsContent();
 			_debugView = new DebugViewXNA( _physicsWorld );
 			

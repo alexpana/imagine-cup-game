@@ -6,13 +6,13 @@ using FarseerPhysics.Dynamics.Joints;
 using FarseerPhysics.Factories;
 using Microsoft.Xna.Framework;
 
-namespace VertexArmy.Physics.SpecialEntities
+namespace VertexArmy.Entities.Physics
 {
 	public class PhysicsEntityTank : IPhysicsEntity
 	{
 		private World _physicsWorld;
 
-		private bool _frozen = false;
+		private bool _frozen;
 		private Body _tankBody;
 		private Path _path;
 		private List<Body> _bodies;
@@ -24,6 +24,8 @@ namespace VertexArmy.Physics.SpecialEntities
 		private LineJoint _joint1;
 		private LineJoint _joint2;
 		private LineJoint _joint3;
+
+		private float _scale = 1f;
 
 		public void SetPosition( Vector2 position )
 		{			
@@ -52,6 +54,11 @@ namespace VertexArmy.Physics.SpecialEntities
 			return _tankBody.Position;
 		}
 
+		public float GetRotation()
+		{
+			return _tankBody.Rotation;
+		}
+
 		public void SetFreeze( bool value )
 		{
 			_tankBody.Enabled = !value;
@@ -76,48 +83,49 @@ namespace VertexArmy.Physics.SpecialEntities
 
 		public PhysicsEntityTank( World physicsWorld )
 		{
+			_frozen = false;
 			_physicsWorld = physicsWorld;
-			loadPhysics();
+			LoadPhysics();
 		}
 
 		public PhysicsEntityTank( World physicsWorld, Vector2 position )
 		{
 			_physicsWorld = physicsWorld;
-			loadPhysics( );
+			LoadPhysics( );
 			SetPosition( position );
 		}
 
 		public void Move(float value)
 		{
-			_joint1.MotorSpeed = value;
-			_joint2.MotorSpeed = value;
-			_joint3.MotorSpeed = value;
+			_joint1.MotorSpeed = value * _scale;
+			_joint2.MotorSpeed = value * _scale;
+			_joint3.MotorSpeed = value * _scale;
 		}
 
-		private void loadPhysics()
+		private void LoadPhysics()
 		{
-			_gear1 = BodyFactory.CreateCircle( _physicsWorld, 0.6f, 0.5f );
-			_gear1.Position = new Vector2( -2.66f, 1.47f );
+			_gear1 = BodyFactory.CreateCircle( _physicsWorld, 0.6f * _scale, 0.5f );
+			_gear1.Position = new Vector2( -2.66f * _scale, 1.47f *_scale );
 			_gear1.BodyType = BodyType.Dynamic;
 			_gear1.Friction = 1f;
 			_gear1.Restitution = 0f;
 
-			_gear2 = BodyFactory.CreateCircle( _physicsWorld, 0.6f, 0.5f );
-			_gear2.Position = new Vector2( 2.66f, 1.47f );
+			_gear2 = BodyFactory.CreateCircle( _physicsWorld, 0.6f * _scale, 0.5f );
+			_gear2.Position = new Vector2( 2.66f * _scale, 1.47f * _scale );
 			_gear2.BodyType = BodyType.Dynamic;
 			_gear2.Friction = 1f;
 			_gear2.Restitution = 0f;
 
-			_gear3 = BodyFactory.CreateCircle( _physicsWorld, 0.6f, 0.5f );
-			_gear3.Position = new Vector2( 0f, -3.06f );
+			_gear3 = BodyFactory.CreateCircle( _physicsWorld, 0.6f * _scale, 0.5f );
+			_gear3.Position = new Vector2( 0f * _scale, -3.06f * _scale );
 			_gear3.BodyType = BodyType.Dynamic;
 			_gear3.Friction = 1f;
 			_gear3.Restitution = 0f;
 
 			Vertices chassis = new Vertices( 3 );
-			chassis.Add( new Vector2( -2f, 1.14f ) );
-			chassis.Add( new Vector2( 0f, -2.3f ) );
-			chassis.Add( new Vector2( 2f, 1.14f ) );
+			chassis.Add( new Vector2( -2f * _scale, 1.14f * _scale ) );
+			chassis.Add( new Vector2( 0f * _scale, -2.3f * _scale ) );
+			chassis.Add( new Vector2( 2f * _scale, 1.14f * _scale ) );
 
 			PolygonShape tankChassis = new PolygonShape( chassis, 2f );
 
@@ -128,21 +136,21 @@ namespace VertexArmy.Physics.SpecialEntities
 
 			_tankBody.AngularDamping = 100f;
 
-			_joint1 = new LineJoint( _tankBody, _gear1, _gear1.Position, new Vector2( 0.66f, -0.33f ) );
-			_joint2 = new LineJoint( _tankBody, _gear2, _gear2.Position, new Vector2( -0.66f, -0.33f ) );
-			_joint3 = new LineJoint( _tankBody, _gear3, _gear3.Position, new Vector2( 0f, 0.76f ) );
+			_joint1 = new LineJoint( _tankBody, _gear1, _gear1.Position, new Vector2( 0.66f * _scale, -0.33f * _scale ) );
+			_joint2 = new LineJoint( _tankBody, _gear2, _gear2.Position, new Vector2( -0.66f * _scale, -0.33f * _scale ) );
+			_joint3 = new LineJoint( _tankBody, _gear3, _gear3.Position, new Vector2( 0f * _scale, 0.76f * _scale ) );
 
-			_joint3.MaxMotorTorque = 60.0f;
+			_joint3.MaxMotorTorque = 60.0f * _scale;
 			_joint3.MotorEnabled = true;
 			_joint3.Frequency = 20f;
 			_joint3.DampingRatio = 0.85f;
 
-			_joint1.MaxMotorTorque = 60.0f;
+			_joint1.MaxMotorTorque = 60.0f * _scale;
 			_joint1.MotorEnabled = true;
 			_joint1.Frequency = 20f;
 			_joint1.DampingRatio = 0.85f;
 
-			_joint2.MaxMotorTorque = 60.0f;
+			_joint2.MaxMotorTorque = 60.0f * _scale;
 			_joint2.MotorEnabled = true;
 			_joint2.Frequency = 20f;
 			_joint2.DampingRatio = 0.85f;
@@ -153,16 +161,16 @@ namespace VertexArmy.Physics.SpecialEntities
 
 			_path = new Path( );
 
-			_path.Add( new Vector2( -3.9f, 2.8f ) );
-			_path.Add( new Vector2( 0f, -4.6f ) );
-			_path.Add( new Vector2( 3.9f, 2.8f ) );
+			_path.Add( new Vector2( -3.9f * _scale, 2.8f * _scale ) );
+			_path.Add( new Vector2( 0f * _scale, -4.6f * _scale ) );
+			_path.Add( new Vector2( 3.9f * _scale, 2.8f * _scale ) );
 
 			_path.Closed = true;
 
 			List<Shape> shapes = new List<Shape>( 2 );
 
-			shapes.Add( new PolygonShape( PolygonTools.CreateRectangle( 0.15f, 0.27f, new Vector2( 0.075f, 0.135f ), 0f ), 2f ) );
-			shapes.Add( new CircleShape( 0.27f, 2f ) );
+			shapes.Add( new PolygonShape( PolygonTools.CreateRectangle( 0.15f * _scale, 0.27f * _scale, new Vector2( 0.075f * _scale, 0.135f * _scale ), 0f ), 2f ) );
+			shapes.Add( new CircleShape( 0.27f * _scale, 2f ) );
 
 			_bodies = PathManager.EvenlyDistributeShapesAlongPath( _physicsWorld, _path, shapes, BodyType.Dynamic, 30, 1 );
 
@@ -172,9 +180,63 @@ namespace VertexArmy.Physics.SpecialEntities
 				b.Restitution = 0f;
 			}
 
-			PathManager.AttachBodiesWithRevoluteJoint( _physicsWorld, _bodies, new Vector2( 0, 0.365f ), new Vector2( 0, -0.365f ), true, false ); 
+			PathManager.AttachBodiesWithRevoluteJoint( _physicsWorld, _bodies, new Vector2( 0, 0.365f * _scale ), new Vector2( 0, -0.365f * _scale ), true, false ); 
 		}
 
+		public Vector2 GetGearPosition( int index )
+		{
+			switch (index)
+			{
+				case 0:
+					return _gear1.Position;
+				case 1:
+					return _gear2.Position;
+				case 2:
+					return _gear3.Position;
+			}
+
+			return Vector2.Zero;
+		}
+
+		public Vector2 GetChassisPosition()
+		{
+			return _tankBody.Position;
+		}
+
+		public Vector2 GetTreadPosition( int index )
+		{
+			return _bodies[index].Position;
+		}
+
+		public float GetGearRotation( int index )
+		{
+			switch ( index )
+			{
+				case 0:
+					return _gear1.Rotation;
+				case 1:
+					return _gear2.Rotation;
+				case 2:
+					return _gear3.Rotation;
+			}
+
+			return 0f;
+		}
+
+		public float GetChassisRotation()
+		{
+			return _tankBody.Rotation;
+		}
+
+		public float GetTreadRotation( int index )
+		{
+			return _bodies[index].Rotation;
+		}
+
+		public int GetTreadCount()
+		{
+			return _bodies.Count;
+		}
 
 	}
 }

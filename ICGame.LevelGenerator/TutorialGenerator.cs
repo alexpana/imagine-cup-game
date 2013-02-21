@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using VertexArmy.Entities;
 using VertexArmy.Levels;
 
 namespace ICGame.LevelGenerator
@@ -15,6 +16,15 @@ namespace ICGame.LevelGenerator
 				Name = "Tutorial",
 				Chunks = new List<LevelChunk>()
 			};
+
+			LevelChunk mainChunk = new LevelChunk();
+			tutorialLevel.Chunks.Add( mainChunk );
+
+			// create entities
+			RobotEntity robot = new RobotEntity();
+
+			// add entities
+			mainChunk.Entities.Add( robot );
 
 			return tutorialLevel;
 		}

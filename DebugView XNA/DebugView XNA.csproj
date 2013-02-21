@@ -60,6 +60,7 @@
     <XnaCompressContent>false</XnaCompressContent>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
     <DocumentationFile>bin\x86\Debug\DebugViewXNA.XML</DocumentationFile>
+    <NoWarn>1591</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <DebugType>pdbonly</DebugType>
@@ -160,9 +161,9 @@
       <Project>{0A850700-1ABB-4288-A391-6726B90EBEB9}</Project>
       <Name>Farseer Physics XNA</Name>
     </ProjectReference>
-    <ProjectReference Include="Content\DebugView XNA Content.contentproj">
-      <Project>{AC26EDE1-2A42-4A57-BEEE-9603FCAC9317}</Project>
-      <Name>DebugView XNA Content %28Content%29</Name>
+    <ProjectReference Include="..\ICGameContent\ICGameContent.contentproj">
+      <Project>{F560ACE9-10D8-4170-A156-FC4AEA2F1DAD}</Project>
+      <Name>ICGameContent %28Content%29</Name>
       <XnaReferenceType>Content</XnaReferenceType>
     </ProjectReference>
   </ItemGroup>

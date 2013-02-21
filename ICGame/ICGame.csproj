@@ -72,6 +72,8 @@
     <Reference Include="System.Net" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\BaseEntity.cs" />
+    <Compile Include="Entities\RobotEntity.cs" />
     <Compile Include="Global\CursorManager.cs" />
     <Compile Include="Graphics\GlobalMatrix.cs" />
     <Compile Include="Graphics\ObjectSceneNode.cs" />

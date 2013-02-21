@@ -88,7 +88,6 @@
     <Compile Include="Program.cs" />
     <Compile Include="MainGame.cs" />
     <Compile Include="States\GameStatePhysicsTank.cs" />
-    <Compile Include="States\GameStatePhysics.cs" />
     <Compile Include="States\GameState.cs" />
     <Compile Include="States\GameStateLevelLoading.cs" />
     <Compile Include="States\IGameState.cs" />

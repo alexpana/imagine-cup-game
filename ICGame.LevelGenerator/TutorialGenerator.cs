@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using VertexArmy.Levels;
 
 namespace ICGame.LevelGenerator
@@ -11,7 +12,8 @@ namespace ICGame.LevelGenerator
 
 			Level tutorialLevel = new Level
 			{
-				Name = "Tutorial"
+				Name = "Tutorial",
+				Chunks = new List<LevelChunk>()
 			};
 
 			return tutorialLevel;

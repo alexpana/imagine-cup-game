@@ -36,7 +36,7 @@ namespace VertexArmy.States
 		
 			
 			_node = new RobotSceneNode( );
-			_node.LoadNode( _cm, "tracks" );
+			_node.LoadNode( _cm, "robo_track_link" );
 			//_node.SetScale(new Vector3(0.05f, 0.05f, 0.05f));
 		}
 

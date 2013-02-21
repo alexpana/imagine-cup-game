@@ -6,7 +6,7 @@ using VertexArmy.Input;
 
 namespace VertexArmy.Global
 {
-	internal class Platform
+	public class Platform
 	{
 		public static Platform Instance
 		{

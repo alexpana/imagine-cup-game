@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Runtime.Serialization;
 using FarseerPhysics.Collision.Shapes;
 using FarseerPhysics.Common;
 using FarseerPhysics.Dynamics;
@@ -8,6 +9,8 @@ using Microsoft.Xna.Framework;
 
 namespace VertexArmy.Entities.Physics
 {
+	[DataContract]
+	[KnownType( typeof( PhysicsEntityTank ) )]
 	public class PhysicsEntityTank : IPhysicsEntity
 	{
 		private World _physicsWorld;
@@ -28,15 +31,15 @@ namespace VertexArmy.Entities.Physics
 		private float _scale = 0.7f;
 
 		public void SetPosition( Vector2 position )
-		{			
+		{
 			Vector2 relative = position - _tankBody.Position;
 
-			_tankBody.ResetDynamics( );
+			_tankBody.ResetDynamics();
 			_tankBody.SetTransform( position, _tankBody.Rotation );
 
-			_gear1.ResetDynamics( );
-			_gear2.ResetDynamics( );
-			_gear3.ResetDynamics( );
+			_gear1.ResetDynamics();
+			_gear2.ResetDynamics();
+			_gear3.ResetDynamics();
 			_gear1.SetTransform( _gear1.Position + relative, _gear1.Rotation );
 			_gear2.SetTransform( _gear2.Position + relative, _gear2.Rotation );
 			_gear3.SetTransform( _gear3.Position + relative, _gear3.Rotation );
@@ -90,11 +93,11 @@ namespace VertexArmy.Entities.Physics
 		public PhysicsEntityTank( World physicsWorld, Vector2 position )
 		{
 			_physicsWorld = physicsWorld;
-			LoadPhysics( );
+			LoadPhysics();
 			SetPosition( position );
 		}
 
-		public void Move(float value)
+		public void Move( float value )
 		{
 			_joint1.MotorSpeed = value * _scale;
 			_joint2.MotorSpeed = value * _scale;
@@ -104,7 +107,7 @@ namespace VertexArmy.Entities.Physics
 		private void LoadPhysics()
 		{
 			_gear1 = BodyFactory.CreateCircle( _physicsWorld, 0.6f * _scale, 0.5f );
-			_gear1.Position = new Vector2( -2.66f * _scale, 1.47f *_scale );
+			_gear1.Position = new Vector2( -2.66f * _scale, 1.47f * _scale );
 			_gear1.BodyType = BodyType.Dynamic;
 			_gear1.Friction = 1f;
 			_gear1.Restitution = 0f;
@@ -135,7 +138,7 @@ namespace VertexArmy.Entities.Physics
 
 			_tankBody.AngularDamping = 100f;
 
-			_joint1 = new LineJoint( _tankBody, _gear1, _gear1.Position, new Vector2( 0.66f, -0.33f  ) );
+			_joint1 = new LineJoint( _tankBody, _gear1, _gear1.Position, new Vector2( 0.66f, -0.33f ) );
 			_joint2 = new LineJoint( _tankBody, _gear2, _gear2.Position, new Vector2( -0.66f, -0.33f ) );
 			_joint3 = new LineJoint( _tankBody, _gear3, _gear3.Position, new Vector2( 0f, 0.76f ) );
 
@@ -158,7 +161,7 @@ namespace VertexArmy.Entities.Physics
 			_physicsWorld.AddJoint( _joint2 );
 			_physicsWorld.AddJoint( _joint3 );
 
-			_path = new Path( );
+			_path = new Path();
 
 			_path.Add( new Vector2( -3.9f * _scale, 2.8f * _scale ) );
 			_path.Add( new Vector2( 0f * _scale, -4.6f * _scale ) );
@@ -179,12 +182,12 @@ namespace VertexArmy.Entities.Physics
 				b.Restitution = 0f;
 			}
 
-			PathManager.AttachBodiesWithRevoluteJoint( _physicsWorld, _bodies, new Vector2( 0, 0.365f * _scale ), new Vector2( 0, -0.365f * _scale ), true, false ); 
+			PathManager.AttachBodiesWithRevoluteJoint( _physicsWorld, _bodies, new Vector2( 0, 0.365f * _scale ), new Vector2( 0, -0.365f * _scale ), true, false );
 		}
 
 		public Vector2 GetGearPosition( int index )
 		{
-			switch (index)
+			switch ( index )
 			{
 				case 0:
 					return _gear1.Position;

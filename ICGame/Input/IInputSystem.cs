@@ -2,7 +2,7 @@
 
 namespace VertexArmy.Input
 {
-	internal interface IInputSystem
+	public interface IInputSystem
 	{
 		void Update( GameTime gameTime );
 

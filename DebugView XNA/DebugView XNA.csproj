@@ -53,7 +53,7 @@
     <OutputPath>bin\x86\Debug</OutputPath>
     <DefineConstants>TRACE;DEBUG;WINDOWS;XNA</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
+    <WarningLevel>0</WarningLevel>
     <NoStdLib>true</NoStdLib>
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <PlatformTarget>x86</PlatformTarget>

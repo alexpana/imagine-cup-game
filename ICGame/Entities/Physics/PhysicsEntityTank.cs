@@ -25,7 +25,7 @@ namespace VertexArmy.Entities.Physics
 		private LineJoint _joint2;
 		private LineJoint _joint3;
 
-		private float _scale = 1f;
+		private float _scale = 0.7f;
 
 		public void SetPosition( Vector2 position )
 		{			
@@ -46,7 +46,6 @@ namespace VertexArmy.Entities.Physics
 				b.ResetDynamics();
 				b.SetTransform( b.Position + relative, b.Rotation );
 			}
-
 		}
 
 		public Vector2 GetPosition()
@@ -136,9 +135,9 @@ namespace VertexArmy.Entities.Physics
 
 			_tankBody.AngularDamping = 100f;
 
-			_joint1 = new LineJoint( _tankBody, _gear1, _gear1.Position, new Vector2( 0.66f * _scale, -0.33f * _scale ) );
-			_joint2 = new LineJoint( _tankBody, _gear2, _gear2.Position, new Vector2( -0.66f * _scale, -0.33f * _scale ) );
-			_joint3 = new LineJoint( _tankBody, _gear3, _gear3.Position, new Vector2( 0f * _scale, 0.76f * _scale ) );
+			_joint1 = new LineJoint( _tankBody, _gear1, _gear1.Position, new Vector2( 0.66f, -0.33f  ) );
+			_joint2 = new LineJoint( _tankBody, _gear2, _gear2.Position, new Vector2( -0.66f, -0.33f ) );
+			_joint3 = new LineJoint( _tankBody, _gear3, _gear3.Position, new Vector2( 0f, 0.76f ) );
 
 			_joint3.MaxMotorTorque = 60.0f * _scale;
 			_joint3.MotorEnabled = true;

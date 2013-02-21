@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Json;
 using System.Xml.Serialization;
@@ -21,20 +22,15 @@ namespace ICGame.LevelGenerator
 		{
 			Console.WriteLine( "Generating levels in " + _targetPath );
 
-			GenerateTutorial();
-		}
-
-		private void GenerateTutorial()
-		{
-			Console.WriteLine( "Generating tutorial ..." );
-			string tutorialPath = _targetPath + "tutorial.level";
-
-			Level tutorialLevel = new Level
+			List<Level> levels = new List<Level>
 			{
-				Name = "Tutorial"
+				TutorialGenerator.GenerateTutorial()
 			};
 
-			SerializeLevel( tutorialLevel, tutorialPath );
+			foreach ( var level in levels )
+			{
+				SerializeLevel( level, level.Name.ToLowerInvariant() + ".level" );
+			}
 		}
 
 		private void SerializeLevel( Level tutorialLevel, string path )

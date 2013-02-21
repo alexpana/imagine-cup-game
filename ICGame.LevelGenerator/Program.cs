@@ -11,6 +11,5 @@ namespace ICGame.LevelGenerator
 			Generator generator = new Generator( targetPath, serializationType );
 			generator.GenerateLevels();
 		}
-
 	}
 }

@@ -1,7 +1,7 @@
 ﻿using System;
+using Microsoft.Xna.Framework;
 using VertexArmy.Entities;
 using VertexArmy.Entities.Physics;
-using VertexArmy.Global;
 using VertexArmy.Graphics;
 using VertexArmy.Levels;
 
@@ -24,12 +24,22 @@ namespace ICGame.LevelGenerator
 			// create entities
 			RobotEntity robot = new RobotEntity
 			{
-				BasePhysicsEntity = new PhysicsEntityTank( Platform.Instance.PhysicsWorld ),
+				BasePhysicsEntity = null,// new PhysicsEntityTank( Platform.Instance.PhysicsWorld ),
+				SceneNode = new SceneNode()
+			};
+
+			BlockEntity robotHolder = new BlockEntity
+			{
+				BasePhysicsEntity = new PhysicsEntityBasic( PhysicsEntityType.Rectangle, 50, 10 )
+				{
+					Position = new Vector2( 0, 5f )
+				},
 				SceneNode = new SceneNode()
 			};
 
 			// add entities
 			mainChunk.Entities.Add( robot );
+			mainChunk.Entities.Add( robotHolder );
 
 			return tutorialLevel;
 		}

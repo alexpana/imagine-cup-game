@@ -24,7 +24,7 @@ namespace VertexArmy
 			base.Initialize();
 
 			Platform.Instance.Input = new PCInputSystem();
-			StateManager.Instance.ChangeState( GameState.PhysicsPresentationTank );
+			StateManager.Instance.ChangeState( GameState.LevelLoading );
 		}
 
 		protected override void LoadContent()

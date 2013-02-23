@@ -31,7 +31,20 @@ namespace VertexArmy.Levels
 				using ( Stream stream = TitleContainer.OpenStream( @"Content\Levels\" + name + @".level" ) )
 				{
 					ISerializer<Level> serializer = SerializerFactory.CreateSerializer<Level>();
-					return serializer.ReadObject( stream );
+					Level level = serializer.ReadObject( stream );
+
+					foreach ( var levelChunk in level.Chunks )
+					{
+						foreach ( var entity in levelChunk.Entities )
+						{
+							if ( entity.BasePhysicsEntity != null )
+							{
+								entity.BasePhysicsEntity.PostDeserializeInit();
+							}
+						}
+					}
+
+					return level;
 				}
 			}
 			catch ( FileNotFoundException )

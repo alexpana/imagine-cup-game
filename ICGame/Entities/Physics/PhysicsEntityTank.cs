@@ -16,25 +16,17 @@ namespace VertexArmy.Entities.Physics
 
 		[DataMember]
 		private bool _frozen;
-		[DataMember]
 		private Body _tankBody;
 		[DataMember]
 		private Path _path;
-		[DataMember]
 		private List<Body> _bodies;
 
-		[DataMember]
 		private Body _gear1;
-		[DataMember]
 		private Body _gear2;
-		[DataMember]
 		private Body _gear3;
 
-		[DataMember]
 		private LineJoint _joint1;
-		[DataMember]
 		private LineJoint _joint2;
-		[DataMember]
 		private LineJoint _joint3;
 
 		[DataMember]
@@ -91,7 +83,6 @@ namespace VertexArmy.Entities.Physics
 		{
 			return _frozen;
 		}
-
 
 		public PhysicsEntityTank( World physicsWorld )
 		{
@@ -250,5 +241,8 @@ namespace VertexArmy.Entities.Physics
 			return _bodies.Count;
 		}
 
+		public void PostDeserializeInit()
+		{
+		}
 	}
 }

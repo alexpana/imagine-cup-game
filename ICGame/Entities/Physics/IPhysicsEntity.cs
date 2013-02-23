@@ -9,5 +9,8 @@ namespace VertexArmy.Entities.Physics
 		float GetRotation();
 		void SetFreeze( bool value );
 		bool IsFrozen();
+
+		//TODO: Refactor this into an ISerializable interface
+		void PostDeserializeInit();
 	}
 }

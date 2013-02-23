@@ -78,6 +78,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\BaseEntity.cs" />
+    <Compile Include="Entities\BlockEntity.cs" />
+    <Compile Include="Entities\Physics\PhysicsEntityBasic.cs" />
+    <Compile Include="Entities\Physics\PhysicsEntityType.cs" />
     <Compile Include="Entities\RobotEntity.cs" />
     <Compile Include="Global\CursorManager.cs" />
     <Compile Include="Graphics\GlobalMatrix.cs" />

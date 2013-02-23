@@ -17,7 +17,10 @@ namespace VertexArmy.Utilities.Serialization
 				new List<Type>
 				{
 					typeof(RobotEntity),
-					typeof(PhysicsEntityTank)
+					typeof(BlockEntity),
+					
+					typeof(PhysicsEntityTank),
+					typeof(PhysicsEntityBasic),
 				} );
 		}
 

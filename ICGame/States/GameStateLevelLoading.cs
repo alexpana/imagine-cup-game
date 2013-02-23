@@ -1,22 +1,23 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using FarseerPhysics;
+using FarseerPhysics.DebugViews;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.Graphics;
 using VertexArmy.Global;
 using VertexArmy.Levels;
 
 namespace VertexArmy.States
 {
-	class GameStateLevelLoading : IGameState
+	internal class GameStateLevelLoading : IGameState
 	{
-		private bool _isLoading;
-		private int _loadingProgress;
-
-		private SpriteFont _font;
-
 		private Level _level;
 
+		private DebugViewXNA _debugView;
+		private Matrix _view;
+		private Matrix _projection;
+		private float _cameraPosition;
+
 		private readonly ContentManager _contentManager;
-		private SpriteBatch _spriteBatch;
 
 		public GameStateLevelLoading( ContentManager contentManager )
 		{
@@ -25,49 +26,46 @@ namespace VertexArmy.States
 
 		private void LoadContent()
 		{
-			_font = _contentManager.Load<SpriteFont>( @"fonts\SpriteFont1" );
-
 			_level = LevelManager.Instance.GetLevel( "tutorial" );
 		}
 
 		public void OnUpdate( GameTime dt )
 		{
-			if ( _isLoading )
-			{
-				_loadingProgress += 1;
-
-				if ( _loadingProgress >= 100 )
-				{
-					_isLoading = false;
-				}
-			}
+			Platform.Instance.PhysicsWorld.Step( Math.Min( ( float ) dt.ElapsedGameTime.TotalMilliseconds * 0.001f, ( 1f / 30f ) ) );
 		}
 
 		public void OnRender( GameTime dt )
 		{
-			_spriteBatch.Begin();
-			if ( _isLoading )
-			{
-				_spriteBatch.DrawString( _font, "Loading: " + _loadingProgress + " %", Vector2.Zero, Color.Black );
-			}
-			else
-			{
-				if ( _level != null )
-				{
-					_spriteBatch.DrawString( _font, "Level: " + _level.Name, Vector2.Zero, Color.Black );
-				}
-			}
-			_spriteBatch.End();
+			_projection = Matrix.CreateOrthographicOffCenter(
+				_cameraPosition - Platform.Instance.Device.Viewport.Width / 2f * 0.05f,
+				_cameraPosition + Platform.Instance.Device.Viewport.Width / 2f * 0.05f,
+				Platform.Instance.Device.Viewport.Height * 0.05f,
+				0f,
+				0f,
+				1f
+				);
+
+			_debugView.DrawString( 1, 30, "Level: " + _level.Name );
+			_debugView.RenderDebugData( ref _projection, ref _view );
 		}
 
 		public void OnEnter()
 		{
-			_isLoading = true;
-			_loadingProgress = 0;
-
-			_spriteBatch = new SpriteBatch( Platform.Instance.Device );
-
 			LoadContent();
+
+			_debugView = new DebugViewXNA( Platform.Instance.PhysicsWorld );
+			_debugView.LoadContent( Platform.Instance.Device, Platform.Instance.Content );
+			_debugView.RemoveFlags( DebugViewFlags.Joint );
+
+			_debugView.TextColor = Color.Black;
+
+			_view = Matrix.Identity;
+
+			//Body rec = BodyFactory.CreateRectangle( Platform.Instance.PhysicsWorld, 2f, 2f, 0.3f );
+			//rec.Position = new Vector2( 0f, 5f );
+			//rec.BodyType = BodyType.Static;
+
+			_cameraPosition = 0;
 		}
 
 		public void OnClose()

@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using VertexArmy.Levels;
-using VertexArmy.Utilities.Serialization;
+using VertexArmy.Serialization;
 
 namespace ICGame.LevelGenerator
 {

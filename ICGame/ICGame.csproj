@@ -98,6 +98,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="MainGame.cs" />
+    <Compile Include="Serialization\ISerializableObject.cs" />
     <Compile Include="States\GameStatePhysicsTank.cs" />
     <Compile Include="States\GameState.cs" />
     <Compile Include="States\GameStateLevelLoading.cs" />
@@ -111,9 +112,9 @@
     <Compile Include="Global\Platform.cs" />
     <Compile Include="States\GameStateRoomPreview.cs" />
     <Compile Include="Utilities\ConvertUnits.cs" />
-    <Compile Include="Utilities\Serialization\ISerializer.cs" />
-    <Compile Include="Utilities\Serialization\JsonSerializer.cs" />
-    <Compile Include="Utilities\Serialization\SerializerFactory.cs" />
+    <Compile Include="Serialization\ISerializer.cs" />
+    <Compile Include="Serialization\JsonSerializer.cs" />
+    <Compile Include="Serialization\SerializerFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />

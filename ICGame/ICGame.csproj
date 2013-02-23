@@ -60,6 +60,17 @@
     <PlatformTarget>x86</PlatformTarget>
     <XnaCompressContent>true</XnaCompressContent>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug_LEVEL_LOADING|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug_LEVEL_LOADING\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;WINDOWS;USE_GEARSET;TEST_LEVEL_LOADING</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Gearset">
       <HintPath>..\_external\Gearset\Gearset.dll</HintPath>
@@ -111,7 +122,7 @@
     <Compile Include="States\GameStatePresentation.cs" />
     <Compile Include="Global\Platform.cs" />
     <Compile Include="States\GameStateRoomPreview.cs" />
-    <Compile Include="Utilities\ConvertUnits.cs" />
+    <Compile Include="Utilities\UnitsConverter.cs" />
     <Compile Include="Serialization\ISerializer.cs" />
     <Compile Include="Serialization\JsonSerializer.cs" />
     <Compile Include="Serialization\SerializerFactory.cs" />

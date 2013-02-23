@@ -10,9 +10,12 @@ namespace VertexArmy
 	{
 		public MainGame()
 		{
-			Platform.Instance.DeviceManager = new GraphicsDeviceManager( this );
-			Platform.Instance.DeviceManager.PreferredBackBufferWidth = 800;
-			Platform.Instance.DeviceManager.PreferredBackBufferHeight = 600;
+			Platform.Instance.DeviceManager = new GraphicsDeviceManager( this )
+			{
+				PreferredBackBufferWidth = 800,
+				PreferredBackBufferHeight = 600
+			};
+
 			Platform.Instance.PhysicsWorld = new World( new Vector2( 0f, 9.82f ) );
 			Platform.Instance.Game = this;
 			Content.RootDirectory = "Content";
@@ -24,7 +27,11 @@ namespace VertexArmy
 			base.Initialize();
 
 			Platform.Instance.Input = new PCInputSystem();
+#if TEST_LEVEL_LOADING
 			StateManager.Instance.ChangeState( GameState.LevelLoading );
+#else
+			StateManager.Instance.ChangeState( GameState.PhysicsPresentationTank );
+#endif
 		}
 
 		protected override void LoadContent()

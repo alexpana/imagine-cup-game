@@ -10,7 +10,8 @@
     <RootNamespace>VertexArmy</RootNamespace>
     <AssemblyName>ICGame</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
     <XnaFrameworkVersion>v4.0</XnaFrameworkVersion>
     <XnaPlatform>Windows</XnaPlatform>
     <XnaProfile>Reach</XnaProfile>
@@ -39,7 +40,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\x86\Debug</OutputPath>
-    <DefineConstants>DEBUG;TRACE;WINDOWS</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;WINDOWS;USE_GEARSET</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoStdLib>true</NoStdLib>
@@ -60,6 +61,9 @@
     <XnaCompressContent>true</XnaCompressContent>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Gearset">
+      <HintPath>..\_external\Gearset\Gearset.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Xna.Framework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86" />
     <Reference Include="Microsoft.Xna.Framework.Game, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86" />
     <Reference Include="Microsoft.Xna.Framework.Graphics, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86" />
@@ -81,6 +85,7 @@
     <Compile Include="Graphics\RobotSceneNode.cs" />
     <Compile Include="Graphics\Scene.cs" />
     <Compile Include="Graphics\SceneNode.cs" />
+    <Compile Include="GS.cs" />
     <Compile Include="Input\IInputSystem.cs" />
     <Compile Include="Input\PCInputSystem.cs" />
     <Compile Include="Levels\Level.cs" />
@@ -104,6 +109,9 @@
     <Compile Include="Global\Platform.cs" />
     <Compile Include="States\GameStateRoomPreview.cs" />
     <Compile Include="Utilities\ConvertUnits.cs" />
+    <Compile Include="Utilities\Serialization\ISerializer.cs" />
+    <Compile Include="Utilities\Serialization\JsonSerializer.cs" />
+    <Compile Include="Utilities\Serialization\SerializerFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />
@@ -148,6 +156,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="Content\Levels\tutorial.level">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

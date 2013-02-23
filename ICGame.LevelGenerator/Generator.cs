@@ -1,21 +1,18 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Runtime.Serialization.Json;
-using System.Xml.Serialization;
 using VertexArmy.Levels;
+using VertexArmy.Utilities.Serialization;
 
 namespace ICGame.LevelGenerator
 {
 	public class Generator
 	{
 		private readonly string _targetPath;
-		private readonly string _serializationType;
 
-		public Generator( string targetPath, string serializationType )
+		public Generator( string targetPath )
 		{
 			_targetPath = targetPath;
-			_serializationType = serializationType;
 		}
 
 		public void GenerateLevels()
@@ -29,24 +26,16 @@ namespace ICGame.LevelGenerator
 
 			foreach ( var level in levels )
 			{
-				SerializeLevel( level, level.Name.ToLowerInvariant() + ".level" );
+				SerializeLevel( level, _targetPath + level.Name.ToLowerInvariant() + ".level" );
 			}
 		}
 
-		private void SerializeLevel( Level tutorialLevel, string path )
+		private void SerializeLevel( Level level, string path )
 		{
 			using ( StreamWriter streamWriter = new StreamWriter( path ) )
 			{
-				if ( _serializationType == "xml" )
-				{
-					XmlSerializer serializer = new XmlSerializer( typeof( Level ) );
-					serializer.Serialize( streamWriter, tutorialLevel );
-				}
-				else
-				{
-					DataContractJsonSerializer serializer = new DataContractJsonSerializer( typeof( Level ) );
-					serializer.WriteObject( streamWriter.BaseStream, tutorialLevel );
-				}
+				ISerializer<Level> serializer = SerializerFactory.CreateSerializer<Level>();
+				serializer.WriteObject( level, streamWriter.BaseStream );
 			}
 		}
 	}

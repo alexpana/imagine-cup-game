@@ -1,18 +1,30 @@
 ﻿using System.Collections.Generic;
+using System.Runtime.Serialization;
 using Microsoft.Xna.Framework;
 
 namespace VertexArmy.Graphics
 {
+	[DataContract]
 	public class SceneNode
 	{
+		[DataMember]
 		private Matrix _absoluteTransformation;
+
+		[DataMember]
 		private Matrix _relativeTransformation;
+
+		[DataMember]
 		private Vector3 _position;
+
+		[DataMember]
 		private Quaternion _rotation;
+
+		[DataMember]
 		private Vector3 _scale;
 
 		private SceneNode _parent;
 
+		[DataMember]
 		private List<SceneNode> _children;
 
 		private bool _recomputeAbsoluteTransformation;

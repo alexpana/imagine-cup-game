@@ -20,6 +20,7 @@ namespace VertexArmy
 
 		protected override void Initialize()
 		{
+			//Gearset.GS.Initialize( this );
 			base.Initialize();
 
 			Platform.Instance.Input = new PCInputSystem();

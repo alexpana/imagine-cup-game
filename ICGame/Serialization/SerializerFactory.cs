@@ -1,4 +1,4 @@
-﻿namespace VertexArmy.Utilities.Serialization
+﻿namespace VertexArmy.Serialization
 {
 	public class SerializerFactory
 	{

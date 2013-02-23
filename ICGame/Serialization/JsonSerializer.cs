@@ -5,7 +5,7 @@ using System.Runtime.Serialization.Json;
 using VertexArmy.Entities;
 using VertexArmy.Entities.Physics;
 
-namespace VertexArmy.Utilities.Serialization
+namespace VertexArmy.Serialization
 {
 	public class JsonSerializer<T> : ISerializer<T>
 	{
@@ -17,7 +17,10 @@ namespace VertexArmy.Utilities.Serialization
 				new List<Type>
 				{
 					typeof(RobotEntity),
-					typeof(PhysicsEntityTank)
+					typeof(BlockEntity),
+					
+					typeof(PhysicsEntityTank),
+					typeof(PhysicsEntityBasic),
 				} );
 		}
 

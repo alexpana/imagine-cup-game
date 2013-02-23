@@ -1,1 +1,132 @@
-{"Chunks":[{"Entities":[{"__type":"RobotEntity:#VertexArmy.Entities","BasePhysicsEntity":{"__type":"PhysicsEntityTank:#VertexArmy.Entities.Physics","_bodies":[{"AngularDamping":0,"AngularVelocity":0,"Awake":true,"BodyId":4,"BodyType":2,"ControllerFilter":{"ControllerFlags":0},"Enabled":true,"FixedRotation":false,"Friction":1,"IgnoreCCD":false,"IgnoreGravity":false,"Inertia":0.008337789,"IsBullet":false,"IsDisposed":false,"IsStatic":false,"LinearDamping":0,"LinearVelocity":{"X":0,"Y":0},"LocalCenter":{"X":0.0217506886,"Y":0.03915124},"Mass":0.383201718,"PhysicsLogicFilter":{"ControllerIgnores":0},"Position":{"X":-2.78947067,"Y":1.66010666},"Restitution":0,"Rotation":3.1363306,"SleepingAllowed":true,"UserData":null},{"AngularDamping":0,"AngularVelocity":0,"Awake":true,"BodyId":5,"BodyType":2,"ControllerFilter":{"ControllerFlags":0},"Enabled":true,"FixedRotation":false,"Friction":1,"IgnoreCCD":false,"IgnoreGravity":false,"Inertia":0.008337789,"IsBullet":false,"IsDisposed":false,"IsStatic":false,"LinearDamping":0,"LinearVelocity":{"X":0,"Y":0},"LocalCenter":{"X":0.0217506886,"Y":0.03915124},"Mass":0.383201718,"PhysicsLogicFilter":{"ControllerIgnores":0},"Position":{"X":-2.70006776,"Y":1.05723786},"Restitution":0,"Rotation":-2.89362,"SleepingAllowed":true,"UserData":null},{"AngularDamping":0,"AngularVelocity":0,"Awake":true,"BodyId":6,"BodyType":2,"ControllerFilter":{"ControllerFlags":0},"Enabled":true,"FixedRotation":false,"Friction":1,"IgnoreCCD":false,"IgnoreGravity":false,"Inertia":0.008337789,"IsBullet":false,"IsDisposed":false,"IsStatic":false,"LinearDamping":0,"LinearVelocity":{"X":0,"Y":0},"LocalCenter":{"X":0.0217506886,"Y":0.03915124},"Mass":0.383201718,"PhysicsLogicFilter":{"ControllerIgnores":0},"Position":{"X":-2.518432,"Y":0.4754444},"Restitution":0,"Rotation":-2.7940948,"SleepingAllowed":true,"UserData":null},{"AngularDamping":0,"AngularVelocity":0,"Awake":true,"BodyId":7,"BodyType":2,"ControllerFilter":{"ControllerFlags":0},"Enabled":true,"FixedRotation":false,"Friction":1,"IgnoreCCD":false,"IgnoreGravity":false,"Inertia":0.008337789,"IsBullet":false,"IsDisposed":false,"IsStatic":false,"LinearDamping":0,"LinearVelocity":{"X":0,"Y":0},"LocalCenter":{"X":0.0217506886,"Y":0.03915124},"Mass":0.383201718,"PhysicsLogicFilter":{"ControllerIgnores":0},"Position":{"X":-2.29223752,"Y":-0.09043955},"Restitution":0,"Rotation":-2.73173141,"SleepingAllowed":true,"UserData":null},{"AngularDamping":0,"AngularVelocity":0,"Awake":true,"BodyId":8,"BodyType":2,"ControllerFilter":{"ControllerFlags":0},"Enabled":true,"FixedRotation":false,"Friction":1,"IgnoreCCD":false,"IgnoreGravity":false,"Inertia":0.008337789,"IsBullet":false,"IsDisposed":false,"IsStatic":false,"LinearDamping":0,"LinearVelocity":{"X":0,"Y":0},"LocalCenter":{"X":0.0217506886,"Y":0.03915124},"Mass":0.383201718,"PhysicsLogicFilter":{"ControllerIgnores":0},"Position":{"X":-2.03544617,"Y":-0.643133342},"Restitution":0,"Rotation":-2.68254232,"SleepingAllowed":true,"UserData":null},{"AngularDamping":0,"AngularVelocity":0,"Awake":true,"BodyId":9,"BodyType":2,"ControllerFilter":{"ControllerFlags":0},"Enabled":true,"FixedRotation":false,"Friction":1,"IgnoreCCD":false,"IgnoreGravity":false,"Inertia":0.008337789,"IsBullet":false,"IsDisposed":false,"IsStatic":false,"LinearDamping":0,"LinearVelocity":{"X":0,"Y":0},"LocalCenter":{"X":0.0217506886,"Y":0.03915124},"Mass":0.383201718,"PhysicsLogicFilter":{"ControllerIgnores":0},"Position":{"X":-1.75307965,"Y":-1.18319166},"Restitution":0,"Rotation":-2.63685918,"SleepingAllowed":true,"UserData":null},{"AngularDamping":0,"AngularVelocity":0,"Awake":true,"BodyId":10,"BodyType":2,"ControllerFilter":{"ControllerFlags":0},"Enabled":true,"FixedRotation":false,"Friction":1,"IgnoreCCD":false,"IgnoreGravity":false,"Inertia":0.008337789,"IsBullet":false,"IsDisposed":false,"IsStatic":false,"LinearDamping":0,"LinearVelocity":{"X":0,"Y":0},"LocalCenter":{"X":0.0217506886,"Y":0.03915124},"Mass":0.383201718,"PhysicsLogicFilter":{"ControllerIgnores":0},"Position":{"X":-1.44568419,"Y":-1.70952237},"Restitution":0,"Rotation":-2.58762121,"SleepingAllowed":true,"UserData":null},{"AngularDamping":0,"AngularVelocity":0,"Awake":true,"BodyId":11,"BodyType":2,"ControllerFilter":{"ControllerFlags":0},"Enabled":true,"FixedRotation":false,"Friction":1,"IgnoreCCD":false,"IgnoreGravity":false,"Inertia":0.008337789,"IsBullet":false,"IsDisposed":false,"IsStatic":false,"LinearDamping":0,"LinearVelocity":{"X":0,"Y":0},"LocalCenter":{"X":0.0217506886,"Y":0.03915124},"Mass":0.383201718,"PhysicsLogicFilter":{"ControllerIgnores":0},"Position":{"X":-1.10994124,"Y":-2.218139},"Restitution":0,"Rotation":-2.52486,"SleepingAllowed":true,"UserData":null},{"AngularDamping":0,"AngularVelocity":0,"Awake":true,"BodyId":12,"BodyType":2,"ControllerFilter":{"ControllerFlags":0},"Enabled":true,"FixedRotation":false,"Friction":1,"IgnoreCCD":false,"IgnoreGravity":false,"Inertia":0.008337789,"IsBullet":false,"IsDisposed":false,"IsStatic":false,"LinearDamping":0,"LinearVelocity":{"X":0,"Y":0},"LocalCenter":{"X":0.0217506886,"Y":0.03915124},"Mass":0.383201718,"PhysicsLogicFilter":{"ControllerIgnores":0},"Position":{"X":-0.735304,"Y":-2.69888163},"Restitution":0,"Rotation":-2.423252,"SleepingAllowed":true,"UserData":null},{"AngularDamping":0,"AngularVelocity":0,"Awake":true,"BodyId":13,"BodyType":2,"ControllerFilter":{"ControllerFlags":0},"Enabled":true,"FixedRotation":false,"Friction":1,"IgnoreCCD":false,"IgnoreGravity":false,"Inertia":0.008337789,"IsBullet":false,"IsDisposed":false,"IsStatic":false,"LinearDamping":0,"LinearVelocity":{"X":0,"Y":0},"LocalCenter":{"X":0.0217506886,"Y":0.03915124},"Mass":0.383201718,"PhysicsLogicFilter":{"ControllerIgnores":0},"Position":{"X":-0.288060933,"Y":-3.11290717},"Restitution":0,"Rotation":-2.150196,"SleepingAllowed":true,"UserData":null},{"AngularDamping":0,"AngularVelocity":0,"Awake":true,"BodyId":14,"BodyType":2,"ControllerFilter":{"ControllerFlags":0},"Enabled":true,"FixedRotation":false,"Friction":1,"IgnoreCCD":false,"IgnoreGravity":false,"Inertia":0.008337789,"IsBullet":false,"IsDisposed":false,"IsStatic":false,"LinearDamping":0,"LinearVelocity":{"X":0,"Y":0},"LocalCenter":{"X":0.0217506886,"Y":0.03915124},"Mass":0.383201718,"PhysicsLogicFilter":{"ControllerIgnores":0},"Position":{"X":0.321029156,"Y":-3.09049153},"Restitution":0,"Rotation":-0.956609,"SleepingAllowed":true,"UserData":null},{"AngularDamping":0,"AngularVelocity":0,"Awake":true,"BodyId":15,"BodyType":2,"ControllerFilter":{"ControllerFlags":0},"Enabled":true,"FixedRotation":false,"Friction":1,"IgnoreCCD":false,"IgnoreGravity":false,"Inertia":0.008337789,"IsBullet":false,"IsDisposed":false,"IsStatic":false,"LinearDamping":0,"LinearVelocity":{"X":0,"Y":0},"LocalCenter":{"X":0.0217506886,"Y":0.03915124},"Mass":0.383201718,"PhysicsLogicFilter":{"ControllerIgnores":0},"Position":{"X":0.7611941,"Y":-2.66897678},"Restitution":0,"Rotation":-0.708889663,"SleepingAllowed":true,"UserData":null},{"AngularDamping":0,"AngularVelocity":0,"Awake":true,"BodyId":16,"BodyType":2,"ControllerFilter":{"ControllerFlags":0},"Enabled":true,"FixedRotation":false,"Friction":1,"IgnoreCCD":false,"IgnoreGravity":false,"Inertia":0.008337789,"IsBullet":false,"IsDisposed":false,"IsStatic":false,"LinearDamping":0,"LinearVelocity":{"X":0,"Y":0},"LocalCenter":{"X":0.0217506886,"Y":0.03915124},"Mass":0.383201718,"PhysicsLogicFilter":{"ControllerIgnores":0},"Position":{"X":1.1327939,"Y":-2.185729},"Restitution":0,"Rotation":-0.61158514,"SleepingAllowed":true,"UserData":null},{"AngularDamping":0,"AngularVelocity":0,"Awake":true,"BodyId":17,"BodyType":2,"ControllerFilter":{"ControllerFlags":0},"Enabled":true,"FixedRotation":false,"Friction":1,"IgnoreCCD":false,"IgnoreGravity":false,"Inertia":0.008337789,"IsBullet":false,"IsDisposed":false,"IsStatic":false,"LinearDamping":0,"LinearVelocity":{"X":0,"Y":0},"LocalCenter":{"X":0.0217506886,"Y":0.03915124},"Mass":0.383201718,"PhysicsLogicFilter":{"ControllerIgnores":0},"Position":{"X":1.46651244,"Y":-1.67571},"Restitution":0,"Rotation":-0.5502726,"SleepingAllowed":true,"UserData":null},{"AngularDamping":0,"AngularVelocity":0,"Awake":true,"BodyId":18,"BodyType":2,"ControllerFilter":{"ControllerFlags":0},"Enabled":true,"FixedRotation":false,"Friction":1,"IgnoreCCD":false,"IgnoreGravity":false,"Inertia":0.008337789,"IsBullet":false,"IsDisposed":false,"IsStatic":false,"LinearDamping":0,"LinearVelocity":{"X":0,"Y":0},"LocalCenter":{"X":0.0217506886,"Y":0.03915124},"Mass":0.383201718,"PhysicsLogicFilter":{"ControllerIgnores":0},"Position":{"X":1.77223539,"Y":-1.14838338},"Restitution":0,"Rotation":-0.501497567,"SleepingAllowed":true,"UserData":null},{"AngularDamping":0,"AngularVelocity":0,"Awake":true,"BodyId":19,"BodyType":2,"ControllerFilter":{"ControllerFlags":0},"Enabled":true,"FixedRotation":false,"Friction":1,"IgnoreCCD":false,"IgnoreGravity":false,"Inertia":0.008337789,"IsBullet":false,"IsDisposed":false,"IsStatic":false,"LinearDamping":0,"LinearVelocity":{"X":0,"Y":0},"LocalCenter":{"X":0.0217506886,"Y":0.03915124},"Mass":0.383201718,"PhysicsLogicFilter":{"ControllerIgnores":0},"Position":{"X":2.05307078,"Y":-0.607327163},"Restitution":0,"Rotation":-0.4557074,"SleepingAllowed":true,"UserData":null},{"AngularDamping":0,"AngularVelocity":0,"Awake":true,"BodyId":20,"BodyType":2,"ControllerFilter":{"ControllerFlags":0},"Enabled":true,"FixedRotation":false,"Friction":1,"IgnoreCCD":false,"IgnoreGravity":false,"Inertia":0.008337789,"IsBullet":false,"IsDisposed":false,"IsStatic":false,"LinearDamping":0,"LinearVelocity":{"X":0,"Y":0},"LocalCenter":{"X":0.0217506886,"Y":0.03915124},"Mass":0.383201718,"PhysicsLogicFilter":{"ControllerIgnores":0},"Position":{"X":2.308118,"Y":-0.0536978841},"Restitution":0,"Rotation":-0.406152368,"SleepingAllowed":true,"UserData":null},{"AngularDamping":0,"AngularVelocity":0,"Awake":true,"BodyId":21,"BodyType":2,"ControllerFilter":{"ControllerFlags":0},"Enabled":true,"FixedRotation":false,"Friction":1,"IgnoreCCD":false,"IgnoreGravity":false,"Inertia":0.008337789,"IsBullet":false,"IsDisposed":false,"IsStatic":false,"LinearDamping":0,"LinearVelocity":{"X":0,"Y":0},"LocalCenter":{"X":0.0217506886,"Y":0.03915124},"Mass":0.383201718,"PhysicsLogicFilter":{"ControllerIgnores":0},"Position":{"X":2.53201437,"Y":0.513254166},"Restitution":0,"Rotation":-0.3421951,"SleepingAllowed":true,"UserData":null},{"AngularDamping":0,"AngularVelocity":0,"Awake":true,"BodyId":22,"BodyType":2,"ControllerFilter":{"ControllerFlags":0},"Enabled":true,"FixedRotation":false,"Friction":1,"IgnoreCCD":false,"IgnoreGravity":false,"Inertia":0.008337789,"IsBullet":false,"IsDisposed":false,"IsStatic":false,"LinearDamping":0,"LinearVelocity":{"X":0,"Y":0},"LocalCenter":{"X":0.0217506886,"Y":0.03915124},"Mass":0.383201718,"PhysicsLogicFilter":{"ControllerIgnores":0},"Position":{"X":2.70975542,"Y":1.09630287},"Restitution":0,"Rotation":-0.238166034,"SleepingAllowed":true,"UserData":null},{"AngularDamping":0,"AngularVelocity":0,"Awake":true,"BodyId":23,"BodyType":2,"ControllerFilter":{"ControllerFlags":0},"Enabled":true,"FixedRotation":false,"Friction":1,"IgnoreCCD":false,"IgnoreGravity":false,"Inertia":0.008337789,"IsBullet":false,"IsDisposed":false,"IsStatic":false,"LinearDamping":0,"LinearVelocity":{"X":0,"Y":0},"LocalCenter":{"X":0.0217506886,"Y":0.03915124},"Mass":0.383201718,"PhysicsLogicFilter":{"ControllerIgnores":0},"Position":{"X":2.78850365,"Y":1.70064127},"Restitution":0,"Rotation":0.0423276462,"SleepingAllowed":true,"UserData":null},{"AngularDamping":0,"AngularVelocity":0,"Awake":true,"BodyId":24,"BodyType":2,"ControllerFilter":{"ControllerFlags":0},"Enabled":true,"FixedRotation":false,"Friction":1,"IgnoreCCD":false,"IgnoreGravity":false,"Inertia":0.008337789,"IsBullet":false,"IsDisposed":false,"IsStatic":false,"LinearDamping":0,"LinearVelocity":{"X":0,"Y":0},"LocalCenter":{"X":0.0217506886,"Y":0.03915124},"Mass":0.383201718,"PhysicsLogicFilter":{"ControllerIgnores":0},"Position":{"X":2.451526,"Y":2.20846272},"Restitution":0,"Rotation":1.07130015,"SleepingAllowed":true,"UserData":null},{"AngularDamping":0,"AngularVelocity":0,"Awake":true,"BodyId":25,"BodyType":2,"ControllerFilter":{"ControllerFlags":0},"Enabled":true,"FixedRotation":false,"Friction":1,"IgnoreCCD":false,"IgnoreGravity":false,"Inertia":0.008337789,"IsBullet":false,"IsDisposed":false,"IsStatic":false,"LinearDamping":0,"LinearVelocity":{"X":0,"Y":0},"LocalCenter":{"X":0.0217506886,"Y":0.03915124},"Mass":0.383201718,"PhysicsLogicFilter":{"ControllerIgnores":0},"Position":{"X":1.87837815,"Y":2.41559625},"Restitution":0,"Rotation":1.327922,"SleepingAllowed":true,"UserData":null},{"AngularDamping":0,"AngularVelocity":0,"Awake":true,"BodyId":26,"BodyType":2,"ControllerFilter":{"ControllerFlags":0},"Enabled":true,"FixedRotation":false,"Friction":1,"IgnoreCCD":false,"IgnoreGravity":false,"Inertia":0.008337789,"IsBullet":false,"IsDisposed":false,"IsStatic":false,"LinearDamping":0,"LinearVelocity":{"X":0,"Y":0},"LocalCenter":{"X":0.0217506886,"Y":0.03915124},"Mass":0.383201718,"PhysicsLogicFilter":{"ControllerIgnores":0},"Position":{"X":1.27918136,"Y":2.52693224},"Restitution":0,"Rotation":1.4362545,"SleepingAllowed":true,"UserData":null},{"AngularDamping":0,"AngularVelocity":0,"Awake":true,"BodyId":27,"BodyType":2,"ControllerFilter":{"ControllerFlags":0},"Enabled":true,"FixedRotation":false,"Friction":1,"IgnoreCCD":false,"IgnoreGravity":false,"Inertia":0.008337789,"IsBullet":false,"IsDisposed":false,"IsStatic":false,"LinearDamping":0,"LinearVelocity":{"X":0,"Y":0},"LocalCenter":{"X":0.0217506886,"Y":0.03915124},"Mass":0.383201718,"PhysicsLogicFilter":{"ControllerIgnores":0},"Position":{"X":0.6725964,"Y":2.586336},"Restitution":0,"Rotation":1.50694585,"SleepingAllowed":true,"UserData":null},{"AngularDamping":0,"AngularVelocity":0,"Awake":true,"BodyId":28,"BodyType":2,"ControllerFilter":{"ControllerFlags":0},"Enabled":true,"FixedRotation":false,"Friction":1,"IgnoreCCD":false,"IgnoreGravity":false,"Inertia":0.008337789,"IsBullet":false,"IsDisposed":false,"IsStatic":false,"LinearDamping":0,"LinearVelocity":{"X":0,"Y":0},"LocalCenter":{"X":0.0217506886,"Y":0.03915124},"Mass":0.383201718,"PhysicsLogicFilter":{"ControllerIgnores":0},"Position":{"X":0.063392885,"Y":2.607315},"Restitution":0,"Rotation":1.56507957,"SleepingAllowed":true,"UserData":null},{"AngularDamping":0,"AngularVelocity":0,"Awake":true,"BodyId":29,"BodyType":2,"ControllerFilter":{"ControllerFlags":0},"Enabled":true,"FixedRotation":false,"Friction":1,"IgnoreCCD":false,"IgnoreGravity":false,"Inertia":0.008337789,"IsBullet":false,"IsDisposed":false,"IsStatic":false,"LinearDamping":0,"LinearVelocity":{"X":0,"Y":0},"LocalCenter":{"X":0.0217506886,"Y":0.03915124},"Mass":0.383201718,"PhysicsLogicFilter":{"ControllerIgnores":0},"Position":{"X":-0.5459388,"Y":2.59364247},"Restitution":0,"Rotation":1.62224567,"SleepingAllowed":true,"UserData":null},{"AngularDamping":0,"AngularVelocity":0,"Awake":true,"BodyId":30,"BodyType":2,"ControllerFilter":{"ControllerFlags":0},"Enabled":true,"FixedRotation":false,"Friction":1,"IgnoreCCD":false,"IgnoreGravity":false,"Inertia":0.008337789,"IsBullet":false,"IsDisposed":false,"IsStatic":false,"LinearDamping":0,"LinearVelocity":{"X":0,"Y":0},"LocalCenter":{"X":0.0217506886,"Y":0.03915124},"Mass":0.383201718,"PhysicsLogicFilter":{"ControllerIgnores":0},"Position":{"X":-1.15333664,"Y":2.54290771},"Restitution":0,"Rotation":1.68898177,"SleepingAllowed":true,"UserData":null},{"AngularDamping":0,"AngularVelocity":0,"Awake":true,"BodyId":31,"BodyType":2,"ControllerFilter":{"ControllerFlags":0},"Enabled":true,"FixedRotation":false,"Friction":1,"IgnoreCCD":false,"IgnoreGravity":false,"Inertia":0.008337789,"IsBullet":false,"IsDisposed":false,"IsStatic":false,"LinearDamping":0,"LinearVelocity":{"X":0,"Y":0},"LocalCenter":{"X":0.0217506886,"Y":0.03915124},"Mass":0.383201718,"PhysicsLogicFilter":{"ControllerIgnores":0},"Position":{"X":-1.75479591,"Y":2.44434381},"Restitution":0,"Rotation":1.78577614,"SleepingAllowed":true,"UserData":null},{"AngularDamping":0,"AngularVelocity":0,"Awake":true,"BodyId":32,"BodyType":2,"ControllerFilter":{"ControllerFlags":0},"Enabled":true,"FixedRotation":false,"Friction":1,"IgnoreCCD":false,"IgnoreGravity":false,"Inertia":0.008337789,"IsBullet":false,"IsDisposed":false,"IsStatic":false,"LinearDamping":0,"LinearVelocity":{"X":0,"Y":0},"LocalCenter":{"X":0.0217506886,"Y":0.03915124},"Mass":0.383201718,"PhysicsLogicFilter":{"ControllerIgnores":0},"Position":{"X":-2.33710146,"Y":2.26461744},"Restitution":0,"Rotation":1.98820543,"SleepingAllowed":true,"UserData":null}],"_frozen":false,"_gear1":{"AngularDamping":0,"AngularVelocity":0,"Awake":true,"BodyId":0,"BodyType":2,"ControllerFilter":{"ControllerFlags":0},"Enabled":true,"FixedRotation":false,"Friction":1,"IgnoreCCD":false,"IgnoreGravity":false,"Inertia":0.0244392063,"IsBullet":false,"IsDisposed":false,"IsStatic":false,"LinearDamping":0,"LinearVelocity":{"X":0,"Y":0},"LocalCenter":{"X":0,"Y":0},"Mass":0.2770885,"PhysicsLogicFilter":{"ControllerIgnores":0},"Position":{"X":-1.862,"Y":1.029},"Restitution":0,"Rotation":0,"SleepingAllowed":true,"UserData":null},"_gear2":{"AngularDamping":0,"AngularVelocity":0,"Awake":true,"BodyId":1,"BodyType":2,"ControllerFilter":{"ControllerFlags":0},"Enabled":true,"FixedRotation":false,"Friction":1,"IgnoreCCD":false,"IgnoreGravity":false,"Inertia":0.0244392063,"IsBullet":false,"IsDisposed":false,"IsStatic":false,"LinearDamping":0,"LinearVelocity":{"X":0,"Y":0},"LocalCenter":{"X":0,"Y":0},"Mass":0.2770885,"PhysicsLogicFilter":{"ControllerIgnores":0},"Position":{"X":1.862,"Y":1.029},"Restitution":0,"Rotation":0,"SleepingAllowed":true,"UserData":null},"_gear3":{"AngularDamping":0,"AngularVelocity":0,"Awake":true,"BodyId":2,"BodyType":2,"ControllerFilter":{"ControllerFlags":0},"Enabled":true,"FixedRotation":false,"Friction":1,"IgnoreCCD":false,"IgnoreGravity":false,"Inertia":0.0244392063,"IsBullet":false,"IsDisposed":false,"IsStatic":false,"LinearDamping":0,"LinearVelocity":{"X":0,"Y":0},"LocalCenter":{"X":0,"Y":0},"Mass":0.2770885,"PhysicsLogicFilter":{"ControllerIgnores":0},"Position":{"X":0,"Y":-2.142},"Restitution":0,"Rotation":0,"SleepingAllowed":true,"UserData":null},"_joint1":{"BodyA":{"AngularDamping":100,"AngularVelocity":0,"Awake":true,"BodyId":3,"BodyType":2,"ControllerFilter":{"ControllerFlags":0},"Enabled":true,"FixedRotation":false,"Friction":0.2,"IgnoreCCD":false,"IgnoreGravity":false,"Inertia":4.374639,"IsBullet":false,"IsDisposed":false,"IsStatic":false,"LinearDamping":0,"LinearVelocity":{"X":0,"Y":0},"LocalCenter":{"X":0,"Y":-0.004666639},"Mass":6.742399,"PhysicsLogicFilter":{"ControllerIgnores":0},"Position":{"X":0,"Y":0},"Restitution":0,"Rotation":0,"SleepingAllowed":true,"UserData":null},"BodyB":{"AngularDamping":0,"AngularVelocity":0,"Awake":true,"BodyId":0,"BodyType":2,"ControllerFilter":{"ControllerFlags":0},"Enabled":true,"FixedRotation":false,"Friction":1,"IgnoreCCD":false,"IgnoreGravity":false,"Inertia":0.0244392063,"IsBullet":false,"IsDisposed":false,"IsStatic":false,"LinearDamping":0,"LinearVelocity":{"X":0,"Y":0},"LocalCenter":{"X":0,"Y":0},"Mass":0.2770885,"PhysicsLogicFilter":{"ControllerIgnores":0},"Position":{"X":-1.862,"Y":1.029},"Restitution":0,"Rotation":0,"SleepingAllowed":true,"UserData":null},"Breakpoint":3.40282347E+38,"CollideConnected":false,"Enabled":true,"UserData":null,"WorldAnchorB":{"X":-1.862,"Y":1.029},"DampingRatio":0.85,"Frequency":20,"LocalAnchorA":{"X":-1.862,"Y":1.029},"LocalAnchorB":{"X":0,"Y":0},"LocalXAxis":{"X":0.66,"Y":-0.33},"MaxMotorTorque":42,"MotorEnabled":true,"MotorSpeed":0},"_joint2":{"BodyA":{"AngularDamping":100,"AngularVelocity":0,"Awake":true,"BodyId":3,"BodyType":2,"ControllerFilter":{"ControllerFlags":0},"Enabled":true,"FixedRotation":false,"Friction":0.2,"IgnoreCCD":false,"IgnoreGravity":false,"Inertia":4.374639,"IsBullet":false,"IsDisposed":false,"IsStatic":false,"LinearDamping":0,"LinearVelocity":{"X":0,"Y":0},"LocalCenter":{"X":0,"Y":-0.004666639},"Mass":6.742399,"PhysicsLogicFilter":{"ControllerIgnores":0},"Position":{"X":0,"Y":0},"Restitution":0,"Rotation":0,"SleepingAllowed":true,"UserData":null},"BodyB":{"AngularDamping":0,"AngularVelocity":0,"Awake":true,"BodyId":1,"BodyType":2,"ControllerFilter":{"ControllerFlags":0},"Enabled":true,"FixedRotation":false,"Friction":1,"IgnoreCCD":false,"IgnoreGravity":false,"Inertia":0.0244392063,"IsBullet":false,"IsDisposed":false,"IsStatic":false,"LinearDamping":0,"LinearVelocity":{"X":0,"Y":0},"LocalCenter":{"X":0,"Y":0},"Mass":0.2770885,"PhysicsLogicFilter":{"ControllerIgnores":0},"Position":{"X":1.862,"Y":1.029},"Restitution":0,"Rotation":0,"SleepingAllowed":true,"UserData":null},"Breakpoint":3.40282347E+38,"CollideConnected":false,"Enabled":true,"UserData":null,"WorldAnchorB":{"X":1.862,"Y":1.029},"DampingRatio":0.85,"Frequency":20,"LocalAnchorA":{"X":1.862,"Y":1.029},"LocalAnchorB":{"X":0,"Y":0},"LocalXAxis":{"X":-0.66,"Y":-0.33},"MaxMotorTorque":42,"MotorEnabled":true,"MotorSpeed":0},"_joint3":{"BodyA":{"AngularDamping":100,"AngularVelocity":0,"Awake":true,"BodyId":3,"BodyType":2,"ControllerFilter":{"ControllerFlags":0},"Enabled":true,"FixedRotation":false,"Friction":0.2,"IgnoreCCD":false,"IgnoreGravity":false,"Inertia":4.374639,"IsBullet":false,"IsDisposed":false,"IsStatic":false,"LinearDamping":0,"LinearVelocity":{"X":0,"Y":0},"LocalCenter":{"X":0,"Y":-0.004666639},"Mass":6.742399,"PhysicsLogicFilter":{"ControllerIgnores":0},"Position":{"X":0,"Y":0},"Restitution":0,"Rotation":0,"SleepingAllowed":true,"UserData":null},"BodyB":{"AngularDamping":0,"AngularVelocity":0,"Awake":true,"BodyId":2,"BodyType":2,"ControllerFilter":{"ControllerFlags":0},"Enabled":true,"FixedRotation":false,"Friction":1,"IgnoreCCD":false,"IgnoreGravity":false,"Inertia":0.0244392063,"IsBullet":false,"IsDisposed":false,"IsStatic":false,"LinearDamping":0,"LinearVelocity":{"X":0,"Y":0},"LocalCenter":{"X":0,"Y":0},"Mass":0.2770885,"PhysicsLogicFilter":{"ControllerIgnores":0},"Position":{"X":0,"Y":-2.142},"Restitution":0,"Rotation":0,"SleepingAllowed":true,"UserData":null},"Breakpoint":3.40282347E+38,"CollideConnected":false,"Enabled":true,"UserData":null,"WorldAnchorB":{"X":0,"Y":-2.142},"DampingRatio":0.85,"Frequency":20,"LocalAnchorA":{"X":0,"Y":-2.142},"LocalAnchorB":{"X":0,"Y":0},"LocalXAxis":{"X":0,"Y":0.76},"MaxMotorTorque":42,"MotorEnabled":true,"MotorSpeed":0},"_path":{"Closed":true,"ControlPoints":[{"X":-2.73,"Y":1.95999992},{"X":0,"Y":-3.21999979},{"X":2.73,"Y":1.95999992}]},"_scale":0.7,"_tankBody":{"AngularDamping":100,"AngularVelocity":0,"Awake":true,"BodyId":3,"BodyType":2,"ControllerFilter":{"ControllerFlags":0},"Enabled":true,"FixedRotation":false,"Friction":0.2,"IgnoreCCD":false,"IgnoreGravity":false,"Inertia":4.374639,"IsBullet":false,"IsDisposed":false,"IsStatic":false,"LinearDamping":0,"LinearVelocity":{"X":0,"Y":0},"LocalCenter":{"X":0,"Y":-0.004666639},"Mass":6.742399,"PhysicsLogicFilter":{"ControllerIgnores":0},"Position":{"X":0,"Y":0},"Restitution":0,"Rotation":0,"SleepingAllowed":true,"UserData":null}},"SceneNode":{"_absoluteTransformation":{"M11":0,"M12":0,"M13":0,"M14":0,"M21":0,"M22":0,"M23":0,"M24":0,"M31":0,"M32":0,"M33":0,"M34":0,"M41":0,"M42":0,"M43":0,"M44":0},"_children":[],"_position":{"X":0,"Y":0,"Z":0},"_relativeTransformation":{"M11":0,"M12":0,"M13":0,"M14":0,"M21":0,"M22":0,"M23":0,"M24":0,"M31":0,"M32":0,"M33":0,"M34":0,"M41":0,"M42":0,"M43":0,"M44":0},"_rotation":{"W":0,"X":0,"Y":0,"Z":0},"_scale":{"X":1,"Y":1,"Z":1}}}]}],"Name":"Tutorial"}
+{
+	"Chunks": [{
+		"Entities": [{
+			"__type": "RobotEntity:#VertexArmy.Entities",
+			"BasePhysicsEntity": null,
+			"SceneNode": {
+				"_absoluteTransformation": {
+					"M11": 0,
+					"M12": 0,
+					"M13": 0,
+					"M14": 0,
+					"M21": 0,
+					"M22": 0,
+					"M23": 0,
+					"M24": 0,
+					"M31": 0,
+					"M32": 0,
+					"M33": 0,
+					"M34": 0,
+					"M41": 0,
+					"M42": 0,
+					"M43": 0,
+					"M44": 0
+				},
+				"_children": [],
+				"_position": {
+					"X": 0,
+					"Y": 0,
+					"Z": 0
+				},
+				"_relativeTransformation": {
+					"M11": 0,
+					"M12": 0,
+					"M13": 0,
+					"M14": 0,
+					"M21": 0,
+					"M22": 0,
+					"M23": 0,
+					"M24": 0,
+					"M31": 0,
+					"M32": 0,
+					"M33": 0,
+					"M34": 0,
+					"M41": 0,
+					"M42": 0,
+					"M43": 0,
+					"M44": 0
+				},
+				"_rotation": {
+					"W": 0,
+					"X": 0,
+					"Y": 0,
+					"Z": 0
+				},
+				"_scale": {
+					"X": 1,
+					"Y": 1,
+					"Z": 1
+				}
+			}
+		},
+		{
+			"__type": "BlockEntity:#VertexArmy.Entities",
+			"BasePhysicsEntity": {
+				"__type": "PhysicsEntityBasic:#VertexArmy.Entities.Physics",
+				"Height": 10,
+				"Position": {
+					"X": 0,
+					"Y": 7
+				},
+				"Type": 0,
+				"Width": 2
+			},
+			"SceneNode": {
+				"_absoluteTransformation": {
+					"M11": 0,
+					"M12": 0,
+					"M13": 0,
+					"M14": 0,
+					"M21": 0,
+					"M22": 0,
+					"M23": 0,
+					"M24": 0,
+					"M31": 0,
+					"M32": 0,
+					"M33": 0,
+					"M34": 0,
+					"M41": 0,
+					"M42": 0,
+					"M43": 0,
+					"M44": 0
+				},
+				"_children": [],
+				"_position": {
+					"X": 0,
+					"Y": 0,
+					"Z": 0
+				},
+				"_relativeTransformation": {
+					"M11": 0,
+					"M12": 0,
+					"M13": 0,
+					"M14": 0,
+					"M21": 0,
+					"M22": 0,
+					"M23": 0,
+					"M24": 0,
+					"M31": 0,
+					"M32": 0,
+					"M33": 0,
+					"M34": 0,
+					"M41": 0,
+					"M42": 0,
+					"M43": 0,
+					"M44": 0
+				},
+				"_rotation": {
+					"W": 0,
+					"X": 0,
+					"Y": 0,
+					"Z": 0
+				},
+				"_scale": {
+					"X": 1,
+					"Y": 1,
+					"Z": 1
+				}
+			}
+		}]
+	}],
+	"Name": "Tutorial"
+}

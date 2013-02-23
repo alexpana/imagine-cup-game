@@ -1,7 +1,6 @@
-﻿
-using System.IO;
+﻿using System.IO;
 
-namespace VertexArmy.Utilities.Serialization
+namespace VertexArmy.Serialization
 {
 	public interface ISerializer<TType>
 	{

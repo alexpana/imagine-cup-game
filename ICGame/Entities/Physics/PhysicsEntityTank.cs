@@ -10,24 +10,34 @@ using Microsoft.Xna.Framework;
 namespace VertexArmy.Entities.Physics
 {
 	[DataContract]
-	[KnownType( typeof( PhysicsEntityTank ) )]
 	public class PhysicsEntityTank : IPhysicsEntity
 	{
-		private World _physicsWorld;
+		private readonly World _physicsWorld;
 
+		[DataMember]
 		private bool _frozen;
+		[DataMember]
 		private Body _tankBody;
+		[DataMember]
 		private Path _path;
+		[DataMember]
 		private List<Body> _bodies;
 
+		[DataMember]
 		private Body _gear1;
+		[DataMember]
 		private Body _gear2;
+		[DataMember]
 		private Body _gear3;
 
+		[DataMember]
 		private LineJoint _joint1;
+		[DataMember]
 		private LineJoint _joint2;
+		[DataMember]
 		private LineJoint _joint3;
 
+		[DataMember]
 		private float _scale = 0.7f;
 
 		public void SetPosition( Vector2 position )

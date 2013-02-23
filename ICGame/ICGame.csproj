@@ -108,6 +108,9 @@
     <Compile Include="Global\Platform.cs" />
     <Compile Include="States\GameStateRoomPreview.cs" />
     <Compile Include="Utilities\ConvertUnits.cs" />
+    <Compile Include="Utilities\Serialization\ISerializer.cs" />
+    <Compile Include="Utilities\Serialization\JsonSerializer.cs" />
+    <Compile Include="Utilities\Serialization\SerializerFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />

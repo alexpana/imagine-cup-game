@@ -13,9 +13,8 @@ namespace ICGame.LevelGenerator
 			SetupPlatform();
 
 			string targetPath = args.Length > 0 ? args[0] : AppDomain.CurrentDomain.BaseDirectory + "/../../../../ICGame/Content/Levels/";
-			string serializationType = args.Length > 1 ? args[1] : "json";
 
-			Generator generator = new Generator( targetPath, serializationType );
+			Generator generator = new Generator( targetPath );
 			generator.GenerateLevels();
 		}
 

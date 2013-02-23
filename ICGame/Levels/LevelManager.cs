@@ -1,8 +1,7 @@
-﻿
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
-using System.Xml.Serialization;
 using Microsoft.Xna.Framework;
+using VertexArmy.Utilities.Serialization;
 
 namespace VertexArmy.Levels
 {
@@ -31,11 +30,11 @@ namespace VertexArmy.Levels
 			{
 				using ( Stream stream = TitleContainer.OpenStream( @"Content\Levels\" + name + @".level" ) )
 				{
-					XmlSerializer serializer = new XmlSerializer( typeof( Level ) );
-					return ( Level ) serializer.Deserialize( stream );
+					ISerializer<Level> serializer = SerializerFactory.CreateSerializer<Level>();
+					return serializer.ReadObject( stream );
 				}
 			}
-			catch ( FileNotFoundException e )
+			catch ( FileNotFoundException )
 			{
 				return null;
 			}

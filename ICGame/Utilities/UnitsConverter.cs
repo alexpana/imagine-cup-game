@@ -1,11 +1,11 @@
 using Microsoft.Xna.Framework;
 
-namespace FarseerPhysics.SamplesFramework
+namespace VertexArmy.Utilities
 {
 	/// <summary>
 	/// Convert units between display and simulation units.
 	/// </summary>
-	public static class ConvertUnits
+	public static class UnitsConverter
 	{
 		private static float _displayUnitsToSimUnitsRatio = 100f;
 		private static float _simUnitsToDisplayUnitsRatio = 1 / _displayUnitsToSimUnitsRatio;

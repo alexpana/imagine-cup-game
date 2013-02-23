@@ -64,7 +64,7 @@ namespace VertexArmy.Graphics
 			{
 				if(_matWorldF)
 				{
-					_matWorld = _stacks[(int)EMatrix.World][_si[(int)EMatrix.World]];
+					_matWorld = _stacks[( int ) EMatrix.Projection][_si[( int ) EMatrix.Projection]];
 					_matWorldF = false;
 				}
 				return _matWorld;
@@ -77,7 +77,7 @@ namespace VertexArmy.Graphics
 			{ 
 				if(_matWorldInverseTransposeF)
 				{
-					_matWorldInverseTranspose = Matrix.Transpose(Matrix.Invert(_stacks[(int)EMatrix.World][_si[(int)EMatrix.World]]));
+					_matWorldInverseTranspose = Matrix.Invert( Matrix.Transpose( _stacks[( int ) EMatrix.World][_si[( int ) EMatrix.World]] ) );
 					_matWorldInverseTransposeF = false;
 				}
 				return _matWorldInverseTranspose;

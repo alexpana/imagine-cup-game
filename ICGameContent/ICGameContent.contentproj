@@ -110,6 +110,8 @@
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
       <ProcessorParameters_GenerateTangentFrames>True</ProcessorParameters_GenerateTangentFrames>
+      <ProcessorParameters_PremultiplyVertexColors>False</ProcessorParameters_PremultiplyVertexColors>
+      <ProcessorParameters_PremultiplyTextureAlpha>False</ProcessorParameters_PremultiplyTextureAlpha>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -128,17 +130,39 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="images\color.jpg">
+    <Compile Include="models\sphere.FBX">
+      <Name>sphere</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+      <ProcessorParameters_GenerateTangentFrames>True</ProcessorParameters_GenerateTangentFrames>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="images\normal.png">
+      <Name>normal</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="images\color.png">
       <Name>color</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="images\normal.jpg">
-      <Name>normal</Name>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="images\specular.png">
+      <Name>specular</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
-      <ProcessorParameters_GenerateMipmaps>True</ProcessorParameters_GenerateMipmaps>
-      <ProcessorParameters_ResizeToPowerOfTwo>True</ProcessorParameters_ResizeToPowerOfTwo>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="images\ao.png">
+      <Name>ao</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />

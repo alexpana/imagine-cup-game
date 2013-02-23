@@ -9,17 +9,18 @@ float3 lightPosition;
 struct VertexShaderInput
 {
     float4 Position : POSITION0;
-	float3 Normal : NORMAL;
-	float3 Tangent : TANGENT;
+	float3 Normal : NORMAL0;
+	float3 Tangent : TANGENT0;
 	float2 Texcoord : TEXCOORD0;
 };
 
 struct VertexShaderOutput
 {
-	float4 ScreenPosition : POSITION0;
-	float3 ToLightT : COLOR0;
-	float3 ToEyeT : COLOR1;
-	float2 Texcoord : TEXCOORD0;
+	float4 ScreenPosition : POSITION;
+	float3 Texcoord : TEXCOORD0;
+	float3 ToLightT : TEXCOORD1;
+	float3 ToEyeT : TEXCOORD2;
+	
 };
 
 texture2D ColorMap;
@@ -40,20 +41,37 @@ sampler2D NormalMapSampler = sampler_state
 	MipFilter = linear;
 };
 
+texture2D SpecularMap;
+sampler2D SpecularMapSampler = sampler_state
+{
+	Texture = <SpecularMap>;
+	MinFilter = linear;
+	MagFilter = linear;
+	MipFilter = linear;
+};
+
+texture2D AOMap;
+sampler2D AOMapSampler = sampler_state
+{
+	Texture = <AOMap>;
+	MinFilter = linear;
+	MagFilter = linear;
+	MipFilter = linear;
+};
+
 
 VertexShaderOutput main_VS(VertexShaderInput input)
 {
-    VertexShaderOutput output;
+    VertexShaderOutput output = (VertexShaderOutput)0;
 
-	float3 posW = mul(input.Position, matWorld).xyz;
+	float3 posW = mul(float4(input.Position.xyz, 1.0), matWorld).xyz;
     float3 normalW = normalize(mul(float4(input.Normal, 0.0), matWorldViewInverseTranspose).xyz);
 	float3 tangentW = normalize(mul(float4(input.Tangent, 0.0), matWorldViewInverseTranspose).xyz);
+	float3 bitangentW = normalize(cross(normalW, tangentW));
 
-	float3 bitangentW = normalize(cross(tangentW, normalW));
+	output.Texcoord.xy = input.Texcoord * 2.0;
 
-	output.Texcoord = input.Texcoord;
-
-	float3 toEyeW = eyePosition.xyz - posW;
+	float3 toEyeW = eyePosition - posW;
 	float3 toLightW = lightPosition - posW;
 	
 	output.ScreenPosition = mul(input.Position, matWorldViewProj);
@@ -66,26 +84,31 @@ VertexShaderOutput main_VS(VertexShaderInput input)
 	output.ToEyeT.y = dot(bitangentW, toEyeW);
 	output.ToEyeT.z = dot(normalW, toEyeW);
 
-	//output.ToEyeT = normalW / 2 + 1; 
-
     return output;
 }
 
-float4 main_PS(VertexShaderOutput input) : COLOR0
+float4 main_PS(VertexShaderOutput input) : COLOR
 {
-	float3 N = (2.0 * tex2D(NormalMapSampler, input.Texcoord) - 1).xyz;
+	float3 N = (2.0 * tex2D(NormalMapSampler, input.Texcoord.xy) - 1.0).xyz;
+	N = float3(N.x, N.y, N.z);
 	float3 L = normalize(input.ToLightT);
 	float3 E = normalize(input.ToEyeT);
 	float3 R = -reflect(L, N);
 
 	float Kd = max(dot(L, N), 0.0);
-	float Ks = pow(max(dot(E, R), 0.0), 20);
-
-	float4 diffuse = Kd * tex2D( ColorMapSampler, input.Texcoord);
-	float4 specular = Ks * float4(1,1,1,1);
+	float Ks = pow(max(dot(E, R), 0.0), 10);
+	float Ka = tex2D( AOMapSampler, input.Texcoord.xy) * 0.1;
 
 
-    return diffuse + specular;
+	float4 ambient = Ka * tex2D( ColorMapSampler, input.Texcoord.xy);
+	float4 diffuse = Kd * tex2D( ColorMapSampler, input.Texcoord.xy);
+	float4 specular = Ks * tex2D( SpecularMapSampler, input.Texcoord.xy);;
+
+
+   // return float4((E + 1) / 2, 1);
+    //return float4((N + 1) / 2, 1);
+	return diffuse + ambient + specular;
+   //return diffuse;
 }
 
 technique Technique1

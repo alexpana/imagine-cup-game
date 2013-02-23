@@ -1,14 +1,14 @@
 ﻿using System;
 using FarseerPhysics;
 using FarseerPhysics.Common;
-using FarseerPhysics.Dynamics;
 using FarseerPhysics.DebugViews;
+using FarseerPhysics.Dynamics;
 using FarseerPhysics.Factories;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
-using VertexArmy.Global;
 using VertexArmy.Entities.Physics;
+using VertexArmy.Global;
 
 namespace VertexArmy.States
 {
@@ -40,23 +40,23 @@ namespace VertexArmy.States
 
 		public void OnUpdate( GameTime dt )
 		{
-			if ( !_cameraMoving && Math.Abs(_cameraPosition - _tank.GetPosition().X) > _cameraError )
+			if ( !_cameraMoving && Math.Abs( _cameraPosition - _tank.GetPosition().X ) > _cameraError )
 			{
 				_cameraMoving = true;
-				_cameraStep = ( -1 ) * ( _cameraPosition - _tank.GetPosition( ).X ) / 15;
+				_cameraStep = ( -1 ) * ( _cameraPosition - _tank.GetPosition().X ) / 15;
 			}
 
-			if (_cameraMoving)
+			if ( _cameraMoving )
 			{
 				_cameraPosition += _cameraStep;
 
-				if ( Math.Abs( _cameraPosition - _tank.GetPosition( ).X ) <= _cameraError / 2 )
+				if ( Math.Abs( _cameraPosition - _tank.GetPosition().X ) <= _cameraError / 2 )
 				{
 					_cameraMoving = false;
 				}
 				else
 				{
-					_cameraStep = ( -1 ) * ( _cameraPosition - _tank.GetPosition( ).X ) / 15;
+					_cameraStep = ( -1 ) * ( _cameraPosition - _tank.GetPosition().X ) / 15;
 				}
 			}
 
@@ -72,7 +72,7 @@ namespace VertexArmy.States
 				_tank.Move( 40f );
 			}
 
-			if ( Keyboard.GetState(PlayerIndex.One).IsKeyDown( Keys.F ))
+			if ( Keyboard.GetState( PlayerIndex.One ).IsKeyDown( Keys.F ) )
 			{
 				if ( !_actionFreeze )
 				{
@@ -90,7 +90,7 @@ namespace VertexArmy.States
 			{
 				if ( !_actionReset )
 				{
-					_tank.SetPosition( new Vector2(50f, 5f));
+					_tank.SetPosition( new Vector2( 50f, 5f ) );
 					_actionReset = true;
 				}
 			}
@@ -107,26 +107,26 @@ namespace VertexArmy.States
 
 		public void OnRender( GameTime dt )
 		{
-			_projection = Matrix.CreateOrthographicOffCenter( 
+			_projection = Matrix.CreateOrthographicOffCenter(
 						_cameraPosition - Platform.Instance.Device.Viewport.Width / 2f * 0.05f,
 						_cameraPosition + Platform.Instance.Device.Viewport.Width / 2f * 0.05f,
 						Platform.Instance.Device.Viewport.Height * 0.05f,
 						0f,
-						0f,			 
-						1f 
+						0f,
+						1f
 						);
 
 			_debugView.DrawString( 1, 1, "(R)eset, (F)reeze, Arrows to move." );
-			_debugView.RenderDebugData(ref _projection, ref _view );
+			_debugView.RenderDebugData( ref _projection, ref _view );
 
 		}
 
 		public void LoadPhysicsContent()
-		{			
+		{
 
 			_ground = new Body( Platform.Instance.PhysicsWorld );
 			{
-				Vertices terrain = new Vertices( );
+				Vertices terrain = new Vertices();
 				terrain.Add( new Vector2( -20f, 15f ) );
 				terrain.Add( new Vector2( -20f, 20f ) );
 				terrain.Add( new Vector2( 20f, 20f ) );
@@ -171,10 +171,10 @@ namespace VertexArmy.States
 				_ground.Friction = 1.2f;
 				_ground.Restitution = 0f;
 			}
-			_tank = new PhysicsEntityTank( Platform.Instance.PhysicsWorld, new Vector2(50f, 5f));
+			_tank = new PhysicsEntityTank( Platform.Instance.PhysicsWorld, new Vector2( 50f, 5f ) );
 
 			Body rec = BodyFactory.CreateRectangle( Platform.Instance.PhysicsWorld, 2f, 2f, 0.3f );
-			rec.Position = new Vector2(100f, 10f);
+			rec.Position = new Vector2( 100f, 10f );
 			rec.BodyType = BodyType.Dynamic;
 
 			rec = BodyFactory.CreateRectangle( Platform.Instance.PhysicsWorld, 2f, 10f, 1f );
@@ -192,7 +192,7 @@ namespace VertexArmy.States
 			_actionReset = false;
 			LoadPhysicsContent();
 			_debugView = new DebugViewXNA( Platform.Instance.PhysicsWorld );
-			
+
 			_debugView.LoadContent( Platform.Instance.Device, Platform.Instance.Content );
 			_debugView.RemoveFlags( DebugViewFlags.Joint );
 
@@ -203,7 +203,7 @@ namespace VertexArmy.States
 
 		public void OnClose()
 		{
-			_contentManager.Unload( );
+			_contentManager.Unload();
 		}
 	}
 }

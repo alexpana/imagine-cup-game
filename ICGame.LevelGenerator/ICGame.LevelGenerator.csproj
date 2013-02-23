@@ -69,6 +69,10 @@
     <Compile Include="TutorialGenerator.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Farseer Physics Engine 3.3.1 XNA\Farseer Physics XNA.csproj">
+      <Project>{0a850700-1abb-4288-a391-6726b90ebeb9}</Project>
+      <Name>Farseer Physics XNA</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ICGame\ICGame.csproj">
       <Project>{9f6fdec6-ae5f-4f03-b155-f6082785749b}</Project>
       <Name>ICGame</Name>

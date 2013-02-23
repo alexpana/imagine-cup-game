@@ -22,6 +22,25 @@ struct VertexShaderOutput
 	float2 Texcoord : TEXCOORD0;
 };
 
+texture2D ColorMap;
+sampler2D ColorMapSampler = sampler_state
+{
+	Texture = <ColorMap>;
+	MinFilter = linear;
+	MagFilter = linear;
+	MipFilter = linear;
+};
+
+texture2D NormalMap;
+sampler2D NormalMapSampler = sampler_state
+{
+	Texture = <NormalMap>;
+	MinFilter = linear;
+	MagFilter = linear;
+	MipFilter = linear;
+};
+
+
 VertexShaderOutput main_VS(VertexShaderInput input)
 {
     VertexShaderOutput output;
@@ -47,12 +66,26 @@ VertexShaderOutput main_VS(VertexShaderInput input)
 	output.ToEyeT.y = dot(bitangentW, toEyeW);
 	output.ToEyeT.z = dot(normalW, toEyeW);
 
+	//output.ToEyeT = normalW / 2 + 1; 
+
     return output;
 }
 
 float4 main_PS(VertexShaderOutput input) : COLOR0
 {
-    return float4(1,1,1,1);
+	float3 N = (2.0 * tex2D(NormalMapSampler, input.Texcoord) - 1).xyz;
+	float3 L = normalize(input.ToLightT);
+	float3 E = normalize(input.ToEyeT);
+	float3 R = -reflect(L, N);
+
+	float Kd = max(dot(L, N), 0.0);
+	float Ks = pow(max(dot(E, R), 0.0), 20);
+
+	float4 diffuse = Kd * tex2D( ColorMapSampler, input.Texcoord);
+	float4 specular = Ks * float4(1,1,1,1);
+
+
+    return diffuse + specular;
 }
 
 technique Technique1

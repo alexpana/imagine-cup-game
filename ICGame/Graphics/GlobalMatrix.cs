@@ -77,7 +77,7 @@ namespace VertexArmy.Graphics
 			{ 
 				if(_matWorldInverseTransposeF)
 				{
-					_matWorldInverseTranspose = Matrix.Transpose(_stacks[(int)EMatrix.World][_si[(int)EMatrix.World]]);
+					_matWorldInverseTranspose = Matrix.Transpose(Matrix.Invert(_stacks[(int)EMatrix.World][_si[(int)EMatrix.World]]));
 					_matWorldInverseTransposeF = false;
 				}
 				return _matWorldInverseTranspose;

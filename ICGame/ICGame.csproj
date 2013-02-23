@@ -78,6 +78,7 @@
     <Compile Include="Graphics\GlobalMatrix.cs" />
     <Compile Include="Graphics\ObjectSceneNode.cs" />
     <Compile Include="Graphics\RobotSceneNode.cs" />
+    <Compile Include="Graphics\Scene.cs" />
     <Compile Include="Graphics\SceneNode.cs" />
     <Compile Include="Input\IInputSystem.cs" />
     <Compile Include="Input\PCInputSystem.cs" />

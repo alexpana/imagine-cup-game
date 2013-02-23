@@ -29,7 +29,7 @@ namespace ICGame.LevelGenerator
 
 			foreach ( var level in levels )
 			{
-				SerializeLevel( level, level.Name.ToLowerInvariant() + ".level" );
+				SerializeLevel( level, _targetPath + level.Name.ToLowerInvariant() + ".level" );
 			}
 		}
 

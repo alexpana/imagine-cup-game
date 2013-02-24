@@ -19,7 +19,25 @@ namespace VertexArmy.Entities.Physics
 		public float Height { get; set; }
 
 		[DataMember]
-		public Vector2 Position { get; set; }
+		public Vector2 Position
+		{
+			get { return Body.Position; }
+			set { Body.Position = value; }
+		}
+
+		[DataMember]
+		public float Rotation
+		{
+			get { return Body.Rotation; }
+			set { Body.Rotation = value; }
+		}
+
+		[DataMember]
+		public bool Enabled
+		{
+			get { return Body.Enabled; }
+			set { Body.Enabled = value; }
+		}
 
 		private Body _body;
 		public Body Body
@@ -50,29 +68,8 @@ namespace VertexArmy.Entities.Physics
 			}
 		}
 
-		public void SetPosition( Vector2 position )
+		public void PreSerialize()
 		{
-			Position = position;
-		}
-
-		public Vector2 GetPosition()
-		{
-			return Position;
-		}
-
-		public float GetRotation()
-		{
-			return Body.Rotation;
-		}
-
-		public void SetFreeze( bool value )
-		{
-			Body.Enabled = value;
-		}
-
-		public bool IsFrozen()
-		{
-			return !Body.Enabled;
 		}
 
 		public void PostDeserializeInit()

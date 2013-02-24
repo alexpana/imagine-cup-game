@@ -40,23 +40,23 @@ namespace VertexArmy.States
 
 		public void OnUpdate( GameTime dt )
 		{
-			if ( !_cameraMoving && Math.Abs( _cameraPosition - _tank.GetPosition().X ) > _cameraError )
+			if ( !_cameraMoving && Math.Abs( _cameraPosition - _tank.Position.X ) > _cameraError )
 			{
 				_cameraMoving = true;
-				_cameraStep = ( -1 ) * ( _cameraPosition - _tank.GetPosition().X ) / 15;
+				_cameraStep = ( -1 ) * ( _cameraPosition - _tank.Position.X ) / 15;
 			}
 
 			if ( _cameraMoving )
 			{
 				_cameraPosition += _cameraStep;
 
-				if ( Math.Abs( _cameraPosition - _tank.GetPosition().X ) <= _cameraError / 2 )
+				if ( Math.Abs( _cameraPosition - _tank.Position.X ) <= _cameraError / 2 )
 				{
 					_cameraMoving = false;
 				}
 				else
 				{
-					_cameraStep = ( -1 ) * ( _cameraPosition - _tank.GetPosition().X ) / 15;
+					_cameraStep = ( -1 ) * ( _cameraPosition - _tank.Position.X ) / 15;
 				}
 			}
 
@@ -76,7 +76,7 @@ namespace VertexArmy.States
 			{
 				if ( !_actionFreeze )
 				{
-					_tank.SetFreeze( !_tank.IsFrozen() );
+					_tank.Enabled = !_tank.Enabled;
 					_actionFreeze = true;
 				}
 			}
@@ -90,7 +90,7 @@ namespace VertexArmy.States
 			{
 				if ( !_actionReset )
 				{
-					_tank.SetPosition( new Vector2( 50f, 5f ) );
+					_tank.Position = new Vector2( 50f, 5f );
 					_actionReset = true;
 				}
 			}
@@ -171,7 +171,7 @@ namespace VertexArmy.States
 				_ground.Friction = 1.2f;
 				_ground.Restitution = 0f;
 			}
-			_tank = new PhysicsEntityTank( Platform.Instance.PhysicsWorld, new Vector2( 50f, 5f ) );
+			_tank = new PhysicsEntityTank( 0.7f, new Vector2( 50f, 5f ) );
 
 			Body rec = BodyFactory.CreateRectangle( Platform.Instance.PhysicsWorld, 2f, 2f, 0.3f );
 			rec.Position = new Vector2( 100f, 10f );
@@ -181,7 +181,7 @@ namespace VertexArmy.States
 			rec.Position = new Vector2( 249f, 10f );
 			rec.BodyType = BodyType.Dynamic;
 
-			_cameraPosition = _tank.GetPosition().X;
+			_cameraPosition = _tank.Position.X;
 
 		}
 

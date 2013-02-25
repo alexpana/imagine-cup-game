@@ -72,7 +72,7 @@ namespace VertexArmy.Entities.Physics
 		{
 		}
 
-		public void PostDeserializeInit()
+		public void PostDeserialize()
 		{
 			CreateBody();
 		}

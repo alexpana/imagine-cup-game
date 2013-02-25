@@ -258,7 +258,7 @@ namespace VertexArmy.Entities.Physics
 		{
 			_serializePosition = _tankBody.Position;
 		}
-		public void PostDeserializeInit()
+		public void PostDeserialize()
 		{
 			LoadPhysics();
 			Position = _serializePosition;

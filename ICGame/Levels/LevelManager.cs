@@ -39,7 +39,7 @@ namespace VertexArmy.Levels
 						{
 							if ( entity.BasePhysicsEntity != null )
 							{
-								entity.BasePhysicsEntity.PostDeserializeInit();
+								entity.BasePhysicsEntity.PostDeserialize();
 							}
 						}
 					}

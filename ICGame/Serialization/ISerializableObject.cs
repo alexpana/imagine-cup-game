@@ -8,6 +8,6 @@ namespace VertexArmy.Serialization
 	public interface ISerializableObject
 	{
 		void PreSerialize();
-		void PostDeserializeInit();
+		void PostDeserialize();
 	}
 }

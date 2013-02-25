@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using VertexArmy.Entities;
 using VertexArmy.Entities.Physics;
+using VertexArmy.Global;
 using VertexArmy.Graphics;
 using VertexArmy.Levels;
 
@@ -24,7 +25,7 @@ namespace ICGame.LevelGenerator
 			// create entities
 			RobotEntity robot = new RobotEntity
 			{
-				BasePhysicsEntity = null,// new PhysicsEntityTank( Platform.Instance.PhysicsWorld ),
+				BasePhysicsEntity = new PhysicsEntityTank( 0.7f ),
 				SceneNode = new SceneNode()
 			};
 

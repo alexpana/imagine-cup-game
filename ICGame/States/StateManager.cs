@@ -51,8 +51,8 @@ namespace VertexArmy.States
 					return new GameStateModelViewer( contentManager );
 				case GameState.LevelLoading:
 					return new GameStateLevelLoading( contentManager );
-				case GameState.PhysicsPresentationTank:
-					return new GameStatePhysicsTank( contentManager );
+				case GameState.PhysicsPresentationRobot:
+					return new GameStatePhysicsRobot( contentManager );
 			}
 			return null;
 		}

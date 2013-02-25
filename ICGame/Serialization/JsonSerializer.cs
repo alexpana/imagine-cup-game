@@ -19,7 +19,7 @@ namespace VertexArmy.Serialization
 					typeof(RobotEntity),
 					typeof(BlockEntity),
 					
-					typeof(PhysicsEntityTank),
+					typeof(PhysicsEntityRobot),
 					typeof(PhysicsEntityBasic),
 				} );
 		}

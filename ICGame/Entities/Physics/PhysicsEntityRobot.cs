@@ -11,11 +11,11 @@ using VertexArmy.Global;
 namespace VertexArmy.Entities.Physics
 {
 	[DataContract]
-	public class PhysicsEntityTank : IPhysicsEntity
+	public class PhysicsEntityRobot : IPhysicsEntity
 	{
 		private bool _enabled;
 
-		private Body _tankBody;
+		private Body _robotBody;
 
 		private Path _path;
 
@@ -41,10 +41,10 @@ namespace VertexArmy.Entities.Physics
 		{
 			set
 			{
-				Vector2 relative = value - _tankBody.Position;
+				Vector2 relative = value - _robotBody.Position;
 
-				_tankBody.ResetDynamics();
-				_tankBody.SetTransform( value, _tankBody.Rotation );
+				_robotBody.ResetDynamics();
+				_robotBody.SetTransform( value, _robotBody.Rotation );
 
 				_gear1.ResetDynamics();
 				_gear2.ResetDynamics();
@@ -60,19 +60,19 @@ namespace VertexArmy.Entities.Physics
 				}
 			}
 
-			get { return _tankBody.Position; }
+			get { return _robotBody.Position; }
 		}
 
 		public float Rotation
 		{
-			get { return _tankBody.Rotation; }
+			get { return _robotBody.Rotation; }
 		}
 
 		public bool Enabled
 		{
 			set
 			{
-				_tankBody.Enabled = value;
+				_robotBody.Enabled = value;
 
 				_gear1.Enabled = value;
 				_gear2.Enabled = value;
@@ -102,23 +102,23 @@ namespace VertexArmy.Entities.Physics
 
 		public float ChassisRotation
 		{
-			get { return _tankBody.Rotation; }
+			get { return _robotBody.Rotation; }
 		}
 
 		public Vector2 ChassisPosition
 		{
-			get { return _tankBody.Position; }
+			get { return _robotBody.Position; }
 		}
 
 		/* Constructors */
-		public PhysicsEntityTank( float scale )
+		public PhysicsEntityRobot( float scale )
 		{
 			_enabled = false;
 			_scale = scale;
 			LoadPhysics();
 		}
 
-		public PhysicsEntityTank( float scale, Vector2 position )
+		public PhysicsEntityRobot( float scale, Vector2 position )
 		{
 			_scale = scale;
 			LoadPhysics();
@@ -158,18 +158,18 @@ namespace VertexArmy.Entities.Physics
 			chassis.Add( new Vector2( 0f * _scale, -2.3f * _scale ) );
 			chassis.Add( new Vector2( 2f * _scale, 1.14f * _scale ) );
 
-			PolygonShape tankChassis = new PolygonShape( chassis, 2f );
+			PolygonShape robotChassis = new PolygonShape( chassis, 2f );
 
-			_tankBody = new Body( Platform.Instance.PhysicsWorld );
-			_tankBody.BodyType = BodyType.Dynamic;
-			_tankBody.CreateFixture( tankChassis );
-			_tankBody.Restitution = 0f;
+			_robotBody = new Body( Platform.Instance.PhysicsWorld );
+			_robotBody.BodyType = BodyType.Dynamic;
+			_robotBody.CreateFixture( robotChassis );
+			_robotBody.Restitution = 0f;
 
-			_tankBody.AngularDamping = 100f;
+			_robotBody.AngularDamping = 100f;
 
-			_joint1 = new LineJoint( _tankBody, _gear1, _gear1.Position, new Vector2( 0.66f, -0.33f ) );
-			_joint2 = new LineJoint( _tankBody, _gear2, _gear2.Position, new Vector2( -0.66f, -0.33f ) );
-			_joint3 = new LineJoint( _tankBody, _gear3, _gear3.Position, new Vector2( 0f, 0.76f ) );
+			_joint1 = new LineJoint( _robotBody, _gear1, _gear1.Position, new Vector2( 0.66f, -0.33f ) );
+			_joint2 = new LineJoint( _robotBody, _gear2, _gear2.Position, new Vector2( -0.66f, -0.33f ) );
+			_joint3 = new LineJoint( _robotBody, _gear3, _gear3.Position, new Vector2( 0f, 0.76f ) );
 
 			_joint3.MaxMotorTorque = 60.0f * _scale;
 			_joint3.MotorEnabled = true;
@@ -256,7 +256,7 @@ namespace VertexArmy.Entities.Physics
 
 		public void PreSerialize()
 		{
-			_serializePosition = _tankBody.Position;
+			_serializePosition = _robotBody.Position;
 		}
 		public void PostDeserialize()
 		{

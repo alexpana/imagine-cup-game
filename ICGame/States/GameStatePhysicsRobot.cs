@@ -12,7 +12,7 @@ using VertexArmy.Global;
 
 namespace VertexArmy.States
 {
-	internal class GameStatePhysicsTank : IGameState
+	internal class GameStatePhysicsRobot : IGameState
 	{
 
 		private ContentManager _contentManager;
@@ -29,54 +29,54 @@ namespace VertexArmy.States
 		private bool _cameraMoving;
 		private float _cameraStep;
 
-		private PhysicsEntityTank _tank;
+		private PhysicsEntityRobot _robot;
 		private bool _actionFreeze;
 		private bool _actionReset;
 
-		public GameStatePhysicsTank( ContentManager content )
+		public GameStatePhysicsRobot( ContentManager content )
 		{
 			_contentManager = content;
 		}
 
 		public void OnUpdate( GameTime dt )
 		{
-			if ( !_cameraMoving && Math.Abs( _cameraPosition - _tank.Position.X ) > _cameraError )
+			if ( !_cameraMoving && Math.Abs( _cameraPosition - _robot.Position.X ) > _cameraError )
 			{
 				_cameraMoving = true;
-				_cameraStep = ( -1 ) * ( _cameraPosition - _tank.Position.X ) / 15;
+				_cameraStep = ( -1 ) * ( _cameraPosition - _robot.Position.X ) / 15;
 			}
 
 			if ( _cameraMoving )
 			{
 				_cameraPosition += _cameraStep;
 
-				if ( Math.Abs( _cameraPosition - _tank.Position.X ) <= _cameraError / 2 )
+				if ( Math.Abs( _cameraPosition - _robot.Position.X ) <= _cameraError / 2 )
 				{
 					_cameraMoving = false;
 				}
 				else
 				{
-					_cameraStep = ( -1 ) * ( _cameraPosition - _tank.Position.X ) / 15;
+					_cameraStep = ( -1 ) * ( _cameraPosition - _robot.Position.X ) / 15;
 				}
 			}
 
 			Platform.Instance.PhysicsWorld.Step( Math.Min( ( float ) dt.ElapsedGameTime.TotalMilliseconds * 0.001f, ( 1f / 30f ) ) );
 
-			_tank.Move( 0f );
+			_robot.Move( 0f );
 			if ( Keyboard.GetState( PlayerIndex.One ).IsKeyDown( Keys.Left ) )
 			{
-				_tank.Move( -40f );
+				_robot.Move( -40f );
 			}
 			else if ( Keyboard.GetState( PlayerIndex.One ).IsKeyDown( Keys.Right ) )
 			{
-				_tank.Move( 40f );
+				_robot.Move( 40f );
 			}
 
 			if ( Keyboard.GetState( PlayerIndex.One ).IsKeyDown( Keys.F ) )
 			{
 				if ( !_actionFreeze )
 				{
-					_tank.Enabled = !_tank.Enabled;
+					_robot.Enabled = !_robot.Enabled;
 					_actionFreeze = true;
 				}
 			}
@@ -90,7 +90,7 @@ namespace VertexArmy.States
 			{
 				if ( !_actionReset )
 				{
-					_tank.Position = new Vector2( 50f, 5f );
+					_robot.Position = new Vector2( 50f, 5f );
 					_actionReset = true;
 				}
 			}
@@ -171,7 +171,7 @@ namespace VertexArmy.States
 				_ground.Friction = 1.2f;
 				_ground.Restitution = 0f;
 			}
-			_tank = new PhysicsEntityTank( 0.7f, new Vector2( 50f, 5f ) );
+			_robot = new PhysicsEntityRobot( 1f, new Vector2( 50f, 5f ) );
 
 			Body rec = BodyFactory.CreateRectangle( Platform.Instance.PhysicsWorld, 2f, 2f, 0.3f );
 			rec.Position = new Vector2( 100f, 10f );
@@ -181,7 +181,7 @@ namespace VertexArmy.States
 			rec.Position = new Vector2( 249f, 10f );
 			rec.BodyType = BodyType.Dynamic;
 
-			_cameraPosition = _tank.Position.X;
+			_cameraPosition = _robot.Position.X;
 
 		}
 

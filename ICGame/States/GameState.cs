@@ -9,6 +9,6 @@
 		RoomPreview,
 		ModelView,
 		LevelLoading,
-		PhysicsPresentationTank
+		PhysicsPresentationRobot
 	};
 }

@@ -99,6 +99,15 @@ namespace VertexArmy.States
 			{
 				_actionReset = false;
 			}
+
+			if ( Keyboard.GetState( PlayerIndex.One ).IsKeyDown( Keys.O ) )
+			{
+				_robot.Rotation -= 0.005f * (float)dt.TotalGameTime.TotalSeconds;
+			}
+			else if ( Keyboard.GetState( PlayerIndex.One ).IsKeyDown( Keys.P ) )
+			{
+				_robot.Rotation += 0.005f * ( float ) dt.TotalGameTime.TotalSeconds;
+			}
 		}
 
 		public void RenderScene()
@@ -116,7 +125,7 @@ namespace VertexArmy.States
 						1f
 						);
 
-			_debugView.DrawString( 1, 1, "(R)eset, (F)reeze, Arrows to move." );
+			_debugView.DrawString( 1, 1, "(R)eset, (F)reeze, Arrows to move. O,P to rotate manually." );
 			_debugView.RenderDebugData( ref _projection, ref _view );
 
 		}

@@ -6,7 +6,7 @@ namespace VertexArmy.Entities.Physics
 	public interface IPhysicsEntity : ISerializableObject
 	{
 		Vector2 Position { get; set; }
-		float Rotation { get; }
+		float Rotation { get; set; }
 		bool Enabled { get; set; }
 	}
 }

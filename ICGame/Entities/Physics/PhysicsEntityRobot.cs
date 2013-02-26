@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 using FarseerPhysics.Collision.Shapes;
 using FarseerPhysics.Common;
@@ -7,6 +8,7 @@ using FarseerPhysics.Dynamics.Joints;
 using FarseerPhysics.Factories;
 using Microsoft.Xna.Framework;
 using VertexArmy.Global;
+using VertexArmy.Utilities;
 
 namespace VertexArmy.Entities.Physics
 {
@@ -58,6 +60,7 @@ namespace VertexArmy.Entities.Physics
 					b.ResetDynamics();
 					b.SetTransform( b.Position + relative, b.Rotation );
 				}
+
 			}
 
 			get { return _robotBody.Position; }
@@ -65,6 +68,20 @@ namespace VertexArmy.Entities.Physics
 
 		public float Rotation
 		{
+			set
+			{
+				float modifier = value - Rotation;
+				BodyUtility.RotateBodyAroundPoint( _gear1, _robotBody.Position, modifier );
+				BodyUtility.RotateBodyAroundPoint( _gear2, _robotBody.Position, modifier );
+				BodyUtility.RotateBodyAroundPoint( _gear3, _robotBody.Position, modifier );
+
+				foreach (Body b in _bodies)
+				{
+					BodyUtility.RotateBodyAroundPoint( b, _robotBody.Position, modifier );
+				}
+
+				BodyUtility.RotateBodyAroundPoint( _robotBody, _robotBody.Position, modifier );
+			}
 			get { return _robotBody.Rotation; }
 		}
 
@@ -121,6 +138,7 @@ namespace VertexArmy.Entities.Physics
 		public PhysicsEntityRobot( float scale, Vector2 position )
 		{
 			_scale = scale;
+			_enabled = true;
 			LoadPhysics();
 			Position = position;
 		}

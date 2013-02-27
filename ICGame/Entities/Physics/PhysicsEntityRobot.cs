@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Runtime.Serialization;
 using FarseerPhysics.Collision.Shapes;
 using FarseerPhysics.Common;
@@ -60,7 +59,6 @@ namespace VertexArmy.Entities.Physics
 					b.ResetDynamics();
 					b.SetTransform( b.Position + relative, b.Rotation );
 				}
-
 			}
 
 			get { return _robotBody.Position; }
@@ -153,30 +151,30 @@ namespace VertexArmy.Entities.Physics
 
 		private void LoadPhysics()
 		{
-			_gear1 = BodyFactory.CreateCircle( Platform.Instance.PhysicsWorld, 0.6f * _scale, 0.5f );
-			_gear1.Position = new Vector2( -2.66f * _scale, 1.47f * _scale );
+			_gear1 = BodyFactory.CreateCircle( Platform.Instance.PhysicsWorld, 1.215f * _scale, 1f );
+			_gear1.Position = new Vector2( -2.301f * _scale, 1.243f * _scale );
 			_gear1.BodyType = BodyType.Dynamic;
-			_gear1.Friction = 1f;
+			_gear1.Friction = 1f * _scale;
 			_gear1.Restitution = 0f;
 
-			_gear2 = BodyFactory.CreateCircle( Platform.Instance.PhysicsWorld, 0.6f * _scale, 0.5f );
-			_gear2.Position = new Vector2( 2.66f * _scale, 1.47f * _scale );
+			_gear2 = BodyFactory.CreateCircle( Platform.Instance.PhysicsWorld, 1.215f * _scale, 1f );
+			_gear2.Position = new Vector2( 2.301f * _scale, 1.243f * _scale );
 			_gear2.BodyType = BodyType.Dynamic;
-			_gear2.Friction = 1f;
+			_gear2.Friction = 1f * _scale;
 			_gear2.Restitution = 0f;
 
-			_gear3 = BodyFactory.CreateCircle( Platform.Instance.PhysicsWorld, 0.6f * _scale, 0.5f );
-			_gear3.Position = new Vector2( 0f * _scale, -3.06f * _scale );
+			_gear3 = BodyFactory.CreateCircle( Platform.Instance.PhysicsWorld, 1.215f * _scale, 1f );
+			_gear3.Position = new Vector2( 0f * _scale, -2.615f * _scale );
 			_gear3.BodyType = BodyType.Dynamic;
-			_gear3.Friction = 1f;
+			_gear3.Friction = 1f * _scale;
 			_gear3.Restitution = 0f;
 
 			Vertices chassis = new Vertices( 3 );
-			chassis.Add( new Vector2( -2f * _scale, 1.14f * _scale ) );
-			chassis.Add( new Vector2( 0f * _scale, -2.3f * _scale ) );
-			chassis.Add( new Vector2( 2f * _scale, 1.14f * _scale ) );
+			chassis.Add( new Vector2( -1.215f * _scale, 0.7f * _scale ) );
+			chassis.Add( new Vector2( 0f * _scale, -1.4f * _scale ) );
+			chassis.Add( new Vector2( 1.215f * _scale, 0.7f * _scale ) );
 
-			PolygonShape robotChassis = new PolygonShape( chassis, 2f );
+			PolygonShape robotChassis = new PolygonShape( chassis, 7f );
 
 			_robotBody = new Body( Platform.Instance.PhysicsWorld );
 			_robotBody.BodyType = BodyType.Dynamic;
@@ -185,23 +183,23 @@ namespace VertexArmy.Entities.Physics
 
 			_robotBody.AngularDamping = 100f;
 
-			_joint1 = new LineJoint( _robotBody, _gear1, _gear1.Position, new Vector2( 0.66f, -0.33f ) );
-			_joint2 = new LineJoint( _robotBody, _gear2, _gear2.Position, new Vector2( -0.66f, -0.33f ) );
-			_joint3 = new LineJoint( _robotBody, _gear3, _gear3.Position, new Vector2( 0f, 0.76f ) );
+			_joint1 = new LineJoint( _robotBody, _gear1, _gear1.Position, new Vector2( 0.66f, -0.33f ) * 1f );
+			_joint2 = new LineJoint( _robotBody, _gear2, _gear2.Position, new Vector2( -0.66f, -0.33f ) * 1f );
+			_joint3 = new LineJoint( _robotBody, _gear3, _gear3.Position, new Vector2( 0f, 0.76f ) * 1f);
 
 			_joint3.MaxMotorTorque = 60.0f * _scale;
 			_joint3.MotorEnabled = true;
-			_joint3.Frequency = 20f;
+			_joint3.Frequency = 10f;
 			_joint3.DampingRatio = 0.85f;
 
 			_joint1.MaxMotorTorque = 60.0f * _scale;
 			_joint1.MotorEnabled = true;
-			_joint1.Frequency = 20f;
+			_joint1.Frequency = 10f;
 			_joint1.DampingRatio = 0.85f;
 
 			_joint2.MaxMotorTorque = 60.0f * _scale;
 			_joint2.MotorEnabled = true;
-			_joint2.Frequency = 20f;
+			_joint2.Frequency = 10f;
 			_joint2.DampingRatio = 0.85f;
 
 			Platform.Instance.PhysicsWorld.AddJoint( _joint1 );
@@ -210,26 +208,27 @@ namespace VertexArmy.Entities.Physics
 
 			_path = new Path();
 
-			_path.Add( new Vector2( -3.9f * _scale, 2.8f * _scale ) );
-			_path.Add( new Vector2( 0f * _scale, -4.6f * _scale ) );
 			_path.Add( new Vector2( 3.9f * _scale, 2.8f * _scale ) );
+			_path.Add( new Vector2( 0f * _scale, -4.6f * _scale ) );
+			_path.Add( new Vector2( -3.9f * _scale, 2.8f * _scale ) );
 
 			_path.Closed = true;
 
 			List<Shape> shapes = new List<Shape>( 2 );
 
-			shapes.Add( new PolygonShape( PolygonTools.CreateRectangle( 0.15f * _scale, 0.27f * _scale, new Vector2( 0.075f * _scale, 0.135f * _scale ), 0f ), 2f ) );
-			shapes.Add( new CircleShape( 0.27f * _scale, 2f ) );
+			shapes.Add( new PolygonShape( PolygonTools.CreateRectangle( 0.101f * _scale, 0.32f * _scale, new Vector2( 0f, 0f * _scale), 0f ), 2f ) );
+			shapes.Add( new PolygonShape( PolygonTools.CreateRectangle( 0.1f * _scale, 0.18f * _scale, new Vector2( 0.12f * _scale, 0f * _scale ), 0f ), 2f ) );
 
-			_bodies = PathManager.EvenlyDistributeShapesAlongPath( Platform.Instance.PhysicsWorld, _path, shapes, BodyType.Dynamic, 30, 1 );
+			_bodies = PathManager.EvenlyDistributeShapesAlongPath( Platform.Instance.PhysicsWorld, _path, shapes, BodyType.Dynamic, 29, 1 );
 
 			foreach ( Body b in _bodies )
 			{
-				b.Friction = 1f;
+				b.Friction = 1f * _scale;
 				b.Restitution = 0f;
 			}
 
-			PathManager.AttachBodiesWithRevoluteJoint( Platform.Instance.PhysicsWorld, _bodies, new Vector2( 0, 0.365f * _scale ), new Vector2( 0, -0.365f * _scale ), true, false );
+			PathManager.AttachBodiesWithRevoluteJoint( Platform.Instance.PhysicsWorld, _bodies, new Vector2( -0.101f * _scale, 0.375f * _scale ), new Vector2( -0.15f * _scale, -0.375f * _scale ), true, false );
+			 
 		}
 
 		public Vector2 GetGearPosition( int index )

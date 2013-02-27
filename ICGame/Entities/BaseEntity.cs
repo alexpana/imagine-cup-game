@@ -1,5 +1,6 @@
 ﻿
 using System.Runtime.Serialization;
+using Microsoft.Xna.Framework;
 using VertexArmy.Entities.Physics;
 using VertexArmy.Graphics;
 
@@ -12,5 +13,12 @@ namespace VertexArmy.Entities
 		public IPhysicsEntity BasePhysicsEntity { get; set; }
 		[DataMember]
 		public SceneNode SceneNode { get; set; }
+		[DataMember]
+		EntityFlags Flags { get; set; }
+
+		public void OnUpdate( GameTime dt )
+		{
+			/* override this */
+		}
 	}
 }

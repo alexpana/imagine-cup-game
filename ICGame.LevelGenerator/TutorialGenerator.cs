@@ -25,7 +25,7 @@ namespace ICGame.LevelGenerator
 			// create entities
 			RobotEntity robot = new RobotEntity
 			{
-				BasePhysicsEntity = new PhysicsEntityTank( 0.7f ),
+				BasePhysicsEntity = new PhysicsEntityRobot( 0.7f ),
 				SceneNode = new SceneNode()
 			};
 

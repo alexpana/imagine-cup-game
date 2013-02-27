@@ -32,6 +32,11 @@ namespace VertexArmy.States
 		private PhysicsEntityRobot _robot;
 		private bool _actionFreeze;
 		private bool _actionReset;
+		private float _robotSpeed;
+		private float _robotMaxSpeed;
+
+		private Vector2 _lastRobotPosition;
+		
 
 		public GameStatePhysicsRobot( ContentManager content )
 		{
@@ -92,6 +97,8 @@ namespace VertexArmy.States
 				{
 					_robot.Position = new Vector2( 50f, 5f );
 					_actionReset = true;
+					_robotMaxSpeed = 0;
+					_lastRobotPosition = _robot.Position;
 				}
 			}
 
@@ -102,11 +109,20 @@ namespace VertexArmy.States
 
 			if ( Keyboard.GetState( PlayerIndex.One ).IsKeyDown( Keys.O ) )
 			{
-				_robot.Rotation -= 0.005f * (float)dt.TotalGameTime.TotalSeconds;
+				_robot.Rotation -= 0.4f * (float)dt.ElapsedGameTime.TotalSeconds;
 			}
 			else if ( Keyboard.GetState( PlayerIndex.One ).IsKeyDown( Keys.P ) )
 			{
-				_robot.Rotation += 0.005f * ( float ) dt.TotalGameTime.TotalSeconds;
+				_robot.Rotation += 0.4f * ( float ) dt.ElapsedGameTime.TotalSeconds;
+			}
+
+			float distance = (_robot.Position - _lastRobotPosition).Length();
+			_lastRobotPosition = _robot.Position;
+			_robotSpeed = distance / (float)dt.ElapsedGameTime.TotalSeconds;
+
+			if (_robotSpeed > _robotMaxSpeed)
+			{
+				_robotMaxSpeed = _robotSpeed;
 			}
 		}
 
@@ -126,6 +142,8 @@ namespace VertexArmy.States
 						);
 
 			_debugView.DrawString( 1, 1, "(R)eset, (F)reeze, Arrows to move. O,P to rotate manually." );
+			_debugView.DrawString( 1, 26, "Speed: " + _robotSpeed);
+			_debugView.DrawString( 1, 51, "MaxSpeed:" + _robotMaxSpeed );
 			_debugView.RenderDebugData( ref _projection, ref _view );
 
 		}
@@ -135,6 +153,7 @@ namespace VertexArmy.States
 
 			_ground = new Body( Platform.Instance.PhysicsWorld );
 			{
+				
 				Vertices terrain = new Vertices();
 				terrain.Add( new Vector2( -20f, 15f ) );
 				terrain.Add( new Vector2( -20f, 20f ) );
@@ -171,6 +190,15 @@ namespace VertexArmy.States
 				terrain.Add( new Vector2( 270f, 20f ) );
 				terrain.Add( new Vector2( 310f, 20f ) );
 				terrain.Add( new Vector2( 310f, 15f ) );
+				 
+
+				/* straight terrain
+				Vertices terrain = new Vertices( );
+				terrain.Add( new Vector2( -20f, 15f ) );
+				terrain.Add( new Vector2( -20f, 20f ) );
+				terrain.Add( new Vector2( 500f, 20f ) );
+				terrain.Add( new Vector2( 500f, 15f ) );
+				 */
 
 				for ( int i = 0; i < terrain.Count - 1; ++i )
 				{
@@ -182,6 +210,7 @@ namespace VertexArmy.States
 			}
 			_robot = new PhysicsEntityRobot( 1f, new Vector2( 50f, 5f ) );
 
+			/*
 			Body rec = BodyFactory.CreateRectangle( Platform.Instance.PhysicsWorld, 2f, 2f, 0.3f );
 			rec.Position = new Vector2( 100f, 10f );
 			rec.BodyType = BodyType.Dynamic;
@@ -189,6 +218,7 @@ namespace VertexArmy.States
 			rec = BodyFactory.CreateRectangle( Platform.Instance.PhysicsWorld, 2f, 10f, 1f );
 			rec.Position = new Vector2( 249f, 10f );
 			rec.BodyType = BodyType.Dynamic;
+			 */
 
 			_cameraPosition = _robot.Position.X;
 
@@ -208,6 +238,8 @@ namespace VertexArmy.States
 			_debugView.TextColor = Color.Black;
 
 			_view = Matrix.Identity;
+			_lastRobotPosition = _robot.Position;
+			_robotMaxSpeed = 0f;
 		}
 
 		public void OnClose()

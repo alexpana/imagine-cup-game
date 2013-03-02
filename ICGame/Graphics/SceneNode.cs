@@ -36,7 +36,7 @@ namespace VertexArmy.Graphics
 		{
 			_scale = new Vector3( 1, 1, 1 );
 			_position = new Vector3( 0, 0, 0 );
-			_rotation = new Quaternion();
+			_rotation = Quaternion.Identity;
 			_recomputeAbsoluteTransformation =
 				_recomputeRelativeTransformation = false;
 			_parent = null;
@@ -78,7 +78,7 @@ namespace VertexArmy.Graphics
 			{
 				_relativeTransformation = Matrix.Identity;
 				_relativeTransformation *= Matrix.CreateScale( _scale );
-				_relativeTransformation *= Matrix.Transform( _relativeTransformation, _rotation );
+				_relativeTransformation = Matrix.Transform( _relativeTransformation, _rotation );
 				_relativeTransformation *= Matrix.CreateTranslation( _position );
 
 				_recomputeRelativeTransformation = false;

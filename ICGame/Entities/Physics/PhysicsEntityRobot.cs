@@ -151,19 +151,21 @@ namespace VertexArmy.Entities.Physics
 
 		private void LoadPhysics()
 		{
-			_gear1 = BodyFactory.CreateCircle( Platform.Instance.PhysicsWorld, 1.215f * _scale, 1f );
+			float gearRadius = 1.215f;
+
+			_gear1 = BodyFactory.CreateCircle( Platform.Instance.PhysicsWorld, gearRadius * _scale, 1f );
 			_gear1.Position = new Vector2( -2.301f * _scale, 1.243f * _scale );
 			_gear1.BodyType = BodyType.Dynamic;
 			_gear1.Friction = 1f * _scale;
 			_gear1.Restitution = 0f;
 
-			_gear2 = BodyFactory.CreateCircle( Platform.Instance.PhysicsWorld, 1.215f * _scale, 1f );
+			_gear2 = BodyFactory.CreateCircle( Platform.Instance.PhysicsWorld, gearRadius * _scale, 1f );
 			_gear2.Position = new Vector2( 2.301f * _scale, 1.243f * _scale );
 			_gear2.BodyType = BodyType.Dynamic;
 			_gear2.Friction = 1f * _scale;
 			_gear2.Restitution = 0f;
 
-			_gear3 = BodyFactory.CreateCircle( Platform.Instance.PhysicsWorld, 1.215f * _scale, 1f );
+			_gear3 = BodyFactory.CreateCircle( Platform.Instance.PhysicsWorld, gearRadius * _scale, 1f );
 			_gear3.Position = new Vector2( 0f * _scale, -2.615f * _scale );
 			_gear3.BodyType = BodyType.Dynamic;
 			_gear3.Friction = 1f * _scale;

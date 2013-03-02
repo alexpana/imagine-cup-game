@@ -1,5 +1,5 @@
 float4x4 matWorldViewProj;
-float4x4 matWorldViewInverseTranspose;
+float4x4 matWorldInverseTranspose;
 float4x4 matWorld;
 float3 eyePosition;
 float3 lightPosition;
@@ -65,8 +65,8 @@ VertexShaderOutput main_VS(VertexShaderInput input)
     VertexShaderOutput output = (VertexShaderOutput)0;
 
 	float3 posW = mul(float4(input.Position.xyz, 1.0), matWorld).xyz;
-    float3 normalW = normalize(mul(float4(input.Normal, 0.0), matWorldViewInverseTranspose).xyz);
-	float3 tangentW = normalize(mul(float4(input.Tangent, 0.0), matWorldViewInverseTranspose).xyz);
+    float3 normalW = normalize(mul(float4(input.Normal, 0.0), matWorldInverseTranspose).xyz);
+	float3 tangentW = normalize(mul(float4(input.Tangent, 0.0), matWorldInverseTranspose).xyz);
 	float3 bitangentW = normalize(cross(normalW, tangentW));
 
 	output.Texcoord.xy = input.Texcoord * 2.0;
@@ -90,25 +90,22 @@ VertexShaderOutput main_VS(VertexShaderInput input)
 float4 main_PS(VertexShaderOutput input) : COLOR
 {
 	float3 N = (2.0 * tex2D(NormalMapSampler, input.Texcoord.xy) - 1.0).xyz;
-	N = float3(N.x, N.y, N.z);
+
 	float3 L = normalize(input.ToLightT);
 	float3 E = normalize(input.ToEyeT);
 	float3 R = -reflect(L, N);
 
 	float Kd = max(dot(L, N), 0.0);
-	float Ks = pow(max(dot(E, R), 0.0), 10);
-	float Ka = tex2D( AOMapSampler, input.Texcoord.xy) * 0.1;
+	float Ks = pow(max(dot(E, R), 0.0), 25);
+	float Ka = tex2D( AOMapSampler, input.Texcoord.xy) * 0.3;
 
 
 	float4 ambient = Ka * tex2D( ColorMapSampler, input.Texcoord.xy);
 	float4 diffuse = Kd * tex2D( ColorMapSampler, input.Texcoord.xy);
-	float4 specular = Ks * tex2D( SpecularMapSampler, input.Texcoord.xy);;
+	float4 specular = Ks * tex2D( SpecularMapSampler, input.Texcoord.xy);
 
-
-   // return float4((E + 1) / 2, 1);
-    //return float4((N + 1) / 2, 1);
 	return diffuse + ambient + specular;
-   //return diffuse;
+   
 }
 
 technique Technique1

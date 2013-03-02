@@ -38,7 +38,7 @@ namespace VertexArmy.States
 
 			_scene = new Scene { Eye = new Vector3(0, 0, -300), Light = new Vector3(0, 5000, 0) };
 			_node = new RobotSceneNode( );
-			_node.LoadNode( _cm, "tracks" );
+			_node.LoadNode( _cm );
 			//_node.SetScale(new Vector3(0.05f, 0.05f, 0.05f));
 		}
 

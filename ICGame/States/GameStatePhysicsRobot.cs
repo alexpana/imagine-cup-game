@@ -45,6 +45,8 @@ namespace VertexArmy.States
 
 		public void OnUpdate( GameTime dt )
 		{
+			bool moving = false;
+
 			if ( !_cameraMoving && Math.Abs( _cameraPosition - _robot.Position.X ) > _cameraError )
 			{
 				_cameraMoving = true;
@@ -70,10 +72,12 @@ namespace VertexArmy.States
 			_robot.Move( 0f );
 			if ( Keyboard.GetState( PlayerIndex.One ).IsKeyDown( Keys.Left ) )
 			{
+				moving = true;
 				_robot.Move( -40f );
 			}
 			else if ( Keyboard.GetState( PlayerIndex.One ).IsKeyDown( Keys.Right ) )
 			{
+				moving = true;
 				_robot.Move( 40f );
 			}
 
@@ -119,6 +123,16 @@ namespace VertexArmy.States
 			float distance = (_robot.Position - _lastRobotPosition).Length();
 			_lastRobotPosition = _robot.Position;
 			_robotSpeed = distance / (float)dt.ElapsedGameTime.TotalSeconds;
+
+			if ( !moving && _robotSpeed < 0.2f )
+			{
+				_robot.ResetDynamics( );
+			}
+
+			if ( !moving && _robotSpeed < 0.02f )
+			{
+				_robot.Awake = false;
+			}
 
 			if (_robotSpeed > _robotMaxSpeed)
 			{
@@ -208,7 +222,8 @@ namespace VertexArmy.States
 				_ground.Friction = 1.2f;
 				_ground.Restitution = 0f;
 			}
-			_robot = new PhysicsEntityRobot( 1f, new Vector2( 50f, 5f ) );
+			_robot = new PhysicsEntityRobot( 0.5f, new Vector2( 50f, 5f ) );
+			_robot.Enabled = false;
 
 			/*
 			Body rec = BodyFactory.CreateRectangle( Platform.Instance.PhysicsWorld, 2f, 2f, 0.3f );

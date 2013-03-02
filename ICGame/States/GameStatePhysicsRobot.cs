@@ -32,11 +32,6 @@ namespace VertexArmy.States
 		private PhysicsEntityRobot _robot;
 		private bool _actionFreeze;
 		private bool _actionReset;
-		private float _robotSpeed;
-		private float _robotMaxSpeed;
-
-		private Vector2 _lastRobotPosition;
-		
 
 		public GameStatePhysicsRobot( ContentManager content )
 		{
@@ -101,8 +96,6 @@ namespace VertexArmy.States
 				{
 					_robot.Position = new Vector2( 50f, 5f );
 					_actionReset = true;
-					_robotMaxSpeed = 0;
-					_lastRobotPosition = _robot.Position;
 				}
 			}
 
@@ -120,24 +113,8 @@ namespace VertexArmy.States
 				_robot.Rotation += 0.4f * ( float ) dt.ElapsedGameTime.TotalSeconds;
 			}
 
-			float distance = (_robot.Position - _lastRobotPosition).Length();
-			_lastRobotPosition = _robot.Position;
-			_robotSpeed = distance / (float)dt.ElapsedGameTime.TotalSeconds;
+			_robot.OnUpdate( dt );
 
-			if ( !moving && _robotSpeed < 0.2f )
-			{
-				_robot.ResetDynamics( );
-			}
-
-			if ( !moving && _robotSpeed < 0.02f )
-			{
-				_robot.Awake = false;
-			}
-
-			if (_robotSpeed > _robotMaxSpeed)
-			{
-				_robotMaxSpeed = _robotSpeed;
-			}
 		}
 
 		public void RenderScene()
@@ -156,8 +133,8 @@ namespace VertexArmy.States
 						);
 
 			_debugView.DrawString( 1, 1, "(R)eset, (F)reeze, Arrows to move. O,P to rotate manually." );
-			_debugView.DrawString( 1, 26, "Speed: " + _robotSpeed);
-			_debugView.DrawString( 1, 51, "MaxSpeed:" + _robotMaxSpeed );
+			_debugView.DrawString( 1, 26, "Speed: " + _robot.Speed);
+			_debugView.DrawString( 1, 51, "MaxSpeed:" + _robot.MaxAttainedSpeed );
 			_debugView.RenderDebugData( ref _projection, ref _view );
 
 		}
@@ -222,7 +199,7 @@ namespace VertexArmy.States
 				_ground.Friction = 1.2f;
 				_ground.Restitution = 0f;
 			}
-			_robot = new PhysicsEntityRobot( 0.5f, new Vector2( 50f, 5f ) );
+			_robot = new PhysicsEntityRobot( 1f, new Vector2( 50f, 5f ) );
 			_robot.Enabled = false;
 
 			/*
@@ -253,8 +230,6 @@ namespace VertexArmy.States
 			_debugView.TextColor = Color.Black;
 
 			_view = Matrix.Identity;
-			_lastRobotPosition = _robot.Position;
-			_robotMaxSpeed = 0f;
 		}
 
 		public void OnClose()

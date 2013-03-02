@@ -76,5 +76,10 @@ namespace VertexArmy.Entities.Physics
 		{
 			CreateBody();
 		}
+
+		public void OnUpdate(GameTime dt)
+		{
+			
+		}
 	}
 }

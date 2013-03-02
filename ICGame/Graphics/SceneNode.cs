@@ -136,5 +136,10 @@ namespace VertexArmy.Graphics
 		{
 			return _children[index];
 		}
+
+		public void OnUpdate(GameTime dt)
+		{
+			
+		}
 	}
 }

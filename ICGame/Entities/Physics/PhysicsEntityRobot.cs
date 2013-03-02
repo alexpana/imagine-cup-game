@@ -57,6 +57,11 @@ namespace VertexArmy.Entities.Physics
 		private LineJoint _joint2;
 		private LineJoint _joint3;
 
+		private float _robotSpeed;
+		private float _robotMaxSpeed;
+
+		private Vector2 _lastRobotPosition;
+
 		[DataMember]
 		private float _scale;
 
@@ -86,7 +91,8 @@ namespace VertexArmy.Entities.Physics
 					b.ResetDynamics();
 					b.SetTransform( b.Position + relative, b.Rotation );
 				}
-				 
+				resetMaxAttainedSpeed();
+				_lastRobotPosition = Position;
 			}
 
 			get { return _robotBody.Position; }
@@ -165,6 +171,16 @@ namespace VertexArmy.Entities.Physics
 		public Vector2 ChassisPosition
 		{
 			get { return _robotBody.Position; }
+		}
+
+		public float Speed
+		{
+			get { return _robotSpeed; }
+		}
+
+		public float MaxAttainedSpeed
+		{
+			get { return _robotMaxSpeed; }
 		}
 
 		/* Constructors */
@@ -278,6 +294,11 @@ namespace VertexArmy.Entities.Physics
 			 
 		}
 
+		public void resetMaxAttainedSpeed()
+		{
+			_robotMaxSpeed = 0f;
+		}
+
 		public Vector2 GetGearPosition( int index )
 		{
 			switch ( index )
@@ -338,6 +359,34 @@ namespace VertexArmy.Entities.Physics
 			foreach ( Body b in _bodies )
 			{
 				b.ResetDynamics();
+			}
+		}
+
+		public void OnUpdate(GameTime dt)
+		{
+			float distance = ( Position - _lastRobotPosition ).Length( );
+			_lastRobotPosition = Position;
+			_robotSpeed = distance / ( float ) dt.ElapsedGameTime.TotalSeconds;
+
+			bool moving = false;
+			if ( _joint1.MotorSpeed != 0f)
+			{
+				moving = true;
+			}
+
+			if ( !moving && _robotSpeed < 0.1f )
+			{
+				ResetDynamics( );
+			}
+
+			if ( !moving && _robotSpeed < 0.01f )
+			{
+				Awake = false;
+			}
+
+			if ( _robotSpeed > _robotMaxSpeed )
+			{
+				_robotMaxSpeed = _robotSpeed;
 			}
 		}
 	}

@@ -18,7 +18,9 @@ namespace VertexArmy.Entities
 
 		public void OnUpdate( GameTime dt )
 		{
-			/* override this */
+			/* override this if needed*/
+			BasePhysicsEntity.OnUpdate(dt);
+			SceneNode.OnUpdate(dt);
 		}
 	}
 }

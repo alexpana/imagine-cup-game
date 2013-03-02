@@ -33,12 +33,12 @@ namespace VertexArmy.States
 			//Global.Platform.Instance.Device.RasterizerState = new RasterizerState { CullMode = CullMode.None, FillMode = FillMode.WireFrame};
 		
 			GlobalMatrix.Instance.LoadMatrix( EMatrix.Projection, Matrix.CreatePerspectiveFieldOfView( MathHelper.PiOver4, Global.Platform.Instance.Device.Viewport.AspectRatio, 1, 10000 ) );
-			GlobalMatrix.Instance.LoadMatrix( EMatrix.View, Matrix.CreateLookAt( new Vector3( 0, 0, -240 ), new Vector3( 0, 0, 0 ), new Vector3( 0, 1, 0 ) ) );
+			GlobalMatrix.Instance.LoadMatrix( EMatrix.View, Matrix.CreateLookAt( new Vector3( 0, 0, -300 ), new Vector3( 0, 0, 0 ), new Vector3( 0, 1, 0 ) ) );
 
 
-			_scene = new Scene { Eye = new Vector3(0, 0, 0), Light = new Vector3(0, 5000, 0) };
+			_scene = new Scene { Eye = new Vector3(0, 0, -300), Light = new Vector3(0, 5000, 0) };
 			_node = new RobotSceneNode( );
-			_node.LoadNode( _cm, "sphere" );
+			_node.LoadNode( _cm, "tracks" );
 			//_node.SetScale(new Vector3(0.05f, 0.05f, 0.05f));
 		}
 

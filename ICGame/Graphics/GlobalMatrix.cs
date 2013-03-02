@@ -64,7 +64,7 @@ namespace VertexArmy.Graphics
 			{
 				if(_matWorldF)
 				{
-					_matWorld = _stacks[( int ) EMatrix.Projection][_si[( int ) EMatrix.Projection]];
+					_matWorld = _stacks[( int ) EMatrix.World][_si[( int ) EMatrix.World]];
 					_matWorldF = false;
 				}
 				return _matWorld;

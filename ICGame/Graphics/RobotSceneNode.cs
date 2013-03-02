@@ -40,7 +40,7 @@ namespace VertexArmy.Graphics
 			_effect.Parameters["lightPosition"].SetValue( scn.Light );
 			foreach (ModelMesh m in _robom.Meshes) {
 				_effect.Parameters["matWorldViewProj"].SetValue( m.ParentBone.Transform * GlobalMatrix.Instance.MatWorldViewProjection );
-				_effect.Parameters["matWorldViewInverseTranspose"].SetValue( Matrix.Invert(Matrix.Transpose(m.ParentBone.Transform)) * GlobalMatrix.Instance.MatWorldInverseTranspose );
+				_effect.Parameters["matWorldInverseTranspose"].SetValue( Matrix.Invert( Matrix.Transpose( m.ParentBone.Transform ) ) * GlobalMatrix.Instance.MatWorldInverseTranspose );
 				_effect.Parameters["matWorld"].SetValue( m.ParentBone.Transform * GlobalMatrix.Instance.MatWorld );
 				_effect.Parameters["ColorMap"].SetValue(_color);
 				_effect.Parameters["NormalMap"].SetValue(_normal);
@@ -81,14 +81,19 @@ namespace VertexArmy.Graphics
 		{
 			_ttime += dt;
 			SetRotation(Quaternion.CreateFromAxisAngle(new Vector3(0,1,0), _ttime/1000 ));
+			
 
 			float sintt = (float)Math.Sin((double)_ttime / 5000);
 			float sinttf = ( float ) Math.Sin( ( double ) _ttime / 1000 );
 
-			sintt *= sintt + 0.5f;
+			sintt *= sintt;
 
-			//SetScale(new Vector3(sintt, sintt, sintt));
-			//SetPosition( new Vector3( 0, 30*sinttf, 0 ) );
+			sintt += 0.5f;
+
+			sintt /= 4;
+
+			//SetScale( new Vector3( 0.5f, 0.5f, 0.5f ) );
+			SetPosition( new Vector3( 0, 30*sinttf, 0 ) );
 		}
 	}
 }

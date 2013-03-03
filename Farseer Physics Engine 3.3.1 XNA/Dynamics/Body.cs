@@ -56,6 +56,20 @@ namespace FarseerPhysics.Dynamics
 		Dynamic,
 	}
 
+	public enum BodyGeometryType
+	{
+		None,
+		Rectangle,
+		Ellipse,
+		Circle,
+		CompoundPolygon,
+		Polygon,
+		LoopShape,
+		LineArc,
+		SolidArc,
+		Edge
+	}
+
 	[Flags]
 	public enum BodyFlags
 	{
@@ -72,6 +86,8 @@ namespace FarseerPhysics.Dynamics
 
 	public class Body : IDisposable
 	{
+		public BodyGeometryType Geometry { get; set; }
+
 		private static int _bodyIdCounter;
 		internal float AngularVelocityInternal;
 		public int BodyId;

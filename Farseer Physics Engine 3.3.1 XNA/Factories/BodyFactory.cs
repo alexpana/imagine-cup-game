@@ -29,6 +29,7 @@ namespace FarseerPhysics.Factories
 		public static Body CreateBody( World world, Vector2 position, object userData )
 		{
 			Body body = CreateBody( world, userData );
+			body.Geometry = BodyGeometryType.None;
 			body.Position = position;
 			return body;
 		}
@@ -41,6 +42,7 @@ namespace FarseerPhysics.Factories
 		public static Body CreateEdge( World world, Vector2 start, Vector2 end, object userData )
 		{
 			Body body = CreateBody( world );
+			body.Geometry = BodyGeometryType.Edge;
 			FixtureFactory.AttachEdge( start, end, body, userData );
 			return body;
 		}
@@ -64,6 +66,7 @@ namespace FarseerPhysics.Factories
 										   object userData )
 		{
 			Body body = CreateBody( world, position );
+			body.Geometry = BodyGeometryType.LoopShape;
 			FixtureFactory.AttachLoopShape( vertices, body, userData );
 			return body;
 		}
@@ -93,6 +96,7 @@ namespace FarseerPhysics.Factories
 				throw new ArgumentOutOfRangeException( "height", "Height must be more than 0 meters" );
 
 			Body newBody = CreateBody( world, position );
+			newBody.Geometry = BodyGeometryType.Rectangle;
 			Vertices rectangleVertices = PolygonTools.CreateRectangle( width / 2, height / 2 );
 			PolygonShape rectangleShape = new PolygonShape( rectangleVertices, density );
 			newBody.CreateFixture( rectangleShape, userData );
@@ -118,6 +122,7 @@ namespace FarseerPhysics.Factories
 		public static Body CreateCircle( World world, float radius, float density, Vector2 position, object userData )
 		{
 			Body body = CreateBody( world, position );
+			body.Geometry = BodyGeometryType.Circle;
 			FixtureFactory.AttachCircle( radius, density, body, userData );
 			return body;
 		}
@@ -143,6 +148,7 @@ namespace FarseerPhysics.Factories
 										 Vector2 position, object userData )
 		{
 			Body body = CreateBody( world, position );
+			body.Geometry = BodyGeometryType.Ellipse;
 			FixtureFactory.AttachEllipse( xRadius, yRadius, edges, density, body, userData );
 			return body;
 		}
@@ -166,6 +172,7 @@ namespace FarseerPhysics.Factories
 										 object userData )
 		{
 			Body body = CreateBody( world, position );
+			body.Geometry = BodyGeometryType.Polygon;
 			FixtureFactory.AttachPolygon( vertices, density, body, userData );
 			return body;
 		}
@@ -192,6 +199,7 @@ namespace FarseerPhysics.Factories
 		{
 			//We create a single body
 			Body polygonBody = CreateBody( world, position );
+			polygonBody.Geometry = BodyGeometryType.CompoundPolygon;
 			FixtureFactory.AttachCompoundPolygon( list, density, polygonBody, userData );
 			return polygonBody;
 		}
@@ -384,6 +392,7 @@ namespace FarseerPhysics.Factories
 										 float angle, bool closed )
 		{
 			Body body = CreateBody( world );
+			body.Geometry = BodyGeometryType.LineArc;
 			FixtureFactory.AttachLineArc( radians, sides, radius, position, angle, closed, body );
 			return body;
 		}
@@ -392,6 +401,7 @@ namespace FarseerPhysics.Factories
 										  Vector2 position, float angle )
 		{
 			Body body = CreateBody( world );
+			body.Geometry = BodyGeometryType.SolidArc;
 			FixtureFactory.AttachSolidArc( density, radians, sides, radius, position, angle, body );
 			return body;
 		}

@@ -67,10 +67,7 @@ namespace VertexArmy.Entities.Physics
 		private Vector2 _serializePosition;
 
 		[DataMember]
-		public float PhysicsToWorldScale { get; set; }
-
-		[DataMember]
-		public float PhysicsInternalScale { get; set; }
+		public float PhysicsInternalScale { get; internal set; }
 
 
 		/* Interface requirement */

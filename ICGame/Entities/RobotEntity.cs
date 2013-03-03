@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using VertexArmy.Entities.Physics;
 using VertexArmy.Graphics;
+using VertexArmy.Utilities;
 
 namespace VertexArmy.Entities
 {
@@ -20,7 +21,7 @@ namespace VertexArmy.Entities
 			Vector3 position = new Vector3(BasePhysicsEntity.Position.X, BasePhysicsEntity.Position.Y, 0.0f);
 			Quaternion rotation = new Quaternion(new Vector3(0,0,1), BasePhysicsEntity.Rotation);
 
-			SceneNode.SetPosition(position * BasePhysicsEntity.PhysicsToWorldScale);
+			SceneNode.SetPosition(UnitsConverter.ToDisplayUnits(position));
 			SceneNode.SetRotation(rotation);
 		}
 	}

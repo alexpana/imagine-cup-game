@@ -8,6 +8,7 @@ namespace VertexArmy.Entities.Physics
 		Vector2 Position { get; set; }
 		float Rotation { get; set; }
 		bool Enabled { get; set; }
+		float PhysicsToWorldScale { get; set; }
 
 		void OnUpdate(GameTime dt);
 	}

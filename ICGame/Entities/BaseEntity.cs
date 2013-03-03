@@ -16,7 +16,7 @@ namespace VertexArmy.Entities
 		[DataMember]
 		EntityFlags Flags { get; set; }
 
-		public void OnUpdate( GameTime dt )
+		public virtual void OnUpdate( GameTime dt )
 		{
 			/* override this if needed*/
 			BasePhysicsEntity.OnUpdate(dt);

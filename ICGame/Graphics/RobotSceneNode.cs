@@ -65,7 +65,7 @@ namespace VertexArmy.Graphics
 			_linkmatrix[index] *= Matrix.CreateTranslation( position );
 		}
 
-		public void OnRender(float dt, Scene scn, int pass)
+		public override void OnRender(float dt, Scene scn, int pass)
 		{
 			_effect.CurrentTechnique.Passes[pass].Apply( );
 			_effect.Parameters["eyePosition"].SetValue( scn.Eye );

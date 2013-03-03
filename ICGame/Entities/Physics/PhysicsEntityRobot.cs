@@ -62,12 +62,16 @@ namespace VertexArmy.Entities.Physics
 
 		private Vector2 _lastRobotPosition;
 
-		[DataMember]
-		private float _scale;
-
 		/* Serialization helpers */
 		[DataMember]
 		private Vector2 _serializePosition;
+
+		[DataMember]
+		public float PhysicsToWorldScale { get; set; }
+
+		[DataMember]
+		public float PhysicsInternalScale { get; set; }
+
 
 		/* Interface requirement */
 		public Vector2 Position
@@ -158,11 +162,6 @@ namespace VertexArmy.Entities.Physics
 
 		/* Custom properties */
 
-		public float Scale 
-		{ 
-			get { return _scale; }
-		}
-
 		public float ChassisRotation
 		{
 			get { return _robotBody.Rotation; }
@@ -187,13 +186,13 @@ namespace VertexArmy.Entities.Physics
 		public PhysicsEntityRobot( float scale )
 		{
 			_enabled = false;
-			_scale = scale;
+			PhysicsInternalScale = scale;
 			LoadPhysics();
 		}
 
 		public PhysicsEntityRobot( float scale, Vector2 position )
 		{
-			_scale = scale;
+			PhysicsInternalScale = scale;
 			_enabled = true;
 			LoadPhysics();
 			Position = position;
@@ -202,9 +201,9 @@ namespace VertexArmy.Entities.Physics
 		/* Rest of methods */
 		public void Move( float value )
 		{
-			_joint1.MotorSpeed = value * _scale;
-			_joint2.MotorSpeed = value * _scale;
-			_joint3.MotorSpeed = value * _scale;
+			_joint1.MotorSpeed = value * PhysicsInternalScale;
+			_joint2.MotorSpeed = value * PhysicsInternalScale;
+			_joint3.MotorSpeed = value * PhysicsInternalScale;
 		}
 
 		private void LoadPhysics()
@@ -212,29 +211,29 @@ namespace VertexArmy.Entities.Physics
 			float chassisHeight = ChassisEdgeSize * ( float ) Math.Sqrt( 3 ) / 2f;
 
 			Vertices chassis = new Vertices( 3 );
-			chassis.Add( new Vector2( -ChassisEdgeSize / 2f * _scale, chassisHeight / 3f * _scale ) );
-			chassis.Add( new Vector2( 0f * _scale, -chassisHeight * 2f / 3f * _scale ) );
-			chassis.Add( new Vector2( ChassisEdgeSize / 2f * _scale, chassisHeight / 3f * _scale ) );
+			chassis.Add( new Vector2( -ChassisEdgeSize / 2f * PhysicsInternalScale, chassisHeight / 3f * PhysicsInternalScale ) );
+			chassis.Add( new Vector2( 0f * PhysicsInternalScale, -chassisHeight * 2f / 3f * PhysicsInternalScale ) );
+			chassis.Add( new Vector2( ChassisEdgeSize / 2f * PhysicsInternalScale, chassisHeight / 3f * PhysicsInternalScale ) );
 
 			float gearDistanceHeight = GearDistanceFromChassis / (float)Math.Sqrt( 5 );
 			float gearDistanceWidth = gearDistanceHeight * 2;
 
-			_gear1 = BodyFactory.CreateCircle( Platform.Instance.PhysicsWorld, GearRadius * _scale, GearDensity );
-			_gear1.Position = new Vector2( chassis[0].X - ( gearDistanceWidth * _scale ), chassis[0].Y + ( gearDistanceHeight * _scale ) );
+			_gear1 = BodyFactory.CreateCircle( Platform.Instance.PhysicsWorld, GearRadius * PhysicsInternalScale, GearDensity );
+			_gear1.Position = new Vector2( chassis[0].X - ( gearDistanceWidth * PhysicsInternalScale ), chassis[0].Y + ( gearDistanceHeight * PhysicsInternalScale ) );
 			_gear1.BodyType = BodyType.Dynamic;
-			_gear1.Friction = 1f * _scale;
+			_gear1.Friction = 1f * PhysicsInternalScale;
 			_gear1.Restitution = 0f;
 
-			_gear2 = BodyFactory.CreateCircle( Platform.Instance.PhysicsWorld, GearRadius * _scale, GearDensity );
-			_gear2.Position = new Vector2( chassis[2].X + ( gearDistanceWidth * _scale ), chassis[2].Y + ( gearDistanceHeight * _scale ) );
+			_gear2 = BodyFactory.CreateCircle( Platform.Instance.PhysicsWorld, GearRadius * PhysicsInternalScale, GearDensity );
+			_gear2.Position = new Vector2( chassis[2].X + ( gearDistanceWidth * PhysicsInternalScale ), chassis[2].Y + ( gearDistanceHeight * PhysicsInternalScale ) );
 			_gear2.BodyType = BodyType.Dynamic;
-			_gear2.Friction = 1f * _scale;
+			_gear2.Friction = 1f * PhysicsInternalScale;
 			_gear2.Restitution = 0f;
 
-			_gear3 = BodyFactory.CreateCircle( Platform.Instance.PhysicsWorld, GearRadius * _scale, GearDensity );
-			_gear3.Position = new Vector2( 0f, chassis[1].Y - (GearDistanceFromChassis * _scale) );
+			_gear3 = BodyFactory.CreateCircle( Platform.Instance.PhysicsWorld, GearRadius * PhysicsInternalScale, GearDensity );
+			_gear3.Position = new Vector2( 0f, chassis[1].Y - (GearDistanceFromChassis * PhysicsInternalScale) );
 			_gear3.BodyType = BodyType.Dynamic;
-			_gear3.Friction = 1f * _scale;
+			_gear3.Friction = 1f * PhysicsInternalScale;
 			_gear3.Restitution = 0f;
 
 			PolygonShape robotChassis = new PolygonShape( chassis, ChassisDensity );
@@ -250,17 +249,17 @@ namespace VertexArmy.Entities.Physics
 			_joint2 = new LineJoint( _robotBody, _gear2, _gear2.Position, new Vector2( -0.66f, -0.33f ) * JointLengthModifier );
 			_joint3 = new LineJoint( _robotBody, _gear3, _gear3.Position, new Vector2( 0f, 0.76f ) * JointLengthModifier );
 
-			_joint3.MaxMotorTorque = GearMaxTorque * _scale;
+			_joint3.MaxMotorTorque = GearMaxTorque * PhysicsInternalScale;
 			_joint3.MotorEnabled = true;
 			_joint3.Frequency = JointFrequency;
 			_joint3.DampingRatio = JointDamping;
 
-			_joint1.MaxMotorTorque = GearMaxTorque * _scale;
+			_joint1.MaxMotorTorque = GearMaxTorque * PhysicsInternalScale;
 			_joint1.MotorEnabled = true;
 			_joint1.Frequency = JointFrequency;
 			_joint1.DampingRatio = JointDamping;
 
-			_joint2.MaxMotorTorque = GearMaxTorque * _scale;
+			_joint2.MaxMotorTorque = GearMaxTorque * PhysicsInternalScale;
 			_joint2.MotorEnabled = true;
 			_joint2.Frequency = JointFrequency;
 			_joint2.DampingRatio = JointDamping;
@@ -279,18 +278,18 @@ namespace VertexArmy.Entities.Physics
 
 			List<Shape> shapes = new List<Shape>( 2 );
 
-			shapes.Add( new PolygonShape( PolygonTools.CreateRectangle( _treadSize.X * _scale, _treadSize.Y * _scale, new Vector2( 0f, 0f ), 0f ), TreadDensity ) );
-			shapes.Add( new PolygonShape( PolygonTools.CreateRectangle( _treadFeetSize.X * _scale, _treadFeetSize.Y * _scale, new Vector2( 0.12f * _scale, 0f * _scale ), 0f ), TreadFeetDensity ) );
+			shapes.Add( new PolygonShape( PolygonTools.CreateRectangle( _treadSize.X * PhysicsInternalScale, _treadSize.Y * PhysicsInternalScale, new Vector2( 0f, 0f ), 0f ), TreadDensity ) );
+			shapes.Add( new PolygonShape( PolygonTools.CreateRectangle( _treadFeetSize.X * PhysicsInternalScale, _treadFeetSize.Y * PhysicsInternalScale, new Vector2( 0.12f * PhysicsInternalScale, 0f * PhysicsInternalScale ), 0f ), TreadFeetDensity ) );
 
 			_bodies = PathManager.EvenlyDistributeShapesAlongPath( Platform.Instance.PhysicsWorld, _path, shapes, BodyType.Dynamic, TreadCount, 1 );
 
 			foreach ( Body b in _bodies )
 			{
-				b.Friction = 1f * _scale;
+				b.Friction = 1f * PhysicsInternalScale;
 				b.Restitution = 0f;
 			}
 
-			PathManager.AttachBodiesWithRevoluteJoint( Platform.Instance.PhysicsWorld, _bodies, new Vector2( _treadJointAnchorLeft.X * _scale, _treadJointAnchorLeft.Y * _scale ), new Vector2( _treadJointAnchorRight.X * _scale, _treadJointAnchorRight.Y * _scale ), true, false ); 
+			PathManager.AttachBodiesWithRevoluteJoint( Platform.Instance.PhysicsWorld, _bodies, new Vector2( _treadJointAnchorLeft.X * PhysicsInternalScale, _treadJointAnchorLeft.Y * PhysicsInternalScale ), new Vector2( _treadJointAnchorRight.X * PhysicsInternalScale, _treadJointAnchorRight.Y * PhysicsInternalScale ), true, false ); 
 			 
 		}
 

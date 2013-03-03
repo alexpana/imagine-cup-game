@@ -19,6 +19,9 @@ namespace VertexArmy.Entities.Physics
 		public float Height { get; set; }
 
 		[DataMember]
+		public float PhysicsToWorldScale { get; set; }
+
+		[DataMember]
 		public Vector2 Position
 		{
 			get { return Body.Position; }

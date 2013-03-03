@@ -69,6 +69,10 @@ namespace VertexArmy.Graphics
 			}
 			return _absoluteTransformation;
 		}
+		public virtual void OnRender(float dt, Scene scn, int pass)
+		{
+			
+		}
 
 		public Matrix GetRelativeTransformation()
 		{

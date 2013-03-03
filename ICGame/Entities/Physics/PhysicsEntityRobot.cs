@@ -91,7 +91,7 @@ namespace VertexArmy.Entities.Physics
 					b.ResetDynamics();
 					b.SetTransform( b.Position + relative, b.Rotation );
 				}
-				resetMaxAttainedSpeed();
+				ResetMaxAttainedSpeed();
 				_lastRobotPosition = Position;
 			}
 
@@ -294,7 +294,7 @@ namespace VertexArmy.Entities.Physics
 			 
 		}
 
-		public void resetMaxAttainedSpeed()
+		public void ResetMaxAttainedSpeed()
 		{
 			_robotMaxSpeed = 0f;
 		}
@@ -368,11 +368,7 @@ namespace VertexArmy.Entities.Physics
 			_lastRobotPosition = Position;
 			_robotSpeed = distance / ( float ) dt.ElapsedGameTime.TotalSeconds;
 
-			bool moving = false;
-			if ( _joint1.MotorSpeed != 0f)
-			{
-				moving = true;
-			}
+			bool moving = _joint1.MotorSpeed != 0f;
 
 			if ( !moving && _robotSpeed < 0.1f )
 			{

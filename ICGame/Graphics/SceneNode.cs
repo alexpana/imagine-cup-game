@@ -30,8 +30,6 @@ namespace VertexArmy.Graphics
 		private bool _recomputeAbsoluteTransformation;
 		private bool _recomputeRelativeTransformation;
 
-
-
 		public SceneNode()
 		{
 			_scale = new Vector3( 1, 1, 1 );

@@ -30,6 +30,7 @@ namespace VertexArmy.States
 
 		public void OnEnter()
 		{
+			SceneManager.Instance.Clear();
 			//Global.Platform.Instance.Device.RasterizerState = new RasterizerState { CullMode = CullMode.None, FillMode = FillMode.WireFrame};
 		
 			Renderer.Instance.LoadMatrix( EMatrix.Projection, Matrix.CreatePerspectiveFieldOfView( MathHelper.PiOver4, Global.Platform.Instance.Device.Viewport.AspectRatio, 1, 10000 ) );
@@ -38,12 +39,15 @@ namespace VertexArmy.States
 
 			_node = new RobotSceneNode( );
 			_node.LoadNode( _cm );
+
+
+			
 			//_node.SetScale(new Vector3(0.05f, 0.05f, 0.05f));
 		}
 
 		public void OnClose()
 		{
-			
+			SceneManager.Instance.Clear( );
 		}
 	}
 }

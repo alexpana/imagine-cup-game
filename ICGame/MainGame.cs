@@ -1,6 +1,7 @@
 using FarseerPhysics.Dynamics;
 using Microsoft.Xna.Framework;
 using VertexArmy.Global;
+using VertexArmy.Graphics;
 using VertexArmy.Input;
 using VertexArmy.States;
 
@@ -55,6 +56,8 @@ namespace VertexArmy
 			}
 
 			CursorManager.Instance.Update();
+
+			SceneManager.Instance.Update(gameTime.ElapsedGameTime.Milliseconds);
 			StateManager.Instance.OnFrameEndCommitStates();
 		}
 

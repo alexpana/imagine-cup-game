@@ -10,7 +10,5 @@ namespace VertexArmy.Graphics
 	{
 		private Model _myMod;
 		private Model _myMat;
-
-
 	}
 }

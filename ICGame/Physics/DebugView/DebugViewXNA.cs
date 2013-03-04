@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using FarseerPhysics;
 using FarseerPhysics.Collision;
 using FarseerPhysics.Collision.Shapes;
 using FarseerPhysics.Common;
@@ -13,14 +14,14 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace FarseerPhysics.DebugViews
+namespace VertexArmy.Physics.DebugView
 {
 	/// <summary>
 	/// A debug view that works in XNA.
 	/// A debug view shows you what happens inside the physics engine. You can view
 	/// bodies, joints, fixtures and more.
 	/// </summary>
-	public class DebugViewXNA : DebugView, IDisposable
+	public class DebugViewXNA : FarseerPhysics.DebugView, IDisposable
 	{
 		//Drawing
 		private PrimitiveBatch _primitiveBatch;
@@ -121,7 +122,7 @@ namespace FarseerPhysics.DebugViews
 				Fixture fixtureA = contact.FixtureA;
 
 				FixedArray2<PointState> state1, state2;
-				Collision.Collision.GetPointStates( out state1, out state2, ref oldManifold, ref manifold );
+				FarseerPhysics.Collision.Collision.GetPointStates( out state1, out state2, ref oldManifold, ref manifold );
 
 				FixedArray2<Vector2> points;
 				Vector2 normal;

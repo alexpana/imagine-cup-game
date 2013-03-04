@@ -93,7 +93,7 @@
     <Compile Include="Entities\BaseEntity.cs" />
     <Compile Include="Entities\BlockEntity.cs" />
     <Compile Include="Entities\EntityFlags.cs" />
-    <Compile Include="Entities\Physics\PhysicsBody.cs" />
+    <Compile Include="Physics\BodyTransformableController.cs" />
     <Compile Include="Entities\Physics\PhysicsEntityBasic.cs" />
     <Compile Include="Entities\Physics\PhysicsEntityType.cs" />
     <Compile Include="Entities\RobotEntity.cs" />
@@ -118,7 +118,8 @@
     <Compile Include="Entities\Physics\IPhysicsEntity.cs" />
     <Compile Include="Entities\Physics\PhysicsEntityRobot.cs" />
     <Compile Include="Graphics\ITransformable.cs" />
-    <Compile Include="Nodes\Node.cs" />
+    <Compile Include="Physics\DebugView\DebugViewXNA.cs" />
+    <Compile Include="Physics\DebugView\PrimitiveBatch.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="MainGame.cs" />
@@ -148,10 +149,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DebugView XNA\DebugView XNA.csproj">
-      <Project>{fc7845fa-13fe-4ff8-822a-a577f3f59b00}</Project>
-      <Name>DebugView XNA</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Farseer Physics Engine 3.3.1 XNA\Farseer Physics XNA.csproj">
       <Project>{0a850700-1abb-4288-a391-6726b90ebeb9}</Project>
       <Name>Farseer Physics XNA</Name>

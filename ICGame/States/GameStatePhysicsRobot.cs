@@ -6,6 +6,7 @@ using FarseerPhysics.Factories;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
+using VertexArmy.Entities;
 using VertexArmy.Entities.Physics;
 using VertexArmy.Global;
 using VertexArmy.Physics.DebugView;
@@ -29,7 +30,7 @@ namespace VertexArmy.States
 		private bool _cameraMoving;
 		private float _cameraStep;
 
-		private PhysicsEntityRobot _robot;
+		private Robot _robot;
 		private bool _actionFreeze;
 		private bool _actionReset;
 
@@ -42,45 +43,45 @@ namespace VertexArmy.States
 		{
 			bool moving = false;
 
-			if ( !_cameraMoving && Math.Abs( _cameraPosition - _robot.Position.X ) > _cameraError )
+			if ( !_cameraMoving && Math.Abs( _cameraPosition - _robot.RobotPhysics.Position.X ) > _cameraError )
 			{
 				_cameraMoving = true;
-				_cameraStep = ( -1 ) * ( _cameraPosition - _robot.Position.X ) / 15;
+				_cameraStep = ( -1 ) * ( _cameraPosition - _robot.RobotPhysics.Position.X ) / 15;
 			}
 
 			if ( _cameraMoving )
 			{
 				_cameraPosition += _cameraStep;
 
-				if ( Math.Abs( _cameraPosition - _robot.Position.X ) <= _cameraError / 2 )
+				if ( Math.Abs( _cameraPosition - _robot.RobotPhysics.Position.X ) <= _cameraError / 2 )
 				{
 					_cameraMoving = false;
 				}
 				else
 				{
-					_cameraStep = ( -1 ) * ( _cameraPosition - _robot.Position.X ) / 15;
+					_cameraStep = ( -1 ) * ( _cameraPosition - _robot.RobotPhysics.Position.X ) / 15;
 				}
 			}
 
 			Platform.Instance.PhysicsWorld.Step( Math.Min( ( float ) dt.ElapsedGameTime.TotalMilliseconds * 0.001f, ( 1f / 30f ) ) );
 
-			_robot.Move( 0f );
+			_robot.RobotPhysics.Move( 0f );
 			if ( Keyboard.GetState( PlayerIndex.One ).IsKeyDown( Keys.Left ) )
 			{
 				moving = true;
-				_robot.Move( -40f );
+				_robot.RobotPhysics.Move( -40f );
 			}
 			else if ( Keyboard.GetState( PlayerIndex.One ).IsKeyDown( Keys.Right ) )
 			{
 				moving = true;
-				_robot.Move( 40f );
+				_robot.RobotPhysics.Move( 40f );
 			}
 
 			if ( Keyboard.GetState( PlayerIndex.One ).IsKeyDown( Keys.F ) )
 			{
 				if ( !_actionFreeze )
 				{
-					_robot.Enabled = !_robot.Enabled;
+					_robot.RobotPhysics.Enabled = !_robot.RobotPhysics.Enabled;
 					_actionFreeze = true;
 				}
 			}
@@ -94,7 +95,7 @@ namespace VertexArmy.States
 			{
 				if ( !_actionReset )
 				{
-					_robot.Position = new Vector2( 50f, 5f );
+					_robot.RobotPhysics.Position = new Vector2( 50f, 5f );
 					_actionReset = true;
 				}
 			}
@@ -106,14 +107,14 @@ namespace VertexArmy.States
 
 			if ( Keyboard.GetState( PlayerIndex.One ).IsKeyDown( Keys.O ) )
 			{
-				_robot.Rotation -= 0.4f * (float)dt.ElapsedGameTime.TotalSeconds;
+				_robot.RobotPhysics.Rotation -= 0.4f * ( float ) dt.ElapsedGameTime.TotalSeconds;
 			}
 			else if ( Keyboard.GetState( PlayerIndex.One ).IsKeyDown( Keys.P ) )
 			{
-				_robot.Rotation += 0.4f * ( float ) dt.ElapsedGameTime.TotalSeconds;
+				_robot.RobotPhysics.Rotation += 0.4f * ( float ) dt.ElapsedGameTime.TotalSeconds;
 			}
 
-			_robot.OnUpdate( dt );
+			_robot.RobotPhysics.OnUpdate( dt );
 
 		}
 
@@ -123,6 +124,7 @@ namespace VertexArmy.States
 
 		public void OnRender( GameTime dt )
 		{
+			/*
 			_projection = Matrix.CreateOrthographicOffCenter(
 						_cameraPosition - Platform.Instance.Device.Viewport.Width / 2f * 0.05f,
 						_cameraPosition + Platform.Instance.Device.Viewport.Width / 2f * 0.05f,
@@ -133,9 +135,10 @@ namespace VertexArmy.States
 						);
 
 			_debugView.DrawString( 1, 1, "(R)eset, (F)reeze, Arrows to move. O,P to rotate manually." );
-			_debugView.DrawString( 1, 26, "Speed: " + _robot.Speed);
-			_debugView.DrawString( 1, 51, "MaxSpeed:" + _robot.MaxAttainedSpeed );
+			_debugView.DrawString( 1, 26, "Speed: " + _robot.RobotPhysics.Speed );
+			_debugView.DrawString( 1, 51, "MaxSpeed:" + _robot.RobotPhysics.MaxAttainedSpeed );
 			_debugView.RenderDebugData( ref _projection, ref _view );
+			 * */
 
 		}
 
@@ -199,8 +202,8 @@ namespace VertexArmy.States
 				_ground.Friction = 1.2f;
 				_ground.Restitution = 0f;
 			}
-			_robot = new PhysicsEntityRobot( 1.0f, new Vector2( 50f, 5f ) );
-			_robot.Enabled = false;
+			_robot = new Robot();
+			_robot.RobotPhysics.Enabled = false;
 
 			/*
 			Body rec = BodyFactory.CreateRectangle( Platform.Instance.PhysicsWorld, 2f, 2f, 0.3f );
@@ -212,7 +215,7 @@ namespace VertexArmy.States
 			rec.BodyType = BodyType.Dynamic;
 			 */
 
-			_cameraPosition = _robot.Position.X;
+			_cameraPosition = _robot.RobotPhysics.Position.X;
 
 		}
 

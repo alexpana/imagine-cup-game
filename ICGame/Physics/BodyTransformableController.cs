@@ -39,8 +39,9 @@ namespace VertexArmy.Physics
 
 		public BodyTransformableController(Body body, ITransformable transformable)
 		{
-			Transformable = transformable;
 			_body = body;
+			Transformable = transformable;
+			
 
 			UpdateTransformableRotation( );
 			UpdateTransformablePosition( );

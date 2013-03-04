@@ -47,7 +47,7 @@ namespace VertexArmy.Graphics
 
 			knodes.Enqueue(node);
 
-			while(knodes.Peek() != null)
+			while(knodes.Count != 0)
 			{
 				SceneNode head = knodes.Dequeue( );
 

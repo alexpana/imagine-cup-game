@@ -1,9 +1,11 @@
+using System;
 using FarseerPhysics.Dynamics;
 using Microsoft.Xna.Framework;
 using VertexArmy.Global;
 using VertexArmy.Graphics;
 using VertexArmy.Input;
 using VertexArmy.States;
+using VertexArmy.Utilities;
 
 namespace VertexArmy
 {
@@ -20,6 +22,7 @@ namespace VertexArmy
 			Platform.Instance.PhysicsWorld = new World( new Vector2( 0f, 9.82f ) );
 			Platform.Instance.Game = this;
 			Content.RootDirectory = "Content";
+			UnitsConverter.SetDisplayUnitToSimUnitRatio( 100 );
 		}
 
 		protected override void Initialize()
@@ -49,6 +52,7 @@ namespace VertexArmy
 			base.Update( gameTime );
 			Platform.Instance.Input.Update( gameTime );
 
+			Platform.Instance.PhysicsWorld.Step( Math.Min( ( float ) gameTime.ElapsedGameTime.TotalMilliseconds * 0.001f, ( 1f / 30f ) ) );
 			Updateables.Instance.Update( gameTime );
 			if ( StateManager.Instance.CurrentGameState != null )
 			{

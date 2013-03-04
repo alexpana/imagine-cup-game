@@ -44,14 +44,23 @@ namespace VertexArmy.Graphics
 				_recomputeRelativeTransformation = false;
 			_parent = null;
 			_children = new List<SceneNode>();
+			_attachables = new List<Attachable>();
 		}
 
 
 		public void AddAttachable(Attachable attach)
 		{
-			
+			_attachables.Add(attach);
 		}
 
+		public int GetNumberOfAttachables()
+		{
+			return _attachables.Count;
+		}
+		public Attachable GetAttachable( int index )
+		{
+			return _attachables[index];
+		}
 
 		private bool ShouldRecomputeTransformations()
 		{
@@ -79,10 +88,6 @@ namespace VertexArmy.Graphics
 				_recomputeAbsoluteTransformation = false;
 			}
 			return _absoluteTransformation;
-		}
-		public virtual void OnRender(float dt, Scene scn, int pass)
-		{
-			
 		}
 
 		public Matrix GetRelativeTransformation()
@@ -163,11 +168,6 @@ namespace VertexArmy.Graphics
 		public SceneNode GetChild( int index )
 		{
 			return _children[index];
-		}
-
-		public void OnUpdate(GameTime dt)
-		{
-			
 		}
 	}
 }

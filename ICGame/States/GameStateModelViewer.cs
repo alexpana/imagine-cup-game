@@ -9,7 +9,7 @@ namespace VertexArmy.States
 	{
 		private ContentManager _cm;
 		private RobotSceneNode _node;
-		private Scene _scene;
+		private SceneManager _sceneManager;
 		public GameStateModelViewer( ContentManager content )
 		{
 			_cm = content;
@@ -25,7 +25,7 @@ namespace VertexArmy.States
 		{
 			GlobalMatrix.Instance.LoadMatrix( EMatrix.World, _node.GetAbsoluteTransformation( ) );
 			
-			_node.OnRender(dt.ElapsedGameTime.Milliseconds, _scene, 0);
+			_node.OnRender(dt.ElapsedGameTime.Milliseconds, _sceneManager, 0);
 		}
 
 		public void OnEnter()
@@ -36,7 +36,6 @@ namespace VertexArmy.States
 			GlobalMatrix.Instance.LoadMatrix( EMatrix.View, Matrix.CreateLookAt( new Vector3( 0, 0, -300 ), new Vector3( 0, 0, 0 ), new Vector3( 0, 1, 0 ) ) );
 
 
-			_scene = new Scene { Eye = new Vector3(0, 0, -300), Light = new Vector3(0, 5000, 0) };
 			_node = new RobotSceneNode( );
 			_node.LoadNode( _cm );
 			//_node.SetScale(new Vector3(0.05f, 0.05f, 0.05f));

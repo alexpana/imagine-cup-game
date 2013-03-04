@@ -4,13 +4,9 @@ using Microsoft.Xna.Framework;
 
 namespace VertexArmy.Graphics
 {
-	public class Scene
+	public class SceneManager
 	{
-
 		private List<SceneNode> _registeredNodes;
-		public Vector3 Light;
-		public Vector3 Eye;
-
 
 		public void RegisterSceneNode( SceneNode node )
 		{
@@ -21,7 +17,7 @@ namespace VertexArmy.Graphics
 		{
 			foreach (var registeredNode in _registeredNodes)
 			{
-				registeredNode.OnRender(dt, this, 0);
+				
 			}
 		}
 	}

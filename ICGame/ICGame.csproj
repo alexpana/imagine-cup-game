@@ -75,6 +75,7 @@
     <Reference Include="Gearset">
       <HintPath>..\_external\Gearset\Gearset.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Xna.Framework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86" />
     <Reference Include="Microsoft.Xna.Framework.Game, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86" />
     <Reference Include="Microsoft.Xna.Framework.Graphics, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86" />
@@ -97,11 +98,17 @@
     <Compile Include="Entities\Physics\PhysicsEntityType.cs" />
     <Compile Include="Entities\RobotEntity.cs" />
     <Compile Include="Global\CursorManager.cs" />
+    <Compile Include="Graphics\Attachable.cs" />
+    <Compile Include="Graphics\Camera.cs" />
     <Compile Include="Graphics\GlobalMatrix.cs" />
+    <Compile Include="Graphics\Light.cs" />
+    <Compile Include="Graphics\Material.cs" />
     <Compile Include="Graphics\ObjectSceneNode.cs" />
+    <Compile Include="Graphics\RobotEntity.cs" />
     <Compile Include="Graphics\RobotSceneNode.cs" />
-    <Compile Include="Graphics\Scene.cs" />
+    <Compile Include="Graphics\SceneManager.cs" />
     <Compile Include="Graphics\SceneNode.cs" />
+    <Compile Include="Graphics\SimpleMeshEntity.cs" />
     <Compile Include="GS.cs" />
     <Compile Include="Input\IInputSystem.cs" />
     <Compile Include="Input\PCInputSystem.cs" />

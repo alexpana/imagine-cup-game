@@ -20,7 +20,7 @@ namespace VertexArmy.Entities
 		{
 			/* override this if needed*/
 			BasePhysicsEntity.OnUpdate(dt);
-			SceneNode.OnUpdate(dt);
+		//	SceneNode.OnUpdate(dt);
 		}
 	}
 }

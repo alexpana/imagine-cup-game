@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework;
 namespace VertexArmy.Graphics
 {
 	[DataContract]
-	public class SceneNode
+	public class SceneNode : ITransformable
 	{
 		[DataMember]
 		private Matrix _absoluteTransformation;
@@ -26,9 +26,14 @@ namespace VertexArmy.Graphics
 
 		[DataMember]
 		private List<SceneNode> _children;
+		
+		[DataMember]
+		private List<Attachable> _attachables;
 
 		private bool _recomputeAbsoluteTransformation;
 		private bool _recomputeRelativeTransformation;
+
+	
 
 		public SceneNode()
 		{
@@ -39,6 +44,12 @@ namespace VertexArmy.Graphics
 				_recomputeRelativeTransformation = false;
 			_parent = null;
 			_children = new List<SceneNode>();
+		}
+
+
+		public void AddAttachable(Attachable attach)
+		{
+			
 		}
 
 
@@ -105,6 +116,21 @@ namespace VertexArmy.Graphics
 		{
 			_recomputeRelativeTransformation = true;
 			_scale = newScale;
+		}
+
+		public Vector3 GetPosition( )
+		{
+			return _position;
+		}
+
+		public Quaternion GetRotation( )
+		{
+			return _rotation;
+		}
+
+		public Vector3 GetScale( )
+		{
+			return _scale;
 		}
 
 		public void AddChild( SceneNode child )

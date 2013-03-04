@@ -7,7 +7,7 @@ namespace VertexArmy.Global
 {
 	class Updateables : IUpdateableObject
 	{
-		private List<IUpdateableObject> _updatables;
+		private List<IUpdateableObject> _updatables = new List<IUpdateableObject>();
 
 		public static Updateables Instance
 		{

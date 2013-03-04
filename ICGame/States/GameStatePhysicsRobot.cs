@@ -1,7 +1,6 @@
 ﻿using System;
 using FarseerPhysics;
 using FarseerPhysics.Common;
-using FarseerPhysics.DebugViews;
 using FarseerPhysics.Dynamics;
 using FarseerPhysics.Factories;
 using Microsoft.Xna.Framework;
@@ -9,6 +8,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
 using VertexArmy.Entities.Physics;
 using VertexArmy.Global;
+using VertexArmy.Physics.DebugView;
 
 namespace VertexArmy.States
 {

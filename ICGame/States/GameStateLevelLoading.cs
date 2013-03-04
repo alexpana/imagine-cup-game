@@ -1,10 +1,10 @@
 ﻿using System;
 using FarseerPhysics;
-using FarseerPhysics.DebugViews;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using VertexArmy.Global;
 using VertexArmy.Levels;
+using VertexArmy.Physics.DebugView;
 
 namespace VertexArmy.States
 {

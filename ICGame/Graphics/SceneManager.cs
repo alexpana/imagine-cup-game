@@ -79,13 +79,19 @@ namespace VertexArmy.Graphics
 		{
 			//to do: link camera & lights, blah blah
 			Renderer.Instance.LoadMatrix( EMatrix.Projection, Matrix.CreatePerspectiveFieldOfView( MathHelper.PiOver4, Global.Platform.Instance.Device.Viewport.AspectRatio, 1, 10000 ) );
-			Renderer.Instance.LoadMatrix( EMatrix.View, Matrix.CreateLookAt( new Vector3( 0, 0, -300 ), new Vector3( 0, 0, 0 ), new Vector3( 0, 1, 0 ) ) );
-			Renderer.Instance.SetParameter("eyePosition", new Vector3(0,0,-300));
-			Renderer.Instance.SetParameter("lightPosition", new Vector3( 0, 4000, 0 ) );
+			Renderer.Instance.LoadMatrix( EMatrix.View, Matrix.CreateLookAt( new Vector3( 0, 0, -3000 ), new Vector3( 0, 0, 0 ), new Vector3( 0, 1, 0 ) ) );
+
+			
+			Renderer.Instance.SetParameter("eyePosition", new Vector3(0,0,-3000));
+			Renderer.Instance.SetParameter("lightPosition", new Vector3( 0, 40000, 0 ) );
 
 			foreach (var registeredNode in _registeredNodes)
 			{
 				Renderer.Instance.LoadMatrix( EMatrix.World, registeredNode.GetAbsoluteTransformation( ) );
+				Renderer.Instance.SetParameter( "matWorld", Renderer.Instance.MatWorld );
+				Renderer.Instance.SetParameter( "matWorldInverseTranspose", Renderer.Instance.MatWorldInverseTranspose );
+				Renderer.Instance.SetParameter( "matWorldViewProj", Renderer.Instance.MatWorldViewProjection);
+			
 
 				foreach ( var attachable in registeredNode.Attachable)
 				{

@@ -54,6 +54,8 @@ namespace VertexArmy.Graphics
 			_parent = null;
 			_children = new List<SceneNode>();
 			_attachables = new List<Attachable>();
+			_absoluteTransformation = Matrix.Identity;
+			_relativeTransformation = Matrix.Identity;
 		}
 
 

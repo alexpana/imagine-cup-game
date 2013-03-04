@@ -61,7 +61,7 @@ namespace VertexArmy
 
 			CursorManager.Instance.Update();
 
-			SceneManager.Instance.Update(gameTime.ElapsedGameTime.Milliseconds);
+			
 			StateManager.Instance.OnFrameEndCommitStates();
 		}
 
@@ -72,6 +72,7 @@ namespace VertexArmy
 			{
 				StateManager.Instance.CurrentGameState.OnRender( gameTime );
 			}
+			SceneManager.Instance.Render( gameTime.ElapsedGameTime.Milliseconds );
 
 			CursorManager.Instance.Render();
 		}

@@ -75,7 +75,7 @@ namespace VertexArmy.Graphics
 			}
 		}
 
-		public void Update(float dt)
+		public void Render(float dt)
 		{
 			//to do: link camera & lights, blah blah
 			Renderer.Instance.LoadMatrix( EMatrix.Projection, Matrix.CreatePerspectiveFieldOfView( MathHelper.PiOver4, Global.Platform.Instance.Device.Viewport.AspectRatio, 1, 10000 ) );

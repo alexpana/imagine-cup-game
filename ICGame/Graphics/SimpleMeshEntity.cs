@@ -9,8 +9,6 @@ namespace VertexArmy.Graphics
 	class SimpleMeshEntity : Attachable
 	{
 		private Model _myMod;
-		private Model _myMat;
-
-
+		private Material _myMat;
 	}
 }

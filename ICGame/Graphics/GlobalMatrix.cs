@@ -163,7 +163,7 @@ namespace VertexArmy.Graphics
 
 		public void MultMatrix( EMatrix matrix, Matrix mat )
 		{
-			_stacks[( int ) matrix][_si[( int ) matrix]] *= mat;
+			_stacks[( int ) matrix][_si[( int ) matrix]] = mat * _stacks[( int ) matrix][_si[( int ) matrix]];
 			SetFlags( matrix );
 		}
 

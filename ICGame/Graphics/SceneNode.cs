@@ -34,6 +34,15 @@ namespace VertexArmy.Graphics
 		private bool _recomputeRelativeTransformation;
 
 	
+		public List<SceneNode> Children
+		{
+			get { return _children; }
+		}
+
+		public List<Attachable> Attachable
+		{
+			get { return _attachables; }
+		}
 
 		public SceneNode()
 		{
@@ -53,14 +62,7 @@ namespace VertexArmy.Graphics
 			_attachables.Add(attach);
 		}
 
-		public int GetNumberOfAttachables()
-		{
-			return _attachables.Count;
-		}
-		public Attachable GetAttachable( int index )
-		{
-			return _attachables[index];
-		}
+		
 
 		private bool ShouldRecomputeTransformations()
 		{

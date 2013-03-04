@@ -21,14 +21,23 @@ namespace VertexArmy.Graphics
 		{
 			get
 			{
-				if ( _instance == null ) {
-					lock ( _syncRoot ) {
-						if ( _instance == null )
-							_instance = new SceneManager( );
+				if (_instance == null)
+				{
+					lock (_syncRoot)
+					{
+						if (_instance == null)
+							_instance = new SceneManager();
 					}
 				}
 				return _instance;
 			}
+		}
+		
+		public void Clear()
+		{
+			_registeredNodes.Clear ( );
+			_sceneCameras.Clear ( );
+			_sceneLights.Clear ( );
 		}
 
 		public void RegisterSceneTree( SceneNode node )
@@ -40,8 +49,13 @@ namespace VertexArmy.Graphics
 
 			while(knodes.Peek() != null)
 			{
-				SceneNode head;
-				_registeredNodes.Add( head = knodes.Dequeue( ) );
+				SceneNode head = knodes.Dequeue( );
+
+				/* protect against multiple register */
+				if(_registeredNodes.Contains(head))
+					continue;
+
+				_registeredNodes.Add( head );
 
 				foreach(var child in head.Children)
 				{

@@ -1,17 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework.Graphics;
+using VertexArmy.Entities.Physics;
+using VertexArmy.Global;
 using VertexArmy.Graphics;
+using VertexArmy.Physics;
 
 namespace VertexArmy.Entities
 {
 	public class Robot
 	{
+		private PhysicsEntityRobot _robotPhysics;
 		private SceneNode _node = new SceneNode();
 		public Robot()
 		{
+			_robotPhysics = new PhysicsEntityRobot( 0.7f );
 			Effect robofx = Global.Platform.Instance.Content.Load<Effect>("effects/" + "robo");
 
 
@@ -29,6 +30,8 @@ namespace VertexArmy.Entities
 				scn.AddAttachable( new SimpleMeshEntity( Global.Platform.Instance.Content.Load<Model>( "models/" + "robo_link" ), robotmat ) );
 
 				_node.AddChild( scn );
+
+				Updateables.Instance.RegisterUpdatable( new BodyTransformableController( _robotPhysics.GetLinkBody( i ), scn ) );
 			}
 
 			for( int i = 0; i < 3; ++i )
@@ -45,8 +48,11 @@ namespace VertexArmy.Entities
 				scn.AddAttachable( new SimpleMeshEntity( Global.Platform.Instance.Content.Load<Model>( "models/" + "robo_wheel" ), robotmat ) );
 
 				_node.AddChild(scn);
+
+				Updateables.Instance.RegisterUpdatable( new BodyTransformableController( _robotPhysics.GetGearBody( i ), scn ) );
 			}
 			SceneManager.Instance.RegisterSceneTree(_node);
+
 		}
 	}
 }

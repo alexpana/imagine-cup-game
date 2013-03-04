@@ -29,17 +29,17 @@ namespace VertexArmy.Entities.Physics
 		private const float ChassisDensity = 7f;
 		private const float ChassisAngularDamping = 100f;
 
-		public const int TreadCount = 29;
+		private const int LinkCount = 29;
 
-		private const float TreadDistanceFromGearModifier = 1.7f;
-		private Vector2 _treadSize = new Vector2(0.101f,0.32f);
-		private const float TreadDensity = 2f;
+		private const float LinkDistanceFromGearModifier = 1.7f;
+		private Vector2 _linkSize = new Vector2(0.101f,0.32f);
+		private const float LinkDensity = 2f;
 
-		private Vector2 _treadFeetSize = new Vector2(0.1f,0.18f);
-		private const float TreadFeetDensity = 2f;
+		private Vector2 _linkFeetSize = new Vector2(0.1f,0.18f);
+		private const float LinkFeetDensity = 2f;
 
-		private Vector2 _treadJointAnchorLeft = new Vector2(-0.101f, 0.375f);
-		private Vector2 _treadJointAnchorRight = new Vector2( -0.15f, -0.375f);
+		private Vector2 _linkJointAnchorLeft = new Vector2(-0.101f, 0.375f);
+		private Vector2 _linkJointAnchorRight = new Vector2( -0.15f, -0.375f);
 
 		/* members */
 		private bool _enabled;
@@ -47,7 +47,7 @@ namespace VertexArmy.Entities.Physics
 		private Body _robotBody;
 
 		private Path _path;
-		private List<Body> _bodies;
+		private List<Body> _links;
 
 		private Body _gear1;
 		private Body _gear2;
@@ -87,7 +87,7 @@ namespace VertexArmy.Entities.Physics
 				_gear2.SetTransform( _gear2.Position + relative, _gear2.Rotation );
 				_gear3.SetTransform( _gear3.Position + relative, _gear3.Rotation );
 
-				foreach ( Body b in _bodies )
+				foreach ( Body b in _links )
 				{
 					b.ResetDynamics();
 					b.SetTransform( b.Position + relative, b.Rotation );
@@ -108,7 +108,7 @@ namespace VertexArmy.Entities.Physics
 				_gear2.Awake = value;
 				_gear3.Awake = value;
 
-				foreach ( Body b in _bodies )
+				foreach ( Body b in _links )
 				{
 					b.Awake = value;
 				}
@@ -126,7 +126,7 @@ namespace VertexArmy.Entities.Physics
 				BodyUtility.RotateBodyAroundPoint( _gear2, _robotBody.Position, modifier );
 				BodyUtility.RotateBodyAroundPoint( _gear3, _robotBody.Position, modifier );
 
-				foreach (Body b in _bodies)
+				foreach (Body b in _links)
 				{
 					BodyUtility.RotateBodyAroundPoint( b, _robotBody.Position, modifier );
 				}
@@ -146,7 +146,7 @@ namespace VertexArmy.Entities.Physics
 				_gear2.Enabled = value;
 				_gear3.Enabled = value;
 
-				foreach ( Body b in _bodies )
+				foreach ( Body b in _links )
 				{
 					b.Enabled = value;
 				}
@@ -159,14 +159,9 @@ namespace VertexArmy.Entities.Physics
 
 		/* Custom properties */
 
-		public float ChassisRotation
+		public int LinkBodyCount
 		{
-			get { return _robotBody.Rotation; }
-		}
-
-		public Vector2 ChassisPosition
-		{
-			get { return _robotBody.Position; }
+			get { return LinkCount; }
 		}
 
 		public float Speed
@@ -267,72 +262,32 @@ namespace VertexArmy.Entities.Physics
 
 			_path = new Path();
 
-			_path.Add( _gear2.Position * TreadDistanceFromGearModifier );
-			_path.Add( _gear3.Position * TreadDistanceFromGearModifier );
-			_path.Add( _gear1.Position * TreadDistanceFromGearModifier );
+			_path.Add( _gear2.Position * LinkDistanceFromGearModifier );
+			_path.Add( _gear3.Position * LinkDistanceFromGearModifier );
+			_path.Add( _gear1.Position * LinkDistanceFromGearModifier );
 
 			_path.Closed = true;
 
 			List<Shape> shapes = new List<Shape>( 2 );
 
-			shapes.Add( new PolygonShape( PolygonTools.CreateRectangle( _treadSize.X * PhysicsInternalScale, _treadSize.Y * PhysicsInternalScale, new Vector2( 0f, 0f ), 0f ), TreadDensity ) );
-			shapes.Add( new PolygonShape( PolygonTools.CreateRectangle( _treadFeetSize.X * PhysicsInternalScale, _treadFeetSize.Y * PhysicsInternalScale, new Vector2( 0.12f * PhysicsInternalScale, 0f * PhysicsInternalScale ), 0f ), TreadFeetDensity ) );
+			shapes.Add( new PolygonShape( PolygonTools.CreateRectangle( _linkSize.X * PhysicsInternalScale, _linkSize.Y * PhysicsInternalScale, new Vector2( 0f, 0f ), 0f ), LinkDensity ) );
+			shapes.Add( new PolygonShape( PolygonTools.CreateRectangle( _linkFeetSize.X * PhysicsInternalScale, _linkFeetSize.Y * PhysicsInternalScale, new Vector2( 0.12f * PhysicsInternalScale, 0f * PhysicsInternalScale ), 0f ), LinkFeetDensity ) );
 
-			_bodies = PathManager.EvenlyDistributeShapesAlongPath( Platform.Instance.PhysicsWorld, _path, shapes, BodyType.Dynamic, TreadCount, 1 );
+			_links = PathManager.EvenlyDistributeShapesAlongPath( Platform.Instance.PhysicsWorld, _path, shapes, BodyType.Dynamic, LinkCount, 1 );
 
-			foreach ( Body b in _bodies )
+			foreach ( Body b in _links )
 			{
 				b.Friction = 1f * PhysicsInternalScale;
 				b.Restitution = 0f;
 			}
 
-			PathManager.AttachBodiesWithRevoluteJoint( Platform.Instance.PhysicsWorld, _bodies, new Vector2( _treadJointAnchorLeft.X * PhysicsInternalScale, _treadJointAnchorLeft.Y * PhysicsInternalScale ), new Vector2( _treadJointAnchorRight.X * PhysicsInternalScale, _treadJointAnchorRight.Y * PhysicsInternalScale ), true, false ); 
+			PathManager.AttachBodiesWithRevoluteJoint( Platform.Instance.PhysicsWorld, _links, new Vector2( _linkJointAnchorLeft.X * PhysicsInternalScale, _linkJointAnchorLeft.Y * PhysicsInternalScale ), new Vector2( _linkJointAnchorRight.X * PhysicsInternalScale, _linkJointAnchorRight.Y * PhysicsInternalScale ), true, false ); 
 			 
 		}
 
 		public void ResetMaxAttainedSpeed()
 		{
 			_robotMaxSpeed = 0f;
-		}
-
-		public Vector2 GetGearPosition( int index )
-		{
-			switch ( index )
-			{
-				case 0:
-					return _gear1.Position;
-				case 1:
-					return _gear2.Position;
-				case 2:
-					return _gear3.Position;
-			}
-
-			return Vector2.Zero;
-		}
-
-		public Vector2 GetTreadPosition( int index )
-		{
-			return _bodies[index].Position;
-		}
-
-		public float GetGearRotation( int index )
-		{
-			switch ( index )
-			{
-				case 0:
-					return _gear1.Rotation;
-				case 1:
-					return _gear2.Rotation;
-				case 2:
-					return _gear3.Rotation;
-			}
-
-			return 0f;
-		}
-
-		public float GetTreadRotation( int index )
-		{
-			return _bodies[index].Rotation;
 		}
 
 		public void PreSerialize()
@@ -352,12 +307,39 @@ namespace VertexArmy.Entities.Physics
 			_gear2.ResetDynamics( );
 			_gear3.ResetDynamics( );
 
-			foreach ( Body b in _bodies )
+			foreach ( Body b in _links )
 			{
 				b.ResetDynamics();
 			}
 		}
 
+		/* expose bodies */
+		public Body GetGearBody( int index )
+		{
+			switch (index)
+			{
+				case 0:
+					return _gear1;
+				case 1:
+					return _gear2;
+				case 2:
+					return _gear3;
+			}
+
+			return _gear1;
+		}
+
+		public Body GetLinkBody( int index )
+		{
+			return _links[index];
+		}
+
+		public Body ChassisBody
+		{
+			get { return _robotBody; }
+		}
+
+		/* TODO make this somehow callable */
 		public void OnUpdate(GameTime dt)
 		{
 			float distance = ( Position - _lastRobotPosition ).Length( );

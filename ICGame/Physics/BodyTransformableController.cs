@@ -46,7 +46,7 @@ namespace VertexArmy.Physics
 			UpdateTransformablePosition( );
 		}
 
-		public void Update()
+		public void Update( GameTime dt )
 		{
 			float rotationDelta = Math.Abs( _body.Rotation - _lastBodyRotation );
 			float positionDelta = (_body.Position - _lastBodyPosition).Length();

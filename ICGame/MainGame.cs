@@ -48,6 +48,7 @@ namespace VertexArmy
 			base.Update( gameTime );
 			Platform.Instance.Input.Update( gameTime );
 
+			Updateables.Instance.Update( gameTime );
 			if ( StateManager.Instance.CurrentGameState != null )
 			{
 				StateManager.Instance.CurrentGameState.OnUpdate( gameTime );

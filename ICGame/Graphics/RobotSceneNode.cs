@@ -75,9 +75,9 @@ namespace VertexArmy.Graphics
 			{
 				foreach ( ModelMesh m in _robolink.Meshes ) 
 				{
-					_effect.Parameters["matWorldViewProj"].SetValue( matrix * GlobalMatrix.Instance.MatWorldViewProjection );
-					_effect.Parameters["matWorldInverseTranspose"].SetValue( Matrix.Invert( Matrix.Transpose( matrix ) ) * GlobalMatrix.Instance.MatWorldInverseTranspose );
-					_effect.Parameters["matWorld"].SetValue( matrix * GlobalMatrix.Instance.MatWorld );
+					_effect.Parameters["matWorldViewProj"].SetValue( matrix * Renderer.Instance.MatWorldViewProjection );
+					_effect.Parameters["matWorldInverseTranspose"].SetValue( Matrix.Invert( Matrix.Transpose( matrix ) ) * Renderer.Instance.MatWorldInverseTranspose );
+					_effect.Parameters["matWorld"].SetValue( matrix * Renderer.Instance.MatWorld );
 					_effect.Parameters["ColorMap"].SetValue( _color );
 					_effect.Parameters["NormalMap"].SetValue( _normal );
 					_effect.Parameters["SpecularMap"].SetValue( _specular );
@@ -91,9 +91,9 @@ namespace VertexArmy.Graphics
 			{
 				foreach (ModelMesh m in _robowheel.Meshes)
 				{
-					_effect.Parameters["matWorldViewProj"].SetValue( matrix * GlobalMatrix.Instance.MatWorldViewProjection );
-					_effect.Parameters["matWorldInverseTranspose"].SetValue( Matrix.Invert( Matrix.Transpose( matrix ) ) * GlobalMatrix.Instance.MatWorldInverseTranspose );
-					_effect.Parameters["matWorld"].SetValue( matrix * GlobalMatrix.Instance.MatWorld );
+					_effect.Parameters["matWorldViewProj"].SetValue( matrix * Renderer.Instance.MatWorldViewProjection );
+					_effect.Parameters["matWorldInverseTranspose"].SetValue( Matrix.Invert( Matrix.Transpose( matrix ) ) * Renderer.Instance.MatWorldInverseTranspose );
+					_effect.Parameters["matWorld"].SetValue( matrix * Renderer.Instance.MatWorld );
 					_effect.Parameters["ColorMap"].SetValue(_color);
 					_effect.Parameters["NormalMap"].SetValue(_normal);
 					_effect.Parameters["SpecularMap"].SetValue(_specular);

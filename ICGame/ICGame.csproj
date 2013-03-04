@@ -96,15 +96,14 @@
     <Compile Include="Physics\BodyTransformableController.cs" />
     <Compile Include="Entities\Physics\PhysicsEntityBasic.cs" />
     <Compile Include="Entities\Physics\PhysicsEntityType.cs" />
-    <Compile Include="Entities\RobotEntity.cs" />
     <Compile Include="Global\CursorManager.cs" />
     <Compile Include="Graphics\Attachable.cs" />
     <Compile Include="Graphics\Camera.cs" />
-    <Compile Include="Graphics\GlobalMatrix.cs" />
+    <Compile Include="Graphics\Renderer.cs" />
     <Compile Include="Graphics\Light.cs" />
     <Compile Include="Graphics\Material.cs" />
     <Compile Include="Graphics\ObjectSceneNode.cs" />
-    <Compile Include="Graphics\RobotEntity.cs" />
+    <Compile Include="Entities\Robot.cs" />
     <Compile Include="Graphics\RobotSceneNode.cs" />
     <Compile Include="Graphics\SceneManager.cs" />
     <Compile Include="Graphics\SceneNode.cs" />

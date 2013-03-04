@@ -23,7 +23,7 @@ namespace VertexArmy.States
 
 		public void OnRender( GameTime dt )
 		{
-			GlobalMatrix.Instance.LoadMatrix( EMatrix.World, _node.GetAbsoluteTransformation( ) );
+			Renderer.Instance.LoadMatrix( EMatrix.World, _node.GetAbsoluteTransformation( ) );
 			
 			_node.OnRender(dt.ElapsedGameTime.Milliseconds, _sceneManager, 0);
 		}
@@ -32,8 +32,8 @@ namespace VertexArmy.States
 		{
 			//Global.Platform.Instance.Device.RasterizerState = new RasterizerState { CullMode = CullMode.None, FillMode = FillMode.WireFrame};
 		
-			GlobalMatrix.Instance.LoadMatrix( EMatrix.Projection, Matrix.CreatePerspectiveFieldOfView( MathHelper.PiOver4, Global.Platform.Instance.Device.Viewport.AspectRatio, 1, 10000 ) );
-			GlobalMatrix.Instance.LoadMatrix( EMatrix.View, Matrix.CreateLookAt( new Vector3( 0, 0, -300 ), new Vector3( 0, 0, 0 ), new Vector3( 0, 1, 0 ) ) );
+			Renderer.Instance.LoadMatrix( EMatrix.Projection, Matrix.CreatePerspectiveFieldOfView( MathHelper.PiOver4, Global.Platform.Instance.Device.Viewport.AspectRatio, 1, 10000 ) );
+			Renderer.Instance.LoadMatrix( EMatrix.View, Matrix.CreateLookAt( new Vector3( 0, 0, -300 ), new Vector3( 0, 0, 0 ), new Vector3( 0, 1, 0 ) ) );
 
 
 			_node = new RobotSceneNode( );

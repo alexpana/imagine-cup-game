@@ -1,4 +1,5 @@
 ﻿
+using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 
@@ -6,12 +7,31 @@ namespace VertexArmy.Graphics
 {
 	public class SceneManager
 	{
+		private static volatile SceneManager _instance;
+		private static readonly object _syncRoot = new Object( );
+		
+
 		private readonly List<SceneNode> _registeredNodes = new List<SceneNode>();
 
 		private readonly List<Camera> _sceneCameras = new List<Camera>();
 		private readonly List<Light> _sceneLights = new List<Light>();
 
-		public void RegisterSceneNode( SceneNode node )
+
+		public static SceneManager Instance
+		{
+			get
+			{
+				if ( _instance == null ) {
+					lock ( _syncRoot ) {
+						if ( _instance == null )
+							_instance = new SceneManager( );
+					}
+				}
+				return _instance;
+			}
+		}
+
+		public void RegisterSceneTree( SceneNode node )
 		{
 			
 			Queue<SceneNode> knodes = new Queue<SceneNode>();
@@ -44,8 +64,20 @@ namespace VertexArmy.Graphics
 		public void Update(float dt)
 		{
 			//to do: link camera & lights, blah blah
-			GlobalMatrix.Instance.LoadMatrix( EMatrix.Projection, Matrix.CreatePerspectiveFieldOfView( MathHelper.PiOver4, Global.Platform.Instance.Device.Viewport.AspectRatio, 1, 10000 ) );
-			GlobalMatrix.Instance.LoadMatrix( EMatrix.View, Matrix.CreateLookAt( new Vector3( 0, 0, -300 ), new Vector3( 0, 0, 0 ), new Vector3( 0, 1, 0 ) ) );
+			Renderer.Instance.LoadMatrix( EMatrix.Projection, Matrix.CreatePerspectiveFieldOfView( MathHelper.PiOver4, Global.Platform.Instance.Device.Viewport.AspectRatio, 1, 10000 ) );
+			Renderer.Instance.LoadMatrix( EMatrix.View, Matrix.CreateLookAt( new Vector3( 0, 0, -300 ), new Vector3( 0, 0, 0 ), new Vector3( 0, 1, 0 ) ) );
+			Renderer.Instance.SetParameter("eyePosition", new Vector3(0,0,-300));
+			Renderer.Instance.SetParameter("lightPosition", new Vector3( 0, 4000, 0 ) );
+
+			foreach (var registeredNode in _registeredNodes)
+			{
+				Renderer.Instance.LoadMatrix( EMatrix.World, registeredNode.GetAbsoluteTransformation( ) );
+
+				foreach ( var attachable in registeredNode.Attachable)
+				{
+					attachable.Render(dt);
+				}
+			}
 
 		}
 	}

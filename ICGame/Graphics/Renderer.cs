@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 
 
@@ -12,12 +13,37 @@ namespace VertexArmy.Graphics
 		Texture,
 		Count
 	};
-	public sealed class GlobalMatrix
+	public sealed class Renderer //default
 	{
-		private static volatile GlobalMatrix _instance;
-		private static object _syncRoot = new Object();
+		private static volatile Renderer _instance;
+		private static readonly object _syncRoot = new Object();
+		
+		private readonly dynamic _parameter = new List<object>( );
+		private readonly Dictionary<String, int> _bindings = new Dictionary<string, int>( );
+
+
+		public void AddParameter( string name, object data )
+		{
+			_bindings[name] = _parameter.Count;
+			_parameter.Add( data );
+		}
+
+		public void SetParameter( string name, object data )
+		{
+			_parameter[_bindings[name]] = data;
+		}
+
+		public void SetGlobalMaterialParameters(Material mat)
+		{
+			foreach (var binding in _bindings)
+			{
+				mat.SetParameter(binding.Key, _parameter[binding.Value]);
+			}
+		}
+
+
 		public const int StackDepth = 8;
-		private GlobalMatrix( )
+		private Renderer( )
 		{
 			_si = new int[(int)EMatrix.Count];
 			_stacks = new Matrix[(int)EMatrix.Count][];
@@ -40,9 +66,15 @@ namespace VertexArmy.Graphics
 			_matWorldF = false;
 			_matWorldInverseTransposeF = false;
 			_matWorldViewProjectionF = false;
+
+			AddParameter( "matWorldViewProj", Matrix.Identity );
+			AddParameter( "matWorldInverseTranspose", Matrix.Identity );
+			AddParameter( "matWorld", Matrix.Identity );
+			AddParameter( "eyePosition", Vector3.Zero );
+			AddParameter( "lightPosition", Vector3.Zero );
 		}
 
-		public static GlobalMatrix Instance
+		public static Renderer Instance
 		{
 			get 
 			{
@@ -51,7 +83,7 @@ namespace VertexArmy.Graphics
 					lock ( _syncRoot ) 
 					{
 						if ( _instance == null )
-							_instance = new GlobalMatrix( );
+							_instance = new Renderer( );
 					}
 				}
 				return _instance;
@@ -100,8 +132,8 @@ namespace VertexArmy.Graphics
 			}
 		}
 
-		private int[] _si;
-		private Matrix[][] _stacks;
+		private readonly int[] _si;
+		private readonly Matrix[][] _stacks;
 
 
 		private Matrix _matWorld;

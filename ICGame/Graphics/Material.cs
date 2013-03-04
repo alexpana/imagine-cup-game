@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace VertexArmy.Graphics
 {
-	class Material
+	public class Material
 	{
 		
 		public Effect Effect;
@@ -13,6 +13,7 @@ namespace VertexArmy.Graphics
 
 		public void Apply()
 		{
+			Effect.CurrentTechnique.Passes[0].Apply( );
 			foreach (var additionalInformation in _bindings)
 			{
 				Effect.Parameters[additionalInformation.Key].SetValue(_parameter[additionalInformation.Value]);
@@ -21,12 +22,14 @@ namespace VertexArmy.Graphics
 
 		public void AddParameter(string name, object data)
 		{
+			_bindings[name] = _parameter.Count;
 			_parameter.Add( data );
 		}
 
 		public void SetParameter( string name, object data )
 		{
-			_parameter[_bindings[name]] = data;
+			if(_bindings.ContainsKey(name))
+				_parameter[_bindings[name]] = data;
 		}
 	}
 }

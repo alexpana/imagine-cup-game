@@ -22,12 +22,7 @@ namespace ICGame.LevelGenerator
 			LevelChunk mainChunk = new LevelChunk();
 			tutorialLevel.Chunks.Add( mainChunk );
 
-			// create entities
-			RobotEntity robot = new RobotEntity
-			{
-				BasePhysicsEntity = new PhysicsEntityRobot( 0.7f ),
-				SceneNode = new SceneNode()
-			};
+			
 
 			BlockEntity robotHolder = new BlockEntity
 			{
@@ -39,7 +34,6 @@ namespace ICGame.LevelGenerator
 			};
 
 			// add entities
-			mainChunk.Entities.Add( robot );
 			mainChunk.Entities.Add( robotHolder );
 
 			return tutorialLevel;

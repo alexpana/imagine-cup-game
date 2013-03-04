@@ -5,7 +5,7 @@ using VertexArmy.Graphics;
 using VertexArmy.Common;
 using VertexArmy.Utilities;
 
-namespace VertexArmy.Entities.Physics
+namespace VertexArmy.Physics
 {
 	class BodyTransformableController : IUpdateableObject
 	{

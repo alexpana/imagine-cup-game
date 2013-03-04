@@ -16,7 +16,6 @@ namespace VertexArmy.Serialization
 			_serializer = new DataContractJsonSerializer( typeof( T ),
 				new List<Type>
 				{
-					typeof(RobotEntity),
 					typeof(BlockEntity),
 					
 					typeof(PhysicsEntityRobot),

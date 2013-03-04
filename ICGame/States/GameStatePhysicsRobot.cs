@@ -199,7 +199,7 @@ namespace VertexArmy.States
 				_ground.Friction = 1.2f;
 				_ground.Restitution = 0f;
 			}
-			_robot = new PhysicsEntityRobot( 1f, new Vector2( 50f, 5f ) );
+			_robot = new PhysicsEntityRobot( 1.0f, new Vector2( 50f, 5f ) );
 			_robot.Enabled = false;
 
 			/*

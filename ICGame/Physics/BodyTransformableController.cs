@@ -68,7 +68,7 @@ namespace VertexArmy.Physics
 			_lastBodyRotation = _body.Rotation;
 			if (Transformable != null)
 			{
-				Transformable.SetRotation( new Quaternion(new Vector3(0f,0f,1f), _body.Rotation ) );
+				Transformable.SetRotation(Quaternion.CreateFromAxisAngle(new Vector3(0f,0f,1f), _body.Rotation ) );
 			}
 		}
 

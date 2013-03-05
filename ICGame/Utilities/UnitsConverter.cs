@@ -28,12 +28,13 @@ namespace VertexArmy.Utilities
 
 		public static Vector2 ToDisplayUnits( Vector2 simUnits )
 		{
-			return simUnits * _displayUnitsToSimUnitsRatio;
+			return -1 * simUnits * _displayUnitsToSimUnitsRatio;
 		}
 
 		public static void ToDisplayUnits( ref Vector2 simUnits, out Vector2 displayUnits )
 		{
 			Vector2.Multiply( ref simUnits, _displayUnitsToSimUnitsRatio, out displayUnits );
+			displayUnits *= -1;
 		}
 
 		public static Vector3 ToDisplayUnits( Vector3 simUnits )
@@ -43,14 +44,14 @@ namespace VertexArmy.Utilities
 
 		public static Vector2 ToDisplayUnits( float x, float y )
 		{
-			return new Vector2( x, y ) * _displayUnitsToSimUnitsRatio;
+			return new Vector2( -x, -y ) * _displayUnitsToSimUnitsRatio;
 		}
 
 		public static void ToDisplayUnits( float x, float y, out Vector2 displayUnits )
 		{
 			displayUnits = Vector2.Zero;
-			displayUnits.X = x * _displayUnitsToSimUnitsRatio;
-			displayUnits.Y = y * _displayUnitsToSimUnitsRatio;
+			displayUnits.X = -x * _displayUnitsToSimUnitsRatio;
+			displayUnits.Y = -y * _displayUnitsToSimUnitsRatio;
 		}
 
 		public static float ToSimUnits( float displayUnits )

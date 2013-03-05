@@ -22,7 +22,7 @@ namespace VertexArmy
 			Platform.Instance.PhysicsWorld = new World( new Vector2( 0f, 9.82f ) );
 			Platform.Instance.Game = this;
 			Content.RootDirectory = "Content";
-			UnitsConverter.SetDisplayUnitToSimUnitRatio( 100 );
+			UnitsConverter.SetDisplayUnitToSimUnitRatio( 15 );
 		}
 
 		protected override void Initialize()

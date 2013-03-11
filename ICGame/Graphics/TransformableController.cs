@@ -5,9 +5,9 @@ using VertexArmy.Graphics;
 using VertexArmy.Common;
 using VertexArmy.Utilities;
 
-namespace VertexArmy.Physics
+namespace VertexArmy.Graphics
 {
-	class BodyTransformableController : IUpdateableObject
+	public class TransformableController : IUpdateableObject
 	{
 		private ITransformable _transformable;
 		public ITransformable Transformable
@@ -28,16 +28,7 @@ namespace VertexArmy.Physics
 		private const float RotationError = 0.001f;
 		private const float PositionError = 0.001f;
 
-		public BodyTransformableController( Body body )
-		{
-			Transformable = null;
-			_body = body;
-
-			UpdateTransformableRotation( );
-			UpdateTransformablePosition( );
-		}
-
-		public BodyTransformableController(Body body, ITransformable transformable)
+		public TransformableController(ITransformable transformable, Body body)
 		{
 			_body = body;
 			Transformable = transformable;
@@ -45,6 +36,11 @@ namespace VertexArmy.Physics
 
 			UpdateTransformableRotation( );
 			UpdateTransformablePosition( );
+		}
+
+		public Body Body
+		{
+			get { return _body; }
 		}
 
 		public void Update( GameTime dt )
@@ -66,7 +62,7 @@ namespace VertexArmy.Physics
 		private void UpdateTransformableRotation()
 		{
 			_lastBodyRotation = _body.Rotation;
-			if (Transformable != null)
+			if ( Transformable != null && _body != null)
 			{
 				Transformable.SetRotation(Quaternion.CreateFromAxisAngle(new Vector3(0f,0f,1f), _body.Rotation ) );
 			}
@@ -75,10 +71,15 @@ namespace VertexArmy.Physics
 		private void UpdateTransformablePosition()
 		{
 			_lastBodyPosition = _body.Position;
-			if (Transformable != null)
+			if ( Transformable != null && _body != null )
 			{
 				Transformable.SetPosition( new Vector3(UnitsConverter.ToDisplayUnits(_body.Position),0f) );
 			}
+		}
+
+		private void RemoveSceneNode()
+		{
+			
 		}
 	}
 }

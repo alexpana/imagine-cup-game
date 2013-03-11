@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using FarseerPhysics.Collision.Shapes;
@@ -10,7 +10,7 @@ using Microsoft.Xna.Framework;
 using VertexArmy.Global;
 using VertexArmy.Utilities;
 
-namespace VertexArmy.Entities.Physics
+namespace VertexArmy.GameWorld.Physics
 {
 	[DataContract]
 	public class PhysicsEntityRobot : IPhysicsEntity
@@ -122,16 +122,16 @@ namespace VertexArmy.Entities.Physics
 			set
 			{
 				float modifier = value - Rotation;
-				TransformUtility.RotateBodyAroundPoint( _gear1, _robotBody.Position, modifier );
-				TransformUtility.RotateBodyAroundPoint( _gear2, _robotBody.Position, modifier );
-				TransformUtility.RotateBodyAroundPoint( _gear3, _robotBody.Position, modifier );
+				BodyUtility.RotateBodyAroundPoint( _gear1, _robotBody.Position, modifier );
+				BodyUtility.RotateBodyAroundPoint( _gear2, _robotBody.Position, modifier );
+				BodyUtility.RotateBodyAroundPoint( _gear3, _robotBody.Position, modifier );
 
 				foreach (Body b in _links)
 				{
-					TransformUtility.RotateBodyAroundPoint( b, _robotBody.Position, modifier );
+					BodyUtility.RotateBodyAroundPoint( b, _robotBody.Position, modifier );
 				}
 
-				TransformUtility.RotateBodyAroundPoint( _robotBody, _robotBody.Position, modifier );
+				BodyUtility.RotateBodyAroundPoint( _robotBody, _robotBody.Position, modifier );
 			}
 			get { return _robotBody.Rotation; }
 		}
@@ -273,7 +273,7 @@ namespace VertexArmy.Entities.Physics
 			shapes.Add( new PolygonShape( PolygonTools.CreateRectangle( _linkSize.X * PhysicsInternalScale, _linkSize.Y * PhysicsInternalScale, new Vector2( 0f, 0f ), 0f ), LinkDensity ) );
 			shapes.Add( new PolygonShape( PolygonTools.CreateRectangle( _linkFeetSize.X * PhysicsInternalScale, _linkFeetSize.Y * PhysicsInternalScale, new Vector2( 0.12f * PhysicsInternalScale, 0f * PhysicsInternalScale ), 0f ), LinkFeetDensity ) );
 
-			_links = PathManager.EvenlyDistributeShapesAlongPath( Platform.Instance.PhysicsWorld, _path, shapes, BodyType.Dynamic, LinkCount, 1 );
+			_links = PathManager.EvenlyDistributeShapesAlongPath( Platform.Instance.PhysicsWorld, _path, shapes, BodyType.Dynamic, LinkCount+1, 1 );
 
 			foreach ( Body b in _links )
 			{

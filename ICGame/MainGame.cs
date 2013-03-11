@@ -2,6 +2,7 @@ using System;
 using FarseerPhysics.Dynamics;
 using Microsoft.Xna.Framework;
 using VertexArmy.Global;
+using VertexArmy.Global.Updaters;
 using VertexArmy.Graphics;
 using VertexArmy.Input;
 using VertexArmy.States;
@@ -53,7 +54,7 @@ namespace VertexArmy
 			Platform.Instance.Input.Update( gameTime );
 
 			Platform.Instance.PhysicsWorld.Step( Math.Min( ( float ) gameTime.ElapsedGameTime.TotalMilliseconds * 0.001f, ( 1f / 30f ) ) );
-			Updateables.Instance.Update( gameTime );
+			
 			if ( StateManager.Instance.CurrentGameState != null )
 			{
 				StateManager.Instance.CurrentGameState.OnUpdate( gameTime );
@@ -61,7 +62,7 @@ namespace VertexArmy
 
 			CursorManager.Instance.Update();
 
-			
+			TransformableControllerUpdater.Instance.Update( gameTime );
 			StateManager.Instance.OnFrameEndCommitStates();
 		}
 

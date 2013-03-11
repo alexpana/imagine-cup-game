@@ -93,11 +93,15 @@
     <Compile Include="Entities\BaseEntity.cs" />
     <Compile Include="Entities\BlockEntity.cs" />
     <Compile Include="Entities\EntityFlags.cs" />
-    <Compile Include="Global\Updatables.cs" />
-    <Compile Include="Physics\BodyTransformableController.cs" />
+    <Compile Include="GameWorld\GameEntity.cs" />
+    <Compile Include="GameWorld\GameEntityFlags.cs" />
+    <Compile Include="GameWorld\PrefabEntity.cs" />
+    <Compile Include="Global\Managers\GameWorldManager.cs" />
+    <Compile Include="GameWorld\PhysicsEntity.cs" />
     <Compile Include="Entities\Physics\PhysicsEntityBasic.cs" />
     <Compile Include="Entities\Physics\PhysicsEntityType.cs" />
     <Compile Include="Global\CursorManager.cs" />
+    <Compile Include="Global\Updaters\TransformableControllerUpdater.cs" />
     <Compile Include="Graphics\Attachable.cs" />
     <Compile Include="Graphics\Camera.cs" />
     <Compile Include="Graphics\Renderer.cs" />
@@ -109,6 +113,7 @@
     <Compile Include="Graphics\SceneManager.cs" />
     <Compile Include="Graphics\SceneNode.cs" />
     <Compile Include="Graphics\SimpleMeshEntity.cs" />
+    <Compile Include="Graphics\TransformableController.cs" />
     <Compile Include="GS.cs" />
     <Compile Include="Input\IInputSystem.cs" />
     <Compile Include="Input\PCInputSystem.cs" />
@@ -136,7 +141,7 @@
     <Compile Include="States\GameStatePresentation.cs" />
     <Compile Include="Global\Platform.cs" />
     <Compile Include="States\GameStateRoomPreview.cs" />
-    <Compile Include="Utilities\BodyUtility.cs" />
+    <Compile Include="Utilities\TransformUtility.cs" />
     <Compile Include="Utilities\UnitsConverter.cs" />
     <Compile Include="Serialization\ISerializer.cs" />
     <Compile Include="Serialization\JsonSerializer.cs" />
@@ -186,7 +191,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="GameWorld\Prefabs\" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.targets" />
   <!--

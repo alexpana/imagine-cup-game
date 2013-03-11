@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework;
 
 namespace VertexArmy.Utilities
 {
-	public static class BodyUtility
+	public static class TransformUtility
 	{
 		 public static void RotateBodyAroundPoint( Body body, Vector2 point, float rotation)
 		 {
@@ -23,5 +23,13 @@ namespace VertexArmy.Utilities
 			 }
 			 
 		 }
+
+		public static float GetAngleRollFromQuaternion ( Quaternion q)
+		{
+			return (float)Math.Atan2( 
+				2 * ( q.X * q.Y + q.Z * q.W ), 
+				1 - 2 * ( Math.Pow(q.Y, 2) + Math.Pow(q.Z, 2) )
+			);
+		}
 	}
 }

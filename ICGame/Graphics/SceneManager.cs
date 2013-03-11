@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 
@@ -9,7 +8,6 @@ namespace VertexArmy.Graphics
 	{
 		private static volatile SceneManager _instance;
 		private static readonly object _syncRoot = new Object( );
-		
 
 		private readonly List<SceneNode> _registeredNodes = new List<SceneNode>();
 
@@ -21,7 +19,7 @@ namespace VertexArmy.Graphics
 		{
 			get
 			{
-				if (_instance == null)
+				if ( _instance == null )
 				{
 					lock (_syncRoot)
 					{

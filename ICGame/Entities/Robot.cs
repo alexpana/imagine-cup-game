@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using VertexArmy.Entities.Physics;
 using VertexArmy.Global;
+using VertexArmy.Global.Updaters;
 using VertexArmy.Graphics;
 using VertexArmy.Physics;
 
@@ -37,7 +38,7 @@ namespace VertexArmy.Entities
 
 				_node.AddChild( scn );
 
-				Updateables.Instance.RegisterUpdatable( new BodyTransformableController( RobotPhysics.GetLinkBody( i ), scn ) );
+				TransformableControllerUpdater.Instance.RegisterUpdatable( new TransformableController( RobotPhysics.GetLinkBody( i ), scn ) );
 			}
 
 			for( int i = 0; i < 3; ++i )
@@ -61,7 +62,7 @@ namespace VertexArmy.Entities
 
 				_node.AddChild(scn);
 
-				Updateables.Instance.RegisterUpdatable( new BodyTransformableController( RobotPhysics.GetGearBody( i ), scn ) );
+				TransformableControllerUpdater.Instance.RegisterUpdatable( new TransformableController( RobotPhysics.GetGearBody( i ), scn ) );
 			}
 			SceneManager.Instance.RegisterSceneTree(_node);
 

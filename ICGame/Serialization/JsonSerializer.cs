@@ -14,10 +14,10 @@ namespace VertexArmy.Serialization
 			_serializer = new DataContractJsonSerializer( typeof( T ),
 				new List<Type>
 				{
-					typeof(BlockEntity),
-					
-					typeof(PhysicsEntityRobot),
-					typeof(PhysicsEntityBasic),
+					//typeof(BlockEntity),
+
+					//typeof(PhysicsEntityRobot),
+					//typeof(PhysicsEntityBasic),
 				} );
 			 */
 		}

@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 using VertexArmy.GameWorld;
+using VertexArmy.GameWorld.Prefabs;
 
 namespace VertexArmy.Global.Managers
 {
@@ -7,12 +9,12 @@ namespace VertexArmy.Global.Managers
 	{
 		private Dictionary<string, GameEntity> _entities;
 
-		/*
 		public void SpawnEntity(PrefabEntity prefab, Vector3 position)
 		{
-		
+			GameEntity entity = prefab.CreateGameEntity( this );
+			_entities.Add( entity.Name, entity );
+			entity.SetPosition( position );
 		}
-		 */
 
 		public void RemoveEntity(string name)
 		{

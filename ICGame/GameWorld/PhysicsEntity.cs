@@ -93,7 +93,7 @@ namespace VertexArmy.GameWorld
 			_joints.Add( name, joint );
 		}
 
-		public void RegisterPath( string name, List<Body> pathBodies )
+		public void AddPath( string name, List<Body> pathBodies )
 		{
 			_paths.Add(name, pathBodies );
 		}

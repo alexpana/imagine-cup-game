@@ -15,6 +15,12 @@ namespace VertexArmy.GameWorld
 		public List<TransformableController> Subcomponents;
 		public TransformableController MainSubcomponent;
 
+		public GameEntity()
+		{
+			PhysicsEntity = new PhysicsEntity();
+			Subcomponents = new List<TransformableController>();
+		}
+
 		public void SetPosition( Vector3 newPos )
 		{
 			PhysicsEntity.SetPosition( MainSubcomponent.Body, new Vector2(newPos.X, newPos.Y) );			

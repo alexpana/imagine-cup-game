@@ -95,11 +95,11 @@
     <Compile Include="Entities\EntityFlags.cs" />
     <Compile Include="GameWorld\GameEntity.cs" />
     <Compile Include="GameWorld\GameEntityFlags.cs" />
-    <Compile Include="GameWorld\PrefabEntity.cs" />
+    <Compile Include="GameWorld\Prefabs\PrefabStructs.cs" />
+    <Compile Include="GameWorld\Prefabs\PrefabEntity.cs" />
+    <Compile Include="GameWorld\Prefabs\ShapeType.cs" />
     <Compile Include="Global\Managers\GameWorldManager.cs" />
     <Compile Include="GameWorld\PhysicsEntity.cs" />
-    <Compile Include="Entities\Physics\PhysicsEntityBasic.cs" />
-    <Compile Include="Entities\Physics\PhysicsEntityType.cs" />
     <Compile Include="Global\CursorManager.cs" />
     <Compile Include="Global\Updaters\TransformableControllerUpdater.cs" />
     <Compile Include="Graphics\Attachable.cs" />
@@ -120,7 +120,6 @@
     <Compile Include="Levels\Level.cs" />
     <Compile Include="Levels\LevelChunk.cs" />
     <Compile Include="Levels\LevelManager.cs" />
-    <Compile Include="Entities\Physics\IPhysicsEntity.cs" />
     <Compile Include="Entities\Physics\PhysicsEntityRobot.cs" />
     <Compile Include="Graphics\ITransformable.cs" />
     <Compile Include="Physics\DebugView\DebugViewXNA.cs" />
@@ -191,9 +190,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="GameWorld\Prefabs\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.targets" />
   <!--

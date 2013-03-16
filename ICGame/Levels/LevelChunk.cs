@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Runtime.Serialization;
-using VertexArmy.Entities;
+using VertexArmy.GameWorld;
 
 namespace VertexArmy.Levels
 {
@@ -8,11 +8,11 @@ namespace VertexArmy.Levels
 	public class LevelChunk
 	{
 		[DataMember]
-		public List<BaseEntity> Entities { get; set; }
+		public List<GameEntity> Entities { get; set; }
 
 		public LevelChunk()
 		{
-			Entities = new List<BaseEntity>();
+			Entities = new List<GameEntity>();
 		}
 	}
 }

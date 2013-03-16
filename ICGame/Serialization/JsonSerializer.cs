@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Json;
-using VertexArmy.Entities;
-using VertexArmy.Entities.Physics;
 
 namespace VertexArmy.Serialization
 {
@@ -16,10 +14,10 @@ namespace VertexArmy.Serialization
 			_serializer = new DataContractJsonSerializer( typeof( T ),
 				new List<Type>
 				{
-					typeof(BlockEntity),
-					
-					typeof(PhysicsEntityRobot),
-					typeof(PhysicsEntityBasic),
+					//typeof(BlockEntity),
+
+					//typeof(PhysicsEntityRobot),
+					//typeof(PhysicsEntityBasic),
 				} );
 		}
 

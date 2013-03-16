@@ -118,7 +118,12 @@ namespace VertexArmy.GameWorld.Prefabs
 			switch ( Type )
 			{
 				case JointType.Line:
-					return new LineJoint( body1, body2, Anchor, Axis );
+					LineJoint joint = new LineJoint( body1, body2, Anchor, Axis );
+					joint.MaxMotorTorque = 60f;
+					joint.MotorEnabled = true;
+					joint.Frequency = 10f;
+					joint.DampingRatio = 0.85f;
+					return joint;
 				case JointType.Revolute:
 					return new RevoluteJoint( body1, body2, Anchor, Anchor2 );
 				case JointType.Weld:

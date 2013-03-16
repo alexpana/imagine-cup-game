@@ -97,10 +97,6 @@ namespace VertexArmy.GameWorld
 		public void AddJoint( string name, Joint joint )
 		{
 			_joints.Add( name, joint );
-			( ( LineJoint ) joint ).MaxMotorTorque = 60f;
-			( ( LineJoint ) joint ).MotorEnabled = true;
-			( ( LineJoint ) joint ).Frequency = 10f;
-			( ( LineJoint ) joint ).DampingRatio = 0.85f;
 
 		}
 

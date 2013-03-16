@@ -18,34 +18,34 @@ namespace VertexArmy.GameWorld.Prefabs
 			ShapePrefab gearShape = new ShapePrefab { Type = ShapeType.Circle, XRadius = 1.215f * scale, Density = 1f };
 
 			BodyPrefab gear1 = new BodyPrefab
-							   {
-								   Name = "Gear1",
-								   Friction = 1f,
-								   Restitution = 0.1f,
-								   LocalPosition = new Vector2( -2.301f * scale, 1.243f * scale ),
-								   Static = false,
-								   Shapes = new List<ShapePrefab> { gearShape }
-							   };
+			{
+				Name = "Gear1",
+				Friction = 1f,
+				Restitution = 0.1f,
+				LocalPosition = new Vector2( -2.301f * scale, 1.243f * scale ),
+				Static = false,
+				Shapes = new List<ShapePrefab> { gearShape }
+			};
 
 			BodyPrefab gear2 = new BodyPrefab
-							   {
-								   Name = "Gear2",
-								   Friction = 1f,
-								   Restitution = 0.1f,
-								   LocalPosition = new Vector2( 2.301f * scale, 1.243f * scale ),
-								   Static = false,
-								   Shapes = new List<ShapePrefab> { gearShape }
-							   };
+			{
+				Name = "Gear2",
+				Friction = 1f,
+				Restitution = 0.1f,
+				LocalPosition = new Vector2( 2.301f * scale, 1.243f * scale ),
+				Static = false,
+				Shapes = new List<ShapePrefab> { gearShape }
+			};
 
 			BodyPrefab gear3 = new BodyPrefab
-							   {
-								   Name = "Gear3",
-								   Friction = 1f,
-								   Restitution = 0.1f,
-								   LocalPosition = new Vector2( 0f * scale, -2.615f * scale ),
-								   Static = false,
-								   Shapes = new List<ShapePrefab> { gearShape }
-							   };
+			{
+				Name = "Gear3",
+				Friction = 1f,
+				Restitution = 0.1f,
+				LocalPosition = new Vector2( 0f * scale, -2.615f * scale ),
+				Static = false,
+				Shapes = new List<ShapePrefab> { gearShape }
+			};
 
 			robot.RegisterBody( gear1 );
 			robot.RegisterBody( gear2 );
@@ -58,14 +58,14 @@ namespace VertexArmy.GameWorld.Prefabs
 			chassisShape.Polygon[0].Add( new Vector2( 1.215f * scale, 0.7f * scale ) );
 
 			BodyPrefab chassis = new BodyPrefab
-								 {
-									 Name = "Chassis",
-									 Restitution = 0.1f,
-									 Friction = 1f,
-									 LocalPosition = new Vector2( 0f * scale, 0f * scale ),
-									 Static = false,
-									 Shapes = new List<ShapePrefab> { chassisShape }
-								 };
+			{
+				Name = "Chassis",
+				Restitution = 0.1f,
+				Friction = 1f,
+				LocalPosition = new Vector2( 0f * scale, 0f * scale ),
+				Static = false,
+				Shapes = new List<ShapePrefab> { chassisShape }
+			};
 
 			robot.RegisterBody( chassis, true ); // is main component
 
@@ -108,40 +108,40 @@ namespace VertexArmy.GameWorld.Prefabs
 
 			/* scene nodes */
 			SceneNodesPrefab gearNode1 = new SceneNodesPrefab
-										 {
-											 Name = "Gear1",
-											 Mesh = "models/robo_wheel",
-											 Material = "RobotMaterial",
-											 Body = "Gear1"
-										 };
+			{
+				Name = "Gear1",
+				Mesh = "models/robo_wheel",
+				Material = "RobotMaterial",
+				Body = "Gear1"
+			};
 
 			SceneNodesPrefab gearNode2 = new SceneNodesPrefab
-										 {
-											 Name = "Gear2",
-											 Mesh = "models/robo_wheel",
-											 Material = "RobotMaterial",
-											 Body = "Gear2"
-										 };
+			{
+				Name = "Gear2",
+				Mesh = "models/robo_wheel",
+				Material = "RobotMaterial",
+				Body = "Gear2"
+			};
 
 			SceneNodesPrefab gearNode3 = new SceneNodesPrefab
-										 {
-											 Name = "Gear3",
-											 Mesh = "models/robo_wheel",
-											 Material = "RobotMaterial",
-											 Body = "Gear3"
-										 };
+			{
+				Name = "Gear3",
+				Mesh = "models/robo_wheel",
+				Material = "RobotMaterial",
+				Body = "Gear3"
+			};
 
 			robot.RegisterSceneNode( gearNode1 );
 			robot.RegisterSceneNode( gearNode2 );
 			robot.RegisterSceneNode( gearNode3 );
 
 			SceneNodesPrefab chassisNode = new SceneNodesPrefab
-										   {
-											   Name = "Chassis",
-											   Mesh = "models/robo_link",
-											   Material = "RobotMaterial",
-											   Body = "Chassis"
-										   };
+			{
+				Name = "Chassis",
+				Mesh = "models/robo_link",
+				Material = "RobotMaterial",
+				Body = "Chassis"
+			};
 
 			robot.RegisterSceneNode( chassisNode );
 

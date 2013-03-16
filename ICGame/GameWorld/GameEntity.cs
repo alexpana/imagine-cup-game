@@ -22,7 +22,7 @@ namespace VertexArmy.GameWorld
 
 		public void SetPosition( Vector3 newPos )
 		{
-			PhysicsEntity.SetPosition( MainSubcomponent.Body, new Vector2( newPos.X, newPos.Y ), newPos.Z );
+			PhysicsEntity.SetPosition( MainSubcomponent.Body, UnitsConverter.ToSimUnits( new Vector2( newPos.X, newPos.Y ) ), newPos.Z );
 			MainSubcomponent.Transformable.SetPosition( newPos );
 		}
 
@@ -38,7 +38,7 @@ namespace VertexArmy.GameWorld
 
 		public Vector3 GetPosition()
 		{
-			return new Vector3( MainSubcomponent.Body.Position, 0f );
+			return new Vector3( UnitsConverter.ToDisplayUnits( MainSubcomponent.Body.Position ), 0f );
 		}
 
 		public Quaternion GetRotation()

@@ -1,7 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.IO;
-using Microsoft.Xna.Framework;
-using VertexArmy.Serialization;
 
 namespace VertexArmy.Levels
 {
@@ -26,6 +23,7 @@ namespace VertexArmy.Levels
 
 		private Level LoadLevel( string name )
 		{
+			/*
 			try
 			{
 				using ( Stream stream = TitleContainer.OpenStream( @"Content\Levels\" + name + @".level" ) )
@@ -51,18 +49,20 @@ namespace VertexArmy.Levels
 			{
 				return null;
 			}
+			 */
+			return null;
 		}
 
 		private LevelManager()
 		{
-			_loadedLevels = new Dictionary<string, Level>();
+			_loadedLevels = new Dictionary<string, Level>( );
 		}
 
 		#region Singleton
 		private static class LevelManagerInstanceHolder
 		{
 			// ReSharper disable MemberHidesStaticFromOuterClass
-			public static readonly LevelManager Instance = new LevelManager();
+			public static readonly LevelManager Instance = new LevelManager( );
 			// ReSharper restore MemberHidesStaticFromOuterClass
 		}
 		#endregion

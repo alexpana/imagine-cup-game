@@ -6,6 +6,7 @@ using FarseerPhysics.Dynamics.Joints;
 using FarseerPhysics.Factories;
 using Microsoft.Xna.Framework;
 using VertexArmy.Global;
+using VertexArmy.Global.Managers;
 using VertexArmy.Graphics;
 
 namespace VertexArmy.GameWorld.Prefabs
@@ -23,7 +24,12 @@ namespace VertexArmy.GameWorld.Prefabs
 		public string Name { get; set; }
 		public string Body;
 		public string Mesh;
-		public Material Material;
+		public string Material;
+
+		public Material GetMaterial()
+		{
+			return MaterialRepository.Instance.GetMaterial( Material );
+		}
 	}
 
 	/* BodyPrefab */
@@ -46,7 +52,7 @@ namespace VertexArmy.GameWorld.Prefabs
 			pBody.IsStatic = Static;
 			pBody.Friction = Friction;
 
-			foreach (ShapePrefab sp in Shapes)
+			foreach ( ShapePrefab sp in Shapes )
 			{
 				sp.AttachToBody( pBody );
 			}
@@ -70,9 +76,9 @@ namespace VertexArmy.GameWorld.Prefabs
 
 		public float Width, Height;
 
-		public void AttachToBody( Body body)
+		public void AttachToBody( Body body )
 		{
-			switch (Type)
+			switch ( Type )
 			{
 				case ShapeType.Circle:
 					FixtureFactory.AttachCircle( XRadius, Density, body );
@@ -107,7 +113,7 @@ namespace VertexArmy.GameWorld.Prefabs
 		public string Body1, Body2;
 		public Vector2 Anchor, Anchor2, Axis;
 
-		public Joint GetPhysicsJoint( Body body1, Body body2)
+		public Joint GetPhysicsJoint( Body body1, Body body2 )
 		{
 			switch ( Type )
 			{
@@ -173,7 +179,7 @@ namespace VertexArmy.GameWorld.Prefabs
 						);
 
 					return bodies;
-					
+
 				case JointType.Slider:
 
 					PathManager.AttachBodiesWithSliderJoint(

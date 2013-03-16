@@ -9,10 +9,10 @@ namespace VertexArmy.Graphics
 		private static volatile SceneManager _instance;
 		private static readonly object _syncRoot = new Object( );
 
-		private readonly List<SceneNode> _registeredNodes = new List<SceneNode>();
+		private readonly List<SceneNode> _registeredNodes = new List<SceneNode>( );
 
-		private readonly List<Camera> _sceneCameras = new List<Camera>();
-		private readonly List<Light> _sceneLights = new List<Light>();
+		private readonly List<Camera> _sceneCameras = new List<Camera>( );
+		private readonly List<Light> _sceneLights = new List<Light>( );
 
 
 		public static SceneManager Instance
@@ -21,50 +21,50 @@ namespace VertexArmy.Graphics
 			{
 				if ( _instance == null )
 				{
-					lock (_syncRoot)
+					lock ( _syncRoot )
 					{
-						if (_instance == null)
-							_instance = new SceneManager();
+						if ( _instance == null )
+							_instance = new SceneManager( );
 					}
 				}
 				return _instance;
 			}
 		}
-		
+
 		public void Clear()
 		{
-			_registeredNodes.Clear ( );
-			_sceneCameras.Clear ( );
-			_sceneLights.Clear ( );
+			_registeredNodes.Clear( );
+			_sceneCameras.Clear( );
+			_sceneLights.Clear( );
 		}
 
 		public void RegisterSceneTree( SceneNode node )
 		{
-			
-			Queue<SceneNode> knodes = new Queue<SceneNode>();
 
-			knodes.Enqueue(node);
+			Queue<SceneNode> knodes = new Queue<SceneNode>( );
 
-			while(knodes.Count != 0)
+			knodes.Enqueue( node );
+
+			while ( knodes.Count != 0 )
 			{
 				SceneNode head = knodes.Dequeue( );
 
 				/* protect against multiple register */
-				if(_registeredNodes.Contains(head))
+				if ( _registeredNodes.Contains( head ) )
 					continue;
 
 				_registeredNodes.Add( head );
 
-				foreach(var child in head.Children)
+				foreach ( var child in head.Children )
 				{
-					knodes.Enqueue(child);
+					knodes.Enqueue( child );
 				}
 
-				foreach (var attachable in head.Attachable)
+				foreach ( var attachable in head.Attachable )
 				{
 					Light light = attachable as Light;
-					if (light != null)
-						_sceneLights.Add(light);
+					if ( light != null )
+						_sceneLights.Add( light );
 
 					Camera camera = attachable as Camera;
 					if ( camera != null )
@@ -73,27 +73,27 @@ namespace VertexArmy.Graphics
 			}
 		}
 
-		public void Render(float dt)
+		public void Render( float dt )
 		{
 			//to do: link camera & lights, blah blah
 			Renderer.Instance.LoadMatrix( EMatrix.Projection, Matrix.CreatePerspectiveFieldOfView( MathHelper.PiOver4, Global.Platform.Instance.Device.Viewport.AspectRatio, 1, 10000 ) );
-			Renderer.Instance.LoadMatrix( EMatrix.View, Matrix.CreateLookAt( new Vector3( 200, -100, -400 ), new Vector3( 0, -200, 0 ), new Vector3( 0, 1, 0 ) ) );
+			Renderer.Instance.LoadMatrix( EMatrix.View, Matrix.CreateLookAt( new Vector3( 200, -600, -800 ), new Vector3( 0, -600, 0 ), new Vector3( 0, 1, 0 ) ) );
 
-			
-			Renderer.Instance.SetParameter("eyePosition", new Vector3(200,-100,-400));
-			Renderer.Instance.SetParameter("lightPosition", new Vector3( 0, 40000, 0 ) );
 
-			foreach (var registeredNode in _registeredNodes)
+			Renderer.Instance.SetParameter( "eyePosition", new Vector3( 200, -600, -800 ) );
+			Renderer.Instance.SetParameter( "lightPosition", new Vector3( 0, 40000, 0 ) );
+
+			foreach ( var registeredNode in _registeredNodes )
 			{
 				Renderer.Instance.LoadMatrix( EMatrix.World, registeredNode.GetAbsoluteTransformation( ) );
 				Renderer.Instance.SetParameter( "matWorld", Renderer.Instance.MatWorld );
 				Renderer.Instance.SetParameter( "matWorldInverseTranspose", Renderer.Instance.MatWorldInverseTranspose );
-				Renderer.Instance.SetParameter( "matWorldViewProj", Renderer.Instance.MatWorldViewProjection);
-			
+				Renderer.Instance.SetParameter( "matWorldViewProj", Renderer.Instance.MatWorldViewProjection );
 
-				foreach ( var attachable in registeredNode.Attachable)
+
+				foreach ( var attachable in registeredNode.Attachable )
 				{
-					attachable.Render(dt);
+					attachable.Render( dt );
 				}
 			}
 

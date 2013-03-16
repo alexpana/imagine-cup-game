@@ -14,7 +14,7 @@ namespace VertexArmy.Levels
 
 		public Level()
 		{
-			Chunks = new List<LevelChunk>();
+			Chunks = new List<LevelChunk>( );
 		}
 	}
 }

@@ -9,18 +9,28 @@ namespace VertexArmy.Global.Managers
 	{
 		private Dictionary<string, GameEntity> _entities;
 
-		public void SpawnEntity(PrefabEntity prefab, Vector3 position)
+		public GameEntity GetEntity( string name )
+		{
+			return _entities[name];
+		}
+
+		public void SpawnEntity( string prefabName, Vector3 position, string entityName )
+		{
+			SpawnEntity( PrefabRepository.Instance.GetPrefab( prefabName ), position, entityName );
+		}
+
+		public void SpawnEntity( PrefabEntity prefab, Vector3 position, string entityName )
 		{
 			GameEntity entity = prefab.CreateGameEntity( this );
-			_entities.Add( entity.Name, entity );
+			_entities.Add( entityName, entity );
 			entity.SetPosition( position );
 		}
 
-		public void RemoveEntity(string name)
+		public void RemoveEntity( string name )
 		{
 			if ( _entities.ContainsKey( name ) )
 			{
-				_entities[name].Remove();
+				_entities[name].Remove( );
 				_entities.Remove( name );
 			}
 		}
@@ -33,7 +43,7 @@ namespace VertexArmy.Global.Managers
 
 		public GameWorldManager()
 		{
-			_entities = new Dictionary<string, GameEntity>();
+			_entities = new Dictionary<string, GameEntity>( );
 		}
 
 		private static class GameWorldManagerInstanceHolder

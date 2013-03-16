@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using FarseerPhysics.Dynamics;
 using FarseerPhysics.Dynamics.Joints;
-using FarseerPhysics.Factories;
 using Microsoft.Xna.Framework;
 using VertexArmy.Global;
 using VertexArmy.Utilities;
@@ -16,18 +15,25 @@ namespace VertexArmy.GameWorld
 		private Dictionary<string, Joint> _joints;
 		private Dictionary<string, List<Body>> _paths;
 
+		private float _z;
+
+		public float Depth
+		{
+			get { return _z; }
+		}
+
 		public PhysicsEntity()
 		{
-			_bodies = new Dictionary<string, Body>();
-			_joints = new Dictionary<string, Joint>();
-			_paths = new Dictionary<string, List<Body>>();
+			_bodies = new Dictionary<string, Body>( );
+			_joints = new Dictionary<string, Joint>( );
+			_paths = new Dictionary<string, List<Body>>( );
 		}
 
 		public ICollection<Body> Bodies
 		{
-			
+
 			get { return _bodies.Values; }
-			
+
 		}
 
 		public ICollection<Joint> Joints
@@ -44,12 +50,12 @@ namespace VertexArmy.GameWorld
 		{
 			set
 			{
-				foreach (Body b in _bodies.Values)
+				foreach ( Body b in _bodies.Values )
 				{
 					b.Enabled = value;
 				}
 
-				foreach ( var p in _paths.Values)
+				foreach ( var p in _paths.Values )
 				{
 					foreach ( var b in p )
 					{
@@ -78,27 +84,32 @@ namespace VertexArmy.GameWorld
 			get { return _paths.Keys; }
 		}
 
-		public void AddBody(string name, Body body)
+		public void AddBody( string name, Body body )
 		{
-			_bodies.Add(name,body);
+			_bodies.Add( name, body );
 		}
 
-		public void AddBody(string name, Body body, bool main)
+		public void AddBody( string name, Body body, bool main )
 		{
-			_bodies.Add(name,body);
+			_bodies.Add( name, body );
 		}
 
 		public void AddJoint( string name, Joint joint )
 		{
 			_joints.Add( name, joint );
+			( ( LineJoint ) joint ).MaxMotorTorque = 60f;
+			( ( LineJoint ) joint ).MotorEnabled = true;
+			( ( LineJoint ) joint ).Frequency = 10f;
+			( ( LineJoint ) joint ).DampingRatio = 0.85f;
+
 		}
 
 		public void AddPath( string name, List<Body> pathBodies )
 		{
-			_paths.Add(name, pathBodies );
+			_paths.Add( name, pathBodies );
 		}
 
-		public Body GetBody(string name)
+		public Body GetBody( string name )
 		{
 			if ( _bodies.ContainsKey( name ) )
 			{
@@ -120,7 +131,7 @@ namespace VertexArmy.GameWorld
 
 		public Body GetBodyFromPath( string name, int index )
 		{
-			if ( _paths.ContainsKey( name ) && index < _paths[name].Count)
+			if ( _paths.ContainsKey( name ) && index < _paths[name].Count )
 			{
 				return _paths[name][index];
 			}
@@ -138,7 +149,7 @@ namespace VertexArmy.GameWorld
 			return -1;
 		}
 
-		public void SetPosition( Body center, Vector2 newPosition)
+		public void SetPosition( Body center, Vector2 newPosition, float z )
 		{
 			Vector2 relative = newPosition - center.Position;
 
@@ -155,6 +166,8 @@ namespace VertexArmy.GameWorld
 					b.SetTransform( b.Position + relative, b.Rotation );
 				}
 			}
+
+			_z = z;
 		}
 
 		public void SetRotation( Body center, float newRotation )
@@ -173,7 +186,7 @@ namespace VertexArmy.GameWorld
 					TransformUtility.RotateBodyAroundPoint( b, center.Position, modifier );
 				}
 			}
-			
+
 		}
 
 		public void Remove()
@@ -189,6 +202,11 @@ namespace VertexArmy.GameWorld
 				{
 					Platform.Instance.PhysicsWorld.RemoveBody( b );
 				}
+			}
+
+			foreach ( var j in _joints.Values )
+			{
+				Platform.Instance.PhysicsWorld.RemoveJoint( j );
 			}
 		}
 	}

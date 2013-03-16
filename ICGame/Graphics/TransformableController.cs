@@ -1,7 +1,6 @@
 ﻿using System;
 using FarseerPhysics.Dynamics;
 using Microsoft.Xna.Framework;
-using VertexArmy.Graphics;
 using VertexArmy.Common;
 using VertexArmy.Utilities;
 
@@ -28,11 +27,11 @@ namespace VertexArmy.Graphics
 		private const float RotationError = 0.001f;
 		private const float PositionError = 0.001f;
 
-		public TransformableController(ITransformable transformable, Body body)
+		public TransformableController( ITransformable transformable, Body body )
 		{
 			_body = body;
 			Transformable = transformable;
-			
+
 
 			UpdateTransformableRotation( );
 			UpdateTransformablePosition( );
@@ -46,14 +45,14 @@ namespace VertexArmy.Graphics
 		public void Update( GameTime dt )
 		{
 			float rotationDelta = Math.Abs( _body.Rotation - _lastBodyRotation );
-			float positionDelta = (_body.Position - _lastBodyPosition).Length();
+			float positionDelta = ( _body.Position - _lastBodyPosition ).Length( );
 
-			if ( rotationDelta > RotationError)
+			if ( rotationDelta > RotationError )
 			{
-				UpdateTransformableRotation();
+				UpdateTransformableRotation( );
 			}
 
-			if ( positionDelta > PositionError)
+			if ( positionDelta > PositionError )
 			{
 				UpdateTransformablePosition( );
 			}
@@ -62,9 +61,9 @@ namespace VertexArmy.Graphics
 		private void UpdateTransformableRotation()
 		{
 			_lastBodyRotation = _body.Rotation;
-			if ( Transformable != null && _body != null)
+			if ( Transformable != null && _body != null )
 			{
-				Transformable.SetRotation(Quaternion.CreateFromAxisAngle(new Vector3(0f,0f,1f), _body.Rotation ) );
+				Transformable.SetRotation( Quaternion.CreateFromAxisAngle( new Vector3( 0f, 0f, 1f ), _body.Rotation ) );
 			}
 		}
 
@@ -73,13 +72,13 @@ namespace VertexArmy.Graphics
 			_lastBodyPosition = _body.Position;
 			if ( Transformable != null && _body != null )
 			{
-				Transformable.SetPosition( new Vector3(UnitsConverter.ToDisplayUnits(_body.Position),0f) );
+				Transformable.SetPosition( new Vector3( UnitsConverter.ToDisplayUnits( _body.Position ), 0f ) );
 			}
 		}
 
 		private void RemoveSceneNode()
 		{
-			
+
 		}
 	}
 }

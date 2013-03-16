@@ -5,10 +5,12 @@ using FarseerPhysics.Dynamics;
 using FarseerPhysics.Factories;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.Input;
-using VertexArmy.Entities;
-using VertexArmy.Entities.Physics;
+using Microsoft.Xna.Framework.Graphics;
+using VertexArmy.GameWorld;
+using VertexArmy.GameWorld.Prefabs;
 using VertexArmy.Global;
+using VertexArmy.Global.Managers;
+using VertexArmy.Graphics;
 using VertexArmy.Physics.DebugView;
 
 namespace VertexArmy.States
@@ -25,12 +27,12 @@ namespace VertexArmy.States
 		//private Body _floorBody;
 		private Body _ground;
 
+		public GameEntity Robot;
 		private float _cameraPosition;
 		private float _cameraError = 0.7f;
 		private bool _cameraMoving;
-		private float _cameraStep;
 
-		private Robot _robot;
+		private float _cameraStep;
 		private bool _actionFreeze;
 		private bool _actionReset;
 
@@ -43,28 +45,10 @@ namespace VertexArmy.States
 		{
 			bool moving = false;
 
-			if ( !_cameraMoving && Math.Abs( _cameraPosition - _robot.RobotPhysics.Position.X ) > _cameraError )
-			{
-				_cameraMoving = true;
-				_cameraStep = ( -1 ) * ( _cameraPosition - _robot.RobotPhysics.Position.X ) / 15;
-			}
-
-			if ( _cameraMoving )
-			{
-				_cameraPosition += _cameraStep;
-
-				if ( Math.Abs( _cameraPosition - _robot.RobotPhysics.Position.X ) <= _cameraError / 2 )
-				{
-					_cameraMoving = false;
-				}
-				else
-				{
-					_cameraStep = ( -1 ) * ( _cameraPosition - _robot.RobotPhysics.Position.X ) / 15;
-				}
-			}
 
 			Platform.Instance.PhysicsWorld.Step( Math.Min( ( float ) dt.ElapsedGameTime.TotalMilliseconds * 0.001f, ( 1f / 30f ) ) );
 
+			/*
 			_robot.RobotPhysics.Move( 0f );
 			if ( Keyboard.GetState( PlayerIndex.One ).IsKeyDown( Keys.Left ) )
 			{
@@ -115,6 +99,7 @@ namespace VertexArmy.States
 			}
 
 			_robot.RobotPhysics.OnUpdate( dt );
+			 */
 
 		}
 
@@ -147,8 +132,8 @@ namespace VertexArmy.States
 
 			_ground = new Body( Platform.Instance.PhysicsWorld );
 			{
-				
-				Vertices terrain = new Vertices();
+
+				Vertices terrain = new Vertices( );
 				terrain.Add( new Vector2( -20f, 15f ) );
 				terrain.Add( new Vector2( -20f, 20f ) );
 				terrain.Add( new Vector2( 20f, 20f ) );
@@ -184,7 +169,7 @@ namespace VertexArmy.States
 				terrain.Add( new Vector2( 270f, 20f ) );
 				terrain.Add( new Vector2( 310f, 20f ) );
 				terrain.Add( new Vector2( 310f, 15f ) );
-				 
+
 
 				/* straight terrain
 				Vertices terrain = new Vertices( );
@@ -202,8 +187,6 @@ namespace VertexArmy.States
 				_ground.Friction = 1.2f;
 				_ground.Restitution = 0f;
 			}
-			_robot = new Robot();
-			_robot.RobotPhysics.Enabled = false;
 
 			/*
 			Body rec = BodyFactory.CreateRectangle( Platform.Instance.PhysicsWorld, 2f, 2f, 0.3f );
@@ -215,16 +198,36 @@ namespace VertexArmy.States
 			rec.BodyType = BodyType.Dynamic;
 			 */
 
-			_cameraPosition = _robot.RobotPhysics.Position.X;
 
 		}
 
 		public void OnEnter()
 		{
+			Material robotMat = new Material( );
+			Effect robofx = Platform.Instance.Content.Load<Effect>( "effects/" + "robo" );
+
+			robotMat.Effect = robofx;
+
+			robotMat.AddParameter( "ColorMap", Platform.Instance.Content.Load<Texture2D>( "images/" + "color" ) );
+			robotMat.AddParameter( "NormalMap", Platform.Instance.Content.Load<Texture2D>( "images/" + "normal" ) );
+			robotMat.AddParameter( "SpecularMap", Platform.Instance.Content.Load<Texture2D>( "images/" + "specular" ) );
+			robotMat.AddParameter( "AOMap", Platform.Instance.Content.Load<Texture2D>( "images/" + "ao" ) );
+			robotMat.AddParameter( "matWorldViewProj", Matrix.Identity );
+			robotMat.AddParameter( "matWorldInverseTranspose", Matrix.Identity );
+			robotMat.AddParameter( "matWorld", Matrix.Identity );
+			robotMat.AddParameter( "eyePosition", Vector3.Zero );
+			robotMat.AddParameter( "lightPosition", Vector3.Zero );
+
+			MaterialRepository.Instance.RegisterMaterial( "RobotMaterial", robotMat );
+
+			PrefabRepository.Instance.RegisterPrefab( "robot", RobotPrefab.CreatePrefab( ) );
+			GameWorldManager.Instance.SpawnEntity( "robot", new Vector3( 0f, 0f, 0f ), "robot1" );
+			Robot = GameWorldManager.Instance.GetEntity( "robot1" );
+
 			_cameraMoving = false;
 			_actionFreeze = false;
 			_actionReset = false;
-			LoadPhysicsContent();
+			LoadPhysicsContent( );
 			_debugView = new DebugViewXNA( Platform.Instance.PhysicsWorld );
 
 			_debugView.LoadContent( Platform.Instance.Device, Platform.Instance.Content );
@@ -237,7 +240,7 @@ namespace VertexArmy.States
 
 		public void OnClose()
 		{
-			_contentManager.Unload();
+			_contentManager.Unload( );
 		}
 	}
 }

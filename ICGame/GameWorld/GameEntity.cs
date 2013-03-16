@@ -1,12 +1,11 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using VertexArmy.Global.Updaters;
 using VertexArmy.Graphics;
 using VertexArmy.Utilities;
 
 namespace VertexArmy.GameWorld
 {
-	public class GameEntity :ITransformable
+	public class GameEntity : ITransformable
 	{
 		public string Name { get; set; }
 		public GameEntityFlags Flags { get; set; }
@@ -17,18 +16,19 @@ namespace VertexArmy.GameWorld
 
 		public GameEntity()
 		{
-			PhysicsEntity = new PhysicsEntity();
-			Subcomponents = new List<TransformableController>();
+			PhysicsEntity = new PhysicsEntity( );
+			Subcomponents = new List<TransformableController>( );
 		}
 
 		public void SetPosition( Vector3 newPos )
 		{
-			PhysicsEntity.SetPosition( MainSubcomponent.Body, new Vector2(newPos.X, newPos.Y) );			
+			PhysicsEntity.SetPosition( MainSubcomponent.Body, new Vector2( newPos.X, newPos.Y ), newPos.Z );
+			MainSubcomponent.Transformable.SetPosition( newPos );
 		}
 
 		public void SetRotation( Quaternion newRot )
 		{
-			PhysicsEntity.SetRotation( MainSubcomponent.Body, TransformUtility.GetAngleRollFromQuaternion( newRot ));			
+			PhysicsEntity.SetRotation( MainSubcomponent.Body, TransformUtility.GetAngleRollFromQuaternion( newRot ) );
 		}
 
 		public void SetScale( Vector3 newScale )
@@ -54,9 +54,9 @@ namespace VertexArmy.GameWorld
 
 		public void Remove()
 		{
-			PhysicsEntity.Remove();
+			PhysicsEntity.Remove( );
 			//TODO SceneManager.Instance.UnregisterNode( MainSubcomponent.Transformable );
 		}
-	
+
 	}
 }

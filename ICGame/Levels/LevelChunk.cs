@@ -1,12 +1,11 @@
-﻿using System.Collections.Generic;
-using System.Runtime.Serialization;
-using VertexArmy.Entities;
+﻿using System.Runtime.Serialization;
 
 namespace VertexArmy.Levels
 {
 	[DataContract]
 	public class LevelChunk
 	{
+		/*
 		[DataMember]
 		public List<BaseEntity> Entities { get; set; }
 
@@ -14,5 +13,6 @@ namespace VertexArmy.Levels
 		{
 			Entities = new List<BaseEntity>();
 		}
+		 */
 	}
 }

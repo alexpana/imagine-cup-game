@@ -27,6 +27,8 @@ namespace VertexArmy.GameWorld
 			_bodies = new Dictionary<string, Body>( );
 			_joints = new Dictionary<string, Joint>( );
 			_paths = new Dictionary<string, List<Body>>( );
+
+			_enabled = true;
 		}
 
 		public ICollection<Body> Bodies
@@ -183,6 +185,22 @@ namespace VertexArmy.GameWorld
 				}
 			}
 
+		}
+
+		public void SetLineJointMotorSpeed( List<string> jointNames, float motorSpeed )
+		{
+			foreach ( string jointName in jointNames )
+			{
+				SetLineJointMotorSpeed( jointName, motorSpeed );
+			}
+		}
+
+		public void SetLineJointMotorSpeed( string jointName, float motorSpeed )
+		{
+			if ( _joints.ContainsKey( jointName ) && _joints[jointName].JointType.Equals( JointType.Line ) )
+			{
+				( ( LineJoint ) _joints[jointName] ).MotorSpeed = motorSpeed;
+			}
 		}
 
 		public void Remove()

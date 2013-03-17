@@ -1,16 +1,14 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using FarseerPhysics;
 using FarseerPhysics.Common;
 using FarseerPhysics.Dynamics;
 using FarseerPhysics.Factories;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using VertexArmy.GameWorld;
-using VertexArmy.GameWorld.Prefabs;
 using VertexArmy.Global;
 using VertexArmy.Global.Managers;
-using VertexArmy.Graphics;
 using VertexArmy.Physics.DebugView;
 
 namespace VertexArmy.States
@@ -35,6 +33,10 @@ namespace VertexArmy.States
 		private float _cameraStep;
 		private bool _actionFreeze;
 		private bool _actionReset;
+		private bool _actionToggleDebugView;
+		private bool _debugViewState;
+
+		private readonly List<string> _jointNames = new List<string> { "GearJoint1", "GearJoint2", "GearJoint3" };
 
 		public GameStatePhysicsRobot( ContentManager content )
 		{
@@ -45,27 +47,23 @@ namespace VertexArmy.States
 		{
 			bool moving = false;
 
-
-			Platform.Instance.PhysicsWorld.Step( Math.Min( ( float ) dt.ElapsedGameTime.TotalMilliseconds * 0.001f, ( 1f / 30f ) ) );
-
-			/*
-			_robot.RobotPhysics.Move( 0f );
+			Robot.PhysicsEntity.SetLineJointMotorSpeed( _jointNames, 0f );
 			if ( Keyboard.GetState( PlayerIndex.One ).IsKeyDown( Keys.Left ) )
 			{
 				moving = true;
-				_robot.RobotPhysics.Move( -40f );
+				Robot.PhysicsEntity.SetLineJointMotorSpeed( _jointNames, -20f );
 			}
 			else if ( Keyboard.GetState( PlayerIndex.One ).IsKeyDown( Keys.Right ) )
 			{
 				moving = true;
-				_robot.RobotPhysics.Move( 40f );
+				Robot.PhysicsEntity.SetLineJointMotorSpeed( _jointNames, 20f );
 			}
 
 			if ( Keyboard.GetState( PlayerIndex.One ).IsKeyDown( Keys.F ) )
 			{
 				if ( !_actionFreeze )
 				{
-					_robot.RobotPhysics.Enabled = !_robot.RobotPhysics.Enabled;
+					Robot.PhysicsEntity.Enabled = !Robot.PhysicsEntity.Enabled;
 					_actionFreeze = true;
 				}
 			}
@@ -79,7 +77,7 @@ namespace VertexArmy.States
 			{
 				if ( !_actionReset )
 				{
-					_robot.RobotPhysics.Position = new Vector2( 50f, 5f );
+					Robot.SetPosition( Vector3.Zero );
 					_actionReset = true;
 				}
 			}
@@ -89,9 +87,24 @@ namespace VertexArmy.States
 				_actionReset = false;
 			}
 
+			if ( Keyboard.GetState( PlayerIndex.One ).IsKeyDown( Keys.D ) )
+			{
+				if ( !_actionToggleDebugView )
+				{
+					_debugViewState = !_debugViewState;
+					_actionToggleDebugView = true;
+				}
+			}
+
+			if ( Keyboard.GetState( PlayerIndex.One ).IsKeyUp( Keys.D ) )
+			{
+				_actionToggleDebugView = false;
+			}
+
+			/*
 			if ( Keyboard.GetState( PlayerIndex.One ).IsKeyDown( Keys.O ) )
 			{
-				_robot.RobotPhysics.Rotation -= 0.4f * ( float ) dt.ElapsedGameTime.TotalSeconds;
+				Robot.SetRotation( Robot.GetRotation(). ); ); -= 0.4f * ( float ) dt.ElapsedGameTime.TotalSeconds;
 			}
 			else if ( Keyboard.GetState( PlayerIndex.One ).IsKeyDown( Keys.P ) )
 			{
@@ -101,6 +114,7 @@ namespace VertexArmy.States
 			_robot.RobotPhysics.OnUpdate( dt );
 			 */
 
+
 		}
 
 		public void RenderScene()
@@ -109,21 +123,23 @@ namespace VertexArmy.States
 
 		public void OnRender( GameTime dt )
 		{
-			/*
-			_projection = Matrix.CreateOrthographicOffCenter(
-						_cameraPosition - Platform.Instance.Device.Viewport.Width / 2f * 0.05f,
-						_cameraPosition + Platform.Instance.Device.Viewport.Width / 2f * 0.05f,
-						Platform.Instance.Device.Viewport.Height * 0.05f,
-						0f,
-						0f,
-						1f
-						);
+			if ( _debugViewState )
+			{
+				_projection = Matrix.CreateOrthographicOffCenter(
+					_cameraPosition - Platform.Instance.Device.Viewport.Width / 2f * 0.05f,
+					_cameraPosition + Platform.Instance.Device.Viewport.Width / 2f * 0.05f,
+					Platform.Instance.Device.Viewport.Height * 0.05f,
+					0f,
+					0f,
+					1f
+					);
 
-			_debugView.DrawString( 1, 1, "(R)eset, (F)reeze, Arrows to move. O,P to rotate manually." );
-			_debugView.DrawString( 1, 26, "Speed: " + _robot.RobotPhysics.Speed );
-			_debugView.DrawString( 1, 51, "MaxSpeed:" + _robot.RobotPhysics.MaxAttainedSpeed );
-			_debugView.RenderDebugData( ref _projection, ref _view );
-			 * */
+				_debugView.DrawString( 1, 1, "(R)eset, (F)reeze, (D)ebug to toggle debugview, Arrows to move." );
+				//_debugView.DrawString( 1, 26, "Speed: " + _robot.RobotPhysics.Speed );
+				//_debugView.DrawString( 1, 51, "MaxSpeed:" + _robot.RobotPhysics.MaxAttainedSpeed );
+				_debugView.RenderDebugData( ref _projection, ref _view );
+			}
+
 
 		}
 
@@ -203,30 +219,17 @@ namespace VertexArmy.States
 
 		public void OnEnter()
 		{
-			Material robotMat = new Material( );
-			Effect robofx = Platform.Instance.Content.Load<Effect>( "effects/" + "robo" );
 
-			robotMat.Effect = robofx;
-
-			robotMat.AddParameter( "ColorMap", Platform.Instance.Content.Load<Texture2D>( "images/" + "color" ) );
-			robotMat.AddParameter( "NormalMap", Platform.Instance.Content.Load<Texture2D>( "images/" + "normal" ) );
-			robotMat.AddParameter( "SpecularMap", Platform.Instance.Content.Load<Texture2D>( "images/" + "specular" ) );
-			robotMat.AddParameter( "AOMap", Platform.Instance.Content.Load<Texture2D>( "images/" + "ao" ) );
-			robotMat.AddParameter( "matWorldViewProj", Matrix.Identity );
-			robotMat.AddParameter( "matWorldInverseTranspose", Matrix.Identity );
-			robotMat.AddParameter( "matWorld", Matrix.Identity );
-			robotMat.AddParameter( "eyePosition", Vector3.Zero );
-			robotMat.AddParameter( "lightPosition", Vector3.Zero );
-
-			MaterialRepository.Instance.RegisterMaterial( "RobotMaterial", robotMat );
-
-			PrefabRepository.Instance.RegisterPrefab( "robot", RobotPrefab.CreatePrefab( ) );
-			GameWorldManager.Instance.SpawnEntity( "robot", new Vector3( 0f, 0f, 0f ), "robot1" );
+			GameWorldManager.Instance.SpawnEntity( "robot", new Vector3( 0f, 800f, 0f ), "robot1" );
 			Robot = GameWorldManager.Instance.GetEntity( "robot1" );
 
 			_cameraMoving = false;
 			_actionFreeze = false;
 			_actionReset = false;
+			_debugViewState = true;
+			_actionToggleDebugView = false;
+
+
 			LoadPhysicsContent( );
 			_debugView = new DebugViewXNA( Platform.Instance.PhysicsWorld );
 

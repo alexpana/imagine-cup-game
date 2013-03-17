@@ -90,9 +90,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\IUpdateableObject.cs" />
+    <Compile Include="Content\Materials\RobotMaterial.cs" />
+    <Compile Include="Content\Prefabs\RobotPrefab.cs" />
     <Compile Include="GameWorld\GameEntity.cs" />
     <Compile Include="GameWorld\GameEntityFlags.cs" />
-    <Compile Include="GameWorld\Prefabs\RobotPrefab.cs" />
     <Compile Include="GameWorld\Prefabs\PrefabStructs.cs" />
     <Compile Include="GameWorld\Prefabs\PrefabEntity.cs" />
     <Compile Include="GameWorld\Prefabs\ShapeType.cs" />

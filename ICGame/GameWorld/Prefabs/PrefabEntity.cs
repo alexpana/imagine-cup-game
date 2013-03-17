@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using FarseerPhysics.Dynamics;
 using Microsoft.Xna.Framework.Graphics;
 using VertexArmy.Global;
 using VertexArmy.Global.Managers;
@@ -11,11 +12,12 @@ namespace VertexArmy.GameWorld.Prefabs
 	{
 		public string Name { get; set; }
 		public GameEntityFlags Flags { get; set; }
-		public string Main { get; set; }
+		public string MainBody { get; set; }
 		public float PhysicsScale;
 
 		private PhysicsPrefab _physicsPrefab;
 		private Dictionary<string, SceneNodesPrefab> _sceneNodesPrefab;
+		private Dictionary<string, PathSceneNodesPrefab> _pathSceneNodesPrefab;
 
 		public PrefabEntity()
 		{
@@ -26,6 +28,7 @@ namespace VertexArmy.GameWorld.Prefabs
 			_physicsPrefab.Paths = new Dictionary<string, PathPrefab>( );
 
 			_sceneNodesPrefab = new Dictionary<string, SceneNodesPrefab>( );
+			_pathSceneNodesPrefab = new Dictionary<string, PathSceneNodesPrefab>( );
 		}
 
 		public void RegisterBody( BodyPrefab body )
@@ -49,13 +52,18 @@ namespace VertexArmy.GameWorld.Prefabs
 
 			if ( main )
 			{
-				Main = body.Name;
+				MainBody = body.Name;
 			}
 		}
 
 		public void RegisterSceneNode( SceneNodesPrefab scn )
 		{
 			_sceneNodesPrefab.Add( scn.Name, scn );
+		}
+
+		public void RegisterPathSceneNode( PathSceneNodesPrefab pscn )
+		{
+			_pathSceneNodesPrefab.Add( pscn.Name, pscn );
 		}
 
 		public GameEntity CreateGameEntity( GameWorldManager world )
@@ -75,7 +83,13 @@ namespace VertexArmy.GameWorld.Prefabs
 		{
 			foreach ( BodyPrefab b in _physicsPrefab.Bodies.Values )
 			{
-				entity.PhysicsEntity.AddBody( b.Name, b.GetPhysicsBody( ) );
+				Body body = b.GetPhysicsBody( );
+				entity.PhysicsEntity.AddBody( b.Name, body );
+
+				if ( MainBody.Equals( b.Name ) )
+				{
+					entity.MainBody = body;
+				}
 			}
 
 			foreach ( JointPrefab j in _physicsPrefab.Joints.Values )
@@ -99,34 +113,49 @@ namespace VertexArmy.GameWorld.Prefabs
 		{
 			/* create main node */
 			SceneNode mainNode = new SceneNode( );
-			mainNode.AddAttachable(
-				new SimpleMeshEntity( Platform.Instance.Content.Load<Model>( _sceneNodesPrefab[Main].Mesh ), _sceneNodesPrefab[Main].GetMaterial( ) )
-			);
 
 			/* rest of nodes */
 			foreach ( SceneNodesPrefab scnp in _sceneNodesPrefab.Values )
 			{
-				if ( !Main.Equals( scnp.Name ) )
+				SceneNode scn = new SceneNode( );
+				scn.AddAttachable(
+					new SimpleMeshEntity(
+						Platform.Instance.Content.Load<Model>( _sceneNodesPrefab[scnp.Name].Mesh ), _sceneNodesPrefab[scnp.Name].GetMaterial( )
+					)
+				);
+				mainNode.AddChild( scn );
+				TransformableController controller = new TransformableController( scn, entity.PhysicsEntity.GetBody( scnp.Body ) );
+				entity.Subcomponents.Add( controller );
+
+				if ( MainBody.Equals( scnp.Body ) )
+				{
+					entity.MainSubcomponent = controller;
+				}
+
+				TransformableControllerUpdater.Instance.RegisterUpdatable( controller );
+			}
+
+			foreach ( PathSceneNodesPrefab scnp in _pathSceneNodesPrefab.Values )
+			{
+				for ( int i = scnp.StartIndex; i <= scnp.EndIndex; i++ )
 				{
 					SceneNode scn = new SceneNode( );
 					scn.AddAttachable(
 						new SimpleMeshEntity(
-							Platform.Instance.Content.Load<Model>( _sceneNodesPrefab[scnp.Name].Mesh ), _sceneNodesPrefab[scnp.Name].GetMaterial( )
-						)
-					);
+							Platform.Instance.Content.Load<Model>( _pathSceneNodesPrefab[scnp.Name].Mesh ), _pathSceneNodesPrefab[scnp.Name].GetMaterial( )
+							)
+						);
 					mainNode.AddChild( scn );
-					TransformableController controller = new TransformableController( scn, entity.PhysicsEntity.GetBody( scnp.Body ) );
+					TransformableController controller = new TransformableController( scn, entity.PhysicsEntity.GetBodyFromPath( scnp.Path, i ) );
 					entity.Subcomponents.Add( controller );
+
 					TransformableControllerUpdater.Instance.RegisterUpdatable( controller );
 				}
 			}
 
 			/* finish main node */
-			entity.MainSubcomponent = new TransformableController( mainNode, entity.PhysicsEntity.GetBody( Main ) );
-			entity.Subcomponents.Add( entity.MainSubcomponent );
-			TransformableControllerUpdater.Instance.RegisterUpdatable( entity.MainSubcomponent );
-
 			SceneManager.Instance.RegisterSceneTree( mainNode );
+			entity.MainNode = mainNode;
 		}
 
 		public static void ImportJsonScript( string file )

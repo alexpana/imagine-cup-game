@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using FarseerPhysics.Dynamics;
 using Microsoft.Xna.Framework;
 using VertexArmy.Graphics;
 using VertexArmy.Utilities;
@@ -13,6 +14,8 @@ namespace VertexArmy.GameWorld
 		public PhysicsEntity PhysicsEntity;
 		public List<TransformableController> Subcomponents;
 		public TransformableController MainSubcomponent;
+		public ITransformable MainNode;
+		public Body MainBody;
 
 		public GameEntity()
 		{
@@ -22,13 +25,12 @@ namespace VertexArmy.GameWorld
 
 		public void SetPosition( Vector3 newPos )
 		{
-			PhysicsEntity.SetPosition( MainSubcomponent.Body, UnitsConverter.ToSimUnits( new Vector2( newPos.X, newPos.Y ) ), newPos.Z );
-			MainSubcomponent.Transformable.SetPosition( newPos );
+			PhysicsEntity.SetPosition( MainBody, UnitsConverter.ToSimUnits( new Vector2( newPos.X, newPos.Y ) ), newPos.Z );
 		}
 
 		public void SetRotation( Quaternion newRot )
 		{
-			PhysicsEntity.SetRotation( MainSubcomponent.Body, TransformUtility.GetAngleRollFromQuaternion( newRot ) );
+			PhysicsEntity.SetRotation( MainBody, TransformUtility.GetAngleRollFromQuaternion( newRot ) );
 		}
 
 		public void SetScale( Vector3 newScale )
@@ -38,12 +40,12 @@ namespace VertexArmy.GameWorld
 
 		public Vector3 GetPosition()
 		{
-			return new Vector3( UnitsConverter.ToDisplayUnits( MainSubcomponent.Body.Position ), 0f );
+			return new Vector3( UnitsConverter.ToDisplayUnits( MainBody.Position ), 0f );
 		}
 
 		public Quaternion GetRotation()
 		{
-			return Quaternion.CreateFromAxisAngle( Vector3.UnitZ, MainSubcomponent.Body.Rotation );
+			return Quaternion.CreateFromAxisAngle( Vector3.UnitZ, MainBody.Rotation );
 		}
 
 		public Vector3 GetScale()

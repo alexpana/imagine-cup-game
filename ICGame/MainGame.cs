@@ -1,7 +1,10 @@
 using System;
 using FarseerPhysics.Dynamics;
 using Microsoft.Xna.Framework;
+using VertexArmy.Content.Materials;
+using VertexArmy.Content.Prefabs;
 using VertexArmy.Global;
+using VertexArmy.Global.Managers;
 using VertexArmy.Global.Updaters;
 using VertexArmy.Graphics;
 using VertexArmy.Input;
@@ -23,15 +26,15 @@ namespace VertexArmy
 			Platform.Instance.PhysicsWorld = new World( new Vector2( 0f, 9.82f ) );
 			Platform.Instance.Game = this;
 			Content.RootDirectory = "Content";
-			UnitsConverter.SetDisplayUnitToSimUnitRatio( 15 );
+			UnitsConverter.SetDisplayUnitToSimUnitRatio( 64 );
 		}
 
 		protected override void Initialize()
 		{
 			//Gearset.GS.Initialize( this );
-			base.Initialize();
+			base.Initialize( );
 
-			Platform.Instance.Input = new PCInputSystem();
+			Platform.Instance.Input = new PCInputSystem( );
 #if TEST_LEVEL_LOADING
 			// This is for testing the level loading part. Do not modify this!
 			StateManager.Instance.ChangeState( GameState.LevelLoading );
@@ -42,10 +45,13 @@ namespace VertexArmy
 
 		protected override void LoadContent()
 		{
+			PrefabRepository.Instance.RegisterPrefab( "robot", RobotPrefab.CreatePrefab( ) );
+			MaterialRepository.Instance.RegisterMaterial( "RobotMaterial", RobotMaterial.CreateMaterial( ) );
 		}
 
 		protected override void UnloadContent()
 		{
+
 		}
 
 		protected override void Update( GameTime gameTime )
@@ -54,16 +60,16 @@ namespace VertexArmy
 			Platform.Instance.Input.Update( gameTime );
 
 			Platform.Instance.PhysicsWorld.Step( Math.Min( ( float ) gameTime.ElapsedGameTime.TotalMilliseconds * 0.001f, ( 1f / 30f ) ) );
-			
+
 			if ( StateManager.Instance.CurrentGameState != null )
 			{
 				StateManager.Instance.CurrentGameState.OnUpdate( gameTime );
 			}
 
-			CursorManager.Instance.Update();
+			CursorManager.Instance.Update( );
 
 			TransformableControllerUpdater.Instance.Update( gameTime );
-			StateManager.Instance.OnFrameEndCommitStates();
+			StateManager.Instance.OnFrameEndCommitStates( );
 		}
 
 		protected override void Draw( GameTime gameTime )
@@ -75,7 +81,7 @@ namespace VertexArmy
 			}
 			SceneManager.Instance.Render( gameTime.ElapsedGameTime.Milliseconds );
 
-			CursorManager.Instance.Render();
+			CursorManager.Instance.Render( );
 		}
 	}
 }

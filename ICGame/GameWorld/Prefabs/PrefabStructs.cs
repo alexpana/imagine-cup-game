@@ -32,6 +32,21 @@ namespace VertexArmy.GameWorld.Prefabs
 		}
 	}
 
+	public struct PathSceneNodesPrefab
+	{
+		public string Name { get; set; }
+		public string Path;
+		public string Mesh;
+		public string Material;
+
+		public int StartIndex, EndIndex;
+
+		public Material GetMaterial()
+		{
+			return MaterialRepository.Instance.GetMaterial( Material );
+		}
+	}
+
 	/* BodyPrefab */
 	public struct BodyPrefab
 	{
@@ -113,16 +128,25 @@ namespace VertexArmy.GameWorld.Prefabs
 		public string Body1, Body2;
 		public Vector2 Anchor, Anchor2, Axis;
 
+		public float MaxMotorTorque;
+		public bool MotorEnabled;
+		public float Frequency;
+		public float DampingRatio;
+
+
 		public Joint GetPhysicsJoint( Body body1, Body body2 )
 		{
 			switch ( Type )
 			{
 				case JointType.Line:
 					LineJoint joint = new LineJoint( body1, body2, Anchor, Axis );
-					joint.MaxMotorTorque = 60f;
-					joint.MotorEnabled = true;
-					joint.Frequency = 10f;
-					joint.DampingRatio = 0.85f;
+
+					joint.MaxMotorTorque = MaxMotorTorque;
+					joint.MotorEnabled = MotorEnabled;
+					joint.Frequency = Frequency;
+					joint.DampingRatio = DampingRatio;
+
+					Platform.Instance.PhysicsWorld.AddJoint( joint );
 					return joint;
 				case JointType.Revolute:
 					return new RevoluteJoint( body1, body2, Anchor, Anchor2 );
@@ -166,7 +190,7 @@ namespace VertexArmy.GameWorld.Prefabs
 				Path,
 				shapes,
 				Body.Static ? BodyType.Static : BodyType.Dynamic,
-				BodyCount
+				BodyCount + 1
 			);
 
 			switch ( JointType )
@@ -181,7 +205,7 @@ namespace VertexArmy.GameWorld.Prefabs
 						Anchor2,
 						ConnectFirstAndLast,
 						CollideConnected
-						);
+					);
 
 					return bodies;
 

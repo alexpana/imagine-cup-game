@@ -174,8 +174,9 @@ namespace VertexArmy.GameWorld.Prefabs
 		public BodyPrefab Body { get; set; }
 		public int BodyCount;
 
-		public List<Body> GetPhysicsBodies()
+		public PathEntity GetPathEntity()
 		{
+			PathEntity pathEntity = new PathEntity( );
 			List<Shape> shapes = new List<Shape>( );
 			Body b = Body.GetPhysicsBody( );
 
@@ -185,7 +186,7 @@ namespace VertexArmy.GameWorld.Prefabs
 			}
 			Platform.Instance.PhysicsWorld.RemoveBody( b );
 
-			List<Body> bodies = PathManager.EvenlyDistributeShapesAlongPath(
+			pathEntity.Bodies = PathManager.EvenlyDistributeShapesAlongPath(
 				Platform.Instance.PhysicsWorld,
 				Path,
 				shapes,
@@ -198,34 +199,34 @@ namespace VertexArmy.GameWorld.Prefabs
 
 				case JointType.Revolute:
 
-					PathManager.AttachBodiesWithRevoluteJoint(
+					pathEntity.Joints = new List<Joint>( PathManager.AttachBodiesWithRevoluteJoint(
 						Platform.Instance.PhysicsWorld,
-						bodies,
+						pathEntity.Bodies,
 						Anchor1,
 						Anchor2,
 						ConnectFirstAndLast,
 						CollideConnected
-					);
+						) );
 
-					return bodies;
+					return pathEntity;
 
 				case JointType.Slider:
 
-					PathManager.AttachBodiesWithSliderJoint(
+					pathEntity.Joints = new List<Joint>( PathManager.AttachBodiesWithSliderJoint(
 						Platform.Instance.PhysicsWorld,
-						bodies,
+						pathEntity.Bodies,
 						Anchor1,
 						Anchor2,
 						ConnectFirstAndLast,
 						CollideConnected,
 						MaxLength,
 						MinLength
-						);
+						) );
 
-					return bodies;
+					return pathEntity;
 			}
 
-			return null;
+			return new PathEntity( );
 		}
 	}
 }

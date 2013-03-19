@@ -104,7 +104,7 @@ namespace VertexArmy.GameWorld.Prefabs
 			{
 				entity.PhysicsEntity.AddPath(
 					p.Name,
-					p.GetPhysicsBodies( )
+					p.GetPathEntity( )
 				);
 			}
 		}

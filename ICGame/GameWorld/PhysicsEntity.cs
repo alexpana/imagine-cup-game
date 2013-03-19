@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using FarseerPhysics.Common;
 using FarseerPhysics.Dynamics;
 using FarseerPhysics.Dynamics.Joints;
 using Microsoft.Xna.Framework;
@@ -13,7 +14,7 @@ namespace VertexArmy.GameWorld
 
 		private Dictionary<string, Body> _bodies;
 		private Dictionary<string, Joint> _joints;
-		private Dictionary<string, List<Body>> _paths;
+		private Dictionary<string, PathEntity> _paths;
 
 		private float _z;
 
@@ -26,7 +27,7 @@ namespace VertexArmy.GameWorld
 		{
 			_bodies = new Dictionary<string, Body>( );
 			_joints = new Dictionary<string, Joint>( );
-			_paths = new Dictionary<string, List<Body>>( );
+			_paths = new Dictionary<string, PathEntity>( );
 
 			_enabled = true;
 		}
@@ -43,7 +44,7 @@ namespace VertexArmy.GameWorld
 			get { return _joints.Values; }
 		}
 
-		public ICollection<List<Body>> Paths
+		public ICollection<PathEntity> Paths
 		{
 			get { return _paths.Values; }
 		}
@@ -59,7 +60,7 @@ namespace VertexArmy.GameWorld
 
 				foreach ( var p in _paths.Values )
 				{
-					foreach ( var b in p )
+					foreach ( var b in p.Bodies )
 					{
 						b.Enabled = value;
 					}
@@ -102,9 +103,9 @@ namespace VertexArmy.GameWorld
 
 		}
 
-		public void AddPath( string name, List<Body> pathBodies )
+		public void AddPath( string name, PathEntity path )
 		{
-			_paths.Add( name, pathBodies );
+			_paths.Add( name, path );
 		}
 
 		public Body GetBody( string name )
@@ -129,9 +130,9 @@ namespace VertexArmy.GameWorld
 
 		public Body GetBodyFromPath( string name, int index )
 		{
-			if ( _paths.ContainsKey( name ) && index < _paths[name].Count )
+			if ( _paths.ContainsKey( name ) && index < _paths[name].Bodies.Count )
 			{
-				return _paths[name][index];
+				return _paths[name].Bodies[index];
 			}
 
 			return null;
@@ -141,7 +142,27 @@ namespace VertexArmy.GameWorld
 		{
 			if ( _paths.ContainsKey( name ) )
 			{
-				return _paths[name].Count;
+				return _paths[name].Bodies.Count;
+			}
+
+			return -1;
+		}
+
+		public Joint GetJointFromPath( string name, int index )
+		{
+			if ( _paths.ContainsKey( name ) && index < _paths[name].Joints.Count )
+			{
+				return _paths[name].Joints[index];
+			}
+
+			return null;
+		}
+
+		public int GetJointCountFromPath( string name )
+		{
+			if ( _paths.ContainsKey( name ) )
+			{
+				return _paths[name].Joints.Count;
 			}
 
 			return -1;
@@ -158,7 +179,7 @@ namespace VertexArmy.GameWorld
 
 			foreach ( var p in _paths.Values )
 			{
-				foreach ( var b in p )
+				foreach ( var b in p.Bodies )
 				{
 					b.ResetDynamics( );
 					b.SetTransform( b.Position + relative, b.Rotation );
@@ -179,7 +200,7 @@ namespace VertexArmy.GameWorld
 
 			foreach ( var p in _paths.Values )
 			{
-				foreach ( var b in p )
+				foreach ( var b in p.Bodies )
 				{
 					TransformUtility.RotateBodyAroundPoint( b, center.Position, modifier );
 				}
@@ -212,11 +233,14 @@ namespace VertexArmy.GameWorld
 
 			foreach ( var p in _paths.Values )
 			{
-				foreach ( var b in p )
+				foreach ( var b in p.Bodies )
 				{
 					Platform.Instance.PhysicsWorld.RemoveBody( b );
 				}
-				//TODO remove joints from paths
+				foreach ( var j in p.Joints )
+				{
+					Platform.Instance.PhysicsWorld.RemoveJoint( j );
+				}
 			}
 
 			foreach ( var j in _joints.Values )
@@ -224,5 +248,12 @@ namespace VertexArmy.GameWorld
 				Platform.Instance.PhysicsWorld.RemoveJoint( j );
 			}
 		}
+	}
+
+	public struct PathEntity
+	{
+		public Path Path;
+		public List<Body> Bodies;
+		public List<Joint> Joints;
 	}
 }

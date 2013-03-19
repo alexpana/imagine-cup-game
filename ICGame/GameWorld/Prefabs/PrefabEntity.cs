@@ -127,11 +127,6 @@ namespace VertexArmy.GameWorld.Prefabs
 				TransformableController controller = new TransformableController( scn, entity.PhysicsEntity.GetBody( scnp.Body ) );
 				entity.Subcomponents.Add( controller );
 
-				if ( MainBody.Equals( scnp.Body ) )
-				{
-					entity.MainSubcomponent = controller;
-				}
-
 				TransformableControllerUpdater.Instance.RegisterUpdatable( controller );
 			}
 

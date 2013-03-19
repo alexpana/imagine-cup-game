@@ -33,6 +33,7 @@ namespace VertexArmy.States
 		private float _cameraStep;
 		private bool _actionFreeze;
 		private bool _actionReset;
+		private bool _actionSpawn;
 		private bool _actionToggleDebugView;
 		private bool _debugViewState;
 
@@ -45,46 +46,50 @@ namespace VertexArmy.States
 
 		public void OnUpdate( GameTime dt )
 		{
-			bool moving = false;
+			if ( Robot != null )
+			{
 
-			Robot.PhysicsEntity.SetLineJointMotorSpeed( _jointNames, 0f );
-			if ( Keyboard.GetState( PlayerIndex.One ).IsKeyDown( Keys.Left ) )
-			{
-				moving = true;
-				Robot.PhysicsEntity.SetLineJointMotorSpeed( _jointNames, -20f );
-			}
-			else if ( Keyboard.GetState( PlayerIndex.One ).IsKeyDown( Keys.Right ) )
-			{
-				moving = true;
-				Robot.PhysicsEntity.SetLineJointMotorSpeed( _jointNames, 20f );
-			}
+				bool moving = false;
 
-			if ( Keyboard.GetState( PlayerIndex.One ).IsKeyDown( Keys.F ) )
-			{
-				if ( !_actionFreeze )
+				Robot.PhysicsEntity.SetLineJointMotorSpeed( _jointNames, 0f );
+				if ( Keyboard.GetState( PlayerIndex.One ).IsKeyDown( Keys.Left ) )
 				{
-					Robot.PhysicsEntity.Enabled = !Robot.PhysicsEntity.Enabled;
-					_actionFreeze = true;
+					moving = true;
+					Robot.PhysicsEntity.SetLineJointMotorSpeed( _jointNames, -20f );
 				}
-			}
-
-			if ( Keyboard.GetState( PlayerIndex.One ).IsKeyUp( Keys.F ) )
-			{
-				_actionFreeze = false;
-			}
-
-			if ( Keyboard.GetState( PlayerIndex.One ).IsKeyDown( Keys.R ) )
-			{
-				if ( !_actionReset )
+				else if ( Keyboard.GetState( PlayerIndex.One ).IsKeyDown( Keys.Right ) )
 				{
-					Robot.SetPosition( Vector3.Zero );
-					_actionReset = true;
+					moving = true;
+					Robot.PhysicsEntity.SetLineJointMotorSpeed( _jointNames, 20f );
 				}
-			}
 
-			if ( Keyboard.GetState( PlayerIndex.One ).IsKeyUp( Keys.R ) )
-			{
-				_actionReset = false;
+				if ( Keyboard.GetState( PlayerIndex.One ).IsKeyDown( Keys.F ) )
+				{
+					if ( !_actionFreeze )
+					{
+						Robot.PhysicsEntity.Enabled = !Robot.PhysicsEntity.Enabled;
+						_actionFreeze = true;
+					}
+				}
+
+				if ( Keyboard.GetState( PlayerIndex.One ).IsKeyUp( Keys.F ) )
+				{
+					_actionFreeze = false;
+				}
+
+				if ( Keyboard.GetState( PlayerIndex.One ).IsKeyDown( Keys.R ) )
+				{
+					if ( !_actionReset )
+					{
+						Robot.SetPosition( Vector3.Zero );
+						_actionReset = true;
+					}
+				}
+
+				if ( Keyboard.GetState( PlayerIndex.One ).IsKeyUp( Keys.R ) )
+				{
+					_actionReset = false;
+				}
 			}
 
 			if ( Keyboard.GetState( PlayerIndex.One ).IsKeyDown( Keys.D ) )
@@ -99,6 +104,31 @@ namespace VertexArmy.States
 			if ( Keyboard.GetState( PlayerIndex.One ).IsKeyUp( Keys.D ) )
 			{
 				_actionToggleDebugView = false;
+			}
+
+			if ( Keyboard.GetState( PlayerIndex.One ).IsKeyDown( Keys.S ) )
+			{
+				if ( !_actionSpawn )
+				{
+					if ( Robot == null )
+					{
+						GameWorldManager.Instance.SpawnEntity( "robot", new Vector3( 0f, 0f, 800f ), "robotSecond" );
+						Robot = GameWorldManager.Instance.GetEntity( "robotSecond" );
+					}
+					else
+					{
+						GameWorldManager.Instance.RemoveEntity( "robot1" );
+						GameWorldManager.Instance.RemoveEntity( "robotSecond" );
+
+						Robot = null;
+					}
+					_actionSpawn = true;
+				}
+			}
+
+			if ( Keyboard.GetState( PlayerIndex.One ).IsKeyUp( Keys.S ) )
+			{
+				_actionSpawn = false;
 			}
 
 			/*
@@ -135,6 +165,7 @@ namespace VertexArmy.States
 					);
 
 				_debugView.DrawString( 1, 1, "(R)eset, (F)reeze, (D)ebug to toggle debugview, Arrows to move." );
+				_debugView.DrawString( 1, 20, "(S) to spawn/unspawn" );
 				//_debugView.DrawString( 1, 26, "Speed: " + _robot.RobotPhysics.Speed );
 				//_debugView.DrawString( 1, 51, "MaxSpeed:" + _robot.RobotPhysics.MaxAttainedSpeed );
 				_debugView.RenderDebugData( ref _projection, ref _view );
@@ -225,6 +256,7 @@ namespace VertexArmy.States
 
 			_cameraMoving = false;
 			_actionFreeze = false;
+			_actionSpawn = false;
 			_actionReset = false;
 			_debugViewState = true;
 			_actionToggleDebugView = false;

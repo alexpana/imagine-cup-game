@@ -26,12 +26,12 @@ namespace VertexArmy.Global.Managers
 			entity.SetPosition( position );
 		}
 
-		public void RemoveEntity( string name )
+		public void RemoveEntity( string entityName )
 		{
-			if ( _entities.ContainsKey( name ) )
+			if ( _entities.ContainsKey( entityName ) )
 			{
-				_entities[name].Remove( );
-				_entities.Remove( name );
+				_entities[entityName].Remove( );
+				_entities.Remove( entityName );
 			}
 		}
 

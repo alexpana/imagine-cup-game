@@ -73,6 +73,36 @@ namespace VertexArmy.Graphics
 			}
 		}
 
+		public void UnregisterSceneTree( SceneNode node )
+		{
+			Queue<SceneNode> knodes = new Queue<SceneNode>( );
+
+			knodes.Enqueue( node );
+
+			while ( knodes.Count != 0 )
+			{
+				SceneNode head = knodes.Dequeue( );
+
+				_registeredNodes.Remove( head );
+
+				foreach ( var child in head.Children )
+				{
+					knodes.Enqueue( child );
+				}
+
+				foreach ( var attachable in head.Attachable )
+				{
+					Light light = attachable as Light;
+					if ( light != null )
+						_sceneLights.Remove( light );
+
+					Camera camera = attachable as Camera;
+					if ( camera != null )
+						_sceneCameras.Remove( camera );
+				}
+			}
+		}
+
 		public void Render( float dt )
 		{
 			//to do: link camera & lights, blah blah

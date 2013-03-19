@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using FarseerPhysics.Dynamics;
 using Microsoft.Xna.Framework;
+using VertexArmy.Global.Updaters;
 using VertexArmy.Graphics;
 using VertexArmy.Utilities;
 
@@ -13,8 +14,7 @@ namespace VertexArmy.GameWorld
 
 		public PhysicsEntity PhysicsEntity;
 		public List<TransformableController> Subcomponents;
-		public TransformableController MainSubcomponent;
-		public ITransformable MainNode;
+		public SceneNode MainNode;
 		public Body MainBody;
 
 		public GameEntity()
@@ -57,7 +57,12 @@ namespace VertexArmy.GameWorld
 		public void Remove()
 		{
 			PhysicsEntity.Remove( );
-			//TODO SceneManager.Instance.UnregisterNode( MainSubcomponent.Transformable );
+			foreach ( TransformableController tc in Subcomponents )
+			{
+				TransformableControllerUpdater.Instance.UnregisterUpdatable( tc );
+			}
+
+			SceneManager.Instance.UnregisterSceneTree( MainNode );
 		}
 
 	}

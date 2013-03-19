@@ -216,6 +216,7 @@ namespace VertexArmy.GameWorld
 				{
 					Platform.Instance.PhysicsWorld.RemoveBody( b );
 				}
+				//TODO remove joints from paths
 			}
 
 			foreach ( var j in _joints.Values )

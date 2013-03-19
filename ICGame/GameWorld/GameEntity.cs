@@ -33,6 +33,11 @@ namespace VertexArmy.GameWorld
 			PhysicsEntity.SetRotation( MainBody, TransformUtility.GetAngleRollFromQuaternion( newRot ) );
 		}
 
+		public void SetRotation( float newRot )
+		{
+			PhysicsEntity.SetRotation( MainBody, newRot );
+		}
+
 		public void SetScale( Vector3 newScale )
 		{
 			//TODO
@@ -46,6 +51,11 @@ namespace VertexArmy.GameWorld
 		public Quaternion GetRotation()
 		{
 			return Quaternion.CreateFromAxisAngle( Vector3.UnitZ, MainBody.Rotation );
+		}
+
+		public float GetRotationRadians()
+		{
+			return MainBody.Rotation;
 		}
 
 		public Vector3 GetScale()

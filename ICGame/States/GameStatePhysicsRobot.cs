@@ -131,19 +131,15 @@ namespace VertexArmy.States
 				_actionSpawn = false;
 			}
 
-			/*
+
 			if ( Keyboard.GetState( PlayerIndex.One ).IsKeyDown( Keys.O ) )
 			{
-				Robot.SetRotation( Robot.GetRotation(). ); ); -= 0.4f * ( float ) dt.ElapsedGameTime.TotalSeconds;
+				Robot.SetRotation( Robot.GetRotationRadians( ) - 0.4f * ( float ) dt.ElapsedGameTime.TotalSeconds );
 			}
 			else if ( Keyboard.GetState( PlayerIndex.One ).IsKeyDown( Keys.P ) )
 			{
-				_robot.RobotPhysics.Rotation += 0.4f * ( float ) dt.ElapsedGameTime.TotalSeconds;
+				Robot.SetRotation( Robot.GetRotationRadians( ) + 0.4f * ( float ) dt.ElapsedGameTime.TotalSeconds );
 			}
-
-			_robot.RobotPhysics.OnUpdate( dt );
-			 */
-
 
 		}
 
@@ -165,7 +161,7 @@ namespace VertexArmy.States
 					);
 
 				_debugView.DrawString( 1, 1, "(R)eset, (F)reeze, (D)ebug to toggle debugview, Arrows to move." );
-				_debugView.DrawString( 1, 20, "(S) to spawn/unspawn" );
+				_debugView.DrawString( 1, 20, "(S) to spawn/unspawn, O,P to rotate." );
 				//_debugView.DrawString( 1, 26, "Speed: " + _robot.RobotPhysics.Speed );
 				//_debugView.DrawString( 1, 51, "MaxSpeed:" + _robot.RobotPhysics.MaxAttainedSpeed );
 				_debugView.RenderDebugData( ref _projection, ref _view );

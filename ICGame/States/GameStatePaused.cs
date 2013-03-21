@@ -17,7 +17,7 @@ namespace VertexArmy.States
 			_contentManager = content;
 		}
 
-		public void OnUpdate( GameTime dt )
+		public void OnUpdate( GameTime gameTime )
 		{
 			if ( Keyboard.GetState( PlayerIndex.One ).IsKeyDown( Keys.Enter ) )
 			{
@@ -25,7 +25,7 @@ namespace VertexArmy.States
 			}
 		}
 
-		public void OnRender( GameTime dt )
+		public void OnRender( GameTime gameTime )
 		{
 			_spriteBatch.Begin();
 

@@ -1,12 +1,9 @@
-using System;
 using FarseerPhysics.Dynamics;
 using Microsoft.Xna.Framework;
 using VertexArmy.Content.Materials;
 using VertexArmy.Content.Prefabs;
 using VertexArmy.Global;
 using VertexArmy.Global.Managers;
-using VertexArmy.Global.Updaters;
-using VertexArmy.Graphics;
 using VertexArmy.Input;
 using VertexArmy.States;
 using VertexArmy.Utilities;
@@ -58,17 +55,14 @@ namespace VertexArmy
 		protected override void Update( GameTime gameTime )
 		{
 			base.Update( gameTime );
-			Platform.Instance.Input.Update( gameTime );
 
-			Platform.Instance.PhysicsWorld.Step( Math.Min( ( float ) gameTime.ElapsedGameTime.TotalMilliseconds * 0.001f, ( 1f / 30f ) ) );
+			Platform.Instance.Input.Update( gameTime );
+			CursorManager.Instance.Update();
 
 			if ( StateManager.Instance.CurrentGameState != null )
 			{
 				StateManager.Instance.CurrentGameState.OnUpdate( gameTime );
 			}
-
-			CursorManager.Instance.Update();
-			TransformableControllerUpdater.Instance.Update( gameTime );
 
 			StateManager.Instance.OnFrameEndCommitStates();
 		}
@@ -76,11 +70,11 @@ namespace VertexArmy
 		protected override void Draw( GameTime gameTime )
 		{
 			base.Draw( gameTime );
+
 			if ( StateManager.Instance.CurrentGameState != null )
 			{
 				StateManager.Instance.CurrentGameState.OnRender( gameTime );
 			}
-			SceneManager.Instance.Render( gameTime.ElapsedGameTime.Milliseconds );
 
 			CursorManager.Instance.Render();
 		}

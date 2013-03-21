@@ -13,7 +13,7 @@ using VertexArmy.Physics.DebugView;
 
 namespace VertexArmy.States
 {
-	internal class GameStatePhysicsRobot : PausableGameState
+	internal class GameStatePhysicsRobot : PlayableGameState
 	{
 
 		private ContentManager _contentManager;
@@ -45,9 +45,9 @@ namespace VertexArmy.States
 			_contentManager = content;
 		}
 
-		public override void OnUpdate( GameTime dt )
+		public override void OnUpdate( GameTime gameTime )
 		{
-			base.OnUpdate( dt );
+			base.OnUpdate( gameTime );
 
 			if ( Robot != null )
 			{
@@ -137,11 +137,11 @@ namespace VertexArmy.States
 
 			if ( Keyboard.GetState( PlayerIndex.One ).IsKeyDown( Keys.O ) )
 			{
-				Robot.SetRotation( Robot.GetRotationRadians() - 0.4f * ( float ) dt.ElapsedGameTime.TotalSeconds );
+				Robot.SetRotation( Robot.GetRotationRadians() - 0.4f * ( float ) gameTime.ElapsedGameTime.TotalSeconds );
 			}
 			else if ( Keyboard.GetState( PlayerIndex.One ).IsKeyDown( Keys.P ) )
 			{
-				Robot.SetRotation( Robot.GetRotationRadians() + 0.4f * ( float ) dt.ElapsedGameTime.TotalSeconds );
+				Robot.SetRotation( Robot.GetRotationRadians() + 0.4f * ( float ) gameTime.ElapsedGameTime.TotalSeconds );
 			}
 
 		}
@@ -150,8 +150,10 @@ namespace VertexArmy.States
 		{
 		}
 
-		public override void OnRender( GameTime dt )
+		public override void OnRender( GameTime gameTime )
 		{
+			base.OnRender( gameTime );
+
 			if ( _debugViewState )
 			{
 				_projection = Matrix.CreateOrthographicOffCenter(

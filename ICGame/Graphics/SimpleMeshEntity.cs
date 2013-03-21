@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace VertexArmy.Graphics
@@ -10,11 +7,16 @@ namespace VertexArmy.Graphics
 	{
 		private Model _myMod;
 		private Material _myMat;
+		public BoundingSphere BoundingSphere { get; internal set; }
 
-		public SimpleMeshEntity(Model mod, Material mat)
+		public SimpleMeshEntity( Model mod, Material mat )
 		{
-			foreach ( ModelMesh mesh in mod.Meshes ) {
-				foreach ( ModelMeshPart part in mesh.MeshParts ) {
+			BoundingSphere = new BoundingSphere( );
+			foreach ( ModelMesh mesh in mod.Meshes )
+			{
+				BoundingSphere = BoundingSphere.CreateMerged( BoundingSphere, mesh.BoundingSphere );
+				foreach ( ModelMeshPart part in mesh.MeshParts )
+				{
 					part.Effect = mat.Effect;
 				}
 			}
@@ -25,11 +27,11 @@ namespace VertexArmy.Graphics
 
 		public override void Render( float dt )
 		{
-			Renderer.Instance.SetGlobalMaterialParameters(_myMat);
-			_myMat.Apply();
-			foreach (ModelMesh m in _myMod.Meshes)
+			Renderer.Instance.SetGlobalMaterialParameters( _myMat );
+			_myMat.Apply( );
+			foreach ( ModelMesh m in _myMod.Meshes )
 			{
-				m.Draw();
+				m.Draw( );
 			}
 		}
 	}

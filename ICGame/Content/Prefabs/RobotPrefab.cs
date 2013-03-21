@@ -196,6 +196,7 @@ namespace VertexArmy.Content.Prefabs
 			robot.RegisterSceneNode( gearNode2 );
 			robot.RegisterSceneNode( gearNode3 );
 
+			
 			/*
 			MeshSceneNodePrefab chassisNode = new MeshSceneNodePrefab
 			{

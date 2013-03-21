@@ -30,7 +30,8 @@ namespace VertexArmy.Graphics
 
 		public Matrix GetViewMatrix()
 		{
-			return Matrix.CreateLookAt(Parent.GetPosition(), Parent.GetPosition() + _lookingDirection, _upVector);
+			Vector3 position = Vector3.Transform(new Vector3(0,0,0), Parent.GetAbsoluteTransformation());
+			return Matrix.CreateLookAt( position, position + _lookingDirection, _upVector );
 		}
 
 		public  Matrix GetPerspectiveMatrix()

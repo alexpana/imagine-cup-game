@@ -26,7 +26,12 @@ namespace VertexArmy.GameWorld
 
 		public void SetPosition( Vector3 newPos )
 		{
-			PhysicsEntity.SetPosition( MainBody, UnitsConverter.ToSimUnits( new Vector2( newPos.X, newPos.Y ) ), newPos.Z );
+			if ( MainBody != null )
+				PhysicsEntity.SetPosition( MainBody, UnitsConverter.ToSimUnits( new Vector2( newPos.X, newPos.Y ) ), newPos.Z );
+			else
+			{
+				MainNode.SetPosition(newPos);
+			}
 		}
 
 		public void SetRotation( Quaternion newRot )

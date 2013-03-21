@@ -250,7 +250,7 @@ namespace VertexArmy.States
 
 			//Camera
 
-			GameWorldManager.Instance.SpawnEntity("camera", new Vector3(200, -1300, -300), "camera1" );
+			GameWorldManager.Instance.SpawnEntity("camera", new Vector3(0, -1300, -300), "camera1" );
 			GameWorldManager.Instance.SpawnEntity( "robot", new Vector3( 0f, 800f, 0f ), "robot1" );
 			Robot = GameWorldManager.Instance.GetEntity( "robot1" );
 			Camera = GameWorldManager.Instance.GetEntity( "camera1" );

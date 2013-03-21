@@ -18,30 +18,40 @@ namespace VertexArmy.GameWorld
 		public SceneNode MainNode;
 		public Body MainBody;
 
-		public GameEntity()
-		{
-			PhysicsEntity = new PhysicsEntity( );
-			Subcomponents = new List<TransformableController>( );
-		}
-
 		public void SetPosition( Vector3 newPos )
 		{
 			if ( MainBody != null )
+			{
 				PhysicsEntity.SetPosition( MainBody, UnitsConverter.ToSimUnits( new Vector2( newPos.X, newPos.Y ) ), newPos.Z );
+			}
 			else
 			{
-				MainNode.SetPosition(newPos);
+				MainNode.SetPosition( newPos );
 			}
 		}
 
 		public void SetRotation( Quaternion newRot )
 		{
-			PhysicsEntity.SetRotation( MainBody, TransformUtility.GetAngleRollFromQuaternion( newRot ) );
+			if ( MainBody != null )
+			{
+				PhysicsEntity.SetRotation( MainBody, TransformUtility.GetAngleRollFromQuaternion( newRot ) );
+			}
+			else
+			{
+				MainNode.SetRotation( newRot );
+			}
 		}
 
 		public void SetRotation( float newRot )
 		{
-			PhysicsEntity.SetRotation( MainBody, newRot );
+			if ( MainBody != null )
+			{
+				PhysicsEntity.SetRotation( MainBody, newRot );
+			}
+			else
+			{
+				MainNode.SetRotation( new Quaternion( Vector3.UnitZ, newRot ) );
+			}
 		}
 
 		public void SetScale( Vector3 newScale )

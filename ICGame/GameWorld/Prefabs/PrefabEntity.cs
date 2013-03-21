@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using FarseerPhysics.Dynamics;
-using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using VertexArmy.Global;
 using VertexArmy.Global.Managers;
@@ -35,7 +34,7 @@ namespace VertexArmy.GameWorld.Prefabs
 			_cameraSceneNodesPrefab = new Dictionary<string, CameraSceneNodePrefab>( );
 		}
 
-		public void RegisterCamera(string name, CameraSceneNodePrefab prefab)
+		public void RegisterCamera( string name, CameraSceneNodePrefab prefab )
 		{
 			_cameraSceneNodesPrefab[name] = prefab;
 		}
@@ -78,6 +77,9 @@ namespace VertexArmy.GameWorld.Prefabs
 		public GameEntity CreateGameEntity( GameWorldManager world )
 		{
 			GameEntity obj = new GameEntity( );
+
+			obj.PhysicsEntity = new PhysicsEntity( );
+			obj.Subcomponents = new List<TransformableController>( );
 
 			obj.Name = Name;
 			obj.Flags = Flags;
@@ -130,13 +132,16 @@ namespace VertexArmy.GameWorld.Prefabs
 				scn.AddAttachable(
 					new MeshAttachable(
 						Platform.Instance.Content.Load<Model>( _sceneNodesPrefab[scnp.Name].Mesh ), _sceneNodesPrefab[scnp.Name].GetMaterial( )
-					)
-				);
+						)
+					);
 				mainNode.AddChild( scn );
+
 				TransformableController controller = new TransformableController( scn, entity.PhysicsEntity.GetBody( scnp.Body ) );
 				entity.Subcomponents.Add( controller );
-
-				TransformableControllerUpdater.Instance.RegisterUpdatable( controller );
+				if ( controller.Body != null )
+				{
+					TransformableControllerUpdater.Instance.RegisterUpdatable( controller );
+				}
 			}
 
 			foreach ( PathMeshSceneNodePrefab scnp in _pathSceneNodesPrefab.Values )
@@ -157,18 +162,18 @@ namespace VertexArmy.GameWorld.Prefabs
 				}
 			}
 
-			foreach (var cameraSceneNodePrefab in _cameraSceneNodesPrefab)
+			foreach ( var cameraSceneNodePrefab in _cameraSceneNodesPrefab )
 			{
-				SceneNode scn = new SceneNode();
+				SceneNode scn = new SceneNode( );
 				scn.AddAttachable(
-					new CameraAttachable(cameraSceneNodePrefab.Value.LookingDirection, 
+					new CameraAttachable( cameraSceneNodePrefab.Value.LookingDirection,
 						cameraSceneNodePrefab.Value.UpVector,
 						cameraSceneNodePrefab.Value.Near,
 						cameraSceneNodePrefab.Value.Far,
 						cameraSceneNodePrefab.Value.Fov,
-						cameraSceneNodePrefab.Value.AspectRatio)
+						cameraSceneNodePrefab.Value.AspectRatio )
 					);
-				mainNode.AddChild(scn);
+				mainNode.AddChild( scn );
 			}
 
 			/* finish main node */

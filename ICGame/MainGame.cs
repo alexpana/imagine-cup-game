@@ -32,9 +32,9 @@ namespace VertexArmy
 		protected override void Initialize()
 		{
 			//Gearset.GS.Initialize( this );
-			base.Initialize( );
+			base.Initialize();
 
-			Platform.Instance.Input = new PCInputSystem( );
+			Platform.Instance.Input = new PCInputSystem();
 #if TEST_LEVEL_LOADING
 			// This is for testing the level loading part. Do not modify this!
 			StateManager.Instance.ChangeState( GameState.LevelLoading );
@@ -45,9 +45,9 @@ namespace VertexArmy
 
 		protected override void LoadContent()
 		{
-			PrefabRepository.Instance.RegisterPrefab( "robot", RobotPrefab.CreatePrefab( ) );
+			PrefabRepository.Instance.RegisterPrefab( "robot", RobotPrefab.CreatePrefab() );
 			PrefabRepository.Instance.RegisterPrefab( "camera", CameraPrefab.CreatePrefab() );
-			MaterialRepository.Instance.RegisterMaterial( "RobotMaterial", RobotMaterial.CreateMaterial( ) );
+			MaterialRepository.Instance.RegisterMaterial( "RobotMaterial", RobotMaterial.CreateMaterial() );
 		}
 
 		protected override void UnloadContent()
@@ -67,10 +67,10 @@ namespace VertexArmy
 				StateManager.Instance.CurrentGameState.OnUpdate( gameTime );
 			}
 
-			CursorManager.Instance.Update( );
-
+			CursorManager.Instance.Update();
 			TransformableControllerUpdater.Instance.Update( gameTime );
-			StateManager.Instance.OnFrameEndCommitStates( );
+
+			StateManager.Instance.OnFrameEndCommitStates();
 		}
 
 		protected override void Draw( GameTime gameTime )
@@ -82,7 +82,7 @@ namespace VertexArmy
 			}
 			SceneManager.Instance.Render( gameTime.ElapsedGameTime.Milliseconds );
 
-			CursorManager.Instance.Render( );
+			CursorManager.Instance.Render();
 		}
 	}
 }

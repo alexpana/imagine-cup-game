@@ -6,12 +6,12 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace VertexArmy.Graphics
 {
-	class SimpleMeshEntity : Attachable
+	class MeshAttachable : Attachable
 	{
 		private Model _myMod;
 		private Material _myMat;
 
-		public SimpleMeshEntity(Model mod, Material mat)
+		public MeshAttachable(Model mod, Material mat)
 		{
 			foreach ( ModelMesh mesh in mod.Meshes ) {
 				foreach ( ModelMeshPart part in mesh.MeshParts ) {

@@ -1,6 +1,6 @@
 ﻿namespace VertexArmy.Graphics
 {
-	class ObjectSceneNode : SceneNode
+	public class LightAttachable : Attachable
 	{
 	}
 }

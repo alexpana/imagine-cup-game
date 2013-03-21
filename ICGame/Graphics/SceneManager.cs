@@ -11,8 +11,8 @@ namespace VertexArmy.Graphics
 
 		private readonly List<SceneNode> _registeredNodes = new List<SceneNode>( );
 
-		private readonly List<Camera> _sceneCameras = new List<Camera>( );
-		private readonly List<Light> _sceneLights = new List<Light>( );
+		private readonly List<CameraAttachable> _sceneCameras = new List<CameraAttachable>( );
+		private readonly List<LightAttachable> _sceneLights = new List<LightAttachable>( );
 
 
 		public static SceneManager Instance
@@ -62,13 +62,13 @@ namespace VertexArmy.Graphics
 
 				foreach ( var attachable in head.Attachable )
 				{
-					Light light = attachable as Light;
-					if ( light != null )
-						_sceneLights.Add( light );
+					LightAttachable lightAttachable = attachable as LightAttachable;
+					if ( lightAttachable != null )
+						_sceneLights.Add( lightAttachable );
 
-					Camera camera = attachable as Camera;
-					if ( camera != null )
-						_sceneCameras.Add( camera );
+					CameraAttachable cameraAttachable = attachable as CameraAttachable;
+					if ( cameraAttachable != null )
+						_sceneCameras.Add( cameraAttachable );
 				}
 			}
 		}
@@ -92,25 +92,29 @@ namespace VertexArmy.Graphics
 
 				foreach ( var attachable in head.Attachable )
 				{
-					Light light = attachable as Light;
-					if ( light != null )
-						_sceneLights.Remove( light );
+					LightAttachable lightAttachable = attachable as LightAttachable;
+					if ( lightAttachable != null )
+						_sceneLights.Remove( lightAttachable );
 
-					Camera camera = attachable as Camera;
-					if ( camera != null )
-						_sceneCameras.Remove( camera );
+					CameraAttachable cameraAttachable = attachable as CameraAttachable;
+					if ( cameraAttachable != null )
+						_sceneCameras.Remove( cameraAttachable );
 				}
 			}
 		}
 
 		public void Render( float dt )
 		{
-			//to do: link camera & lights, blah blah
-			Renderer.Instance.LoadMatrix( EMatrix.Projection, Matrix.CreatePerspectiveFieldOfView( MathHelper.PiOver4, Global.Platform.Instance.Device.Viewport.AspectRatio, 1, 10000 ) );
-			Renderer.Instance.LoadMatrix( EMatrix.View, Matrix.CreateLookAt( new Vector3( 200, -1300, -300 ), new Vector3( 0, -1300, 0 ), new Vector3( 0, 1, 0 ) ) );
+			if(_sceneCameras.Count == 0)
+				return;
+			
+			CameraAttachable currentCam = _sceneCameras[0];
+			
+			Renderer.Instance.LoadMatrix( EMatrix.Projection, currentCam.GetPerspectiveMatrix() );
+			Renderer.Instance.LoadMatrix( EMatrix.View, currentCam.GetViewMatrix());
 
 
-			Renderer.Instance.SetParameter( "eyePosition", new Vector3( 200, -1300, -300 ) );
+			Renderer.Instance.SetParameter( "eyePosition", currentCam.Parent.GetPosition() );
 			Renderer.Instance.SetParameter( "lightPosition", new Vector3( 0, 40000, 0 ) );
 
 			foreach ( var registeredNode in _registeredNodes )

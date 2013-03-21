@@ -168,7 +168,7 @@ namespace VertexArmy.Content.Prefabs
 			robot.RegisterPath( track );
 
 			/* scene nodes */
-			SceneNodesPrefab gearNode1 = new SceneNodesPrefab
+			MeshSceneNodePrefab gearNode1 = new MeshSceneNodePrefab
 			{
 				Name = "Gear1",
 				Mesh = "models/robo_wheel",
@@ -176,7 +176,7 @@ namespace VertexArmy.Content.Prefabs
 				Body = "Gear1"
 			};
 
-			SceneNodesPrefab gearNode2 = new SceneNodesPrefab
+			MeshSceneNodePrefab gearNode2 = new MeshSceneNodePrefab
 			{
 				Name = "Gear2",
 				Mesh = "models/robo_wheel",
@@ -184,7 +184,7 @@ namespace VertexArmy.Content.Prefabs
 				Body = "Gear2"
 			};
 
-			SceneNodesPrefab gearNode3 = new SceneNodesPrefab
+			MeshSceneNodePrefab gearNode3 = new MeshSceneNodePrefab
 			{
 				Name = "Gear3",
 				Mesh = "models/robo_wheel",
@@ -197,7 +197,7 @@ namespace VertexArmy.Content.Prefabs
 			robot.RegisterSceneNode( gearNode3 );
 
 			/*
-			SceneNodesPrefab chassisNode = new SceneNodesPrefab
+			MeshSceneNodePrefab chassisNode = new MeshSceneNodePrefab
 			{
 				Name = "Chassis",
 				Mesh = "models/robo_link",
@@ -208,7 +208,7 @@ namespace VertexArmy.Content.Prefabs
 			robot.RegisterSceneNode( chassisNode );
 			 */
 
-			PathSceneNodesPrefab linkNodes = new PathSceneNodesPrefab
+			PathMeshSceneNodePrefab linkNode = new PathMeshSceneNodePrefab
 			{
 				Name = "Links",
 				Mesh = "models/robo_link",
@@ -219,7 +219,7 @@ namespace VertexArmy.Content.Prefabs
 				EndIndex = 28
 			};
 
-			robot.RegisterPathSceneNode( linkNodes );
+			robot.RegisterPathSceneNode( linkNode );
 
 			return robot;
 		}

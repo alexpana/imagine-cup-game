@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using FarseerPhysics.Dynamics;
 using Microsoft.Xna.Framework;
+using VertexArmy.Common;
 using VertexArmy.Global.Updaters;
 using VertexArmy.Graphics;
 using VertexArmy.Utilities;

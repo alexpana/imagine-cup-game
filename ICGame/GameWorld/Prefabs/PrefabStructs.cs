@@ -19,7 +19,14 @@ namespace VertexArmy.GameWorld.Prefabs
 		public Dictionary<string, PathPrefab> Paths;
 	}
 
-	public struct SceneNodesPrefab
+	public struct CameraSceneNodePrefab
+	{
+		public Vector3 LookingDirection;
+		public Vector3 UpVector;
+		public float Near, Far, AspectRatio, Fov;
+	}
+
+	public struct MeshSceneNodePrefab
 	{
 		public string Name { get; set; }
 		public string Body;
@@ -32,7 +39,7 @@ namespace VertexArmy.GameWorld.Prefabs
 		}
 	}
 
-	public struct PathSceneNodesPrefab
+	public struct PathMeshSceneNodePrefab
 	{
 		public string Name { get; set; }
 		public string Path;

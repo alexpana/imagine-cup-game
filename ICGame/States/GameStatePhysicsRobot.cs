@@ -26,6 +26,7 @@ namespace VertexArmy.States
 		private Body _ground;
 
 		public GameEntity Robot;
+		public GameEntity Camera;
 		private float _cameraPosition;
 		private float _cameraError = 0.7f;
 		private bool _cameraMoving;
@@ -247,8 +248,12 @@ namespace VertexArmy.States
 		public void OnEnter()
 		{
 
+			//Camera
+
+			GameWorldManager.Instance.SpawnEntity("camera", new Vector3(0, -1300, -300), "camera1" );
 			GameWorldManager.Instance.SpawnEntity( "robot", new Vector3( 0f, 800f, 0f ), "robot1" );
 			Robot = GameWorldManager.Instance.GetEntity( "robot1" );
+			Camera = GameWorldManager.Instance.GetEntity( "camera1" );
 
 			_cameraMoving = false;
 			_actionFreeze = false;

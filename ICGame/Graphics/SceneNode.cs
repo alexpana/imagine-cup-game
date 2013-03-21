@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Runtime.Serialization;
 using Microsoft.Xna.Framework;
+using VertexArmy.Common;
 
 namespace VertexArmy.Graphics
 {
@@ -62,6 +63,7 @@ namespace VertexArmy.Graphics
 		public void AddAttachable(Attachable attach)
 		{
 			_attachables.Add(attach);
+			attach.Parent = this;
 		}
 
 		

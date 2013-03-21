@@ -46,6 +46,7 @@ namespace VertexArmy
 		protected override void LoadContent()
 		{
 			PrefabRepository.Instance.RegisterPrefab( "robot", RobotPrefab.CreatePrefab( ) );
+			PrefabRepository.Instance.RegisterPrefab( "camera", CameraPrefab.CreatePrefab() );
 			MaterialRepository.Instance.RegisterMaterial( "RobotMaterial", RobotMaterial.CreateMaterial( ) );
 		}
 

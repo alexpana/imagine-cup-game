@@ -91,6 +91,7 @@
   <ItemGroup>
     <Compile Include="Common\IUpdateableObject.cs" />
     <Compile Include="Content\Materials\RobotMaterial.cs" />
+    <Compile Include="Content\Prefabs\CameraPrefab.cs" />
     <Compile Include="Content\Prefabs\RobotPrefab.cs" />
     <Compile Include="GameWorld\GameEntity.cs" />
     <Compile Include="GameWorld\GameEntityFlags.cs" />
@@ -103,16 +104,14 @@
     <Compile Include="GameWorld\PhysicsEntity.cs" />
     <Compile Include="Global\CursorManager.cs" />
     <Compile Include="Global\Updaters\TransformableControllerUpdater.cs" />
-    <Compile Include="Graphics\Attachable.cs" />
-    <Compile Include="Graphics\Camera.cs" />
+    <Compile Include="Graphics\Attachables\Attachable.cs" />
+    <Compile Include="Graphics\Attachables\CameraAttachable.cs" />
     <Compile Include="Graphics\Renderer.cs" />
-    <Compile Include="Graphics\Light.cs" />
+    <Compile Include="Graphics\Attachables\LightAttachable.cs" />
     <Compile Include="Graphics\Material.cs" />
-    <Compile Include="Graphics\ObjectSceneNode.cs" />
-    <Compile Include="Graphics\RobotSceneNode.cs" />
     <Compile Include="Graphics\SceneManager.cs" />
     <Compile Include="Graphics\SceneNode.cs" />
-    <Compile Include="Graphics\SimpleMeshEntity.cs" />
+    <Compile Include="Graphics\Attachables\MeshAttachable.cs" />
     <Compile Include="Graphics\TransformableController.cs" />
     <Compile Include="GS.cs" />
     <Compile Include="Input\IInputSystem.cs" />
@@ -120,7 +119,7 @@
     <Compile Include="Levels\Level.cs" />
     <Compile Include="Levels\LevelChunk.cs" />
     <Compile Include="Levels\LevelManager.cs" />
-    <Compile Include="Graphics\ITransformable.cs" />
+    <Compile Include="Common\ITransformable.cs" />
     <Compile Include="Physics\DebugView\DebugViewXNA.cs" />
     <Compile Include="Physics\DebugView\PrimitiveBatch.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

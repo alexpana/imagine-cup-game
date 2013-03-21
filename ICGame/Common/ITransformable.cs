@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace VertexArmy.Graphics
+namespace VertexArmy.Common
 {
 	public interface ITransformable
 	{

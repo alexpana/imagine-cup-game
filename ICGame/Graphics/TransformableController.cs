@@ -75,10 +75,5 @@ namespace VertexArmy.Graphics
 				Transformable.SetPosition( new Vector3( UnitsConverter.ToDisplayUnits( _body.Position ), 0f ) );
 			}
 		}
-
-		private void RemoveSceneNode()
-		{
-
-		}
 	}
 }

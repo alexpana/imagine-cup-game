@@ -1,15 +1,15 @@
-﻿using System;
+using System;
 using FarseerPhysics.Dynamics;
 using Microsoft.Xna.Framework;
 using VertexArmy.Common;
 using VertexArmy.Utilities;
 
-namespace VertexArmy.Graphics
+namespace VertexArmy.Global.Controllers
 {
-	public class TransformableController : IUpdateableObject
+	public class BodyController : IController
 	{
 		private ITransformable _transformable;
-		public ITransformable Transformable
+		public ITransformable OutputTransformable
 		{
 			set
 			{
@@ -27,10 +27,10 @@ namespace VertexArmy.Graphics
 		private const float RotationError = 0.001f;
 		private const float PositionError = 0.001f;
 
-		public TransformableController( ITransformable transformable, Body body )
+		public BodyController( ITransformable transformable, Body body )
 		{
 			_body = body;
-			Transformable = transformable;
+			_transformable = transformable;
 
 
 			UpdateTransformableRotation( );
@@ -39,6 +39,12 @@ namespace VertexArmy.Graphics
 
 		public Body Body
 		{
+			set
+			{
+				_body = value;
+				UpdateTransformableRotation( );
+				UpdateTransformablePosition( );
+			}
 			get { return _body; }
 		}
 
@@ -61,18 +67,18 @@ namespace VertexArmy.Graphics
 		private void UpdateTransformableRotation()
 		{
 			_lastBodyRotation = _body.Rotation;
-			if ( Transformable != null && _body != null )
+			if ( OutputTransformable != null && _body != null )
 			{
-				Transformable.SetRotation( Quaternion.CreateFromAxisAngle( new Vector3( 0f, 0f, 1f ), _body.Rotation ) );
+				OutputTransformable.SetRotation( Quaternion.CreateFromAxisAngle( new Vector3( 0f, 0f, 1f ), _body.Rotation ) );
 			}
 		}
 
 		private void UpdateTransformablePosition()
 		{
 			_lastBodyPosition = _body.Position;
-			if ( Transformable != null && _body != null )
+			if ( OutputTransformable != null && _body != null )
 			{
-				Transformable.SetPosition( new Vector3( UnitsConverter.ToDisplayUnits( _body.Position ), 0f ) );
+				OutputTransformable.SetPosition( new Vector3( UnitsConverter.ToDisplayUnits( _body.Position ), 0f ) );
 			}
 		}
 	}

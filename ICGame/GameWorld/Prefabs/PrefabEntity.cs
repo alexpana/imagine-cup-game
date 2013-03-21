@@ -2,8 +2,8 @@ using System.Collections.Generic;
 using FarseerPhysics.Dynamics;
 using Microsoft.Xna.Framework.Graphics;
 using VertexArmy.Global;
+using VertexArmy.Global.Controllers;
 using VertexArmy.Global.Managers;
-using VertexArmy.Global.Updaters;
 using VertexArmy.Graphics;
 
 namespace VertexArmy.GameWorld.Prefabs
@@ -17,7 +17,7 @@ namespace VertexArmy.GameWorld.Prefabs
 
 		private PhysicsPrefab _physicsPrefab;
 		private Dictionary<string, MeshSceneNodePrefab> _sceneNodesPrefab;
-		private Dictionary<string, PathMeshSceneNodePrefab> _pathSceneNodesPrefab;
+		private Dictionary<string, ArrayMeshSceneNodePrefab> _pathSceneNodesPrefab;
 
 		private Dictionary<string, CameraSceneNodePrefab> _cameraSceneNodesPrefab;
 
@@ -30,7 +30,7 @@ namespace VertexArmy.GameWorld.Prefabs
 			_physicsPrefab.Paths = new Dictionary<string, PathPrefab>( );
 
 			_sceneNodesPrefab = new Dictionary<string, MeshSceneNodePrefab>( );
-			_pathSceneNodesPrefab = new Dictionary<string, PathMeshSceneNodePrefab>( );
+			_pathSceneNodesPrefab = new Dictionary<string, ArrayMeshSceneNodePrefab>( );
 			_cameraSceneNodesPrefab = new Dictionary<string, CameraSceneNodePrefab>( );
 		}
 
@@ -69,7 +69,7 @@ namespace VertexArmy.GameWorld.Prefabs
 			_sceneNodesPrefab.Add( scn.Name, scn );
 		}
 
-		public void RegisterPathSceneNode( PathMeshSceneNodePrefab pscn )
+		public void RegisterPathSceneNode( ArrayMeshSceneNodePrefab pscn )
 		{
 			_pathSceneNodesPrefab.Add( pscn.Name, pscn );
 		}
@@ -79,7 +79,7 @@ namespace VertexArmy.GameWorld.Prefabs
 			GameEntity obj = new GameEntity( );
 
 			obj.PhysicsEntity = new PhysicsEntity( );
-			obj.Subcomponents = new List<TransformableController>( );
+			obj.Controllers = new List<IController>( );
 
 			obj.Name = Name;
 			obj.Flags = Flags;
@@ -136,15 +136,17 @@ namespace VertexArmy.GameWorld.Prefabs
 					);
 				mainNode.AddChild( scn );
 
-				TransformableController controller = new TransformableController( scn, entity.PhysicsEntity.GetBody( scnp.Body ) );
-				entity.Subcomponents.Add( controller );
-				if ( controller.Body != null )
+				if ( scnp.Body != null && entity.PhysicsEntity.GetBody( scnp.Body ) != null )
 				{
-					TransformableControllerUpdater.Instance.RegisterUpdatable( controller );
+
+					BodyController controller = new BodyController( scn, entity.PhysicsEntity.GetBody( scnp.Body ) );
+					entity.Controllers.Add( controller );
+					ControllerManager.Instance.RegisterUpdatable( controller );
 				}
 			}
 
-			foreach ( PathMeshSceneNodePrefab scnp in _pathSceneNodesPrefab.Values )
+
+			foreach ( ArrayMeshSceneNodePrefab scnp in _pathSceneNodesPrefab.Values )
 			{
 				for ( int i = scnp.StartIndex; i <= scnp.EndIndex; i++ )
 				{
@@ -155,10 +157,14 @@ namespace VertexArmy.GameWorld.Prefabs
 							)
 						);
 					mainNode.AddChild( scn );
-					TransformableController controller = new TransformableController( scn, entity.PhysicsEntity.GetBodyFromPath( scnp.Path, i ) );
-					entity.Subcomponents.Add( controller );
 
-					TransformableControllerUpdater.Instance.RegisterUpdatable( controller );
+					if ( scnp.Path != null && entity.PhysicsEntity.GetBodyFromPath( scnp.Path, i ) != null )
+					{
+						BodyController controller = new BodyController( scn, entity.PhysicsEntity.GetBodyFromPath( scnp.Path, i ) );
+						entity.Controllers.Add( controller );
+
+						ControllerManager.Instance.RegisterUpdatable( controller );
+					}
 				}
 			}
 

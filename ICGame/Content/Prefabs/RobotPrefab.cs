@@ -209,7 +209,7 @@ namespace VertexArmy.Content.Prefabs
 			robot.RegisterSceneNode( chassisNode );
 			 */
 
-			PathMeshSceneNodePrefab linkNode = new PathMeshSceneNodePrefab
+			ArrayMeshSceneNodePrefab linkNode = new ArrayMeshSceneNodePrefab
 			{
 				Name = "Links",
 				Mesh = "models/robo_link",

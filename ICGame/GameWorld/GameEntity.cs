@@ -2,7 +2,7 @@
 using FarseerPhysics.Dynamics;
 using Microsoft.Xna.Framework;
 using VertexArmy.Common;
-using VertexArmy.Global.Updaters;
+using VertexArmy.Global.Controllers;
 using VertexArmy.Graphics;
 using VertexArmy.Utilities;
 
@@ -14,7 +14,7 @@ namespace VertexArmy.GameWorld
 		public GameEntityFlags Flags { get; set; }
 
 		public PhysicsEntity PhysicsEntity;
-		public List<TransformableController> Subcomponents;
+		public List<IController> Controllers;
 		public SceneNode MainNode;
 		public Body MainBody;
 
@@ -83,9 +83,9 @@ namespace VertexArmy.GameWorld
 		public void Remove()
 		{
 			PhysicsEntity.Remove( );
-			foreach ( TransformableController tc in Subcomponents )
+			foreach ( IController tc in Controllers )
 			{
-				TransformableControllerUpdater.Instance.UnregisterUpdatable( tc );
+				ControllerManager.Instance.UnregisterUpdatable( tc );
 			}
 
 			SceneManager.Instance.UnregisterSceneTree( MainNode );

@@ -4,8 +4,8 @@ using Microsoft.Xna.Framework;
 using VertexArmy.Content.Materials;
 using VertexArmy.Content.Prefabs;
 using VertexArmy.Global;
+using VertexArmy.Global.Controllers;
 using VertexArmy.Global.Managers;
-using VertexArmy.Global.Updaters;
 using VertexArmy.Graphics;
 using VertexArmy.Input;
 using VertexArmy.States;
@@ -31,7 +31,6 @@ namespace VertexArmy
 
 		protected override void Initialize()
 		{
-			//Gearset.GS.Initialize( this );
 			base.Initialize( );
 
 			Platform.Instance.Input = new PCInputSystem( );
@@ -46,7 +45,7 @@ namespace VertexArmy
 		protected override void LoadContent()
 		{
 			PrefabRepository.Instance.RegisterPrefab( "robot", RobotPrefab.CreatePrefab( ) );
-			PrefabRepository.Instance.RegisterPrefab( "camera", CameraPrefab.CreatePrefab() );
+			PrefabRepository.Instance.RegisterPrefab( "camera", CameraPrefab.CreatePrefab( ) );
 			MaterialRepository.Instance.RegisterMaterial( "RobotMaterial", RobotMaterial.CreateMaterial( ) );
 		}
 
@@ -69,7 +68,7 @@ namespace VertexArmy
 
 			CursorManager.Instance.Update( );
 
-			TransformableControllerUpdater.Instance.Update( gameTime );
+			ControllerManager.Instance.Update( gameTime );
 			StateManager.Instance.OnFrameEndCommitStates( );
 		}
 

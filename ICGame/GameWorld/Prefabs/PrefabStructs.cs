@@ -39,7 +39,7 @@ namespace VertexArmy.GameWorld.Prefabs
 		}
 	}
 
-	public struct PathMeshSceneNodePrefab
+	public struct ArrayMeshSceneNodePrefab
 	{
 		public string Name { get; set; }
 		public string Path;

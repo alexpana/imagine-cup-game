@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework;
 
 namespace VertexArmy.Common
 {
-	interface IUpdateableObject
+	public interface IUpdateableObject
 	{
 		void Update(GameTime dt);
 	}

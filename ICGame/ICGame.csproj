@@ -98,12 +98,14 @@
     <Compile Include="GameWorld\Prefabs\PrefabStructs.cs" />
     <Compile Include="GameWorld\Prefabs\PrefabEntity.cs" />
     <Compile Include="GameWorld\Prefabs\ShapeType.cs" />
+    <Compile Include="Global\Controllers\IController.cs" />
+    <Compile Include="Global\Controllers\BodyController.cs" />
     <Compile Include="Global\Managers\PrefabRepository.cs" />
     <Compile Include="Global\Managers\MaterialRepository.cs" />
     <Compile Include="Global\Managers\GameWorldManager.cs" />
     <Compile Include="GameWorld\PhysicsEntity.cs" />
     <Compile Include="Global\CursorManager.cs" />
-    <Compile Include="Global\Updaters\TransformableControllerUpdater.cs" />
+    <Compile Include="Global\Controllers\ControllerManager.cs" />
     <Compile Include="Graphics\Attachables\Attachable.cs" />
     <Compile Include="Graphics\Attachables\CameraAttachable.cs" />
     <Compile Include="Graphics\Renderer.cs" />
@@ -112,7 +114,6 @@
     <Compile Include="Graphics\SceneManager.cs" />
     <Compile Include="Graphics\SceneNode.cs" />
     <Compile Include="Graphics\Attachables\MeshAttachable.cs" />
-    <Compile Include="Graphics\TransformableController.cs" />
     <Compile Include="GS.cs" />
     <Compile Include="Input\IInputSystem.cs" />
     <Compile Include="Input\PCInputSystem.cs" />

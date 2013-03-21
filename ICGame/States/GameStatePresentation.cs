@@ -64,7 +64,7 @@ namespace VertexArmy.States
 			_contentManager = content;
 		}
 
-		public void OnUpdate( GameTime dt )
+		public void OnUpdate( GameTime gameTime )
 		{
 			_frameCount++;
 			// Allows the game to exit
@@ -218,7 +218,7 @@ namespace VertexArmy.States
 			_spriteBatch.End();
 		}
 
-		public void OnRender( GameTime dt )
+		public void OnRender( GameTime gameTime )
 		{
 			Platform.Instance.Device.Clear( Color.SkyBlue );
 

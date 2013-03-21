@@ -4,8 +4,8 @@ namespace VertexArmy.States
 {
 	public interface IGameState
 	{
-		void OnUpdate( GameTime dt );
-		void OnRender( GameTime dt );
+		void OnUpdate( GameTime gameTime );
+		void OnRender( GameTime gameTime );
 		void OnEnter();
 		void OnClose();
 	}

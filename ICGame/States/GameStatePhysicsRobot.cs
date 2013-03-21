@@ -13,7 +13,7 @@ using VertexArmy.Physics.DebugView;
 
 namespace VertexArmy.States
 {
-	internal class GameStatePhysicsRobot : IGameState
+	internal class GameStatePhysicsRobot : PlayableGameState
 	{
 
 		private ContentManager _contentManager;
@@ -45,8 +45,10 @@ namespace VertexArmy.States
 			_contentManager = content;
 		}
 
-		public void OnUpdate( GameTime dt )
+		public override void OnUpdate( GameTime gameTime )
 		{
+			base.OnUpdate( gameTime );
+
 			if ( Robot != null )
 			{
 
@@ -135,11 +137,11 @@ namespace VertexArmy.States
 
 			if ( Keyboard.GetState( PlayerIndex.One ).IsKeyDown( Keys.O ) )
 			{
-				Robot.SetRotation( Robot.GetRotationRadians( ) - 0.4f * ( float ) dt.ElapsedGameTime.TotalSeconds );
+				Robot.SetRotation( Robot.GetRotationRadians() - 0.4f * ( float ) gameTime.ElapsedGameTime.TotalSeconds );
 			}
 			else if ( Keyboard.GetState( PlayerIndex.One ).IsKeyDown( Keys.P ) )
 			{
-				Robot.SetRotation( Robot.GetRotationRadians( ) + 0.4f * ( float ) dt.ElapsedGameTime.TotalSeconds );
+				Robot.SetRotation( Robot.GetRotationRadians() + 0.4f * ( float ) gameTime.ElapsedGameTime.TotalSeconds );
 			}
 
 		}
@@ -148,8 +150,10 @@ namespace VertexArmy.States
 		{
 		}
 
-		public void OnRender( GameTime dt )
+		public override void OnRender( GameTime gameTime )
 		{
+			base.OnRender( gameTime );
+
 			if ( _debugViewState )
 			{
 				_projection = Matrix.CreateOrthographicOffCenter(
@@ -177,7 +181,7 @@ namespace VertexArmy.States
 			_ground = new Body( Platform.Instance.PhysicsWorld );
 			{
 
-				Vertices terrain = new Vertices( );
+				Vertices terrain = new Vertices();
 				terrain.Add( new Vector2( -20f, 15f ) );
 				terrain.Add( new Vector2( -20f, 20f ) );
 				terrain.Add( new Vector2( 20f, 20f ) );
@@ -245,12 +249,12 @@ namespace VertexArmy.States
 
 		}
 
-		public void OnEnter()
+		public override void OnEnter()
 		{
 
 			//Camera
 
-			GameWorldManager.Instance.SpawnEntity("camera", new Vector3(0, -1300, -300), "camera1" );
+			GameWorldManager.Instance.SpawnEntity( "camera", new Vector3( 0, -1300, -300 ), "camera1" );
 			GameWorldManager.Instance.SpawnEntity( "robot", new Vector3( 0f, 800f, 0f ), "robot1" );
 			Robot = GameWorldManager.Instance.GetEntity( "robot1" );
 			Camera = GameWorldManager.Instance.GetEntity( "camera1" );
@@ -263,7 +267,7 @@ namespace VertexArmy.States
 			_actionToggleDebugView = false;
 
 
-			LoadPhysicsContent( );
+			LoadPhysicsContent();
 			_debugView = new DebugViewXNA( Platform.Instance.PhysicsWorld );
 
 			_debugView.LoadContent( Platform.Instance.Device, Platform.Instance.Content );
@@ -274,9 +278,9 @@ namespace VertexArmy.States
 			_view = Matrix.Identity;
 		}
 
-		public void OnClose()
+		public override void OnClose()
 		{
-			_contentManager.Unload( );
+			_contentManager.Unload();
 		}
 	}
 }

@@ -1,4 +1,3 @@
-using System;
 using FarseerPhysics.Dynamics;
 using Microsoft.Xna.Framework;
 using VertexArmy.Content.Materials;
@@ -33,7 +32,7 @@ namespace VertexArmy
 		{
 			base.Initialize( );
 
-			Platform.Instance.Input = new PCInputSystem( );
+			Platform.Instance.Input = new PCInputSystem();
 #if TEST_LEVEL_LOADING
 			// This is for testing the level loading part. Do not modify this!
 			StateManager.Instance.ChangeState( GameState.LevelLoading );
@@ -45,7 +44,7 @@ namespace VertexArmy
 		protected override void LoadContent()
 		{
 			PrefabRepository.Instance.RegisterPrefab( "robot", RobotPrefab.CreatePrefab( ) );
-			PrefabRepository.Instance.RegisterPrefab( "camera", CameraPrefab.CreatePrefab( ) );
+			PrefabRepository.Instance.RegisterPrefab( "camera", CameraPrefab.CreatePrefab() );
 			MaterialRepository.Instance.RegisterMaterial( "RobotMaterial", RobotMaterial.CreateMaterial( ) );
 		}
 
@@ -57,31 +56,28 @@ namespace VertexArmy
 		protected override void Update( GameTime gameTime )
 		{
 			base.Update( gameTime );
-			Platform.Instance.Input.Update( gameTime );
 
-			Platform.Instance.PhysicsWorld.Step( Math.Min( ( float ) gameTime.ElapsedGameTime.TotalMilliseconds * 0.001f, ( 1f / 30f ) ) );
+			Platform.Instance.Input.Update( gameTime );
+			CursorManager.Instance.Update();
 
 			if ( StateManager.Instance.CurrentGameState != null )
 			{
 				StateManager.Instance.CurrentGameState.OnUpdate( gameTime );
 			}
 
-			CursorManager.Instance.Update( );
-
-			ControllerManager.Instance.Update( gameTime );
-			StateManager.Instance.OnFrameEndCommitStates( );
+			StateManager.Instance.OnFrameEndCommitStates();
 		}
 
 		protected override void Draw( GameTime gameTime )
 		{
 			base.Draw( gameTime );
+
 			if ( StateManager.Instance.CurrentGameState != null )
 			{
 				StateManager.Instance.CurrentGameState.OnRender( gameTime );
 			}
-			SceneManager.Instance.Render( gameTime.ElapsedGameTime.Milliseconds );
 
-			CursorManager.Instance.Render( );
+			CursorManager.Instance.Render();
 		}
 	}
 }

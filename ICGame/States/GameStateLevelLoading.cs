@@ -29,12 +29,12 @@ namespace VertexArmy.States
 			_level = LevelManager.Instance.GetLevel( "tutorial" );
 		}
 
-		public void OnUpdate( GameTime dt )
+		public void OnUpdate( GameTime gameTime )
 		{
-			Platform.Instance.PhysicsWorld.Step( Math.Min( ( float ) dt.ElapsedGameTime.TotalMilliseconds * 0.001f, ( 1f / 30f ) ) );
+			Platform.Instance.PhysicsWorld.Step( Math.Min( ( float ) gameTime.ElapsedGameTime.TotalMilliseconds * 0.001f, ( 1f / 30f ) ) );
 		}
 
-		public void OnRender( GameTime dt )
+		public void OnRender( GameTime gameTime )
 		{
 			_projection = Matrix.CreateOrthographicOffCenter(
 				_cameraPosition - Platform.Instance.Device.Viewport.Width / 2f * 0.05f,

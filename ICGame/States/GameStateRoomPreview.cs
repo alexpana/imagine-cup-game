@@ -20,7 +20,7 @@ namespace VertexArmy.States
 			_isDragging = false;
 		}
 
-		public void OnUpdate( GameTime dt )
+		public void OnUpdate( GameTime gameTime )
 		{
 			UpdateMouseInput();
 			if ( _isDragging )
@@ -61,7 +61,7 @@ namespace VertexArmy.States
 			_cameraPosition.Y = Math.Min( 0, Math.Max( _cameraPosition.Y + delta.Y, screenHeight - _background.Height ) );
 		}
 
-		public void OnRender( GameTime dt )
+		public void OnRender( GameTime gameTime )
 		{
 			Platform.Instance.Device.Clear( Color.SkyBlue );
 			RenderBackground();

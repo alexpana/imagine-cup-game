@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework.Content;
 using VertexArmy.Global;
 
@@ -6,28 +6,39 @@ namespace VertexArmy.States
 {
 	public sealed class StateManager
 	{
-		private static readonly object _dummySync = new Object();
+		private readonly object _lock = new object();
 
-		private bool _requestedStateChange;
 		private IGameState _requestedGameState;
+		private bool _pushRequested;
+		private bool _popRequested;
 
-		public static StateManager Instance
-		{
-			get { return StateManagerInstanceHolder.Instance; }
-		}
-
-		public IGameState CurrentGameState { get; private set; }
+		private readonly Stack<IGameState> _states;
+		public IGameState CurrentGameState { get { return _states.Count > 0 ? _states.Peek() : null; } }
 
 		private StateManager()
 		{
-			_requestedStateChange = false;
+			_pushRequested = false;
+			_popRequested = false;
+			_states = new Stack<IGameState>();
 		}
 
 		public void ChangeState( GameState newGameState )
 		{
-			lock ( _dummySync )
+			PopState();
+			PushState( newGameState );
+		}
+
+		public void PopState()
+		{
+			_popRequested = true;
+		}
+
+		public void PushState( GameState newGameState )
+		{
+			lock ( _lock )
 			{
-				_requestedStateChange = true;
+				_pushRequested = true;
+
 				ContentManager contentManager = new ContentManager( Platform.Instance.Game.Services, "Content" );
 				_requestedGameState = CreateGameStateInstance( newGameState, contentManager );
 			}
@@ -59,26 +70,32 @@ namespace VertexArmy.States
 
 		public void OnFrameEndCommitStates()
 		{
-			if ( _requestedStateChange )
+			if ( _popRequested && _states.Count > 0 )
 			{
-				_requestedGameState.OnEnter();
-
 				if ( CurrentGameState != null )
 				{
 					CurrentGameState.OnClose();
 				}
 
-				CurrentGameState = _requestedGameState;
-
-				_requestedStateChange = false;
+				_states.Pop();
 			}
+
+			if ( _pushRequested )
+			{
+				_requestedGameState.OnEnter();
+
+				_states.Push( _requestedGameState );
+				_requestedGameState = null;
+			}
+
+			_popRequested = false;
+			_pushRequested = false;
 		}
 
-		private static class StateManagerInstanceHolder
+		private static StateManager _instance = new StateManager();
+		public static StateManager Instance
 		{
-			// ReSharper disable MemberHidesStaticFromOuterClass
-			public static readonly StateManager Instance = new StateManager();
-			// ReSharper restore MemberHidesStaticFromOuterClass
+			get { return _instance; }
 		}
 	}
 }

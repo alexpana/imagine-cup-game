@@ -9,11 +9,11 @@ namespace VertexArmy.States
 		{
 		}
 
-		public void OnUpdate( GameTime dt )
+		public void OnUpdate( GameTime gameTime )
 		{
 		}
 
-		public void OnRender( GameTime dt )
+		public void OnRender( GameTime gameTime )
 		{
 		}
 

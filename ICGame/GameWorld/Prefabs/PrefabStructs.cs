@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework;
 using VertexArmy.Global;
 using VertexArmy.Global.Managers;
 using VertexArmy.Graphics;
+using VertexArmy.Utilities;
 
 namespace VertexArmy.GameWorld.Prefabs
 {
@@ -32,6 +33,8 @@ namespace VertexArmy.GameWorld.Prefabs
 		public string Body;
 		public string Mesh;
 		public string Material;
+		public Vector3 LocalPosition;
+		public Quaternion LocalRotation;
 
 		public Material GetMaterial()
 		{
@@ -65,18 +68,18 @@ namespace VertexArmy.GameWorld.Prefabs
 
 		public List<ShapePrefab> Shapes;
 
-		public Body GetPhysicsBody()
+		public Body GetPhysicsBody( float scale )
 		{
 			Body pBody = new Body( Platform.Instance.PhysicsWorld );
 
-			pBody.Position = LocalPosition;
+			pBody.Position = UnitsConverter.ToSimUnits( LocalPosition ) * scale;
 			pBody.Restitution = Restitution;
 			pBody.IsStatic = Static;
 			pBody.Friction = Friction;
 
 			foreach ( ShapePrefab sp in Shapes )
 			{
-				sp.AttachToBody( pBody );
+				sp.AttachToBody( pBody, scale );
 			}
 
 			return pBody;
@@ -98,27 +101,46 @@ namespace VertexArmy.GameWorld.Prefabs
 
 		public float Width, Height;
 
-		public void AttachToBody( Body body )
+		public void AttachToBody( Body body, float scale )
 		{
 			switch ( Type )
 			{
 				case ShapeType.Circle:
-					FixtureFactory.AttachCircle( XRadius, Density, body );
+					FixtureFactory.AttachCircle( UnitsConverter.ToSimUnits( XRadius ) * scale, Density, body );
 					break;
 				case ShapeType.Ellipse:
-					FixtureFactory.AttachEllipse( XRadius, YRadius, Edges, Density, body );
+					FixtureFactory.AttachEllipse( UnitsConverter.ToSimUnits( XRadius ) * scale, UnitsConverter.ToSimUnits( YRadius ) * scale, Edges, Density, body );
 					break;
 				case ShapeType.Edge:
-					FixtureFactory.AttachEdge( Start, End, body );
+					FixtureFactory.AttachEdge( UnitsConverter.ToSimUnits( Start ) * scale, UnitsConverter.ToSimUnits( End ) * scale, body );
 					break;
 				case ShapeType.Rectangle:
-					FixtureFactory.AttachRectangle( Width, Height, Density, Offset, body );
+					FixtureFactory.AttachRectangle( UnitsConverter.ToSimUnits( Width ) * scale, UnitsConverter.ToSimUnits( Height ) * scale, Density, UnitsConverter.ToSimUnits( Offset ) * scale, body );
 					break;
 				case ShapeType.Polygon:
-					FixtureFactory.AttachPolygon( Polygon[0], Density, body );
+
+					Vertices p = new Vertices( );
+					foreach ( Vector2 node in Polygon[0] )
+					{
+						p.Add( UnitsConverter.ToSimUnits( node ) * scale );
+					}
+
+					FixtureFactory.AttachPolygon( p, Density, body );
 					break;
 				case ShapeType.CompoundPolygon:
-					FixtureFactory.AttachCompoundPolygon( Polygon, Density, body );
+
+					List<Vertices> cp = new List<Vertices>( );
+					foreach ( Vertices v in Polygon )
+					{
+						Vertices polygon = new Vertices( );
+						foreach ( Vector2 node in v )
+						{
+							polygon.Add( UnitsConverter.ToSimUnits( node ) * scale );
+						}
+						cp.Add( polygon );
+					}
+
+					FixtureFactory.AttachCompoundPolygon( cp, Density, body );
 					break;
 				default:
 					return;
@@ -141,12 +163,12 @@ namespace VertexArmy.GameWorld.Prefabs
 		public float DampingRatio;
 
 
-		public Joint GetPhysicsJoint( Body body1, Body body2 )
+		public Joint GetPhysicsJoint( Body body1, Body body2, float scale )
 		{
 			switch ( Type )
 			{
 				case JointType.Line:
-					LineJoint joint = new LineJoint( body1, body2, Anchor, Axis );
+					LineJoint joint = new LineJoint( body1, body2, UnitsConverter.ToSimUnits( Anchor ) * scale, Axis );
 
 					joint.MaxMotorTorque = MaxMotorTorque;
 					joint.MotorEnabled = MotorEnabled;
@@ -156,9 +178,9 @@ namespace VertexArmy.GameWorld.Prefabs
 					Platform.Instance.PhysicsWorld.AddJoint( joint );
 					return joint;
 				case JointType.Revolute:
-					return new RevoluteJoint( body1, body2, Anchor, Anchor2 );
+					return new RevoluteJoint( body1, body2, UnitsConverter.ToSimUnits( Anchor ) * scale, UnitsConverter.ToSimUnits( Anchor2 ) * scale );
 				case JointType.Weld:
-					return new WeldJoint( body1, body2, Anchor, Anchor2 );
+					return new WeldJoint( body1, body2, UnitsConverter.ToSimUnits( Anchor ) * scale, UnitsConverter.ToSimUnits( Anchor2 ) * scale );
 				default:
 					return null;
 			}
@@ -170,7 +192,7 @@ namespace VertexArmy.GameWorld.Prefabs
 	{
 		public string Name { get; set; }
 
-		public Path Path;
+		public List<Vector2> Path;
 		public JointType JointType;
 
 		public bool ConnectFirstAndLast;
@@ -181,11 +203,11 @@ namespace VertexArmy.GameWorld.Prefabs
 		public BodyPrefab Body { get; set; }
 		public int BodyCount;
 
-		public PathEntity GetPathEntity()
+		public PathEntity GetPathEntity( float scale )
 		{
 			PathEntity pathEntity = new PathEntity( );
 			List<Shape> shapes = new List<Shape>( );
-			Body b = Body.GetPhysicsBody( );
+			Body b = Body.GetPhysicsBody( scale );
 
 			foreach ( var fix in b.FixtureList )
 			{
@@ -193,9 +215,15 @@ namespace VertexArmy.GameWorld.Prefabs
 			}
 			Platform.Instance.PhysicsWorld.RemoveBody( b );
 
+			Path p = new Path( );
+			foreach ( Vector2 node in Path )
+			{
+				p.Add( UnitsConverter.ToSimUnits( node ) * scale );
+			}
+
 			pathEntity.Bodies = PathManager.EvenlyDistributeShapesAlongPath(
 				Platform.Instance.PhysicsWorld,
-				Path,
+				p,
 				shapes,
 				Body.Static ? BodyType.Static : BodyType.Dynamic,
 				BodyCount + 1
@@ -209,8 +237,8 @@ namespace VertexArmy.GameWorld.Prefabs
 					pathEntity.Joints = new List<Joint>( PathManager.AttachBodiesWithRevoluteJoint(
 						Platform.Instance.PhysicsWorld,
 						pathEntity.Bodies,
-						Anchor1,
-						Anchor2,
+						UnitsConverter.ToSimUnits( Anchor1 ) * scale,
+						UnitsConverter.ToSimUnits( Anchor2 ) * scale,
 						ConnectFirstAndLast,
 						CollideConnected
 						) );
@@ -222,12 +250,12 @@ namespace VertexArmy.GameWorld.Prefabs
 					pathEntity.Joints = new List<Joint>( PathManager.AttachBodiesWithSliderJoint(
 						Platform.Instance.PhysicsWorld,
 						pathEntity.Bodies,
-						Anchor1,
-						Anchor2,
+						UnitsConverter.ToSimUnits( Anchor1 ) * scale,
+						UnitsConverter.ToSimUnits( Anchor2 ) * scale,
 						ConnectFirstAndLast,
 						CollideConnected,
-						MaxLength,
-						MinLength
+						UnitsConverter.ToSimUnits( MaxLength ) * scale,
+						UnitsConverter.ToSimUnits( MinLength ) * scale
 						) );
 
 					return pathEntity;

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace VertexArmy.Graphics
 {
@@ -108,9 +107,6 @@ namespace VertexArmy.Graphics
 		{
 			if(_sceneCameras.Count == 0)
 				return;
-
-			Global.Platform.Instance.Device.BlendState = new BlendState();
-
 			
 			CameraAttachable currentCam = _sceneCameras[0];
 			

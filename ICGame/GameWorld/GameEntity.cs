@@ -56,7 +56,10 @@ namespace VertexArmy.GameWorld
 
 		public void SetScale( Vector3 newScale )
 		{
-			//TODO
+			foreach ( IController c in Controllers )
+			{
+				c.OutputTransformable.SetScale( newScale );
+			}
 		}
 
 		public Vector3 GetPosition()

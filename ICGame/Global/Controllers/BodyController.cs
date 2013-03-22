@@ -69,7 +69,7 @@ namespace VertexArmy.Global.Controllers
 			_lastBodyRotation = _body.Rotation;
 			if ( OutputTransformable != null && _body != null )
 			{
-				OutputTransformable.SetRotation( Quaternion.CreateFromAxisAngle( new Vector3( 0f, 0f, 1f ), -_body.Rotation ) );
+				OutputTransformable.SetRotation( Quaternion.CreateFromAxisAngle( new Vector3( 0f, 0f, 1f ), _body.Rotation ) );
 			}
 		}
 

@@ -37,7 +37,7 @@ namespace VertexArmy
 #elif MODEL_VIEW
 			StateManager.Instance.ChangeState( GameState.ModelView );
 #else
-			StateManager.Instance.ChangeState( GameState.PhysicsPresentationRobot );
+			StateManager.Instance.ChangeState( GameState.ModelView );
 #endif
 		}
 
@@ -45,6 +45,7 @@ namespace VertexArmy
 		{
 			PrefabRepository.Instance.RegisterPrefab( "robot", RobotPrefab.CreatePrefab( ) );
 			PrefabRepository.Instance.RegisterPrefab( "crate", CratePrefab.CreatePrefab( ) );
+			PrefabRepository.Instance.RegisterPrefab( "mesh", SimpleMeshPrefab.CreatePrefab( ) );
 			PrefabRepository.Instance.RegisterPrefab( "camera", CameraPrefab.CreatePrefab( ) );
 			MaterialRepository.Instance.RegisterMaterial( "RobotMaterial", RobotMaterial.CreateMaterial( ) );
 		}

@@ -100,6 +100,7 @@
     <Compile Include="Common\IUpdateableObject.cs" />
     <Compile Include="Content\Materials\RobotMaterial.cs" />
     <Compile Include="Content\Prefabs\CameraPrefab.cs" />
+    <Compile Include="Content\Prefabs\SimpleMeshPrefab.cs" />
     <Compile Include="Content\Prefabs\CratePrefab.cs" />
     <Compile Include="Content\Prefabs\RobotPrefab.cs" />
     <Compile Include="GameWorld\GameEntity.cs" />

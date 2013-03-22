@@ -256,7 +256,8 @@ namespace VertexArmy.States
 
 			GameWorldManager.Instance.SpawnEntity( "camera", new Vector3( 0, -1300, -300 ), "camera1" );
 			GameWorldManager.Instance.SpawnEntity( "robot", new Vector3( 0f, 800f, 0f ), "robot1" );
-			GameWorldManager.Instance.SpawnEntity( "crate", new Vector3( -100f, 800f, 0f ), "crate" );
+			GameWorldManager.Instance.SpawnEntity( "mesh", new Vector3( 0f, -1300f, 0f ), "mesh1" );
+			//GameWorldManager.Instance.SpawnEntity( "crate", new Vector3( -100f, 800f, 0f ), "crate" );
 			Robot = GameWorldManager.Instance.GetEntity( "robot1" );
 			//ControllerManager.Instance.RegisterUpdatable( new RelativeController( GameWorldManager.Instance.GetEntity( "robotClone" ), Robot ) );
 			Camera = GameWorldManager.Instance.GetEntity( "camera1" );
@@ -265,7 +266,7 @@ namespace VertexArmy.States
 			_actionFreeze = false;
 			_actionSpawn = false;
 			_actionReset = false;
-			_debugViewState = true;
+			_debugViewState = false;
 			_actionToggleDebugView = false;
 
 

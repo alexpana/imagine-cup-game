@@ -1,9 +1,10 @@
-using System;
+﻿using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
 using VertexArmy.GameWorld.Prefabs;
+using VertexArmy.GameWorld.Prefabs.Structs;
 using VertexArmy.Global;
 using VertexArmy.Global.Managers;
 using VertexArmy.Graphics;
@@ -96,6 +97,8 @@ namespace VertexArmy.States
 				Name = "Mesh",
 				LocalRotation = new Quaternion( new Vector3( 0f, 0f, 0f ), 0f )
 			};
+
+			crateSceneNode.LocalRotation.Normalize( );
 
 			mesh.RegisterMeshSceneNode( crateSceneNode );
 			GameWorldManager.Instance.SpawnEntity( mesh, "mesh1", new Vector3( 0f, 0, 0f ) );

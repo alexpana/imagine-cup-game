@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using VertexArmy.Common;
+using VertexArmy.Graphics;
 
 namespace VertexArmy.Global
 {
@@ -35,6 +37,7 @@ namespace VertexArmy.Global
 		private Vector2 _cursorPosition;
 		private readonly SpriteBatch _tempSpriteBatch;
 		private static CursorManager _instance;
+		private ITransformable _cursorNode;
 		private bool _isVisible = true;
 		private bool _hideOnLeave = true;
 
@@ -43,13 +46,18 @@ namespace VertexArmy.Global
 
 		public static CursorManager Instance
 		{
-			get { return _instance ?? ( _instance = new CursorManager() ); }
+			get { return _instance ?? ( _instance = new CursorManager( ) ); }
 		}
 
+		public ITransformable SceneNode
+		{
+			get { return _cursorNode; }
+		}
 
 		private CursorManager()
 		{
-			Initialize();
+			Initialize( );
+			_cursorNode = new SceneNode( );
 			_tempSpriteBatch = new SpriteBatch( Platform.Instance.Device );
 		}
 
@@ -78,14 +86,17 @@ namespace VertexArmy.Global
 
 		public void Update()
 		{
-			_cursorPosition.X = Mouse.GetState().X;
-			_cursorPosition.Y = Mouse.GetState().Y;
+			_cursorPosition.X = Mouse.GetState( ).X;
+			_cursorPosition.Y = Mouse.GetState( ).Y;
+
+			// TODO (Must do raycast and get correct x and y)
+			_cursorNode.SetPosition( new Vector3( _cursorPosition, 0f ) );
 		}
 
 		public void Render()
 		{
 			_tempSpriteBatch.Begin( SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullNone, null );
-			_tempSpriteBatch.Draw( _activeCursor.Sprite, new Rectangle( (int)_cursorPosition.X, (int)_cursorPosition.Y, 32, 32 ), Color.White );
+			_tempSpriteBatch.Draw( _activeCursor.Sprite, new Rectangle( ( int ) _cursorPosition.X, ( int ) _cursorPosition.Y, 32, 32 ), Color.White );
 			_tempSpriteBatch.End( );
 		}
 

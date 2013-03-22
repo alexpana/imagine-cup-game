@@ -64,12 +64,28 @@ namespace VertexArmy.GameWorld
 
 		public Vector3 GetPosition()
 		{
-			return new Vector3( UnitsConverter.ToDisplayUnits( MainBody.Position ), 0f );
+			if ( MainBody != null )
+			{
+				return new Vector3( UnitsConverter.ToDisplayUnits( MainBody.Position ), 0f );
+			}
+			else
+			{
+				return MainNode.GetPosition( );
+			}
+
 		}
 
 		public Quaternion GetRotation()
 		{
-			return Quaternion.CreateFromAxisAngle( Vector3.UnitZ, MainBody.Rotation );
+			if ( MainBody != null )
+			{
+				return Quaternion.CreateFromAxisAngle( Vector3.UnitZ, MainBody.Rotation );
+			}
+			else
+			{
+				return MainNode.GetRotation( );
+			}
+
 		}
 
 		public float GetRotationRadians()

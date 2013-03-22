@@ -1,4 +1,4 @@
-﻿namespace VertexArmy.GameWorld.Prefabs
+namespace VertexArmy.GameWorld.Prefabs.Structs
 {
 	public enum ShapeType
 	{

@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using VertexArmy.Global;
 using VertexArmy.Global.Managers;
@@ -15,8 +16,18 @@ namespace VertexArmy.States
 			_cm = content;
 		}
 
-		public void OnUpdate( GameTime gameTime )
+		public override void OnUpdate( GameTime gameTime )
 		{
+			float angle = (float)Math.Cos( 0.1 );
+			Vector3 unity = new Vector3( 0, 1, 0 );
+			unity *= (float)Math.Sin( 0.1 );
+			Quaternion q = new Quaternion(unity, angle);
+
+			GameWorld.GameEntity mesh = GameWorldManager.Instance.GetEntity( "mesh1" );
+			//mesh.SetRotation( mesh.GetRotation() * q );
+
+			//GameWorldManager.Instance.GetEntity( "mesh1" ).setR
+			mesh.SetScale( new Vector3( 10, 10, 10 ) );
 		}
 
 		public void OnRender( GameTime gameTime )
@@ -29,8 +40,10 @@ namespace VertexArmy.States
 			CursorManager.Instance.SetActiveCursor( CursorType.Arrow );
 			CursorManager.Instance.SetVisible( true );
 
-			GameWorldManager.Instance.SpawnEntity( "camera", new Vector3( 0, -1300, -300 ), "camera1" );
-			GameWorldManager.Instance.SpawnEntity( "mesh", new Vector3( 0f, -1300f, 0f ), "mesh1" );
+			GameWorldManager.Instance.SpawnEntity( "camera", new Vector3( 0, 0, -300 ), "camera1" );
+			GameWorldManager.Instance.SpawnEntity( "mesh", new Vector3( 0f, 0f, 0f ), "mesh1" );
+
+			GameWorld.GameEntity mesh = GameWorldManager.Instance.GetEntity( "mesh1" );
 		}
 
 		public override void OnClose()

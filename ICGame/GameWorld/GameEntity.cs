@@ -71,7 +71,14 @@ namespace VertexArmy.GameWorld
 
 		public float GetRotationRadians()
 		{
-			return MainBody.Rotation;
+			if ( MainBody != null )
+			{
+				return MainBody.Rotation;
+			}
+			else
+			{
+				return MainNode.GetRotationRadians( );
+			}
 		}
 
 		public Vector3 GetScale()
@@ -85,7 +92,7 @@ namespace VertexArmy.GameWorld
 			PhysicsEntity.Remove( );
 			foreach ( IController tc in Controllers )
 			{
-				ControllerManager.Instance.UnregisterUpdatable( tc );
+				ControllerManager.Instance.UnregisterController( tc );
 			}
 
 			SceneManager.Instance.UnregisterSceneTree( MainNode );

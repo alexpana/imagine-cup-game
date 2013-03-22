@@ -22,7 +22,14 @@ namespace VertexArmy.Global.Managers
 
 		public Material GetMaterial( string name )
 		{
-			return _materials[name];
+			if ( _materials.ContainsKey( name ) )
+			{
+				return _materials[name];
+			}
+			else
+			{
+				return null;
+			}
 		}
 
 		public static MaterialRepository Instance

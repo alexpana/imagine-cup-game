@@ -64,12 +64,12 @@ namespace VertexArmy.GameWorld.Prefabs
 			}
 		}
 
-		public void RegisterSceneNode( MeshSceneNodePrefab scn )
+		public void RegisterMeshSceneNode( MeshSceneNodePrefab scn )
 		{
 			_sceneNodesPrefab.Add( scn.Name, scn );
 		}
 
-		public void RegisterPathSceneNode( ArrayMeshSceneNodePrefab pscn )
+		public void RegisterArrayMeshSceneNode( ArrayMeshSceneNodePrefab pscn )
 		{
 			_pathSceneNodesPrefab.Add( pscn.Name, pscn );
 		}
@@ -141,7 +141,7 @@ namespace VertexArmy.GameWorld.Prefabs
 
 					BodyController controller = new BodyController( scn, entity.PhysicsEntity.GetBody( scnp.Body ) );
 					entity.Controllers.Add( controller );
-					ControllerManager.Instance.RegisterUpdatable( controller );
+					ControllerManager.Instance.RegisterController( controller );
 				}
 			}
 
@@ -163,7 +163,7 @@ namespace VertexArmy.GameWorld.Prefabs
 						BodyController controller = new BodyController( scn, entity.PhysicsEntity.GetBodyFromPath( scnp.Path, i ) );
 						entity.Controllers.Add( controller );
 
-						ControllerManager.Instance.RegisterUpdatable( controller );
+						ControllerManager.Instance.RegisterController( controller );
 					}
 				}
 			}

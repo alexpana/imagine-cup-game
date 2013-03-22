@@ -3,9 +3,7 @@ using Microsoft.Xna.Framework;
 using VertexArmy.Content.Materials;
 using VertexArmy.Content.Prefabs;
 using VertexArmy.Global;
-using VertexArmy.Global.Controllers;
 using VertexArmy.Global.Managers;
-using VertexArmy.Graphics;
 using VertexArmy.Input;
 using VertexArmy.States;
 using VertexArmy.Utilities;
@@ -32,7 +30,7 @@ namespace VertexArmy
 		{
 			base.Initialize( );
 
-			Platform.Instance.Input = new PCInputSystem();
+			Platform.Instance.Input = new PCInputSystem( );
 #if TEST_LEVEL_LOADING
 			// This is for testing the level loading part. Do not modify this!
 			StateManager.Instance.ChangeState( GameState.LevelLoading );
@@ -44,7 +42,8 @@ namespace VertexArmy
 		protected override void LoadContent()
 		{
 			PrefabRepository.Instance.RegisterPrefab( "robot", RobotPrefab.CreatePrefab( ) );
-			PrefabRepository.Instance.RegisterPrefab( "camera", CameraPrefab.CreatePrefab() );
+			PrefabRepository.Instance.RegisterPrefab( "crate", CratePrefab.CreatePrefab( ) );
+			PrefabRepository.Instance.RegisterPrefab( "camera", CameraPrefab.CreatePrefab( ) );
 			MaterialRepository.Instance.RegisterMaterial( "RobotMaterial", RobotMaterial.CreateMaterial( ) );
 		}
 
@@ -58,14 +57,14 @@ namespace VertexArmy
 			base.Update( gameTime );
 
 			Platform.Instance.Input.Update( gameTime );
-			CursorManager.Instance.Update();
+			CursorManager.Instance.Update( );
 
 			if ( StateManager.Instance.CurrentGameState != null )
 			{
 				StateManager.Instance.CurrentGameState.OnUpdate( gameTime );
 			}
 
-			StateManager.Instance.OnFrameEndCommitStates();
+			StateManager.Instance.OnFrameEndCommitStates( );
 		}
 
 		protected override void Draw( GameTime gameTime )
@@ -77,7 +76,7 @@ namespace VertexArmy
 				StateManager.Instance.CurrentGameState.OnRender( gameTime );
 			}
 
-			CursorManager.Instance.Render();
+			CursorManager.Instance.Render( );
 		}
 	}
 }

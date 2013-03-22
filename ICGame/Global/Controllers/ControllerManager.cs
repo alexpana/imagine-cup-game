@@ -20,7 +20,7 @@ namespace VertexArmy.Global.Controllers
 			}
 		}
 
-		public void RegisterUpdatable( IController obj )
+		public void RegisterController( IController obj )
 		{
 			if ( !_controllers.Contains( obj ) )
 			{
@@ -28,7 +28,7 @@ namespace VertexArmy.Global.Controllers
 			}
 		}
 
-		public void UnregisterUpdatable( IController obj )
+		public void UnregisterController( IController obj )
 		{
 			_controllers.Remove( obj );
 		}

@@ -12,7 +12,7 @@ namespace VertexArmy.Content.Prefabs
 		{
 			PrefabEntity robot = new PrefabEntity { Name = "Robot", PhysicsScale = 1f };
 
-			float PhysicsInternalScale = 0.2f;
+			const float PhysicsInternalScale = 0.2f;
 
 			/* gear bodies */
 			ShapePrefab gearShape = new ShapePrefab { Type = ShapeType.Circle, XRadius = 1.215f * PhysicsInternalScale, Density = 1f };
@@ -192,11 +192,11 @@ namespace VertexArmy.Content.Prefabs
 				Body = "Gear3"
 			};
 
-			robot.RegisterSceneNode( gearNode1 );
-			robot.RegisterSceneNode( gearNode2 );
-			robot.RegisterSceneNode( gearNode3 );
+			robot.RegisterMeshSceneNode( gearNode1 );
+			robot.RegisterMeshSceneNode( gearNode2 );
+			robot.RegisterMeshSceneNode( gearNode3 );
 
-			
+
 			/*
 			MeshSceneNodePrefab chassisNode = new MeshSceneNodePrefab
 			{
@@ -220,7 +220,7 @@ namespace VertexArmy.Content.Prefabs
 				EndIndex = 28
 			};
 
-			robot.RegisterPathSceneNode( linkNode );
+			robot.RegisterArrayMeshSceneNode( linkNode );
 
 			return robot;
 		}

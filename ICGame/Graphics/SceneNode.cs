@@ -2,6 +2,7 @@
 using System.Runtime.Serialization;
 using Microsoft.Xna.Framework;
 using VertexArmy.Common;
+using VertexArmy.Utilities;
 
 namespace VertexArmy.Graphics
 {
@@ -27,14 +28,14 @@ namespace VertexArmy.Graphics
 
 		[DataMember]
 		private List<SceneNode> _children;
-		
+
 		[DataMember]
 		private List<Attachable> _attachables;
 
 		private bool _recomputeAbsoluteTransformation;
 		private bool _recomputeRelativeTransformation;
 
-	
+
 		public List<SceneNode> Children
 		{
 			get { return _children; }
@@ -53,20 +54,20 @@ namespace VertexArmy.Graphics
 			_recomputeAbsoluteTransformation =
 				_recomputeRelativeTransformation = false;
 			_parent = null;
-			_children = new List<SceneNode>();
-			_attachables = new List<Attachable>();
+			_children = new List<SceneNode>( );
+			_attachables = new List<Attachable>( );
 			_absoluteTransformation = Matrix.Identity;
 			_relativeTransformation = Matrix.Identity;
 		}
 
 
-		public void AddAttachable(Attachable attach)
+		public void AddAttachable( Attachable attach )
 		{
-			_attachables.Add(attach);
+			_attachables.Add( attach );
 			attach.Parent = this;
 		}
 
-		
+
 
 		private bool ShouldRecomputeTransformations()
 		{
@@ -77,15 +78,15 @@ namespace VertexArmy.Graphics
 
 		public Matrix GetAbsoluteTransformation()
 		{
-			if ( ShouldRecomputeTransformations() )
+			if ( ShouldRecomputeTransformations( ) )
 			{
 				_absoluteTransformation = Matrix.Identity;
 				if ( _parent != null )
 				{
-					_absoluteTransformation = _parent.GetAbsoluteTransformation();
+					_absoluteTransformation = _parent.GetAbsoluteTransformation( );
 				}
 
-				_absoluteTransformation = GetRelativeTransformation() * _absoluteTransformation;
+				_absoluteTransformation = GetRelativeTransformation( ) * _absoluteTransformation;
 
 				for ( int i = 0, l = _children.Count; i < l; ++i )
 				{
@@ -129,17 +130,22 @@ namespace VertexArmy.Graphics
 			_scale = newScale;
 		}
 
-		public Vector3 GetPosition( )
+		public Vector3 GetPosition()
 		{
 			return _position;
 		}
 
-		public Quaternion GetRotation( )
+		public Quaternion GetRotation()
 		{
 			return _rotation;
 		}
 
-		public Vector3 GetScale( )
+		public float GetRotationRadians()
+		{
+			return TransformUtility.GetAngleRollFromQuaternion( _rotation );
+		}
+
+		public Vector3 GetScale()
 		{
 			return _scale;
 		}
@@ -168,7 +174,7 @@ namespace VertexArmy.Graphics
 				_children[i]._parent = null;
 				_children[i]._recomputeAbsoluteTransformation = true;
 			}
-			_children.Clear();
+			_children.Clear( );
 		}
 
 		public SceneNode GetChild( int index )

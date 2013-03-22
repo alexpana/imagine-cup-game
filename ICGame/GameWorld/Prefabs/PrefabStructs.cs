@@ -33,6 +33,8 @@ namespace VertexArmy.GameWorld.Prefabs
 		public string Body;
 		public string Mesh;
 		public string Material;
+		public Vector3 LocalPosition;
+		public Quaternion LocalRotation;
 
 		public Material GetMaterial()
 		{

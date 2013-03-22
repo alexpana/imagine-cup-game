@@ -39,7 +39,8 @@ namespace VertexArmy.States
 			{
 				Material = "RobotMaterial",
 				Mesh = "models/robo_wheel",
-				Name = "Mesh"
+				Name = "Mesh",
+				LocalRotation = new Quaternion( new Vector3( 0f, 1f, 0f ), 1f )
 			};
 
 			mesh.RegisterMeshSceneNode( crateSceneNode );

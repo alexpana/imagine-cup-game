@@ -56,13 +56,9 @@ namespace VertexArmy.GameWorld
 
 		public void SetScale( Vector3 newScale )
 		{
-			if ( MainBody != null )
+			foreach ( IController c in Controllers )
 			{
-				//PhysicsEntity.SetScale( MainBody, newScale );
-			}
-			else
-			{
-				MainNode.SetScale( newScale );
+				c.OutputTransformable.SetScale( newScale );
 			}
 		}
 

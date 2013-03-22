@@ -6,14 +6,14 @@ namespace VertexArmy.Content.Prefabs
 	{
 		public static PrefabEntity CreatePrefab()
 		{
-			PrefabEntity mesh = new PrefabEntity { Name = "Mesh", PhysicsScale = 1f };
+			PrefabEntity mesh = new PrefabEntity { Name = "Mesh" };
 
 
 			MeshSceneNodePrefab crateSceneNode = new MeshSceneNodePrefab
 												 {
 													 Material = "RobotMaterial",
-													 Mesh = "models/crate00",
-													 Name = "CrateNode"
+													 Mesh = "models/robo_wheel",
+													 Name = "Mesh"
 												 };
 
 			mesh.RegisterMeshSceneNode( crateSceneNode );

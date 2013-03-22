@@ -13,11 +13,10 @@ namespace VertexArmy.GameWorld.Prefabs
 		public string Name { get; set; }
 		public GameEntityFlags Flags { get; set; }
 		public string MainBody { get; set; }
-		public float PhysicsScale;
 
 		private PhysicsPrefab _physicsPrefab;
 		private Dictionary<string, MeshSceneNodePrefab> _sceneNodesPrefab;
-		private Dictionary<string, ArrayMeshSceneNodePrefab> _pathSceneNodesPrefab;
+		private Dictionary<string, ArrayMeshSceneNodePrefab> _arrayMeshSceneNodesPrefab;
 
 		private Dictionary<string, CameraSceneNodePrefab> _cameraSceneNodesPrefab;
 
@@ -30,7 +29,7 @@ namespace VertexArmy.GameWorld.Prefabs
 			_physicsPrefab.Paths = new Dictionary<string, PathPrefab>( );
 
 			_sceneNodesPrefab = new Dictionary<string, MeshSceneNodePrefab>( );
-			_pathSceneNodesPrefab = new Dictionary<string, ArrayMeshSceneNodePrefab>( );
+			_arrayMeshSceneNodesPrefab = new Dictionary<string, ArrayMeshSceneNodePrefab>( );
 			_cameraSceneNodesPrefab = new Dictionary<string, CameraSceneNodePrefab>( );
 		}
 
@@ -71,10 +70,10 @@ namespace VertexArmy.GameWorld.Prefabs
 
 		public void RegisterArrayMeshSceneNode( ArrayMeshSceneNodePrefab pscn )
 		{
-			_pathSceneNodesPrefab.Add( pscn.Name, pscn );
+			_arrayMeshSceneNodesPrefab.Add( pscn.Name, pscn );
 		}
 
-		public GameEntity CreateGameEntity( GameWorldManager world )
+		public GameEntity CreateGameEntity( GameWorldManager world, float scale )
 		{
 			GameEntity obj = new GameEntity( );
 
@@ -84,17 +83,17 @@ namespace VertexArmy.GameWorld.Prefabs
 			obj.Name = Name;
 			obj.Flags = Flags;
 
-			GameEntityCreatePhysics( obj );
-			GameEntityCreateSceneNodes( obj );
+			GameEntityCreatePhysics( obj, scale );
+			GameEntityCreateSceneNodes( obj, scale );
 
 			return obj;
 		}
 
-		private void GameEntityCreatePhysics( GameEntity entity )
+		private void GameEntityCreatePhysics( GameEntity entity, float scale )
 		{
 			foreach ( BodyPrefab b in _physicsPrefab.Bodies.Values )
 			{
-				Body body = b.GetPhysicsBody( );
+				Body body = b.GetPhysicsBody( scale );
 				entity.PhysicsEntity.AddBody( b.Name, body );
 
 				if ( MainBody.Equals( b.Name ) )
@@ -107,7 +106,7 @@ namespace VertexArmy.GameWorld.Prefabs
 			{
 				entity.PhysicsEntity.AddJoint(
 					j.Name,
-					j.GetPhysicsJoint( entity.PhysicsEntity.GetBody( j.Body1 ), entity.PhysicsEntity.GetBody( j.Body2 ) )
+					j.GetPhysicsJoint( entity.PhysicsEntity.GetBody( j.Body1 ), entity.PhysicsEntity.GetBody( j.Body2 ), scale )
 				);
 			}
 
@@ -115,12 +114,12 @@ namespace VertexArmy.GameWorld.Prefabs
 			{
 				entity.PhysicsEntity.AddPath(
 					p.Name,
-					p.GetPathEntity( )
+					p.GetPathEntity( scale )
 				);
 			}
 		}
 
-		private void GameEntityCreateSceneNodes( GameEntity entity )
+		private void GameEntityCreateSceneNodes( GameEntity entity, float scale )
 		{
 			/* create main node */
 			SceneNode mainNode = new SceneNode( );
@@ -135,6 +134,7 @@ namespace VertexArmy.GameWorld.Prefabs
 						)
 					);
 				mainNode.AddChild( scn );
+				scn.SetScale( scn.GetScale( ) * scale );
 
 				if ( scnp.Body != null && entity.PhysicsEntity.GetBody( scnp.Body ) != null )
 				{
@@ -146,17 +146,18 @@ namespace VertexArmy.GameWorld.Prefabs
 			}
 
 
-			foreach ( ArrayMeshSceneNodePrefab scnp in _pathSceneNodesPrefab.Values )
+			foreach ( ArrayMeshSceneNodePrefab scnp in _arrayMeshSceneNodesPrefab.Values )
 			{
 				for ( int i = scnp.StartIndex; i <= scnp.EndIndex; i++ )
 				{
 					SceneNode scn = new SceneNode( );
 					scn.AddAttachable(
 						new MeshAttachable(
-							Platform.Instance.Content.Load<Model>( _pathSceneNodesPrefab[scnp.Name].Mesh ), _pathSceneNodesPrefab[scnp.Name].GetMaterial( )
+							Platform.Instance.Content.Load<Model>( _arrayMeshSceneNodesPrefab[scnp.Name].Mesh ), _arrayMeshSceneNodesPrefab[scnp.Name].GetMaterial( )
 							)
 						);
 					mainNode.AddChild( scn );
+					scn.SetScale( scn.GetScale( ) * scale );
 
 					if ( scnp.Path != null && entity.PhysicsEntity.GetBodyFromPath( scnp.Path, i ) != null )
 					{

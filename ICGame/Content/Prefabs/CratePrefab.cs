@@ -8,15 +8,13 @@ namespace VertexArmy.Content.Prefabs
 	{
 		public static PrefabEntity CreatePrefab()
 		{
-			PrefabEntity crate = new PrefabEntity { Name = "Crate", PhysicsScale = 1f };
-
-			const float PhysicsInternalScale = 0.2f;
+			PrefabEntity crate = new PrefabEntity { Name = "Crate" };
 
 			ShapePrefab crateShape = new ShapePrefab
 									 {
 										 Density = 1f,
-										 Width = 1f * PhysicsInternalScale,
-										 Height = 1f * PhysicsInternalScale,
+										 Width = 20f,
+										 Height = 20f,
 										 Offset = Vector2.Zero,
 										 Type = ShapeType.Rectangle
 									 };

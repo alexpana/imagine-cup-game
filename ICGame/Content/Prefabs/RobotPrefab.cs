@@ -10,19 +10,17 @@ namespace VertexArmy.Content.Prefabs
 	{
 		public static PrefabEntity CreatePrefab()
 		{
-			PrefabEntity robot = new PrefabEntity { Name = "Robot", PhysicsScale = 1f };
-
-			const float PhysicsInternalScale = 0.2f;
+			PrefabEntity robot = new PrefabEntity { Name = "Robot" };
 
 			/* gear bodies */
-			ShapePrefab gearShape = new ShapePrefab { Type = ShapeType.Circle, XRadius = 1.215f * PhysicsInternalScale, Density = 1f };
+			ShapePrefab gearShape = new ShapePrefab { Type = ShapeType.Circle, XRadius = 14f, Density = 1f };
 
 			BodyPrefab gear1 = new BodyPrefab
 			{
 				Name = "Gear1",
 				Friction = 10f,
 				Restitution = 0.1f,
-				LocalPosition = new Vector2( -2.301f * PhysicsInternalScale, 1.243f * PhysicsInternalScale ),
+				LocalPosition = new Vector2( -27.93f, 20.13f ),
 				Static = false,
 				Shapes = new List<ShapePrefab> { gearShape }
 			};
@@ -32,7 +30,7 @@ namespace VertexArmy.Content.Prefabs
 				Name = "Gear2",
 				Friction = 10f,
 				Restitution = 0.1f,
-				LocalPosition = new Vector2( 2.301f * PhysicsInternalScale, 1.243f * PhysicsInternalScale ),
+				LocalPosition = new Vector2( 27.93f, 20.13f ),
 				Static = false,
 				Shapes = new List<ShapePrefab> { gearShape }
 			};
@@ -42,7 +40,7 @@ namespace VertexArmy.Content.Prefabs
 				Name = "Gear3",
 				Friction = 10f,
 				Restitution = 0.1f,
-				LocalPosition = new Vector2( 0f * PhysicsInternalScale, -2.615f * PhysicsInternalScale ),
+				LocalPosition = new Vector2( 0f, -28.25f ),
 				Static = false,
 				Shapes = new List<ShapePrefab> { gearShape }
 			};
@@ -53,16 +51,16 @@ namespace VertexArmy.Content.Prefabs
 
 			/* chassis body */
 			ShapePrefab chassisShape = new ShapePrefab { Type = ShapeType.Polygon, Density = 1f, Polygon = new List<Vertices> { new Vertices( ) } };
-			chassisShape.Polygon[0].Add( new Vector2( -1.215f * PhysicsInternalScale, 0.7f * PhysicsInternalScale ) );
-			chassisShape.Polygon[0].Add( new Vector2( 0f * PhysicsInternalScale, -1.4f * PhysicsInternalScale ) );
-			chassisShape.Polygon[0].Add( new Vector2( 1.215f * PhysicsInternalScale, 0.7f * PhysicsInternalScale ) );
+			chassisShape.Polygon[0].Add( new Vector2( -15.41f, 13.87f ) );
+			chassisShape.Polygon[0].Add( new Vector2( 0f, -13.74f ) );
+			chassisShape.Polygon[0].Add( new Vector2( 15.41f, 13.87f ) );
 
 			BodyPrefab chassis = new BodyPrefab
 			{
 				Name = "Chassis",
 				Restitution = 0.1f,
 				Friction = 1f,
-				LocalPosition = new Vector2( 0f * PhysicsInternalScale, 0f * PhysicsInternalScale ),
+				LocalPosition = Vector2.Zero,
 				Static = false,
 				Shapes = new List<ShapePrefab> { chassisShape }
 			};
@@ -80,7 +78,7 @@ namespace VertexArmy.Content.Prefabs
 				Body2 = "Gear1",
 				Anchor = gear1.LocalPosition,
 				Axis = new Vector2( 0.66f, -0.33f ) * jointLengthModifier,
-				MaxMotorTorque = 60f * PhysicsInternalScale,
+				MaxMotorTorque = 60f,
 				Frequency = 10f,
 				DampingRatio = 0.85f,
 				MotorEnabled = true,
@@ -94,7 +92,7 @@ namespace VertexArmy.Content.Prefabs
 				Body2 = "Gear2",
 				Anchor = gear2.LocalPosition,
 				Axis = new Vector2( -0.66f, -0.33f ) * jointLengthModifier,
-				MaxMotorTorque = 60f * PhysicsInternalScale,
+				MaxMotorTorque = 60f,
 				Frequency = 10f,
 				DampingRatio = 0.85f,
 				MotorEnabled = true
@@ -108,7 +106,7 @@ namespace VertexArmy.Content.Prefabs
 				Body2 = "Gear3",
 				Anchor = gear3.LocalPosition,
 				Axis = new Vector2( 0f, 0.76f ) * jointLengthModifier,
-				MaxMotorTorque = 60f * PhysicsInternalScale,
+				MaxMotorTorque = 60f,
 				Frequency = 10f,
 				DampingRatio = 0.85f,
 				MotorEnabled = true
@@ -121,8 +119,8 @@ namespace VertexArmy.Content.Prefabs
 			ShapePrefab linkShape = new ShapePrefab
 			{
 				Type = ShapeType.Rectangle,
-				Width = 0.201f * PhysicsInternalScale,
-				Height = 0.62f * PhysicsInternalScale,
+				Width = 2.51f,
+				Height = 8.88f,
 				Density = 2f,
 				Offset = Vector2.Zero
 			};
@@ -130,10 +128,10 @@ namespace VertexArmy.Content.Prefabs
 			ShapePrefab linkFeetShape = new ShapePrefab
 			{
 				Type = ShapeType.Rectangle,
-				Width = 0.2f * PhysicsInternalScale,
-				Height = 0.36f * PhysicsInternalScale,
+				Width = 2.51f,
+				Height = 4f,
 				Density = 2f,
-				Offset = new Vector2( 0.12f * PhysicsInternalScale, 0f * PhysicsInternalScale )
+				Offset = new Vector2( 2f, 0f )
 			};
 
 			BodyPrefab link = new BodyPrefab
@@ -148,20 +146,19 @@ namespace VertexArmy.Content.Prefabs
 			PathPrefab track = new PathPrefab
 			{
 				Name = "Track",
-				Anchor1 = new Vector2( -0.101f, 0.355f ) * PhysicsInternalScale,
-				Anchor2 = new Vector2( -0.15f, -0.355f ) * PhysicsInternalScale,
+				Anchor1 = new Vector2( -1.5f, 4.4f ),
+				Anchor2 = new Vector2( -1.5f, -4.4f ),
 				BodyCount = 29,
 				CollideConnected = false,
 				ConnectFirstAndLast = true,
 				JointType = JointType.Revolute,
-				Path = new Path( new List<Vector2>
+				Path = new List<Vector2>
 					{
-						new Vector2(4.8f * PhysicsInternalScale, 3f * PhysicsInternalScale ),
-						new Vector2(0f * PhysicsInternalScale, -4.6f * PhysicsInternalScale),
-						new Vector2(-4.8f * PhysicsInternalScale, 3f * PhysicsInternalScale),
-						new Vector2(5f * PhysicsInternalScale, 3f * PhysicsInternalScale )
-					}
-				),
+						new Vector2(50f, 45f),
+						new Vector2(0f, -51f),
+						new Vector2(-50f, 45f ),
+						new Vector2(48f , 45f  )
+					},
 				Body = link
 			};
 

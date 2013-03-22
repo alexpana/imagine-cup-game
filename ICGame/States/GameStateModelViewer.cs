@@ -29,8 +29,8 @@ namespace VertexArmy.States
 			CursorManager.Instance.SetActiveCursor( CursorType.Arrow );
 			CursorManager.Instance.SetVisible( true );
 
-			GameWorldManager.Instance.SpawnEntity( "camera", new Vector3( 0, -1300, -300 ), "camera1" );
-			GameWorldManager.Instance.SpawnEntity( "mesh", new Vector3( 0f, -1300f, 0f ), "mesh1" );
+			GameWorldManager.Instance.SpawnEntity( "camera", "camera1", new Vector3( 0, -1300, -300 ) );
+			GameWorldManager.Instance.SpawnEntity( "mesh", "mesh1", new Vector3( 0f, -1300f, 0f ) );
 		}
 
 		public override void OnClose()

@@ -115,7 +115,7 @@ namespace VertexArmy.States
 				{
 					if ( Robot == null )
 					{
-						GameWorldManager.Instance.SpawnEntity( "robot", "robotSecond", new Vector3( 0f, 0f, 800f ) );
+						GameWorldManager.Instance.SpawnEntity( "robot", "robotSecond", new Vector3( 0f, -1000f, 0f ) );
 						Robot = GameWorldManager.Instance.GetEntity( "robotSecond" );
 					}
 					else
@@ -253,9 +253,8 @@ namespace VertexArmy.States
 		{
 
 			//Camera
-
-			GameWorldManager.Instance.SpawnEntity( "camera", "camera1", new Vector3( 0, -1300, -300 ) );
-			GameWorldManager.Instance.SpawnEntity( "robot", "robot1", new Vector3( 0f, 800f, 0f ), 1f );
+			GameWorldManager.Instance.SpawnEntity( "camera", "camera1", new Vector3( 0, -1300, 300 ) );
+			GameWorldManager.Instance.SpawnEntity( "robot", "robot1", new Vector3( 0f, -1000f, 0f ), 1f );
 
 			GameWorldManager.Instance.SpawnEntity( "crate", "crate", new Vector3( -100f, 800f, 0f ), 1f );
 			Robot = GameWorldManager.Instance.GetEntity( "robot1" );

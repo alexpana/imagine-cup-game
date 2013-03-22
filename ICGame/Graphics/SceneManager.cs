@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace VertexArmy.Graphics
 {
@@ -105,16 +106,19 @@ namespace VertexArmy.Graphics
 
 		public void Render( float dt )
 		{
-			if ( _sceneCameras.Count == 0 )
+			if(_sceneCameras.Count == 0)
 				return;
 
+			Global.Platform.Instance.Device.BlendState = new BlendState();
+
+			
 			CameraAttachable currentCam = _sceneCameras[0];
+			
+			Renderer.Instance.LoadMatrix( EMatrix.Projection, currentCam.GetPerspectiveMatrix() );
+			Renderer.Instance.LoadMatrix( EMatrix.View, currentCam.GetViewMatrix());
 
-			Renderer.Instance.LoadMatrix( EMatrix.Projection, currentCam.GetPerspectiveMatrix( ) );
-			Renderer.Instance.LoadMatrix( EMatrix.View, currentCam.GetViewMatrix( ) );
 
-
-			Renderer.Instance.SetParameter( "eyePosition", currentCam.Parent.GetPosition( ) );
+			Renderer.Instance.SetParameter( "eyePosition", currentCam.Parent.GetPosition() );
 			Renderer.Instance.SetParameter( "lightPosition", new Vector3( 0, 40000, 0 ) );
 
 			foreach ( var registeredNode in _registeredNodes )

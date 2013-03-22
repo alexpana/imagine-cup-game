@@ -21,7 +21,7 @@ namespace VertexArmy.Content.Prefabs
 				Name = "Gear1",
 				Friction = 10f,
 				Restitution = 0.1f,
-				LocalPosition = new Vector2( -27.93f, 20.13f ),
+				LocalPosition = new Vector2( -27.93f, -20.13f ),
 				Static = false,
 				Shapes = new List<ShapePrefab> { gearShape }
 			};
@@ -31,7 +31,7 @@ namespace VertexArmy.Content.Prefabs
 				Name = "Gear2",
 				Friction = 10f,
 				Restitution = 0.1f,
-				LocalPosition = new Vector2( 27.93f, 20.13f ),
+				LocalPosition = new Vector2( 27.93f, -20.13f ),
 				Static = false,
 				Shapes = new List<ShapePrefab> { gearShape }
 			};
@@ -41,7 +41,7 @@ namespace VertexArmy.Content.Prefabs
 				Name = "Gear3",
 				Friction = 10f,
 				Restitution = 0.1f,
-				LocalPosition = new Vector2( 0f, -28.25f ),
+				LocalPosition = new Vector2( 0f, 28.25f ),
 				Static = false,
 				Shapes = new List<ShapePrefab> { gearShape }
 			};
@@ -52,9 +52,9 @@ namespace VertexArmy.Content.Prefabs
 
 			/* chassis body */
 			ShapePrefab chassisShape = new ShapePrefab { Type = ShapeType.Polygon, Density = 1f, Polygon = new List<Vertices> { new Vertices( ) } };
-			chassisShape.Polygon[0].Add( new Vector2( -15.41f, 13.87f ) );
-			chassisShape.Polygon[0].Add( new Vector2( 0f, -13.74f ) );
-			chassisShape.Polygon[0].Add( new Vector2( 15.41f, 13.87f ) );
+			chassisShape.Polygon[0].Add( new Vector2( -15.41f, -13.87f ) );
+			chassisShape.Polygon[0].Add( new Vector2( 0f, 13.74f ) );
+			chassisShape.Polygon[0].Add( new Vector2( 15.41f, -13.87f ) );
 
 			BodyPrefab chassis = new BodyPrefab
 			{
@@ -147,18 +147,18 @@ namespace VertexArmy.Content.Prefabs
 			PathPrefab track = new PathPrefab
 			{
 				Name = "Track",
-				Anchor1 = new Vector2( -1.5f, 4.4f ),
-				Anchor2 = new Vector2( -1.5f, -4.4f ),
+				Anchor1 = new Vector2( -1.5f, -4.4f ),
+				Anchor2 = new Vector2( -1.5f, 4.4f ),
 				BodyCount = 29,
 				CollideConnected = false,
 				ConnectFirstAndLast = true,
 				JointType = JointType.Revolute,
 				Path = new List<Vector2>
 					{
-						new Vector2(50f, 45f),
-						new Vector2(0f, -51f),
-						new Vector2(-50f, 45f ),
-						new Vector2(48f , 45f  )
+						new Vector2(50f, -45f),
+						new Vector2(0f, 51f),
+						new Vector2(-50f, -45f ),
+						new Vector2(48f , -45f  )
 					},
 				Body = link
 			};

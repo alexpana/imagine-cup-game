@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
 using VertexArmy.GameWorld.Prefabs;
@@ -74,6 +75,7 @@ namespace VertexArmy.States
 		public void OnRender( GameTime gameTime )
 		{
 		}
+
 
 		public override void OnEnter()
 		{

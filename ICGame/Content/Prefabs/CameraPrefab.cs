@@ -18,7 +18,7 @@ namespace VertexArmy.Content.Prefabs
 				                                Far = 10000,
 				                                Fov = MathHelper.PiOver4,
 				                                AspectRatio = Global.Platform.Instance.Device.Viewport.AspectRatio,
-				                                LookingDirection = new Vector3(0, 0, 1),
+				                                LookingDirection = new Vector3(0, 0, -1),
 				                                UpVector = new Vector3(0, 1, 0)
 			                                });
 			return camera;

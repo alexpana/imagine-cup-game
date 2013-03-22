@@ -253,7 +253,6 @@ namespace VertexArmy.States
 		{
 
 			//Camera
-
 			GameWorldManager.Instance.SpawnEntity( "camera", "camera1", new Vector3( 0, -1300, -300 ) );
 			GameWorldManager.Instance.SpawnEntity( "robot", "robot1", new Vector3( 0f, 800f, 0f ), 1.2f );
 			//GameWorldManager.Instance.SpawnEntity( "mesh", new Vector3( 0f, -1300f, 0f ), "mesh1" );
@@ -281,6 +280,7 @@ namespace VertexArmy.States
 			_debugView.TextColor = Color.Black;
 
 			_view = Matrix.Identity;
+			
 		}
 
 		public override void OnClose()

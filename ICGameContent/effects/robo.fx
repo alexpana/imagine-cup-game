@@ -20,7 +20,7 @@ struct VertexShaderOutput
 	float3 Texcoord : TEXCOORD0;
 	float3 ToLightT : TEXCOORD1;
 	float3 ToEyeT : TEXCOORD2;
-	
+	float3 Normal: TEXCOORD3;
 };
 
 texture2D ColorMap;
@@ -76,35 +76,45 @@ VertexShaderOutput main_VS(VertexShaderInput input)
 	
 	output.ScreenPosition = mul(input.Position, matWorldViewProj);
 
-	output.ToLightT.x = dot(tangentW, toLightW);
-	output.ToLightT.y = dot(bitangentW, toLightW);
-	output.ToLightT.z = dot(normalW, toLightW);
+	//output.ToLightT.x = dot(tangentW, toLightW);
+	//output.ToLightT.y = dot(bitangentW, toLightW);
+	//output.ToLightT.z = dot(normalW, toLightW);
    
-	output.ToEyeT.x = dot(tangentW, toEyeW);
-	output.ToEyeT.y = dot(bitangentW, toEyeW);
-	output.ToEyeT.z = dot(normalW, toEyeW);
+	output.ToLightT = toLightW;
+	output.ToEyeT = toEyeW;
+
+	//output.ToEyeT.x = dot(tangentW, toEyeW);
+	//output.ToEyeT.y = dot(bitangentW, toEyeW);
+	//output.ToEyeT.z = dot(normalW, toEyeW);
+
+	output.Normal = input.Normal;
 
     return output;
 }
 
 float4 main_PS(VertexShaderOutput input) : COLOR
 {
-	float3 N = (2.0 * tex2D(NormalMapSampler, input.Texcoord.xy) - 1.0).xyz;
+	//float3 N = (2.0 * tex2D(NormalMapSampler, input.Texcoord.xy) - 1.0).xyz;
+	float3 N = input.Normal;
 
 	float3 L = normalize(input.ToLightT);
 	float3 E = normalize(input.ToEyeT);
 	float3 R = -reflect(L, N);
 
-	float Kd = max(dot(L, N), 0.0);
+	float Kd = max(dot(L, N), 0.2);
 	float Ks = pow(max(dot(E, R), 0.0), 25);
 	float Ka = tex2D( AOMapSampler, input.Texcoord.xy) * 0.3;
 
+	float3 ambientColor = float3( 0, 0, 0 );
+	float3 diffuseColor = float3( 0.7, 0.3, 0.3 );
+	float3 specularColor = float3( 0, 0, 0 );
 
-	float4 ambient = Ka * tex2D( ColorMapSampler, input.Texcoord.xy);
-	float4 diffuse = Kd * tex2D( ColorMapSampler, input.Texcoord.xy);
-	float4 specular = Ks * tex2D( SpecularMapSampler, input.Texcoord.xy);
+	float3 ambient = Ka * ambientColor;
+	float3 diffuse = Kd * diffuseColor;
+	float3 specular = Ks * specularColor;
 
-	return diffuse + ambient + specular;
+
+	return float4( N, 1 );
    
 }
 

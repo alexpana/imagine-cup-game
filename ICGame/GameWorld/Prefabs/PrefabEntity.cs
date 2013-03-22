@@ -143,6 +143,18 @@ namespace VertexArmy.GameWorld.Prefabs
 					entity.Controllers.Add( controller );
 					ControllerManager.Instance.RegisterController( controller );
 				}
+				else
+				{
+					if ( scnp.LocalPosition != null )
+					{
+						scn.SetPosition( scnp.LocalPosition );
+					}
+
+					if ( scnp.LocalRotation != null )
+					{
+						scn.SetRotation( scnp.LocalRotation );
+					}
+				}
 			}
 
 

@@ -19,7 +19,7 @@ namespace VertexArmy.States
 
 		public void OnUpdate( GameTime gameTime )
 		{
-			if ( Platform.Instance.Input.IsKeyPressed( Keys.Escape, false ) )
+			if ( Platform.Instance.Input.IsKeyPressed( Keys.Enter, false ) )
 			{
 				StateManager.Instance.PopState();
 			}

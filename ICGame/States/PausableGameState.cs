@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using VertexArmy.Global;
 
 namespace VertexArmy.States
 {
@@ -8,7 +9,7 @@ namespace VertexArmy.States
 		public virtual void OnUpdate( GameTime gameTime )
 		{
 			if ( GamePad.GetState( PlayerIndex.One ).Buttons.Back == ButtonState.Pressed ||
-				Keyboard.GetState( PlayerIndex.One ).IsKeyDown( Keys.Escape ) )
+				Platform.Instance.Input.IsKeyPressed( Keys.Escape, false ) )
 			{
 				StateManager.Instance.PushState( GameState.Pause );
 			}

@@ -23,13 +23,21 @@ namespace VertexArmy.States
 			{
 				StateManager.Instance.PopState();
 			}
+			else if ( Platform.Instance.Input.IsKeyPressed( Keys.Escape, false ) )
+			{
+				StateManager.Instance.PopState();
+				StateManager.Instance.ChangeState( GameState.Menu );
+			}
 		}
 
 		public void OnRender( GameTime gameTime )
 		{
 			_spriteBatch.Begin();
 
-			_spriteBatch.DrawString( _font, "Paused. Press ENTER to continue.", new Vector2( Platform.Instance.Device.Viewport.Width / 2.0f, Platform.Instance.Device.Viewport.Height / 2.0f ), Color.Black );
+			float x = Platform.Instance.Device.Viewport.Width / 2.0f - 100f;
+
+			_spriteBatch.DrawString( _font, "Paused. Press ENTER to resume.", new Vector2( x, Platform.Instance.Device.Viewport.Height / 2.0f ), Color.Black );
+			_spriteBatch.DrawString( _font, "        Press ESCAPE to exit to menu.", new Vector2( x, Platform.Instance.Device.Viewport.Height / 2.0f + 30f ), Color.Black );
 			_spriteBatch.End();
 		}
 

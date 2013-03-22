@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
+using VertexArmy.GameWorld.Prefabs;
 using VertexArmy.Global;
 using VertexArmy.Global.Managers;
 using VertexArmy.Graphics;
@@ -30,7 +31,20 @@ namespace VertexArmy.States
 			CursorManager.Instance.SetVisible( true );
 
 			GameWorldManager.Instance.SpawnEntity( "camera", "camera1", new Vector3( 0, -1300, -300 ) );
-			GameWorldManager.Instance.SpawnEntity( "mesh", "mesh1", new Vector3( 0f, -1300f, 0f ) );
+
+
+			PrefabEntity mesh = new PrefabEntity( );
+
+			MeshSceneNodePrefab crateSceneNode = new MeshSceneNodePrefab
+			{
+				Material = "RobotMaterial",
+				Mesh = "models/robo_wheel",
+				Name = "Mesh"
+			};
+
+			mesh.RegisterMeshSceneNode( crateSceneNode );
+
+			GameWorldManager.Instance.SpawnEntity( mesh, "mesh1", new Vector3( 0f, -1300f, 0f ) );
 		}
 
 		public override void OnClose()

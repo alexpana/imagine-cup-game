@@ -37,7 +37,7 @@ namespace VertexArmy
 #elif MODEL_VIEW
 			StateManager.Instance.ChangeState( GameState.ModelView );
 #else
-			StateManager.Instance.ChangeState( GameState.PhysicsPresentationRobot );
+			StateManager.Instance.ChangeState( GameState.ModelView );
 #endif
 		}
 

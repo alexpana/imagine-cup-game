@@ -115,7 +115,7 @@ namespace VertexArmy.States
 				{
 					if ( Robot == null )
 					{
-						GameWorldManager.Instance.SpawnEntity( "robot", new Vector3( 0f, 0f, 800f ), "robotSecond" );
+						GameWorldManager.Instance.SpawnEntity( "robot", "robotSecond", new Vector3( 0f, 0f, 800f ) );
 						Robot = GameWorldManager.Instance.GetEntity( "robotSecond" );
 					}
 					else
@@ -254,11 +254,13 @@ namespace VertexArmy.States
 
 			//Camera
 
-			GameWorldManager.Instance.SpawnEntity( "camera", new Vector3( 0, -1300, -300 ), "camera1" );
-			GameWorldManager.Instance.SpawnEntity( "robot", new Vector3( 0f, 800f, 0f ), "robot1" );
-			GameWorldManager.Instance.SpawnEntity( "mesh", new Vector3( 0f, -1300f, 0f ), "mesh1" );
-			//GameWorldManager.Instance.SpawnEntity( "crate", new Vector3( -100f, 800f, 0f ), "crate" );
+			GameWorldManager.Instance.SpawnEntity( "camera", "camera1", new Vector3( 0, -1300, -300 ) );
+			GameWorldManager.Instance.SpawnEntity( "robot", "robot1", new Vector3( 0f, 800f, 0f ), 1.2f );
+			//GameWorldManager.Instance.SpawnEntity( "mesh", new Vector3( 0f, -1300f, 0f ), "mesh1" );
+			GameWorldManager.Instance.SpawnEntity( "crate", "crate", new Vector3( -100f, 800f, 0f ), 2f );
+
 			Robot = GameWorldManager.Instance.GetEntity( "robot1" );
+
 			//ControllerManager.Instance.RegisterUpdatable( new RelativeController( GameWorldManager.Instance.GetEntity( "robotClone" ), Robot ) );
 			Camera = GameWorldManager.Instance.GetEntity( "camera1" );
 

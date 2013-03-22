@@ -260,7 +260,7 @@ namespace VertexArmy.States
 			GameWorldManager.Instance.SpawnEntity( "crate", "crate", new Vector3( -100f, 800f, 0f ), 2f );
 
 			Robot = GameWorldManager.Instance.GetEntity( "robot1" );
-			Robot.PhysicsEntity.Enabled = false;
+
 			//ControllerManager.Instance.RegisterUpdatable( new RelativeController( GameWorldManager.Instance.GetEntity( "robotClone" ), Robot ) );
 			Camera = GameWorldManager.Instance.GetEntity( "camera1" );
 

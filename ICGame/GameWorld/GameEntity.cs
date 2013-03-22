@@ -56,7 +56,14 @@ namespace VertexArmy.GameWorld
 
 		public void SetScale( Vector3 newScale )
 		{
-			//TODO
+			if ( MainBody != null )
+			{
+				//PhysicsEntity.SetScale( MainBody, newScale );
+			}
+			else
+			{
+				MainNode.SetScale( newScale );
+			}
 		}
 
 		public Vector3 GetPosition()

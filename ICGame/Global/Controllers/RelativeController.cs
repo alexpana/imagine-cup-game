@@ -73,6 +73,7 @@ namespace VertexArmy.Global.Controllers
 			{
 				UpdateTransformablePosition( );
 			}
+
 		}
 
 		private void UpdateTransformableRotation()

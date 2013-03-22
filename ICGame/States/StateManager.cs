@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework.Content;
 using VertexArmy.Global;
+using VertexArmy.States.Menu;
 
 namespace VertexArmy.States
 {

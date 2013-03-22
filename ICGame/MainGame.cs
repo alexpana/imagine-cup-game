@@ -28,26 +28,26 @@ namespace VertexArmy
 
 		protected override void Initialize()
 		{
-			base.Initialize( );
+			base.Initialize();
 
-			Platform.Instance.Input = new PCInputSystem( );
+			Platform.Instance.Input = new PCInputSystem();
 #if TEST_LEVEL_LOADING
 			// This is for testing the level loading part. Do not modify this!
 			StateManager.Instance.ChangeState( GameState.LevelLoading );
 #elif MODEL_VIEW
 			StateManager.Instance.ChangeState( GameState.ModelView );
 #else
-			StateManager.Instance.ChangeState( GameState.ModelView );
+			StateManager.Instance.ChangeState( GameState.Menu );
 #endif
 		}
 
 		protected override void LoadContent()
 		{
-			PrefabRepository.Instance.RegisterPrefab( "robot", RobotPrefab.CreatePrefab( ) );
-			PrefabRepository.Instance.RegisterPrefab( "crate", CratePrefab.CreatePrefab( ) );
-			PrefabRepository.Instance.RegisterPrefab( "mesh", SimpleMeshPrefab.CreatePrefab( ) );
-			PrefabRepository.Instance.RegisterPrefab( "camera", CameraPrefab.CreatePrefab( ) );
-			MaterialRepository.Instance.RegisterMaterial( "RobotMaterial", RobotMaterial.CreateMaterial( ) );
+			PrefabRepository.Instance.RegisterPrefab( "robot", RobotPrefab.CreatePrefab() );
+			PrefabRepository.Instance.RegisterPrefab( "crate", CratePrefab.CreatePrefab() );
+			PrefabRepository.Instance.RegisterPrefab( "mesh", SimpleMeshPrefab.CreatePrefab() );
+			PrefabRepository.Instance.RegisterPrefab( "camera", CameraPrefab.CreatePrefab() );
+			MaterialRepository.Instance.RegisterMaterial( "RobotMaterial", RobotMaterial.CreateMaterial() );
 		}
 
 		protected override void UnloadContent()
@@ -60,14 +60,14 @@ namespace VertexArmy
 			base.Update( gameTime );
 
 			Platform.Instance.Input.Update( gameTime );
-			CursorManager.Instance.Update( );
+			CursorManager.Instance.Update();
 
 			if ( StateManager.Instance.CurrentGameState != null )
 			{
 				StateManager.Instance.CurrentGameState.OnUpdate( gameTime );
 			}
 
-			StateManager.Instance.OnFrameEndCommitStates( );
+			StateManager.Instance.OnFrameEndCommitStates();
 		}
 
 		protected override void Draw( GameTime gameTime )
@@ -79,7 +79,7 @@ namespace VertexArmy
 				StateManager.Instance.CurrentGameState.OnRender( gameTime );
 			}
 
-			CursorManager.Instance.Render( );
+			CursorManager.Instance.Render();
 		}
 	}
 }

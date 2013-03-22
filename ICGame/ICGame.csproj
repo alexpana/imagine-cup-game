@@ -143,10 +143,12 @@
     <Compile Include="States\GameStateLevelLoading.cs" />
     <Compile Include="States\IGameState.cs" />
     <Compile Include="States\GameStateLoading.cs" />
+    <Compile Include="States\Menu\MenuCube.cs" />
+    <Compile Include="States\Menu\MenuItem.cs" />
     <Compile Include="States\PausableGameState.cs" />
     <Compile Include="States\PlayableGameState.cs" />
     <Compile Include="States\StateManager.cs" />
-    <Compile Include="States\GameStateMenu.cs" />
+    <Compile Include="States\Menu\GameStateMenu.cs" />
     <Compile Include="States\GameStateModelViewer.cs" />
     <Compile Include="States\GameStatePaused.cs" />
     <Compile Include="States\GameStatePresentation.cs" />

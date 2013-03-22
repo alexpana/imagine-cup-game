@@ -24,8 +24,8 @@ namespace VertexArmy.States.Menu
 				Title = "Main menu",
 				Items = new List<MenuCubeItem>
 				{
-					new MenuCubeItem { Title = "Play!" },
-					new MenuCubeItem { Title = "Options", Activated = args => ActivateMenuCube(_optionsMenuCube)},
+					new MenuCubeItem { Title = "Play!", Activated = args => StateManager.Instance.ChangeState(GameState.PhysicsPresentationRobot) },
+					new MenuCubeItem { Title = "Options", Activated = args => ActivateMenuCube(_optionsMenuCube) },
 					new MenuCubeItem { Title = "Exit", Activated = args => Platform.Instance.Game.Exit() }
 				}
 			};

@@ -16,9 +16,19 @@ namespace VertexArmy.Input
 		private MouseState _previousMouseState;
 		private MouseState _currentMouseState;
 
+		private KeyboardState _previousKeyboardState;
+		private KeyboardState _currentKeyboardState;
+
 		public void Update( GameTime gameTime )
 		{
 			UpdateMouse();
+			UpdateKeyboard();
+		}
+
+		private void UpdateKeyboard()
+		{
+			_previousKeyboardState = _currentKeyboardState;
+			_currentKeyboardState = Keyboard.GetState();
 		}
 
 		private void UpdateMouse()
@@ -31,6 +41,13 @@ namespace VertexArmy.Input
 			Vector2 currentPosition = new Vector2( _currentMouseState.X, _currentMouseState.Y );
 			PointerDelta = currentPosition - PointerPosition;
 			PointerPosition = currentPosition;
+		}
+
+		public bool IsKeyPressed( Keys key, bool continuous = true )
+		{
+			return continuous
+					   ? _currentKeyboardState.IsKeyDown( key )
+					   : _currentKeyboardState.IsKeyDown( key ) && _previousKeyboardState.IsKeyUp( key );
 		}
 	}
 }

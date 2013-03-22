@@ -3,6 +3,7 @@ using FarseerPhysics.Common;
 using FarseerPhysics.Dynamics.Joints;
 using Microsoft.Xna.Framework;
 using VertexArmy.GameWorld.Prefabs;
+using VertexArmy.GameWorld.Prefabs.Structs;
 
 namespace VertexArmy.Content.Prefabs
 {
@@ -194,7 +195,7 @@ namespace VertexArmy.Content.Prefabs
 			robot.RegisterMeshSceneNode( gearNode3 );
 
 
-			/*
+
 			MeshSceneNodePrefab chassisNode = new MeshSceneNodePrefab
 			{
 				Name = "Chassis",
@@ -203,8 +204,8 @@ namespace VertexArmy.Content.Prefabs
 				Body = "Chassis"
 			};
 
-			robot.RegisterSceneNode( chassisNode );
-			 */
+			robot.RegisterMeshSceneNode( chassisNode );
+
 
 			ArrayMeshSceneNodePrefab linkNode = new ArrayMeshSceneNodePrefab
 			{

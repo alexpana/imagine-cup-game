@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using FarseerPhysics.Dynamics;
 using Microsoft.Xna.Framework.Graphics;
+using VertexArmy.GameWorld.Prefabs.Structs;
 using VertexArmy.Global;
 using VertexArmy.Global.Controllers;
 using VertexArmy.Global.Managers;

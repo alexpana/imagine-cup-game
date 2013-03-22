@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 using VertexArmy.GameWorld.Prefabs;
+using VertexArmy.GameWorld.Prefabs.Structs;
 
 namespace VertexArmy.Content.Prefabs
 {

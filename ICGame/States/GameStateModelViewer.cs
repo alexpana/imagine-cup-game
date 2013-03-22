@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
 using VertexArmy.GameWorld.Prefabs;
+using VertexArmy.GameWorld.Prefabs.Structs;
 using VertexArmy.Global;
 using VertexArmy.Global.Managers;
 using VertexArmy.Graphics;

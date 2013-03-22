@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using VertexArmy.GameWorld.Prefabs;
+using VertexArmy.GameWorld.Prefabs.Structs;
 
 namespace VertexArmy.Content.Prefabs
 {

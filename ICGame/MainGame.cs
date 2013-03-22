@@ -34,6 +34,8 @@ namespace VertexArmy
 #if TEST_LEVEL_LOADING
 			// This is for testing the level loading part. Do not modify this!
 			StateManager.Instance.ChangeState( GameState.LevelLoading );
+#elif MODEL_VIEW
+			StateManager.Instance.ChangeState( GameState.ModelView );
 #else
 			StateManager.Instance.ChangeState( GameState.PhysicsPresentationRobot );
 #endif

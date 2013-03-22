@@ -57,8 +57,8 @@ namespace VertexArmy.Global
 		{
 			RegisterCursor( CursorType.PanHandOpen, new Cursor( "images/cursor_hand_open" ) );
 			RegisterCursor( CursorType.PanHandClosed, new Cursor( "images/cursor_hand_closed" ) );
-
-			SetActiveCursor( CursorType.PanHandOpen );
+			RegisterCursor( CursorType.Arrow, new Cursor( "images/cursor_arrow" ) );
+			SetActiveCursor( CursorType.Arrow );
 		}
 
 		public void RegisterCursor( CursorType name, Cursor cursor )
@@ -84,7 +84,9 @@ namespace VertexArmy.Global
 
 		public void Render()
 		{
-			// TODO: Delegate to the low level graphics rederer
+			_tempSpriteBatch.Begin( SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullNone, null );
+			_tempSpriteBatch.Draw( _activeCursor.Sprite, new Rectangle( (int)_cursorPosition.X, (int)_cursorPosition.Y, 32, 32 ), Color.White );
+			_tempSpriteBatch.End( );
 		}
 
 		private bool IsCursorInsideWindow()

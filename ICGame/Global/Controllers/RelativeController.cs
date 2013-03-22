@@ -7,6 +7,7 @@ namespace VertexArmy.Global.Controllers
 	{
 		private ITransformable _transformable;
 		private ITransformable _transformable2;
+		public Vector3 RelativePosition;
 		public ITransformable OutputTransformable
 		{
 			set
@@ -29,6 +30,18 @@ namespace VertexArmy.Global.Controllers
 		{
 			_transformable = outputTransformable;
 			_transformable2 = inputTransformable;
+			RelativePosition = Vector3.Zero;
+
+
+			UpdateTransformableRotation( );
+			UpdateTransformablePosition( );
+		}
+
+		public RelativeController( ITransformable outputTransformable, ITransformable inputTransformable, Vector3 relativePosition )
+		{
+			_transformable = outputTransformable;
+			_transformable2 = inputTransformable;
+			RelativePosition = relativePosition;
 
 
 			UpdateTransformableRotation( );
@@ -48,8 +61,8 @@ namespace VertexArmy.Global.Controllers
 
 		public void Update( GameTime dt )
 		{
-			float rotationDelta = ( _transformable.GetRotation( ) * _lastInputRotation ).Length( );
-			float positionDelta = ( _transformable.GetPosition( ) - _lastInputPosition ).Length( );
+			float rotationDelta = ( _transformable2.GetRotation( ) * _lastInputRotation ).Length( );
+			float positionDelta = ( _transformable2.GetPosition( ) - _lastInputPosition ).Length( );
 
 			if ( rotationDelta > RotationError )
 			{
@@ -65,18 +78,18 @@ namespace VertexArmy.Global.Controllers
 		private void UpdateTransformableRotation()
 		{
 			_lastInputRotation = _transformable2.GetRotation( );
-			if ( OutputTransformable != null && InputTransformable != null )
+			if ( _transformable != null && _transformable2 != null )
 			{
-				OutputTransformable.SetRotation( InputTransformable.GetRotation( ) );
+				_transformable.SetRotation( _transformable2.GetRotation( ) );
 			}
 		}
 
 		private void UpdateTransformablePosition()
 		{
 			_lastInputPosition = _transformable2.GetPosition( );
-			if ( OutputTransformable != null && InputTransformable != null )
+			if ( _transformable != null && _transformable2 != null )
 			{
-				OutputTransformable.SetPosition( InputTransformable.GetPosition( ) );
+				_transformable.SetPosition( _transformable2.GetPosition( ) + RelativePosition );
 			}
 		}
 	}

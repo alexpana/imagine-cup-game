@@ -43,6 +43,8 @@ namespace VertexArmy.States
 				LocalRotation = new Quaternion( new Vector3( 0f, 1f, 0f ), 1f )
 			};
 
+			crateSceneNode.LocalRotation.Normalize( );
+
 			mesh.RegisterMeshSceneNode( crateSceneNode );
 
 			GameWorldManager.Instance.SpawnEntity( mesh, "mesh1", new Vector3( 0f, -1300f, 0f ) );

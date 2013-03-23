@@ -2,16 +2,16 @@
 
 namespace VertexArmy.States.Menu
 {
-	public class MenuCubeItem
+	public class MenuItem
 	{
 		public Action<object> Activated { get; set; }
-		public string Title { get; set; }
+		public virtual string Title { get; set; }
 
-		public void Activate()
+		public virtual void Activate()
 		{
 			if ( Activated != null )
 			{
-				Activated( this );
+				Activated( null );
 			}
 		}
 	}

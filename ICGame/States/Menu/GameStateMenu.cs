@@ -22,11 +22,11 @@ namespace VertexArmy.States.Menu
 			_mainMenuCube = new MenuCube
 			{
 				Title = "Main menu",
-				Items = new List<MenuCubeItem>
+				Items = new List<MenuItem>
 				{
-					new MenuCubeItem { Title = "Play!", Activated = args => StateManager.Instance.ChangeState(GameState.PhysicsPresentationRobot) },
-					new MenuCubeItem { Title = "Options", Activated = args => ActivateMenuCube(_optionsMenuCube) },
-					new MenuCubeItem { Title = "Exit", Activated = args => Platform.Instance.Game.Exit() }
+					new MenuItem { Title = "Play!", Activated = args => StateManager.Instance.ChangeState(GameState.PhysicsPresentationRobot) },
+					new MenuItem { Title = "Options", Activated = args => ActivateMenuCube(_optionsMenuCube) },
+					new MenuItem { Title = "Exit", Activated = args => Platform.Instance.Game.Exit() }
 				}
 			};
 
@@ -34,9 +34,9 @@ namespace VertexArmy.States.Menu
 			{
 				Title = "Options menu",
 				PreviousMenu = _mainMenuCube,
-				Items = new List<MenuCubeItem>
+				Items = new List<MenuItem>
 				{
-					new MenuCubeItem{Title = "Music"}
+					new SwitchMenuItem{ OnTitle = "On", OffTitle = "Off", Prefix = "Music"}
 				}
 			};
 		}
@@ -85,7 +85,7 @@ namespace VertexArmy.States.Menu
 
 				_spriteBatch.DrawString( _font, _activeCube.Title, new Vector2( 100, 100 ), Color.Black );
 
-				_spriteBatch.DrawString( _font, _activeCube.Items[_activeCube.SelectedItem].Title,
+				_spriteBatch.DrawString( _font, "< " + _activeCube.Items[_activeCube.SelectedItem].Title + " >",
 					new Vector2( 100, 150 ), Color.Black );
 
 				_spriteBatch.End();

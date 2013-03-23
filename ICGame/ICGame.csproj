@@ -166,7 +166,6 @@
     <Compile Include="States\Menu\GameStateMenu.cs" />
     <Compile Include="States\GameStateModelViewer.cs" />
     <Compile Include="States\GameStatePaused.cs" />
-    <Compile Include="States\GameStatePresentation.cs" />
     <Compile Include="Global\Platform.cs" />
     <Compile Include="States\GameStateRoomPreview.cs" />
     <Compile Include="Utilities\TransformUtility.cs" />

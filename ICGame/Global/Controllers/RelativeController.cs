@@ -4,104 +4,87 @@ using VertexArmy.Global.Behaviors;
 
 namespace VertexArmy.Global.Controllers
 {
-	/*
-	public class RelativeController : IController
+	public class RelativeController : IController, IUpdatable
 	{
-		private ITransformable _transformable;
-		private ITransformable _transformable2;
-		public Vector3 RelativePosition;
-		public ITransformable OutputTransformable
-		{
-			set
-			{
-				_transformable = value;
-				UpdateTransformableRotation( );
-				UpdateTransformablePosition( );
-			}
-			get { return _transformable; }
-		}
+		private Vector3 _lastBodyPosition;
+		private Quaternion _lastBodyRotation;
 
-
-		private const float RotationError = 0.001f;
-		private const float PositionError = 0.001f;
-
-		private Vector3 _lastInputPosition;
-		private Quaternion _lastInputRotation;
+		private const float RotationError = 0.1f;
+		private const float PositionError = 0.1f;
+		public Vector3 RelativePosition { get; set; }
 
 		public RelativeController( ITransformable outputTransformable, ITransformable inputTransformable )
+			: this( outputTransformable, inputTransformable, Vector3.Zero )
 		{
-			_transformable = outputTransformable;
-			_transformable2 = inputTransformable;
-			RelativePosition = Vector3.Zero;
-
-
-			UpdateTransformableRotation( );
-			UpdateTransformablePosition( );
 		}
 
 		public RelativeController( ITransformable outputTransformable, ITransformable inputTransformable, Vector3 relativePosition )
 		{
-			_transformable = outputTransformable;
-			_transformable2 = inputTransformable;
+
 			RelativePosition = relativePosition;
-
-
-			UpdateTransformableRotation( );
-			UpdateTransformablePosition( );
-		}
-
-		public ITransformable InputTransformable
-		{
-			set
+			IParameter outTransParam = new ParameterTransformable
 			{
-				_transformable2 = value;
-				UpdateTransformableRotation( );
-				UpdateTransformablePosition( );
-			}
-			get { return _transformable; }
+				Alive = true,
+				Input = false,
+				Null = false,
+				Output = true,
+				Value = outputTransformable
+			};
+
+			IParameter inTransParam = new ParameterTransformable
+			{
+				Alive = true,
+				Input = true,
+				Null = false,
+				Output = false,
+				Value = inputTransformable
+			};
+
+			Data = new List<IParameter> { outTransParam, inTransParam };
 		}
 
 		public void Update( GameTime dt )
 		{
-			float rotationDelta = ( _transformable2.GetRotation( ) * _lastInputRotation ).Length( );
-			float positionDelta = ( _transformable2.GetPosition( ) - _lastInputPosition ).Length( );
+			ParameterTransformable outTrans = Data[0] as ParameterTransformable;
+			ParameterTransformable inTrans = Data[1] as ParameterTransformable;
 
-			if ( rotationDelta > RotationError )
+			bool ok = ( outTrans != null && inTrans != null );
+
+			if ( !ok ) return;
+
+
+			float rotationDelta = ( inTrans.Value.GetRotation() - _lastBodyRotation ).LengthSquared();
+			float positionDelta = ( inTrans.Value.GetPosition() - _lastBodyPosition ).LengthSquared();
+
+			if ( rotationDelta > RotationError || positionDelta > PositionError )
 			{
-				UpdateTransformableRotation( );
-			}
+				List<IParameter> parameters = Data;
+				DirectCompute( ref parameters );
 
-			if ( positionDelta > PositionError )
-			{
-				UpdateTransformablePosition( );
-			}
-
-		}
-
-		private void UpdateTransformableRotation()
-		{
-			_lastInputRotation = _transformable2.GetRotation( );
-			if ( _transformable != null && _transformable2 != null )
-			{
-				_transformable.SetRotation( _transformable2.GetRotation( ) );
+				_lastBodyPosition = inTrans.Value.GetPosition();
+				_lastBodyRotation = inTrans.Value.GetRotation();
 			}
 		}
 
-		private void UpdateTransformablePosition()
+		public void DirectCompute( ref List<IParameter> data )
 		{
-			_lastInputPosition = _transformable2.GetPosition( );
-			if ( _transformable != null && _transformable2 != null )
-			{
-				_transformable.SetPosition( _transformable2.GetPosition( ) + RelativePosition );
-			}
-		}
+			ParameterTransformable outTrans = data[0] as ParameterTransformable;
+			ParameterTransformable inTrans = data[1] as ParameterTransformable;
 
-		public void DirectCompute(ref List<IParameter> data)
-		{
-			throw new System.NotImplementedException();
+			bool apply = ( outTrans != null && inTrans != null );
+
+			if ( !apply ) return;
+
+			apply = !outTrans.Null && !inTrans.Null;
+			apply = apply && ( outTrans.Output && inTrans.Input );
+			apply = apply && ( outTrans.Alive && inTrans.Alive );
+
+			if ( !apply ) return;
+
+			outTrans.Value.SetPosition( inTrans.Value.GetPosition() + RelativePosition );
+			outTrans.Value.SetRotation( inTrans.Value.GetRotation() );
 		}
 
 		public List<IParameter> Data { get; set; }
 	}
-	 */
 }

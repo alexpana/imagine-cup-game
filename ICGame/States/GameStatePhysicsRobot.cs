@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
 using VertexArmy.GameWorld;
 using VertexArmy.Global;
+using VertexArmy.Global.Controllers;
 using VertexArmy.Global.Managers;
 using VertexArmy.Physics.DebugView;
 
@@ -137,11 +138,11 @@ namespace VertexArmy.States
 
 			if ( Keyboard.GetState( PlayerIndex.One ).IsKeyDown( Keys.O ) )
 			{
-				Robot.SetRotation( Robot.GetRotationRadians( ) - 0.4f * ( float ) gameTime.ElapsedGameTime.TotalSeconds );
+				Robot.SetRotation( Robot.GetRotationRadians() - 0.4f * ( float ) gameTime.ElapsedGameTime.TotalSeconds );
 			}
 			else if ( Keyboard.GetState( PlayerIndex.One ).IsKeyDown( Keys.P ) )
 			{
-				Robot.SetRotation( Robot.GetRotationRadians( ) + 0.4f * ( float ) gameTime.ElapsedGameTime.TotalSeconds );
+				Robot.SetRotation( Robot.GetRotationRadians() + 0.4f * ( float ) gameTime.ElapsedGameTime.TotalSeconds );
 			}
 
 		}
@@ -181,7 +182,7 @@ namespace VertexArmy.States
 			_ground = new Body( Platform.Instance.PhysicsWorld );
 			{
 
-				Vertices terrain = new Vertices( );
+				Vertices terrain = new Vertices();
 				terrain.Add( new Vector2( -20f, 15f ) );
 				terrain.Add( new Vector2( -20f, 20f ) );
 				terrain.Add( new Vector2( 20f, 20f ) );
@@ -254,14 +255,18 @@ namespace VertexArmy.States
 
 			//Camera
 			GameWorldManager.Instance.SpawnEntity( "camera", "camera1", new Vector3( 0, -1300, 300 ) );
-			GameWorldManager.Instance.SpawnEntity( "robot", "robot1", new Vector3( 0f, -1000f, 0f ), 1f );
+			GameWorldManager.Instance.SpawnEntity( "robot", "robot1", new Vector3( 0f, -1000f, 0f ), 1.2f );
 
 			GameWorldManager.Instance.SpawnEntity( "crate", "crate", new Vector3( -100f, 800f, 0f ), 1f );
 			Robot = GameWorldManager.Instance.GetEntity( "robot1" );
+			Robot.PhysicsEntity.Enabled = true;
 
-			/*GameWorldManager.Instance.SpawnEntity( "mesh", "mesh1", new Vector3( 0f, -1300f, 0f ) );
-			ControllerRepository.Instance.RegisterController( new RelativeController( GameWorldManager.Instance.GetEntity( "mesh1" ), CursorManager.Instance.SceneNode, new Vector3( 0f, 0f, 100f ) ) );
-			 */
+			GameWorldManager.Instance.SpawnEntity( "crate", "mesh1", new Vector3( 0f, -1000f, 0f ) );
+			GameWorldManager.Instance.GetEntity( "mesh1" ).PhysicsEntity.Enabled = false;
+
+			RelativeController controller = new RelativeController( GameWorldManager.Instance.GetEntity( "mesh1" ), Robot, new Vector3( 0f, 0f, 100f ) );
+			ControllerRepository.Instance.RegisterController( "attachment", controller );
+			FrameUpdateManager.Instance.Register( controller );
 
 			Camera = GameWorldManager.Instance.GetEntity( "camera1" );
 
@@ -273,7 +278,7 @@ namespace VertexArmy.States
 			_actionToggleDebugView = false;
 
 
-			LoadPhysicsContent( );
+			LoadPhysicsContent();
 			_debugView = new DebugViewXNA( Platform.Instance.PhysicsWorld );
 
 			_debugView.LoadContent( Platform.Instance.Device, Platform.Instance.Content );
@@ -286,7 +291,7 @@ namespace VertexArmy.States
 
 		public override void OnClose()
 		{
-			_contentManager.Unload( );
+			_contentManager.Unload();
 		}
 	}
 }

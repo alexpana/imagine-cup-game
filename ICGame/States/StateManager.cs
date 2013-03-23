@@ -51,8 +51,6 @@ namespace VertexArmy.States
 			{
 				case GameState.Loading:
 					return new GameStateLoading( contentManager );
-				case GameState.Presentation:
-					return new GameStatePresentation( contentManager );
 				case GameState.Menu:
 					return new GameStateMenu( contentManager );
 				case GameState.Pause:

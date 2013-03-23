@@ -99,6 +99,7 @@
   <ItemGroup>
     <Compile Include="Audio\SoundPlayer.cs" />
     <Compile Include="Common\IUpdateableObject.cs" />
+    <Compile Include="Content\Materials\CelShading.cs" />
     <Compile Include="Content\Materials\RobotMaterial.cs" />
     <Compile Include="Content\Prefabs\CameraPrefab.cs" />
     <Compile Include="Content\Prefabs\SimpleMeshPrefab.cs" />

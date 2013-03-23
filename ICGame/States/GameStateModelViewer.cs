@@ -19,17 +19,24 @@ namespace VertexArmy.States
 		private bool _dragging = false;
 		private Vector2 _lastMousePos;
 
-		private ContentManager _cm;
-		private SceneManager _sceneManager;
 		public GameStateModelViewer( ContentManager content )
 		{
-			_cm = content;
 		}
 
 		private void _rotate( float delta, Vector3 axis )
 		{
-			_modelRotation *= new Quaternion( axis * ( float ) Math.Sin( 0.01f * delta ),
-				( float ) Math.Cos( 0.01f * delta ) );
+			Vector3 localAxis;
+			if ( axis.Equals( new Vector3( 0, 1, 0 ) ) )
+			{
+				 localAxis = Vector3.Transform( axis, Matrix.CreateFromQuaternion( _modelRotation ) );
+			} else
+			{
+				localAxis = axis;
+			}
+
+			_modelRotation = Quaternion.Concatenate( _modelRotation, new Quaternion(
+				localAxis * ( float ) Math.Sin( delta / 2.0f ),
+				( float ) Math.Cos( delta / 2.0f ) ) );	
 		}
 
 		public override void OnUpdate( GameTime gameTime )
@@ -63,16 +70,12 @@ namespace VertexArmy.States
 			int wheel = Mouse.GetState().ScrollWheelValue;
 			_modelScale = Mouse.GetState().ScrollWheelValue / 10;
 
-			_rotate( mouseDelta.X, Vector3.UnitY );
-			_rotate( -mouseDelta.Y, Vector3.UnitX );
+			_rotate( 0.01f * mouseDelta.X, Vector3.UnitY );
+			_rotate( 0.01f * mouseDelta.Y, Vector3.UnitX );
 
 			GameWorldManager.Instance.GetEntity( "mesh1" ).SetRotation( _modelRotation );
 			GameWorldManager.Instance.GetEntity( "camera1" ).SetPosition(
-				new Vector3( 0, 0, -100 + Mouse.GetState().ScrollWheelValue / 4.0f ) );
-		}
-
-		public override void OnRender( GameTime gameTime )
-		{
+				new Vector3( 0, 0, 70 - Mouse.GetState().ScrollWheelValue / 4.0f ) );
 		}
 
 		public override void OnEnter()
@@ -83,24 +86,24 @@ namespace VertexArmy.States
 			CursorManager.Instance.SetActiveCursor( CursorType.Arrow );
 			CursorManager.Instance.SetVisible( true );
 
-			GameWorldManager.Instance.SpawnEntity( "camera", "camera1", new Vector3( 0, 0, -100 ) );
+			GameWorldManager.Instance.SpawnEntity( "camera", "camera1", new Vector3( 0, 0, 100 ) );
 
 
 			PrefabEntity mesh = new PrefabEntity();
 
 			MeshSceneNodePrefab crateSceneNode = new MeshSceneNodePrefab
 			{
-				Material = "RobotMaterial",
+				Material = "CelShadingMaterial",
 				Mesh = "models/crate00",
 				Name = "Mesh",
 				LocalRotation = new Quaternion( new Vector3( 0f, 0f, 0f ), 0f )
 			};
 
-			crateSceneNode.LocalRotation.Normalize();
-
 			mesh.RegisterMeshSceneNode( crateSceneNode );
 			GameWorldManager.Instance.SpawnEntity( mesh, "mesh1", new Vector3( 0f, 0, 0f ) );
-			GameWorldManager.Instance.GetEntity( "mesh1" ).SetScale( new Vector3( 10, 10, 10 ) );
+			//_rotate( (float)Math.PI / 4.0f, new Vector3( 1, 0, 0 ) );
+			//_rotate( ( float ) Math.PI, new Vector3( 0, 1, 0 ) );
+			//GameWorldManager.Instance.GetEntity( "mesh1" ).SetScale( new Vector3( 10, 10, 10 ) );
 		}
 
 		public override void OnClose()

@@ -7,7 +7,7 @@ namespace VertexArmy.Global.Managers
 {
 	public class GameWorldManager
 	{
-		private Dictionary<string, GameEntity> _entities;
+		private readonly Dictionary<string, GameEntity> _entities;
 
 		public GameEntity GetEntity( string name )
 		{

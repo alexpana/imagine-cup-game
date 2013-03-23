@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using FarseerPhysics.Dynamics;
 using Microsoft.Xna.Framework;
-using VertexArmy.Common;
-using VertexArmy.Global.Controllers;
+using VertexArmy.Global.Behaviors;
+using VertexArmy.Global.Managers;
 using VertexArmy.Graphics;
 using VertexArmy.Utilities;
 
@@ -56,10 +56,12 @@ namespace VertexArmy.GameWorld
 
 		public void SetScale( Vector3 newScale )
 		{
+			/*
 			foreach ( IController c in Controllers )
 			{
 				c.OutputTransformable.SetScale( newScale );
 			}
+			 */
 		}
 
 		public Vector3 GetPosition()
@@ -111,7 +113,7 @@ namespace VertexArmy.GameWorld
 			PhysicsEntity.Remove( );
 			foreach ( IController tc in Controllers )
 			{
-				ControllerManager.Instance.UnregisterController( tc );
+				//ControllerRepository.Instance.UnregisterController( tc );
 			}
 
 			SceneManager.Instance.UnregisterSceneTree( MainNode );

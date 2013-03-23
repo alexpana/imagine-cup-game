@@ -1,8 +1,10 @@
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using VertexArmy.Common;
+using VertexArmy.Global.Behaviors;
 
 namespace VertexArmy.Global.Controllers
 {
+	/*
 	public class RelativeController : IController
 	{
 		private ITransformable _transformable;
@@ -93,5 +95,13 @@ namespace VertexArmy.Global.Controllers
 				_transformable.SetPosition( _transformable2.GetPosition( ) + RelativePosition );
 			}
 		}
+
+		public void DirectCompute(ref List<IParameter> data)
+		{
+			throw new System.NotImplementedException();
+		}
+
+		public List<IParameter> Data { get; set; }
 	}
+	 */
 }

@@ -1,26 +1,14 @@
 using System;
+using System.Collections.Generic;
 using FarseerPhysics.Dynamics;
 using Microsoft.Xna.Framework;
-using VertexArmy.Common;
+using VertexArmy.Global.Behaviors;
 using VertexArmy.Utilities;
 
 namespace VertexArmy.Global.Controllers
 {
-	public class BodyController : IController
+	public class BodyController : IController, IUpdatable
 	{
-		private ITransformable _transformable;
-		public ITransformable OutputTransformable
-		{
-			set
-			{
-				_transformable = value;
-				UpdateTransformableRotation( );
-				UpdateTransformablePosition( );
-			}
-			get { return _transformable; }
-		}
-		private Body _body;
-
 		private Vector2 _lastBodyPosition;
 		private float _lastBodyRotation;
 
@@ -29,57 +17,73 @@ namespace VertexArmy.Global.Controllers
 
 		public BodyController( ITransformable transformable, Body body )
 		{
-			_body = body;
-			_transformable = transformable;
+			IParameter transParam = new ParameterTransformable
+			                        {
+				                        Alive = true,
+				                        Input = false,
+				                        Null = false,
+				                        Output = true,
+				                        Value = transformable
+			                        };
 
 
-			UpdateTransformableRotation( );
-			UpdateTransformablePosition( );
-		}
 
-		public Body Body
-		{
-			set
-			{
-				_body = value;
-				UpdateTransformableRotation( );
-				UpdateTransformablePosition( );
-			}
-			get { return _body; }
+			IParameter bodyParam = new ParameterBody
+			                       {
+				                       Alive = true,
+				                       Input = true,
+				                       Null = false,
+				                       Output = false,
+				                       Value = body
+			                       };
+
+			Data = new List<IParameter> { transParam, bodyParam };
 		}
 
 		public void Update( GameTime dt )
 		{
-			float rotationDelta = Math.Abs( _body.Rotation - _lastBodyRotation );
-			float positionDelta = ( _body.Position - _lastBodyPosition ).Length( );
+			ParameterTransformable trans = Data[0] as ParameterTransformable;
+			ParameterBody body = Data[1] as ParameterBody;
 
-			if ( rotationDelta > RotationError )
-			{
-				UpdateTransformableRotation( );
-			}
+			bool ok = ( trans != null && body != null );
 
-			if ( positionDelta > PositionError )
+			if ( !ok ) return;
+
+
+			float rotationDelta = Math.Abs( body.Value.Rotation - _lastBodyRotation );
+			float positionDelta = ( body.Value.Position - _lastBodyPosition ).LengthSquared( );
+
+			if ( rotationDelta > RotationError || positionDelta > PositionError )
 			{
-				UpdateTransformablePosition( );
+				List<IParameter> parameters = Data;
+				DirectCompute(ref parameters);
+
+				_lastBodyPosition = body.Value.Position;
+				_lastBodyRotation = body.Value.Rotation;
 			}
 		}
 
-		private void UpdateTransformableRotation()
+		public void DirectCompute(ref List<IParameter> data)
 		{
-			_lastBodyRotation = _body.Rotation;
-			if ( OutputTransformable != null && _body != null )
-			{
-				OutputTransformable.SetRotation( Quaternion.CreateFromAxisAngle( new Vector3( 0f, 0f, 1f ), -_body.Rotation ) );
-			}
+			ParameterTransformable trans = data[0] as ParameterTransformable;
+			ParameterBody body = data[1] as ParameterBody;
+
+			bool apply = (trans != null && body != null);
+
+			if (!apply) return;
+			
+			apply = !trans.Null && !body.Null;
+			apply = apply && (trans.Output && body.Input);
+			apply = apply && (trans.Alive && body.Alive);
+
+
+			if (!apply) return;
+
+
+			trans.Value.SetPosition( new Vector3( UnitsConverter.ToDisplayUnits( body.Value.Position ), 0f ) );
+			trans.Value.SetRotation( UnitsConverter.To3DRotation(body.Value.Rotation) );
 		}
 
-		private void UpdateTransformablePosition()
-		{
-			_lastBodyPosition = _body.Position;
-			if ( OutputTransformable != null && _body != null )
-			{
-				OutputTransformable.SetPosition( new Vector3( UnitsConverter.ToDisplayUnits( _body.Position ), 0f ) );
-			}
-		}
+		public List<IParameter> Data { get; set; }
 	}
 }

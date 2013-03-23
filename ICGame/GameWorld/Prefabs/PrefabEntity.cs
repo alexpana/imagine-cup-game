@@ -3,6 +3,7 @@ using FarseerPhysics.Dynamics;
 using Microsoft.Xna.Framework.Graphics;
 using VertexArmy.GameWorld.Prefabs.Structs;
 using VertexArmy.Global;
+using VertexArmy.Global.Behaviors;
 using VertexArmy.Global.Controllers;
 using VertexArmy.Global.Managers;
 using VertexArmy.Graphics;
@@ -139,10 +140,11 @@ namespace VertexArmy.GameWorld.Prefabs
 
 				if ( scnp.Body != null && entity.PhysicsEntity.GetBody( scnp.Body ) != null )
 				{
-
 					BodyController controller = new BodyController( scn, entity.PhysicsEntity.GetBody( scnp.Body ) );
 					entity.Controllers.Add( controller );
-					ControllerManager.Instance.RegisterController( controller );
+					
+					ControllerRepository.Instance.RegisterController( Name, controller );
+					FrameUpdateManager.Instance.Register(controller);
 				}
 				else
 				{
@@ -177,7 +179,8 @@ namespace VertexArmy.GameWorld.Prefabs
 						BodyController controller = new BodyController( scn, entity.PhysicsEntity.GetBodyFromPath( scnp.Path, i ) );
 						entity.Controllers.Add( controller );
 
-						ControllerManager.Instance.RegisterController( controller );
+						ControllerRepository.Instance.RegisterController( Name, controller );
+						FrameUpdateManager.Instance.Register( controller );
 					}
 				}
 			}

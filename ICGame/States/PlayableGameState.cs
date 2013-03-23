@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using VertexArmy.Global;
 using VertexArmy.Global.Controllers;
+using VertexArmy.Global.Managers;
 using VertexArmy.Graphics;
 
 namespace VertexArmy.States
@@ -11,10 +12,8 @@ namespace VertexArmy.States
 		public override void OnUpdate( GameTime gameTime )
 		{
 			base.OnUpdate( gameTime );
-
 			Platform.Instance.PhysicsWorld.Step( Math.Min( ( float ) gameTime.ElapsedGameTime.TotalMilliseconds * 0.001f, ( 1f / 30f ) ) );
-
-			ControllerManager.Instance.Update( gameTime );
+			FrameUpdateManager.Instance.Update(gameTime);
 		}
 		public override void OnRender( GameTime gameTime )
 		{

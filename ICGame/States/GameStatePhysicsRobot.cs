@@ -260,7 +260,7 @@ namespace VertexArmy.States
 			Robot = GameWorldManager.Instance.GetEntity( "robot1" );
 
 			/*GameWorldManager.Instance.SpawnEntity( "mesh", "mesh1", new Vector3( 0f, -1300f, 0f ) );
-			ControllerManager.Instance.RegisterController( new RelativeController( GameWorldManager.Instance.GetEntity( "mesh1" ), CursorManager.Instance.SceneNode, new Vector3( 0f, 0f, 100f ) ) );
+			ControllerRepository.Instance.RegisterController( new RelativeController( GameWorldManager.Instance.GetEntity( "mesh1" ), CursorManager.Instance.SceneNode, new Vector3( 0f, 0f, 100f ) ) );
 			 */
 
 			Camera = GameWorldManager.Instance.GetEntity( "camera1" );

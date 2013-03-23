@@ -26,10 +26,7 @@ namespace VertexArmy.Global.Managers
 			{
 				return _materials[name];
 			}
-			else
-			{
-				return null;
-			}
+			return null;
 		}
 
 		public static MaterialRepository Instance

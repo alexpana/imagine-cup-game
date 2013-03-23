@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Runtime.Serialization;
 using Microsoft.Xna.Framework;
-using VertexArmy.Common;
+using VertexArmy.Global.Behaviors;
 using VertexArmy.Utilities;
 
 namespace VertexArmy.Graphics

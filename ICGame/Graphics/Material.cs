@@ -16,7 +16,10 @@ namespace VertexArmy.Graphics
 			Effect.CurrentTechnique.Passes[0].Apply( );
 			foreach (var additionalInformation in _bindings)
 			{
-				Effect.Parameters[additionalInformation.Key].SetValue(_parameter[additionalInformation.Value]);
+				if ( Effect.Parameters[additionalInformation.Key] != null )
+				{
+					Effect.Parameters[additionalInformation.Key].SetValue( _parameter[additionalInformation.Value] );
+				}
 			}
 		}
 

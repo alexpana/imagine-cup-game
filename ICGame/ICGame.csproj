@@ -98,6 +98,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Global\Behaviors\IUpdatable.cs" />
+    <Compile Include="Audio\SoundPlayer.cs" />
+    <Compile Include="Content\Materials\CelShading.cs" />
     <Compile Include="Content\Materials\RobotMaterial.cs" />
     <Compile Include="Content\Prefabs\CameraPrefab.cs" />
     <Compile Include="Content\Prefabs\SimpleMeshPrefab.cs" />
@@ -128,6 +130,7 @@
     <Compile Include="GameWorld\PhysicsEntity.cs" />
     <Compile Include="Global\Managers\CursorManager.cs" />
     <Compile Include="Global\Managers\ControllerRepository.cs" />
+    <Compile Include="Global\Settings.cs" />
     <Compile Include="Graphics\Attachables\Attachable.cs" />
     <Compile Include="Graphics\Attachables\CameraAttachable.cs" />
     <Compile Include="Graphics\Renderer.cs" />
@@ -154,6 +157,7 @@
     <Compile Include="States\GameStateLevelLoading.cs" />
     <Compile Include="States\IGameState.cs" />
     <Compile Include="States\GameStateLoading.cs" />
+    <Compile Include="States\Menu\SwitchMenuItem.cs" />
     <Compile Include="States\Menu\MenuCube.cs" />
     <Compile Include="States\Menu\MenuItem.cs" />
     <Compile Include="States\PausableGameState.cs" />

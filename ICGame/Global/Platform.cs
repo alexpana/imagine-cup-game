@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using VertexArmy.Audio;
 using VertexArmy.Input;
 
 namespace VertexArmy.Global
@@ -30,6 +31,10 @@ namespace VertexArmy.Global
 		public IInputSystem Input { get; set; }
 
 		public World PhysicsWorld { get; set; }
+
+		public Settings Settings { get; set; }
+
+		public SoundPlayer SoundPlayer { get; set; }
 
 		#region Singleton
 

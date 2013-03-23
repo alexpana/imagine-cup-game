@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 using VertexArmy.Global;
 
 namespace VertexArmy.States.Menu
@@ -16,17 +17,22 @@ namespace VertexArmy.States.Menu
 
 		private SpriteBatch _spriteBatch;
 		private SpriteFont _font;
+		private Song _backgroundMusic;
+
+		private ContentManager _content;
 
 		public GameStateMenu( ContentManager content )
 		{
+			_content = content;
+
 			_mainMenuCube = new MenuCube
 			{
 				Title = "Main menu",
-				Items = new List<MenuCubeItem>
+				Items = new List<MenuItem>
 				{
-					new MenuCubeItem { Title = "Play!", Activated = args => StateManager.Instance.ChangeState(GameState.PhysicsPresentationRobot) },
-					new MenuCubeItem { Title = "Options", Activated = args => ActivateMenuCube(_optionsMenuCube) },
-					new MenuCubeItem { Title = "Exit", Activated = args => Platform.Instance.Game.Exit() }
+					new MenuItem { Title = "Play!", Activated = args => StateManager.Instance.ChangeState(GameState.PhysicsPresentationRobot) },
+					new MenuItem { Title = "Options", Activated = args => ActivateMenuCube(_optionsMenuCube) },
+					new MenuItem { Title = "Exit", Activated = args => Platform.Instance.Game.Exit() }
 				}
 			};
 
@@ -34,9 +40,14 @@ namespace VertexArmy.States.Menu
 			{
 				Title = "Options menu",
 				PreviousMenu = _mainMenuCube,
-				Items = new List<MenuCubeItem>
+				Items = new List<MenuItem>
 				{
-					new MenuCubeItem{Title = "Music"}
+					new SwitchMenuItem
+					{
+						OnTitle = "On", OffTitle = "Off", Prefix = "Music",
+						IsOn = Platform.Instance.Settings.GetValue(Settings.IsMusicEnabled, true),
+						Activated = args => Platform.Instance.Settings.SetValue(Settings.IsMusicEnabled, (bool)args)
+					}
 				}
 			};
 		}
@@ -85,7 +96,7 @@ namespace VertexArmy.States.Menu
 
 				_spriteBatch.DrawString( _font, _activeCube.Title, new Vector2( 100, 100 ), Color.Black );
 
-				_spriteBatch.DrawString( _font, _activeCube.Items[_activeCube.SelectedItem].Title,
+				_spriteBatch.DrawString( _font, "< " + _activeCube.Items[_activeCube.SelectedItem].Title + " >",
 					new Vector2( 100, 150 ), Color.Black );
 
 				_spriteBatch.End();
@@ -97,10 +108,14 @@ namespace VertexArmy.States.Menu
 			ActivateMenuCube( _mainMenuCube );
 			_spriteBatch = new SpriteBatch( Platform.Instance.Device );
 			_font = Platform.Instance.Content.Load<SpriteFont>( "fonts/SpriteFont1" );
+			_backgroundMusic = _content.Load<Song>( "music/proto1_menu" );
+
+			Platform.Instance.SoundPlayer.PlayMusic( _backgroundMusic );
 		}
 
 		public void OnClose()
 		{
+			Platform.Instance.SoundPlayer.StopMusic();
 		}
 	}
 }

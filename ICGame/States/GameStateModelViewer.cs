@@ -75,7 +75,7 @@ namespace VertexArmy.States
 
 			GameWorldManager.Instance.GetEntity( "mesh1" ).SetRotation( _modelRotation );
 			GameWorldManager.Instance.GetEntity( "camera1" ).SetPosition( 
-				new Vector3( 0, 0, 100 - Mouse.GetState().ScrollWheelValue / 4.0f ) );
+				new Vector3( 0, 0, 70 - Mouse.GetState().ScrollWheelValue / 4.0f ) );
 		}
 
 		public override void OnEnter()
@@ -93,7 +93,7 @@ namespace VertexArmy.States
 
 			MeshSceneNodePrefab crateSceneNode = new MeshSceneNodePrefab
 			{
-				Material = "RobotMaterial",
+				Material = "CelShadingMaterial",
 				Mesh = "models/crate00",
 				Name = "Mesh",
 				LocalRotation = new Quaternion( new Vector3( 0f, 0f, 0f ), 0f )

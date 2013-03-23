@@ -48,6 +48,8 @@ namespace VertexArmy
 			PrefabRepository.Instance.RegisterPrefab( "mesh", SimpleMeshPrefab.CreatePrefab() );
 			PrefabRepository.Instance.RegisterPrefab( "camera", CameraPrefab.CreatePrefab() );
 			MaterialRepository.Instance.RegisterMaterial( "RobotMaterial", RobotMaterial.CreateMaterial() );
+			MaterialRepository.Instance.RegisterMaterial( "CelShadingMaterial",
+				CelShading.CreateMaterial() );
 		}
 
 		protected override void UnloadContent()

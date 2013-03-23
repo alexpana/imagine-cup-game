@@ -97,6 +97,7 @@
     <Reference Include="System.Net" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Audio\SoundPlayer.cs" />
     <Compile Include="Common\IUpdateableObject.cs" />
     <Compile Include="Content\Materials\RobotMaterial.cs" />
     <Compile Include="Content\Prefabs\CameraPrefab.cs" />
@@ -124,6 +125,7 @@
     <Compile Include="GameWorld\PhysicsEntity.cs" />
     <Compile Include="Global\CursorManager.cs" />
     <Compile Include="Global\Controllers\ControllerManager.cs" />
+    <Compile Include="Global\Settings.cs" />
     <Compile Include="Graphics\Attachables\Attachable.cs" />
     <Compile Include="Graphics\Attachables\CameraAttachable.cs" />
     <Compile Include="Graphics\Renderer.cs" />

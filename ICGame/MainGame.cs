@@ -1,5 +1,6 @@
 using FarseerPhysics.Dynamics;
 using Microsoft.Xna.Framework;
+using VertexArmy.Audio;
 using VertexArmy.Content.Materials;
 using VertexArmy.Content.Prefabs;
 using VertexArmy.Global;
@@ -21,7 +22,10 @@ namespace VertexArmy
 			};
 
 			Platform.Instance.PhysicsWorld = new World( new Vector2( 0f, 9.82f ) );
+			Platform.Instance.Settings = new Settings();
+			Platform.Instance.SoundPlayer = new SoundPlayer( Platform.Instance.Settings );
 			Platform.Instance.Game = this;
+
 			Content.RootDirectory = "Content";
 			UnitsConverter.SetDisplayUnitToSimUnitRatio( 64 );
 		}

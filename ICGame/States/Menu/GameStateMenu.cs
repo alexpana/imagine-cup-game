@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 using VertexArmy.Global;
 
 namespace VertexArmy.States.Menu
@@ -16,9 +17,14 @@ namespace VertexArmy.States.Menu
 
 		private SpriteBatch _spriteBatch;
 		private SpriteFont _font;
+		private Song _backgroundMusic;
+
+		private ContentManager _content;
 
 		public GameStateMenu( ContentManager content )
 		{
+			_content = content;
+
 			_mainMenuCube = new MenuCube
 			{
 				Title = "Main menu",
@@ -36,7 +42,12 @@ namespace VertexArmy.States.Menu
 				PreviousMenu = _mainMenuCube,
 				Items = new List<MenuItem>
 				{
-					new SwitchMenuItem{ OnTitle = "On", OffTitle = "Off", Prefix = "Music"}
+					new SwitchMenuItem
+					{
+						OnTitle = "On", OffTitle = "Off", Prefix = "Music",
+						IsOn = Platform.Instance.Settings.GetValue(Settings.IsMusicEnabled, true),
+						Activated = args => Platform.Instance.Settings.SetValue(Settings.IsMusicEnabled, (bool)args)
+					}
 				}
 			};
 		}
@@ -97,10 +108,14 @@ namespace VertexArmy.States.Menu
 			ActivateMenuCube( _mainMenuCube );
 			_spriteBatch = new SpriteBatch( Platform.Instance.Device );
 			_font = Platform.Instance.Content.Load<SpriteFont>( "fonts/SpriteFont1" );
+			_backgroundMusic = _content.Load<Song>( "music/proto1_menu" );
+
+			Platform.Instance.SoundPlayer.PlayMusic( _backgroundMusic );
 		}
 
 		public void OnClose()
 		{
+			Platform.Instance.SoundPlayer.StopMusic();
 		}
 	}
 }

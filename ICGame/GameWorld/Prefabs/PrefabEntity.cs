@@ -3,7 +3,6 @@ using FarseerPhysics.Dynamics;
 using Microsoft.Xna.Framework.Graphics;
 using VertexArmy.GameWorld.Prefabs.Structs;
 using VertexArmy.Global;
-using VertexArmy.Global.Behaviors;
 using VertexArmy.Global.Controllers;
 using VertexArmy.Global.Managers;
 using VertexArmy.Graphics;
@@ -24,15 +23,15 @@ namespace VertexArmy.GameWorld.Prefabs
 
 		public PrefabEntity()
 		{
-			_physicsPrefab = new PhysicsPrefab( );
+			_physicsPrefab = new PhysicsPrefab();
 
-			_physicsPrefab.Bodies = new Dictionary<string, BodyPrefab>( );
-			_physicsPrefab.Joints = new Dictionary<string, JointPrefab>( );
-			_physicsPrefab.Paths = new Dictionary<string, PathPrefab>( );
+			_physicsPrefab.Bodies = new Dictionary<string, BodyPrefab>();
+			_physicsPrefab.Joints = new Dictionary<string, JointPrefab>();
+			_physicsPrefab.Paths = new Dictionary<string, PathPrefab>();
 
-			_sceneNodesPrefab = new Dictionary<string, MeshSceneNodePrefab>( );
-			_arrayMeshSceneNodesPrefab = new Dictionary<string, ArrayMeshSceneNodePrefab>( );
-			_cameraSceneNodesPrefab = new Dictionary<string, CameraSceneNodePrefab>( );
+			_sceneNodesPrefab = new Dictionary<string, MeshSceneNodePrefab>();
+			_arrayMeshSceneNodesPrefab = new Dictionary<string, ArrayMeshSceneNodePrefab>();
+			_cameraSceneNodesPrefab = new Dictionary<string, CameraSceneNodePrefab>();
 		}
 
 		public void RegisterCamera( string name, CameraSceneNodePrefab prefab )
@@ -77,10 +76,10 @@ namespace VertexArmy.GameWorld.Prefabs
 
 		public GameEntity CreateGameEntity( GameWorldManager world, float scale )
 		{
-			GameEntity obj = new GameEntity( );
+			GameEntity obj = new GameEntity();
 
-			obj.PhysicsEntity = new PhysicsEntity( );
-			obj.Controllers = new List<IController>( );
+			obj.PhysicsEntity = new PhysicsEntity();
+			obj.Controllers = new List<BodyController>();
 
 			obj.Name = Name;
 			obj.Flags = Flags;
@@ -124,27 +123,26 @@ namespace VertexArmy.GameWorld.Prefabs
 		private void GameEntityCreateSceneNodes( GameEntity entity, float scale )
 		{
 			/* create main node */
-			SceneNode mainNode = new SceneNode( );
+			SceneNode mainNode = new SceneNode();
 
 			/* rest of nodes */
 			foreach ( MeshSceneNodePrefab scnp in _sceneNodesPrefab.Values )
 			{
-				SceneNode scn = new SceneNode( );
+				SceneNode scn = new SceneNode();
 				scn.AddAttachable(
 					new MeshAttachable(
-						Platform.Instance.Content.Load<Model>( _sceneNodesPrefab[scnp.Name].Mesh ), _sceneNodesPrefab[scnp.Name].GetMaterial( )
+						Platform.Instance.Content.Load<Model>( _sceneNodesPrefab[scnp.Name].Mesh ), _sceneNodesPrefab[scnp.Name].GetMaterial()
 						)
 					);
 				mainNode.AddChild( scn );
-				scn.SetScale( scn.GetScale( ) * scale );
+				scn.SetScale( scn.GetScale() * scale );
 
 				if ( scnp.Body != null && entity.PhysicsEntity.GetBody( scnp.Body ) != null )
 				{
 					BodyController controller = new BodyController( scn, entity.PhysicsEntity.GetBody( scnp.Body ) );
 					entity.Controllers.Add( controller );
-					
-					ControllerRepository.Instance.RegisterController( Name, controller );
-					FrameUpdateManager.Instance.Register(controller);
+
+					FrameUpdateManager.Instance.Register( controller );
 				}
 				else
 				{
@@ -165,21 +163,20 @@ namespace VertexArmy.GameWorld.Prefabs
 			{
 				for ( int i = scnp.StartIndex; i <= scnp.EndIndex; i++ )
 				{
-					SceneNode scn = new SceneNode( );
+					SceneNode scn = new SceneNode();
 					scn.AddAttachable(
 						new MeshAttachable(
-							Platform.Instance.Content.Load<Model>( _arrayMeshSceneNodesPrefab[scnp.Name].Mesh ), _arrayMeshSceneNodesPrefab[scnp.Name].GetMaterial( )
+							Platform.Instance.Content.Load<Model>( _arrayMeshSceneNodesPrefab[scnp.Name].Mesh ), _arrayMeshSceneNodesPrefab[scnp.Name].GetMaterial()
 							)
 						);
 					mainNode.AddChild( scn );
-					scn.SetScale( scn.GetScale( ) * scale );
+					scn.SetScale( scn.GetScale() * scale );
 
 					if ( scnp.Path != null && entity.PhysicsEntity.GetBodyFromPath( scnp.Path, i ) != null )
 					{
 						BodyController controller = new BodyController( scn, entity.PhysicsEntity.GetBodyFromPath( scnp.Path, i ) );
 						entity.Controllers.Add( controller );
 
-						ControllerRepository.Instance.RegisterController( Name, controller );
 						FrameUpdateManager.Instance.Register( controller );
 					}
 				}
@@ -187,7 +184,7 @@ namespace VertexArmy.GameWorld.Prefabs
 
 			foreach ( var cameraSceneNodePrefab in _cameraSceneNodesPrefab )
 			{
-				SceneNode scn = new SceneNode( );
+				SceneNode scn = new SceneNode();
 				scn.AddAttachable(
 					new CameraAttachable( cameraSceneNodePrefab.Value.LookingDirection,
 						cameraSceneNodePrefab.Value.UpVector,

@@ -97,7 +97,7 @@
     <Reference Include="System.Net" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Global\Behaviors\IUpdatable.cs" />
+    <Compile Include="Global\Behaviours\IUpdatable.cs" />
     <Compile Include="Audio\SoundPlayer.cs" />
     <Compile Include="Content\Materials\CelShading.cs" />
     <Compile Include="Content\Materials\RobotMaterial.cs" />
@@ -117,11 +117,12 @@
     <Compile Include="GameWorld\Prefabs\PrefabEntity.cs" />
     <Compile Include="GameWorld\Prefabs\Structs\ShapePrefab.cs" />
     <Compile Include="GameWorld\Prefabs\Structs\ShapeType.cs" />
-    <Compile Include="Global\Behaviors\IParameter.cs" />
+    <Compile Include="Global\Behaviours\IParameter.cs" />
     <Compile Include="Global\Controllers\CameraController.cs" />
+    <Compile Include="Global\Controllers\Components\Component.cs" />
     <Compile Include="Global\Controllers\ControllerParameterClasses.cs" />
     <Compile Include="Global\Controllers\RelativeController.cs" />
-    <Compile Include="Global\Behaviors\IController.cs" />
+    <Compile Include="Global\Behaviours\IController.cs" />
     <Compile Include="Global\Controllers\BodyController.cs" />
     <Compile Include="Global\Managers\FrameUpdateManager.cs" />
     <Compile Include="Global\Managers\PrefabRepository.cs" />
@@ -145,7 +146,7 @@
     <Compile Include="Levels\Level.cs" />
     <Compile Include="Levels\LevelChunk.cs" />
     <Compile Include="Levels\LevelManager.cs" />
-    <Compile Include="Global\Behaviors\ITransformable.cs" />
+    <Compile Include="Global\Behaviours\ITransformable.cs" />
     <Compile Include="Physics\DebugView\DebugViewXNA.cs" />
     <Compile Include="Physics\DebugView\PrimitiveBatch.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

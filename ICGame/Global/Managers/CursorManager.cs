@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using VertexArmy.Global.Behaviors;
+using VertexArmy.Global.Behaviours;
 using VertexArmy.Graphics;
 
 namespace VertexArmy.Global.Managers

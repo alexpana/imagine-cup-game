@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using VertexArmy.Global.Behaviors;
+using VertexArmy.Global.Behaviours;
 
 namespace VertexArmy.Global.Controllers
 {

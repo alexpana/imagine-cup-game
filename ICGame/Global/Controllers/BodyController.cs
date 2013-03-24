@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using FarseerPhysics.Dynamics;
 using Microsoft.Xna.Framework;
-using VertexArmy.Global.Behaviors;
+using VertexArmy.Global.Behaviours;
 using VertexArmy.Utilities;
 
 namespace VertexArmy.Global.Controllers
@@ -37,6 +37,16 @@ namespace VertexArmy.Global.Controllers
 								   };
 
 			Data = new List<IParameter> { transParam, bodyParam };
+		}
+
+		public Body Body
+		{
+			get { return ( ( ParameterBody ) Data[1] ).Value; }
+		}
+
+		public ITransformable Transformable
+		{
+			get { return ( ( ParameterTransformable ) Data[0] ).Value; }
 		}
 
 		public void Update( GameTime dt )

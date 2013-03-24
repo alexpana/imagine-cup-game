@@ -11,6 +11,7 @@ namespace VertexArmy.GameWorld
 	public class PhysicsEntity
 	{
 		private bool _enabled;
+		private bool _isActive;
 
 		private Dictionary<string, Body> _bodies;
 		private Dictionary<string, Joint> _joints;
@@ -23,13 +24,19 @@ namespace VertexArmy.GameWorld
 			get { return _z; }
 		}
 
+		public bool Active
+		{
+			get { return _isActive; }
+		}
+
 		public PhysicsEntity()
 		{
-			_bodies = new Dictionary<string, Body>( );
-			_joints = new Dictionary<string, Joint>( );
-			_paths = new Dictionary<string, PathEntity>( );
+			_bodies = new Dictionary<string, Body>();
+			_joints = new Dictionary<string, Joint>();
+			_paths = new Dictionary<string, PathEntity>();
 
 			_enabled = true;
+			_isActive = false;
 		}
 
 		public ICollection<Body> Bodies
@@ -90,22 +97,19 @@ namespace VertexArmy.GameWorld
 		public void AddBody( string name, Body body )
 		{
 			_bodies.Add( name, body );
-		}
-
-		public void AddBody( string name, Body body, bool main )
-		{
-			_bodies.Add( name, body );
+			_isActive = true;
 		}
 
 		public void AddJoint( string name, Joint joint )
 		{
 			_joints.Add( name, joint );
-
+			_isActive = true;
 		}
 
 		public void AddPath( string name, PathEntity path )
 		{
 			_paths.Add( name, path );
+			_isActive = true;
 		}
 
 		public Body GetBody( string name )
@@ -181,7 +185,7 @@ namespace VertexArmy.GameWorld
 			{
 				foreach ( var b in p.Bodies )
 				{
-					b.ResetDynamics( );
+					b.ResetDynamics();
 					b.SetTransform( b.Position + relative, b.Rotation );
 				}
 			}

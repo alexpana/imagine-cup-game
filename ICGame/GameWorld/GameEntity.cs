@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using FarseerPhysics.Dynamics;
 using Microsoft.Xna.Framework;
-using VertexArmy.Global.Behaviors;
+using VertexArmy.Global.Behaviours;
+using VertexArmy.Global.Controllers;
 using VertexArmy.Global.Managers;
 using VertexArmy.Graphics;
 using VertexArmy.Utilities;
@@ -14,7 +15,7 @@ namespace VertexArmy.GameWorld
 		public GameEntityFlags Flags { get; set; }
 
 		public PhysicsEntity PhysicsEntity;
-		public List<IController> Controllers;
+		public List<BodyController> Controllers;
 		public SceneNode MainNode;
 		public Body MainBody;
 
@@ -56,12 +57,10 @@ namespace VertexArmy.GameWorld
 
 		public void SetScale( Vector3 newScale )
 		{
-			/*
-			foreach ( IController c in Controllers )
+			foreach ( BodyController c in Controllers )
 			{
-				c.OutputTransformable.SetScale( newScale );
+				c.Transformable.SetScale( newScale );
 			}
-			 */
 		}
 
 		public Vector3 GetPosition()
@@ -72,7 +71,7 @@ namespace VertexArmy.GameWorld
 			}
 			else
 			{
-				return MainNode.GetPosition( );
+				return MainNode.GetPosition();
 			}
 
 		}
@@ -85,7 +84,7 @@ namespace VertexArmy.GameWorld
 			}
 			else
 			{
-				return MainNode.GetRotation( );
+				return MainNode.GetRotation();
 			}
 
 		}
@@ -98,7 +97,7 @@ namespace VertexArmy.GameWorld
 			}
 			else
 			{
-				return MainNode.GetRotationRadians( );
+				return MainNode.GetRotationRadians();
 			}
 		}
 
@@ -110,10 +109,10 @@ namespace VertexArmy.GameWorld
 
 		public void Remove()
 		{
-			PhysicsEntity.Remove( );
-			foreach ( IController tc in Controllers )
+			PhysicsEntity.Remove();
+			foreach ( BodyController tc in Controllers )
 			{
-				//ControllerRepository.Instance.UnregisterController( tc );
+				FrameUpdateManager.Instance.Unregister( tc );
 			}
 
 			SceneManager.Instance.UnregisterSceneTree( MainNode );

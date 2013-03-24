@@ -1,4 +1,4 @@
-﻿namespace VertexArmy.Global.Behaviors
+﻿namespace VertexArmy.Global.Behaviours
 {
 	public interface IParameter
 	{

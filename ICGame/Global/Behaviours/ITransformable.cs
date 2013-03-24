@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace VertexArmy.Global.Behaviors
+namespace VertexArmy.Global.Behaviours
 {
 	public interface ITransformable
 	{

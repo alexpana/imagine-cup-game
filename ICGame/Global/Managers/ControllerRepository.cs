@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using VertexArmy.Global.Behaviors;
+using VertexArmy.Global.Behaviours;
 
 namespace VertexArmy.Global.Managers
 {

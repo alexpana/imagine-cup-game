@@ -1,5 +1,5 @@
 ﻿using FarseerPhysics.Dynamics;
-using VertexArmy.Global.Behaviors;
+using VertexArmy.Global.Behaviours;
 using VertexArmy.Graphics;
 
 namespace VertexArmy.Global.Controllers

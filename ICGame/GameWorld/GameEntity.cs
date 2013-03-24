@@ -80,7 +80,7 @@ namespace VertexArmy.GameWorld
 		{
 			if ( MainBody != null )
 			{
-				return Quaternion.CreateFromAxisAngle( Vector3.UnitZ, MainBody.Rotation );
+				return UnitsConverter.To3DRotation( MainBody.Rotation );
 			}
 			else
 			{

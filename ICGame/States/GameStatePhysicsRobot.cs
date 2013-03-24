@@ -268,6 +268,11 @@ namespace VertexArmy.States
 			ControllerRepository.Instance.RegisterController( "attachment", controller );
 			FrameUpdateManager.Instance.Register( controller );
 
+
+			CameraController camControl = new CameraController( GameWorldManager.Instance.GetEntity( "robot1" ), SceneManager.Instance.GetCurrentCamera() );
+			ControllerRepository.Instance.RegisterController( "camcontrol", camControl );
+			FrameUpdateManager.Instance.Register( camControl );
+
 			Camera = GameWorldManager.Instance.GetEntity( "camera1" );
 
 			_cameraMoving = false;

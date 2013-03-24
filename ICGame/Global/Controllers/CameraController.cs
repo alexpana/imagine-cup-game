@@ -7,9 +7,11 @@ namespace VertexArmy.Global.Controllers
 {
 	public class CameraController : IController, IUpdatable
 	{
+		private Vector3 _delta = Vector3.Zero;
 		public CameraController( ITransformable transformable, CameraAttachable camera )
 		{
-			IParameter transParam = new ParameterTransformable {
+			IParameter transParam = new ParameterTransformable
+			{
 				Alive = true,
 				Input = true,
 				Null = false,
@@ -17,7 +19,8 @@ namespace VertexArmy.Global.Controllers
 				Value = transformable
 			};
 
-			IParameter cameraParam = new ParameterCamera {
+			IParameter cameraParam = new ParameterCamera
+			{
 				Alive = true,
 				Input = false,
 				Null = false,
@@ -36,7 +39,7 @@ namespace VertexArmy.Global.Controllers
 
 			if ( !ok ) return;
 
-			
+
 			List<IParameter> parameters = Data;
 			DirectCompute( ref parameters );
 		}
@@ -56,10 +59,17 @@ namespace VertexArmy.Global.Controllers
 
 
 			if ( !apply ) return;
-			//compute camera position relative to node position
 
-			int i = 0;
 
+
+			_delta = trans.Value.GetPosition() - camera.Value.Parent.GetPosition();
+
+
+			Vector3 lookingPosition = camera.Value.Parent.GetPosition() + _delta + new Vector3( -40, 40, 600 );
+			Vector3 lookingDirection = Vector3.Normalize( -lookingPosition + trans.Value.GetPosition() + new Vector3( 40, -40, 0 ) );
+
+			camera.Value.Parent.SetPosition( lookingPosition );
+			camera.Value.LookingDirection = lookingDirection;
 		}
 
 		public List<IParameter> Data { get; set; }

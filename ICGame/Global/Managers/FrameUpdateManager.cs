@@ -16,30 +16,32 @@ namespace VertexArmy.Global.Managers
 		private readonly List<IUpdatable> _updatables = new List<IUpdatable>();
 
 
-		public void Register(IUpdatable obj)
+		public void Register( IUpdatable obj )
 		{
-			if( !_updatables.Contains(obj) )
-				_updatables.Add(obj);
+			if ( !_updatables.Contains( obj ) )
+			{
+				_updatables.Add( obj );
+			}
 		}
 
-		public void Unregister(IUpdatable obj)
+		public void Unregister( IUpdatable obj )
 		{
-			_updatables.Remove(obj);
+			_updatables.Remove( obj );
 		}
 
-		public void Update(GameTime dTime)
+		public void Update( GameTime dTime )
 		{
 			foreach ( IUpdatable updatable in _updatables )
 			{
-				Debug.Assert(updatable != null, "updatable != null");
-				updatable.Update(dTime);
+				Debug.Assert( updatable != null, "updatable != null" );
+				updatable.Update( dTime );
 			}
 		}
 
 		private static class FrameUpdateManagerInstanceHolder
 		{
 			// ReSharper disable MemberHidesStaticFromOuterClass
-			public static readonly FrameUpdateManager Instance = new FrameUpdateManager( );
+			public static readonly FrameUpdateManager Instance = new FrameUpdateManager();
 			// ReSharper restore MemberHidesStaticFromOuterClass
 		}
 	}

@@ -58,7 +58,6 @@ namespace VertexArmy.Global.Controllers
 
 			if ( !ok ) return;
 
-
 			float rotationDelta = Math.Abs( body.Value.Rotation - _lastBodyRotation );
 			float positionDelta = ( body.Value.Position - _lastBodyPosition ).LengthSquared();
 

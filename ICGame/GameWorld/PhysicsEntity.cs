@@ -228,6 +228,24 @@ namespace VertexArmy.GameWorld
 			}
 		}
 
+		public void IgnoreCollisionWith( Body body )
+		{
+			foreach ( Body b in Bodies )
+			{
+				b.IgnoreCollisionWith( body );
+				body.IgnoreCollisionWith( b );
+			}
+
+			foreach ( var p in _paths.Values )
+			{
+				foreach ( var b in p.Bodies )
+				{
+					b.IgnoreCollisionWith( body );
+					body.IgnoreCollisionWith( b );
+				}
+			}
+		}
+
 		public void Remove()
 		{
 			foreach ( Body b in Bodies )

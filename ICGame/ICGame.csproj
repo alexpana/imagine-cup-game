@@ -127,6 +127,7 @@
     <Compile Include="Global\Behaviours\IController.cs" />
     <Compile Include="Global\Controllers\BodyController.cs" />
     <Compile Include="Global\Managers\FrameUpdateManager.cs" />
+    <Compile Include="Global\Managers\PhysicsContactManager.cs" />
     <Compile Include="Global\Managers\PrefabRepository.cs" />
     <Compile Include="Global\Managers\MaterialRepository.cs" />
     <Compile Include="Global\Managers\GameWorldManager.cs" />

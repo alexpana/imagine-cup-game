@@ -12,6 +12,7 @@ namespace VertexArmy.GameWorld.Prefabs.Structs
 		public bool Static { get; set; }
 		public float Friction { get; set; }
 		public float Restitution { get; set; }
+		public short CollisionGroup { get; set; }
 		public Vector2 LocalPosition;
 
 		public List<ShapePrefab> Shapes;
@@ -29,6 +30,8 @@ namespace VertexArmy.GameWorld.Prefabs.Structs
 			{
 				sp.AttachToBody( pBody, scale );
 			}
+
+			pBody.CollisionGroup = CollisionGroup;
 
 			return pBody;
 		}

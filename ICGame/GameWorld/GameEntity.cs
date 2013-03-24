@@ -23,6 +23,13 @@ namespace VertexArmy.GameWorld
 		private Dictionary<string, BaseComponent> _componentsByName;
 		private Dictionary<ComponentType, List<BaseComponent>> _componentsByType;
 
+		public void init()
+		{
+			PhysicsEntity = new PhysicsEntity();
+			Controllers = new List<BodyController>();
+			_componentsByName = new Dictionary<string, BaseComponent>();
+			_componentsByType = new Dictionary<ComponentType, List<BaseComponent>>();
+		}
 
 		public void RegisterComponent( string name, BaseComponent component )
 		{
@@ -32,13 +39,14 @@ namespace VertexArmy.GameWorld
 
 				if ( !_componentsByType.ContainsKey( component.Type ) )
 				{
-					_componentsByType = new Dictionary<ComponentType, List<BaseComponent>>();
+					_componentsByType.Add( component.Type, new List<BaseComponent>() );
 				}
 
 				_componentsByType[component.Type].Add( component );
+				FrameUpdateManager.Instance.Register( component );
+				component.Entity = this;
+				component.InitEntity();
 			}
-
-			FrameUpdateManager.Instance.Register( component );
 		}
 
 		public void UnregisterComponent( string name )

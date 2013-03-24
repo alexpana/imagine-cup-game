@@ -23,7 +23,8 @@ namespace VertexArmy.Content.Prefabs
 				Restitution = 0.1f,
 				LocalPosition = new Vector2( -27.93f, -20.13f ),
 				Static = false,
-				Shapes = new List<ShapePrefab> { gearShape }
+				Shapes = new List<ShapePrefab> { gearShape },
+				CollisionGroup = 69
 			};
 
 			BodyPrefab gear2 = new BodyPrefab
@@ -33,7 +34,8 @@ namespace VertexArmy.Content.Prefabs
 				Restitution = 0.1f,
 				LocalPosition = new Vector2( 27.93f, -20.13f ),
 				Static = false,
-				Shapes = new List<ShapePrefab> { gearShape }
+				Shapes = new List<ShapePrefab> { gearShape },
+				CollisionGroup = 69
 			};
 
 			BodyPrefab gear3 = new BodyPrefab
@@ -43,7 +45,8 @@ namespace VertexArmy.Content.Prefabs
 				Restitution = 0.1f,
 				LocalPosition = new Vector2( 0f, 28.25f ),
 				Static = false,
-				Shapes = new List<ShapePrefab> { gearShape }
+				Shapes = new List<ShapePrefab> { gearShape },
+				CollisionGroup = 69
 			};
 
 			robot.RegisterBody( gear1 );
@@ -51,7 +54,7 @@ namespace VertexArmy.Content.Prefabs
 			robot.RegisterBody( gear3 );
 
 			/* chassis body */
-			ShapePrefab chassisShape = new ShapePrefab { Type = ShapeType.Polygon, Density = 1f, Polygon = new List<Vertices> { new Vertices( ) } };
+			ShapePrefab chassisShape = new ShapePrefab { Type = ShapeType.Polygon, Density = 1f, Polygon = new List<Vertices> { new Vertices() } };
 			chassisShape.Polygon[0].Add( new Vector2( -15.41f, -13.87f ) );
 			chassisShape.Polygon[0].Add( new Vector2( 0f, 13.74f ) );
 			chassisShape.Polygon[0].Add( new Vector2( 15.41f, -13.87f ) );
@@ -63,7 +66,8 @@ namespace VertexArmy.Content.Prefabs
 				Friction = 1f,
 				LocalPosition = Vector2.Zero,
 				Static = false,
-				Shapes = new List<ShapePrefab> { chassisShape }
+				Shapes = new List<ShapePrefab> { chassisShape },
+				CollisionGroup = 69
 			};
 
 			robot.RegisterBody( chassis, true ); // is main body
@@ -141,7 +145,8 @@ namespace VertexArmy.Content.Prefabs
 				Name = "Link",
 				Shapes = new List<ShapePrefab> { linkShape, linkFeetShape },
 				Friction = 0.1f,
-				Restitution = 0f
+				Restitution = 0f,
+				CollisionGroup = 69
 			};
 
 			PathPrefab track = new PathPrefab
@@ -205,7 +210,6 @@ namespace VertexArmy.Content.Prefabs
 			};
 
 			robot.RegisterMeshSceneNode( chassisNode );
-
 
 			ArrayMeshSceneNodePrefab linkNode = new ArrayMeshSceneNodePrefab
 			{

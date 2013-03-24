@@ -78,8 +78,7 @@ namespace VertexArmy.GameWorld.Prefabs
 		{
 			GameEntity obj = new GameEntity();
 
-			obj.PhysicsEntity = new PhysicsEntity();
-			obj.Controllers = new List<BodyController>();
+			obj.init();
 
 			obj.Name = Name;
 			obj.Flags = Flags;

@@ -8,6 +8,11 @@ namespace VertexArmy.Global.Controllers.Components
 	public abstract class BaseComponent : IController, IUpdatable
 	{
 		public GameEntity Entity { get; set; }
+
+		public virtual void InitEntity()
+		{
+		}
+
 		protected ComponentType _type;
 
 		public ComponentType Type

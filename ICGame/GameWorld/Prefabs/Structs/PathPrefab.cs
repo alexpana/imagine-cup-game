@@ -34,17 +34,17 @@ namespace VertexArmy.GameWorld.Prefabs.Structs
 
 		public PathEntity GetPathEntity( float scale )
 		{
-			PathEntity pathEntity = new PathEntity( );
-			List<Shape> shapes = new List<Shape>( );
+			PathEntity pathEntity = new PathEntity();
+			List<Shape> shapes = new List<Shape>();
 			Body b = Body.GetPhysicsBody( scale );
 
 			foreach ( var fix in b.FixtureList )
 			{
 				shapes.Add( fix.Shape );
 			}
-			Platform.Instance.PhysicsWorld.RemoveBody( b );
 
-			Path p = new Path( );
+
+			Path p = new Path();
 			foreach ( Vector2 node in Path )
 			{
 				p.Add( UnitsConverter.ToSimUnits( node ) * scale );
@@ -57,6 +57,13 @@ namespace VertexArmy.GameWorld.Prefabs.Structs
 				Body.Static ? BodyType.Static : BodyType.Dynamic,
 				BodyCount + 1
 			);
+
+			foreach ( var link in pathEntity.Bodies )
+			{
+				link.CollisionGroup = b.FixtureList[0].CollisionGroup;
+			}
+
+			Platform.Instance.PhysicsWorld.RemoveBody( b );
 
 			switch ( JointType )
 			{
@@ -90,7 +97,7 @@ namespace VertexArmy.GameWorld.Prefabs.Structs
 					return pathEntity;
 			}
 
-			return new PathEntity( );
+			return new PathEntity();
 		}
 	}
 }

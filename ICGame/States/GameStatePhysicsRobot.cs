@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Input;
 using VertexArmy.GameWorld;
 using VertexArmy.Global;
 using VertexArmy.Global.Controllers;
+using VertexArmy.Global.Controllers.Components;
 using VertexArmy.Global.Managers;
 using VertexArmy.Physics.DebugView;
 
@@ -255,19 +256,17 @@ namespace VertexArmy.States
 
 			//Camera
 			GameWorldManager.Instance.SpawnEntity( "camera", "camera1", new Vector3( 0, -1300, 600 ) );
-			GameWorldManager.Instance.SpawnEntity( "robot", "robot1", new Vector3( 0f, -1000f, 0f ), 1.2f );
-
-			GameWorldManager.Instance.SpawnEntity( "crate", "crate", new Vector3( -100f, 800f, 0f ), 1f );
+			GameWorldManager.Instance.SpawnEntity( "robot", "robot1", new Vector3( -400f, -1000f, 0f ), 1.2f );
+			GameWorldManager.Instance.SpawnEntity( "crate", "crate", new Vector3( 500f, -1200f, 0f ), 1.5f );
+			GameWorldManager.Instance.SpawnEntity( "crate", "crate", new Vector3( 500f, -1200f, 0f ), 1.5f );
+			GameWorldManager.Instance.SpawnEntity( "crate", "crate2", new Vector3( 500f, -1100f, 0f ), 1.4f );
+			GameWorldManager.Instance.SpawnEntity( "crate", "crate3", new Vector3( 500f, -1000f, 0f ), 1.3f );
+			GameWorldManager.Instance.SpawnEntity( "crate", "crate4", new Vector3( 500f, -900f, 0f ), 1.2f );
+			GameWorldManager.Instance.SpawnEntity( "crate", "crate5", new Vector3( 500f, -850f, 0f ), 1.1f );
 			Robot = GameWorldManager.Instance.GetEntity( "robot1" );
 			Robot.PhysicsEntity.Enabled = true;
 
-			GameWorldManager.Instance.SpawnEntity( "crate", "mesh1", new Vector3( 0f, -1000f, 0f ) );
-			GameWorldManager.Instance.GetEntity( "mesh1" ).PhysicsEntity.Enabled = false;
-
-			RelativeController controller = new RelativeController( GameWorldManager.Instance.GetEntity( "mesh1" ), Robot, new Vector3( 0f, 0f, 100f ) );
-			ControllerRepository.Instance.RegisterController( "attachment", controller );
-			FrameUpdateManager.Instance.Register( controller );
-
+			Robot.RegisterComponent( "force", new SentientForceComponent() );
 
 			CameraController camControl = new CameraController( GameWorldManager.Instance.GetEntity( "robot1" ), SceneManager.Instance.GetCurrentCamera() );
 			ControllerRepository.Instance.RegisterController( "camcontrol", camControl );

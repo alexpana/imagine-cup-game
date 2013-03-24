@@ -9,12 +9,12 @@ namespace VertexArmy.Global.Managers
 	public class SceneManager
 	{
 		private static volatile SceneManager _instance;
-		private static readonly object _syncRoot = new Object( );
+		private static readonly object _syncRoot = new Object();
 
-		private readonly List<SceneNode> _registeredNodes = new List<SceneNode>( );
+		private readonly List<SceneNode> _registeredNodes = new List<SceneNode>();
 
-		private readonly List<CameraAttachable> _sceneCameras = new List<CameraAttachable>( );
-		private readonly List<LightAttachable> _sceneLights = new List<LightAttachable>( );
+		private readonly List<CameraAttachable> _sceneCameras = new List<CameraAttachable>();
+		private readonly List<LightAttachable> _sceneLights = new List<LightAttachable>();
 
 
 		public static SceneManager Instance
@@ -26,7 +26,7 @@ namespace VertexArmy.Global.Managers
 					lock ( _syncRoot )
 					{
 						if ( _instance == null )
-							_instance = new SceneManager( );
+							_instance = new SceneManager();
 					}
 				}
 				return _instance;
@@ -35,21 +35,21 @@ namespace VertexArmy.Global.Managers
 
 		public void Clear()
 		{
-			_registeredNodes.Clear( );
-			_sceneCameras.Clear( );
-			_sceneLights.Clear( );
+			_registeredNodes.Clear();
+			_sceneCameras.Clear();
+			_sceneLights.Clear();
 		}
 
 		public void RegisterSceneTree( SceneNode node )
 		{
 
-			Queue<SceneNode> knodes = new Queue<SceneNode>( );
+			Queue<SceneNode> knodes = new Queue<SceneNode>();
 
 			knodes.Enqueue( node );
 
 			while ( knodes.Count != 0 )
 			{
-				SceneNode head = knodes.Dequeue( );
+				SceneNode head = knodes.Dequeue();
 
 				/* protect against multiple register */
 				if ( _registeredNodes.Contains( head ) )
@@ -77,13 +77,13 @@ namespace VertexArmy.Global.Managers
 
 		public void UnregisterSceneTree( SceneNode node )
 		{
-			Queue<SceneNode> knodes = new Queue<SceneNode>( );
+			Queue<SceneNode> knodes = new Queue<SceneNode>();
 
 			knodes.Enqueue( node );
 
 			while ( knodes.Count != 0 )
 			{
-				SceneNode head = knodes.Dequeue( );
+				SceneNode head = knodes.Dequeue();
 
 				_registeredNodes.Remove( head );
 
@@ -105,18 +105,23 @@ namespace VertexArmy.Global.Managers
 			}
 		}
 
+		public CameraAttachable GetCurrentCamera()
+		{
+			return _sceneCameras[0];
+		}
+
 		public void Render( float dt )
 		{
-			if(_sceneCameras.Count == 0)
+			if ( _sceneCameras.Count == 0 )
 				return;
 
 			Platform.Instance.Device.BlendState = new BlendState();
 
-			
+
 			CameraAttachable currentCam = _sceneCameras[0];
-			
+
 			Renderer.Instance.LoadMatrix( EMatrix.Projection, currentCam.GetPerspectiveMatrix() );
-			Renderer.Instance.LoadMatrix( EMatrix.View, currentCam.GetViewMatrix());
+			Renderer.Instance.LoadMatrix( EMatrix.View, currentCam.GetViewMatrix() );
 
 
 			Renderer.Instance.SetParameter( "eyePosition", currentCam.Parent.GetPosition() );
@@ -124,7 +129,7 @@ namespace VertexArmy.Global.Managers
 
 			foreach ( var registeredNode in _registeredNodes )
 			{
-				Renderer.Instance.LoadMatrix( EMatrix.World, registeredNode.GetAbsoluteTransformation( ) );
+				Renderer.Instance.LoadMatrix( EMatrix.World, registeredNode.GetAbsoluteTransformation() );
 				Renderer.Instance.SetParameter( "matWorld", Renderer.Instance.MatWorld );
 				Renderer.Instance.SetParameter( "matWorldInverseTranspose", Renderer.Instance.MatWorldInverseTranspose );
 				Renderer.Instance.SetParameter( "matWorldViewProj", Renderer.Instance.MatWorldViewProjection );

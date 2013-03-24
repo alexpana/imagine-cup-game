@@ -184,8 +184,7 @@ namespace VertexArmy.GameWorld.Prefabs
 
 			foreach ( var cameraSceneNodePrefab in _cameraSceneNodesPrefab )
 			{
-				SceneNode scn = new SceneNode();
-				scn.AddAttachable(
+				mainNode.AddAttachable(
 					new CameraAttachable( cameraSceneNodePrefab.Value.LookingDirection,
 						cameraSceneNodePrefab.Value.UpVector,
 						cameraSceneNodePrefab.Value.Near,
@@ -193,7 +192,6 @@ namespace VertexArmy.GameWorld.Prefabs
 						cameraSceneNodePrefab.Value.Fov,
 						cameraSceneNodePrefab.Value.AspectRatio )
 					);
-				mainNode.AddChild( scn );
 			}
 
 			/* finish main node */

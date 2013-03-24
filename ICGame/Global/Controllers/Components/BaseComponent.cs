@@ -5,17 +5,14 @@ using VertexArmy.Global.Behaviours;
 
 namespace VertexArmy.Global.Controllers.Components
 {
-	public abstract class Component : IController, IUpdatable
+	public abstract class BaseComponent : IController, IUpdatable
 	{
-		private readonly GameEntity _entity;
-		public GameEntity Entity
-		{
-			get { return _entity; }
-		}
+		public GameEntity Entity { get; set; }
+		protected ComponentType _type;
 
-		public Component( GameEntity entity )
+		public ComponentType Type
 		{
-			_entity = entity;
+			get { return _type; }
 		}
 
 		public virtual void Update( GameTime dt )

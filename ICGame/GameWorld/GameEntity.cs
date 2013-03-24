@@ -3,6 +3,7 @@ using FarseerPhysics.Dynamics;
 using Microsoft.Xna.Framework;
 using VertexArmy.Global.Behaviours;
 using VertexArmy.Global.Controllers;
+using VertexArmy.Global.Controllers.Components;
 using VertexArmy.Global.Managers;
 using VertexArmy.Graphics;
 using VertexArmy.Utilities;
@@ -15,9 +16,42 @@ namespace VertexArmy.GameWorld
 		public GameEntityFlags Flags { get; set; }
 
 		public PhysicsEntity PhysicsEntity;
+		public Body MainBody;
 		public List<BodyController> Controllers;
 		public SceneNode MainNode;
-		public Body MainBody;
+
+		private Dictionary<string, BaseComponent> _componentsByName;
+		private Dictionary<ComponentType, List<BaseComponent>> _componentsByType;
+
+
+		public void RegisterComponent( string name, BaseComponent component )
+		{
+			if ( !_componentsByName.ContainsKey( name ) )
+			{
+				_componentsByName.Add( name, component );
+
+				if ( !_componentsByType.ContainsKey( component.Type ) )
+				{
+					_componentsByType = new Dictionary<ComponentType, List<BaseComponent>>();
+				}
+
+				_componentsByType[component.Type].Add( component );
+			}
+
+			FrameUpdateManager.Instance.Register( component );
+		}
+
+		public void UnregisterComponent( string name )
+		{
+			if ( _componentsByName.ContainsKey( name ) )
+			{
+				BaseComponent c = _componentsByName[name];
+				_componentsByType[c.Type].Remove( c );
+				_componentsByName.Remove( name );
+
+				FrameUpdateManager.Instance.Unregister( c );
+			}
+		}
 
 		public void SetPosition( Vector3 newPos )
 		{

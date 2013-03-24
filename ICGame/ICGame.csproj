@@ -119,7 +119,9 @@
     <Compile Include="GameWorld\Prefabs\Structs\ShapeType.cs" />
     <Compile Include="Global\Behaviours\IParameter.cs" />
     <Compile Include="Global\Controllers\CameraController.cs" />
-    <Compile Include="Global\Controllers\Components\Component.cs" />
+    <Compile Include="Global\Controllers\Components\BaseComponent.cs" />
+    <Compile Include="Global\Controllers\Components\ComponentType.cs" />
+    <Compile Include="Global\Controllers\Components\SentientForceComponent.cs" />
     <Compile Include="Global\Controllers\ControllerParameterClasses.cs" />
     <Compile Include="Global\Controllers\RelativeController.cs" />
     <Compile Include="Global\Behaviours\IController.cs" />

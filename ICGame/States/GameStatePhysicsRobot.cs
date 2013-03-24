@@ -258,7 +258,6 @@ namespace VertexArmy.States
 			GameWorldManager.Instance.SpawnEntity( "camera", "camera1", new Vector3( 0, -1300, 600 ) );
 			GameWorldManager.Instance.SpawnEntity( "robot", "robot1", new Vector3( -400f, -1000f, 0f ), 1.2f );
 			GameWorldManager.Instance.SpawnEntity( "crate", "crate", new Vector3( 500f, -1200f, 0f ), 1.5f );
-			GameWorldManager.Instance.SpawnEntity( "crate", "crate", new Vector3( 500f, -1200f, 0f ), 1.5f );
 			GameWorldManager.Instance.SpawnEntity( "crate", "crate2", new Vector3( 500f, -1100f, 0f ), 1.4f );
 			GameWorldManager.Instance.SpawnEntity( "crate", "crate3", new Vector3( 500f, -1000f, 0f ), 1.3f );
 			GameWorldManager.Instance.SpawnEntity( "crate", "crate4", new Vector3( 500f, -900f, 0f ), 1.2f );

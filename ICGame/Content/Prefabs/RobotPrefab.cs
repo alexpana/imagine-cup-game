@@ -175,7 +175,7 @@ namespace VertexArmy.Content.Prefabs
 			{
 				Name = "Gear1",
 				Mesh = "models/robo_wheel",
-				Material = "RobotMaterial",
+				Material = "CelShadingMaterial",
 				Body = "Gear1"
 			};
 
@@ -183,7 +183,7 @@ namespace VertexArmy.Content.Prefabs
 			{
 				Name = "Gear2",
 				Mesh = "models/robo_wheel",
-				Material = "RobotMaterial",
+				Material = "CelShadingMaterial",
 				Body = "Gear2"
 			};
 
@@ -191,7 +191,7 @@ namespace VertexArmy.Content.Prefabs
 			{
 				Name = "Gear3",
 				Mesh = "models/robo_wheel",
-				Material = "RobotMaterial",
+				Material = "CelShadingMaterial",
 				Body = "Gear3"
 			};
 
@@ -205,7 +205,7 @@ namespace VertexArmy.Content.Prefabs
 			{
 				Name = "Chassis",
 				Mesh = "models/robo_link",
-				Material = "RobotMaterial",
+				Material = "CelShadingMaterial",
 				Body = "Chassis"
 			};
 
@@ -215,7 +215,7 @@ namespace VertexArmy.Content.Prefabs
 			{
 				Name = "Links",
 				Mesh = "models/robo_link",
-				Material = "RobotMaterial",
+				Material = "CelShadingMaterial",
 
 				Path = "Track",
 				StartIndex = 0,

@@ -5,6 +5,7 @@ using FarseerPhysics.Dynamics;
 using FarseerPhysics.Dynamics.Contacts;
 using FarseerPhysics.Factories;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 using VertexArmy.Global.Behaviours;
 using VertexArmy.Global.Managers;
 using VertexArmy.Utilities;
@@ -15,14 +16,38 @@ namespace VertexArmy.Global.Controllers.Components
 	{
 		public const float Distance = 500f;
 		public const float Angle = 0.5f;
-		public const float Force = 1f;
+		public const float AttractionForce = 10f;
+		public const float RepulsiveForce = 10f;
 
 		private Vector2 _oldPosition;
+		private float _distanceSim;
 
 		public Body Cone;
 
-		public SentientForceComponent()
+		public SentientForceComponent( ITransformable pointingDirection )
 		{
+			Data = new List<IParameter>();
+			IParameter followParam = new ParameterTransformable
+			{
+				Alive = true,
+				Input = true,
+				Null = ( pointingDirection == null ),
+				Output = false,
+				Value = pointingDirection
+			};
+
+			IParameter dTimeParam = new ParameterGameTime
+			{
+				Alive = true,
+				Input = true,
+				Null = false,
+				Output = false,
+				Value = null
+			};
+
+			Data.Add( followParam );
+			Data.Add( dTimeParam );
+
 			_type = ComponentType.SentientForce;
 
 			float distance = UnitsConverter.ToSimUnits( Distance );
@@ -44,6 +69,7 @@ namespace VertexArmy.Global.Controllers.Components
 			FixtureFactory.AttachPolygon( coneShape, 0f, Cone );
 
 			_oldPosition = Vector2.Zero;
+			_distanceSim = UnitsConverter.ToSimUnits( Distance );
 		}
 
 		public override void InitEntity()
@@ -55,6 +81,7 @@ namespace VertexArmy.Global.Controllers.Components
 
 		public override void Update( GameTime dt )
 		{
+			( ( ParameterGameTime ) ( Data[1] ) ).Value = dt;
 			List<IParameter> parameters = Data;
 			DirectCompute( ref parameters );
 		}
@@ -63,19 +90,49 @@ namespace VertexArmy.Global.Controllers.Components
 		{
 			if ( Entity != null )
 			{
+				ParameterTransformable followTransformable = data[0] as ParameterTransformable;
 				_oldPosition = Cone.Position;
 				Vector3 newPosition3D = UnitsConverter.ToSimUnits( Entity.GetPosition() );
 				Cone.Position = new Vector2( newPosition3D.X, newPosition3D.Y );
-				Cone.Rotation = Entity.GetRotationRadians();
+
+				bool applyFollow = followTransformable != null && !followTransformable.Null;
+				applyFollow = applyFollow && followTransformable.Alive && followTransformable.Value != null;
+
+				if ( applyFollow )
+				{
+					//double dTime = ( data[1] as ParameterGameTime ).Value.ElapsedGameTime.TotalSeconds;
+
+					Vector3 followPosition3D = UnitsConverter.ToSimUnits( followTransformable.Value.GetPosition() );
+					Vector2 followPosition = new Vector2( followPosition3D.X, followPosition3D.Y );
+
+					Vector2 direction = followPosition - Cone.Position;
+					direction.Normalize();
+
+					Cone.Rotation = ( float ) Math.Acos( direction.X ) * Math.Sign( ( float ) Math.Asin( direction.Y ) );
+				}
+				else
+				{
+					Cone.Rotation = Entity.GetRotationRadians();
+				}
 			}
 		}
 
 		public bool BeginContact( Contact c )
 		{
-			Vector2 forceDirection = _oldPosition - c.FixtureA.Body.Position;
-			float ratio = forceDirection.Length() * 100 / Distance;
-			forceDirection.Normalize();
-			c.FixtureA.Body.ApplyForce( forceDirection * ratio * Force );
+			if ( Mouse.GetState().LeftButton.Equals( ButtonState.Pressed ) )
+			{
+				Vector2 forceDirection = _oldPosition - c.FixtureA.Body.Position;
+				float ratio = 1 - ( forceDirection.Length() / _distanceSim );
+				forceDirection.Normalize();
+				c.FixtureA.Body.ApplyForce( forceDirection * ratio * AttractionForce );
+			}
+			else if ( Mouse.GetState().RightButton.Equals( ButtonState.Pressed ) )
+			{
+				Vector2 forceDirection = c.FixtureA.Body.Position - _oldPosition;
+				float ratio = 1 - ( forceDirection.Length() / _distanceSim );
+				forceDirection.Normalize();
+				c.FixtureA.Body.ApplyForce( forceDirection * ratio * RepulsiveForce );
+			}
 
 			return false;
 		}

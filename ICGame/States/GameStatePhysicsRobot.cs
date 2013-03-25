@@ -169,6 +169,7 @@ namespace VertexArmy.States
 
 				_debugView.DrawString( 1, 1, "(R)eset, (F)reeze, (D)ebug to toggle debugview, Arrows to move." );
 				_debugView.DrawString( 1, 20, "(S) to spawn/unspawn, O,P to rotate." );
+				_debugView.DrawString( 1, 39, "Mouse:" + Mouse.GetState().X + ", " + Mouse.GetState().Y );
 				//_debugView.DrawString( 1, 26, "Speed: " + _robot.RobotPhysics.Speed );
 				//_debugView.DrawString( 1, 51, "MaxSpeed:" + _robot.RobotPhysics.MaxAttainedSpeed );
 				_debugView.RenderDebugData( ref _projection, ref _view );
@@ -256,7 +257,7 @@ namespace VertexArmy.States
 
 			//Camera
 			GameWorldManager.Instance.SpawnEntity( "camera", "camera1", new Vector3( 0, -1300, 600 ) );
-			GameWorldManager.Instance.SpawnEntity( "robot", "robot1", new Vector3( -400f, -1000f, 0f ), 1.2f );
+			GameWorldManager.Instance.SpawnEntity( "robot", "robot1", new Vector3( -400f, -1000f, 0f ), 2f );
 			GameWorldManager.Instance.SpawnEntity( "crate", "crate", new Vector3( 500f, -1200f, 0f ), 1.5f );
 			GameWorldManager.Instance.SpawnEntity( "crate", "crate2", new Vector3( 500f, -1100f, 0f ), 1.4f );
 			GameWorldManager.Instance.SpawnEntity( "crate", "crate3", new Vector3( 500f, -1000f, 0f ), 1.3f );
@@ -265,7 +266,11 @@ namespace VertexArmy.States
 			Robot = GameWorldManager.Instance.GetEntity( "robot1" );
 			Robot.PhysicsEntity.Enabled = true;
 
-			Robot.RegisterComponent( "force", new SentientForceComponent() );
+			Robot.RegisterComponent( "force", new SentientForceComponent( CursorManager.Instance.SceneNode ) );
+
+			GameWorldManager.Instance.GetEntity( "crate5" ).PhysicsEntity.Enabled = false;
+			RelativeController cursorController = new RelativeController( GameWorldManager.Instance.GetEntity( "crate5" ), CursorManager.Instance.SceneNode );
+			FrameUpdateManager.Instance.Register( cursorController );
 
 			CameraController camControl = new CameraController( GameWorldManager.Instance.GetEntity( "robot1" ), SceneManager.Instance.GetCurrentCamera() );
 			ControllerRepository.Instance.RegisterController( "camcontrol", camControl );

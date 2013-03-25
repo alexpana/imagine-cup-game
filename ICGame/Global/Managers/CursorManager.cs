@@ -32,7 +32,7 @@ namespace VertexArmy.Global.Managers
 
 	internal class CursorManager
 	{
-		private readonly Dictionary<CursorType, Cursor> _cursors = new Dictionary<CursorType, Cursor>( );
+		private readonly Dictionary<CursorType, Cursor> _cursors = new Dictionary<CursorType, Cursor>();
 		private Cursor _activeCursor;
 		private Vector2 _cursorPosition;
 		private readonly SpriteBatch _tempSpriteBatch;
@@ -46,7 +46,7 @@ namespace VertexArmy.Global.Managers
 
 		public static CursorManager Instance
 		{
-			get { return _instance ?? ( _instance = new CursorManager( ) ); }
+			get { return _instance ?? ( _instance = new CursorManager() ); }
 		}
 
 		public ITransformable SceneNode
@@ -56,8 +56,8 @@ namespace VertexArmy.Global.Managers
 
 		private CursorManager()
 		{
-			Initialize( );
-			_cursorNode = new SceneNode( );
+			Initialize();
+			_cursorNode = new SceneNode();
 			_tempSpriteBatch = new SpriteBatch( Platform.Instance.Device );
 		}
 
@@ -86,11 +86,8 @@ namespace VertexArmy.Global.Managers
 
 		public void Update()
 		{
-			_cursorPosition.X = Mouse.GetState( ).X;
-			_cursorPosition.Y = Mouse.GetState( ).Y;
-
-			// TODO (Must do raycast and get correct x and y)
-			_cursorNode.SetPosition( new Vector3( _cursorPosition, 0f ) );
+			_cursorPosition.X = Mouse.GetState().X;
+			_cursorPosition.Y = Mouse.GetState().Y;
 		}
 
 		public void Render()

@@ -62,7 +62,7 @@ namespace VertexArmy.Global.Managers
 		{
 			foreach ( string entityName in _entities.Keys )
 			{
-				RemoveEntity( entityName );
+				_entities[entityName].Remove();
 			}
 
 			_entities.Clear();

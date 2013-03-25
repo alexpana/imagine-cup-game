@@ -1,8 +1,6 @@
 using System.Collections.Generic;
 using FarseerPhysics.Dynamics;
-using Microsoft.Xna.Framework.Graphics;
 using VertexArmy.GameWorld.Prefabs.Structs;
-using VertexArmy.Global;
 using VertexArmy.Global.Controllers;
 using VertexArmy.Global.Managers;
 using VertexArmy.Graphics;
@@ -127,12 +125,8 @@ namespace VertexArmy.GameWorld.Prefabs
 			/* rest of nodes */
 			foreach ( MeshSceneNodePrefab scnp in _sceneNodesPrefab.Values )
 			{
-				SceneNode scn = new SceneNode();
-				scn.AddAttachable(
-					new MeshAttachable(
-						Platform.Instance.Content.Load<Model>( _sceneNodesPrefab[scnp.Name].Mesh ), _sceneNodesPrefab[scnp.Name].GetMaterial()
-						)
-					);
+				SceneNode scn = scnp.GetSceneNode();
+
 				mainNode.AddChild( scn );
 				scn.SetScale( scn.GetScale() * scale );
 
@@ -162,12 +156,7 @@ namespace VertexArmy.GameWorld.Prefabs
 			{
 				for ( int i = scnp.StartIndex; i <= scnp.EndIndex; i++ )
 				{
-					SceneNode scn = new SceneNode();
-					scn.AddAttachable(
-						new MeshAttachable(
-							Platform.Instance.Content.Load<Model>( _arrayMeshSceneNodesPrefab[scnp.Name].Mesh ), _arrayMeshSceneNodesPrefab[scnp.Name].GetMaterial()
-							)
-						);
+					SceneNode scn = scnp.GetSceneNode();
 					mainNode.AddChild( scn );
 					scn.SetScale( scn.GetScale() * scale );
 

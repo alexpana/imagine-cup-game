@@ -299,6 +299,13 @@ namespace VertexArmy.States
 
 		public override void OnClose()
 		{
+			GameWorldManager.Instance.Clear();
+			ControllerRepository.Instance.Clear();
+			PhysicsContactManager.Instance.Clear();
+			FrameUpdateManager.Instance.Clear();
+			Platform.Instance.PhysicsWorld.Clear();
+			SceneManager.Instance.Clear();
+
 			_contentManager.Unload();
 		}
 	}

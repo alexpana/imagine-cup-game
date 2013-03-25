@@ -6,5 +6,6 @@ namespace VertexArmy.Global.Behaviours
 	{
 		void DirectCompute( ref List<IParameter> data );
 		List<IParameter> Data { get; set; }
+		void Clean();
 	}
 }

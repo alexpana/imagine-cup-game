@@ -38,6 +38,11 @@ namespace VertexArmy.Global.Managers
 			}
 		}
 
+		public void Clear()
+		{
+			_updatables.Clear();
+		}
+
 		private static class FrameUpdateManagerInstanceHolder
 		{
 			// ReSharper disable MemberHidesStaticFromOuterClass

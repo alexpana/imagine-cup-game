@@ -136,5 +136,11 @@ namespace VertexArmy.Global.Controllers.Components
 
 			return false;
 		}
+
+		public override void Clean()
+		{
+			PhysicsContactManager.Instance.UnregisterCallback( ContactCallbackType.FixtureBBegin, Cone );
+			Platform.Instance.PhysicsWorld.RemoveBody( Cone );
+		}
 	}
 }

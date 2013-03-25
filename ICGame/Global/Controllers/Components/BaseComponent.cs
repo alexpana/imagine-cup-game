@@ -28,6 +28,10 @@ namespace VertexArmy.Global.Controllers.Components
 		{
 		}
 
+		public virtual void Clean()
+		{
+		}
+
 		public List<IParameter> Data { get; set; }
 	}
 }

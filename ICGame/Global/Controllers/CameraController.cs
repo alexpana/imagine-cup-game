@@ -76,5 +76,10 @@ namespace VertexArmy.Global.Controllers
 		}
 
 		public List<IParameter> Data { get; set; }
+
+		public void Clean()
+		{
+
+		}
 	}
 }

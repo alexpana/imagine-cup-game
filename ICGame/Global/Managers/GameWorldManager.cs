@@ -42,7 +42,7 @@ namespace VertexArmy.Global.Managers
 		{
 			if ( _entities.ContainsKey( entityName ) )
 			{
-				_entities[entityName].Remove( );
+				_entities[entityName].Remove();
 				_entities.Remove( entityName );
 			}
 		}
@@ -55,13 +55,23 @@ namespace VertexArmy.Global.Managers
 
 		public GameWorldManager()
 		{
-			_entities = new Dictionary<string, GameEntity>( );
+			_entities = new Dictionary<string, GameEntity>();
+		}
+
+		public void Clear()
+		{
+			foreach ( string entityName in _entities.Keys )
+			{
+				RemoveEntity( entityName );
+			}
+
+			_entities.Clear();
 		}
 
 		private static class GameWorldManagerInstanceHolder
 		{
 			// ReSharper disable MemberHidesStaticFromOuterClass
-			public static readonly GameWorldManager Instance = new GameWorldManager( );
+			public static readonly GameWorldManager Instance = new GameWorldManager();
 			// ReSharper restore MemberHidesStaticFromOuterClass
 		}
 	}

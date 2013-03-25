@@ -14,24 +14,29 @@ namespace VertexArmy.Global.Managers
 
 		public void RegisterController( string name, IController obj )
 		{
-			if(!_controllers.ContainsValue(obj))
+			if ( !_controllers.ContainsValue( obj ) )
 				_controllers[name] = obj;
 		}
 
 		public void UnregisterController( string name )
 		{
-			_controllers.Remove(name);
+			_controllers.Remove( name );
 		}
 
-		public IController GetController ( string name )
+		public IController GetController( string name )
 		{
 			return _controllers[name];
+		}
+
+		public void Clear()
+		{
+			_controllers.Clear();
 		}
 
 		private static class ControllerRepositoryInstanceHolder
 		{
 			// ReSharper disable MemberHidesStaticFromOuterClass
-			public static readonly ControllerRepository Instance = new ControllerRepository( );
+			public static readonly ControllerRepository Instance = new ControllerRepository();
 			// ReSharper restore MemberHidesStaticFromOuterClass
 		}
 	}

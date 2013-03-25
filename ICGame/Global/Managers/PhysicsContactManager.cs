@@ -113,6 +113,14 @@ namespace VertexArmy.Global.Managers
 			}
 		}
 
+		public void Clear()
+		{
+			_fixtureABeginCallbacks.Clear();
+			_fixtureBBeginCallbacks.Clear();
+			_fixtureAEndCallbacks.Clear();
+			_fixtureBEndCallbacks.Clear();
+		}
+
 		private static class PhysicsContactManagerInstanceHolder
 		{
 			// ReSharper disable MemberHidesStaticFromOuterClass

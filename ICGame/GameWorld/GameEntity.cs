@@ -57,6 +57,7 @@ namespace VertexArmy.GameWorld
 				_componentsByType[c.Type].Remove( c );
 				_componentsByName.Remove( name );
 
+				c.Clean();
 				FrameUpdateManager.Instance.Unregister( c );
 			}
 		}
@@ -158,6 +159,12 @@ namespace VertexArmy.GameWorld
 			}
 
 			SceneManager.Instance.UnregisterSceneTree( MainNode );
+
+			foreach ( BaseComponent comp in _componentsByName.Values )
+			{
+				FrameUpdateManager.Instance.Unregister( comp );
+				comp.Clean();
+			}
 		}
 
 	}

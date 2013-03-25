@@ -17,8 +17,6 @@ namespace VertexArmy.Global.Managers
 		private readonly List<CameraAttachable> _sceneCameras = new List<CameraAttachable>();
 		private readonly List<LightAttachable> _sceneLights = new List<LightAttachable>();
 
-		private Plane _zeroZPlane;
-
 		public static SceneManager Instance
 		{
 			get
@@ -37,7 +35,6 @@ namespace VertexArmy.Global.Managers
 
 		public SceneManager()
 		{
-			_zeroZPlane = new Plane( Vector3.UnitZ, 1000f );
 		}
 
 		public void Clear()

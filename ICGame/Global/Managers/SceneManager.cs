@@ -137,21 +137,15 @@ namespace VertexArmy.Global.Managers
 			int mouseX = mouseState.X;
 			int mouseY = mouseState.Y;
 
-			Vector3 nearsource = new Vector3( ( float ) mouseX, ( float ) mouseY, 0f );
-			Vector3 farsource = new Vector3( ( float ) mouseX, ( float ) mouseY, 1f );
+			Matrix vp = view * projection;
 
-			Vector3 nearPoint = Platform.Instance.Device.Viewport.Unproject( nearsource, projection, view, Matrix.Identity );
-			Vector3 farPoint = Platform.Instance.Device.Viewport.Unproject( farsource, projection, view, Matrix.Identity );
+			Vector4 zerov = Vector4.Transform( Vector3.Zero, ( vp ) );
 
-			Vector3 direction = farPoint - nearPoint;
-			direction.Normalize();
-			Ray cursorRay = new Ray( nearPoint, direction );
+			Vector3 boardpoint = new Vector3( ( float ) mouseX, ( float ) mouseY, zerov.Z / zerov.W );
 
-			float? distance = cursorRay.Intersects( _zeroZPlane );
-			if ( distance != null )
-			{
-				CursorManager.Instance.SceneNode.SetPosition( cursorRay.Position + cursorRay.Direction * distance.Value );
-			}
+			Vector3 boardpointW = Platform.Instance.Device.Viewport.Unproject( boardpoint, projection, view, Matrix.Identity );
+
+			CursorManager.Instance.SceneNode.SetPosition( boardpointW );
 
 			Renderer.Instance.SetParameter( "eyePosition", currentCam.Parent.GetPosition() );
 			Renderer.Instance.SetParameter( "lightPosition", new Vector3( 0, 40000, 0 ) );

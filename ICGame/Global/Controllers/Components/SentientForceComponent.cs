@@ -62,10 +62,10 @@ namespace VertexArmy.Global.Controllers.Components
 			coneShape.Add( new Vector2( ( float ) Math.Cos( Angle / 2 ), ( float ) Math.Sin( Angle / 2 ) ) * distance );
 
 			Cone = new Body( Platform.Instance.PhysicsWorld );
+			Cone.IsSensor = true;
 			Cone.BodyType = BodyType.Dynamic;
 
 			Cone.Position = Vector2.Zero;
-			Cone.IsSensor = true;
 			FixtureFactory.AttachPolygon( coneShape, 0f, Cone );
 
 			_oldPosition = Vector2.Zero;
@@ -75,7 +75,8 @@ namespace VertexArmy.Global.Controllers.Components
 		public override void InitEntity()
 		{
 			Entity.PhysicsEntity.IgnoreCollisionWith( Cone );
-			PhysicsContactManager.Instance.RegisterBeginCallback( ContactCallbackType.FixtureBBegin, Cone, BeginContact );
+			PhysicsContactManager.Instance.RegisterBeginCallback( ContactCallbackType.FixtureBBegin, Cone, BeginContactB );
+			PhysicsContactManager.Instance.RegisterBeginCallback( ContactCallbackType.FixtureABegin, Cone, BeginContactA );
 		}
 
 
@@ -117,7 +118,7 @@ namespace VertexArmy.Global.Controllers.Components
 			}
 		}
 
-		public bool BeginContact( Contact c )
+		public bool BeginContactB( Contact c )
 		{
 			if ( Mouse.GetState().LeftButton.Equals( ButtonState.Pressed ) )
 			{
@@ -137,9 +138,30 @@ namespace VertexArmy.Global.Controllers.Components
 			return false;
 		}
 
+		public bool BeginContactA( Contact c )
+		{
+			if ( Mouse.GetState().LeftButton.Equals( ButtonState.Pressed ) )
+			{
+				Vector2 forceDirection = _oldPosition - c.FixtureB.Body.Position;
+				float ratio = 1 - ( forceDirection.Length() / _distanceSim );
+				forceDirection.Normalize();
+				c.FixtureB.Body.ApplyForce( forceDirection * ratio * AttractionForce );
+			}
+			else if ( Mouse.GetState().RightButton.Equals( ButtonState.Pressed ) )
+			{
+				Vector2 forceDirection = c.FixtureB.Body.Position - _oldPosition;
+				float ratio = 1 - ( forceDirection.Length() / _distanceSim );
+				forceDirection.Normalize();
+				c.FixtureB.Body.ApplyForce( forceDirection * ratio * RepulsiveForce );
+			}
+
+			return false;
+		}
+
 		public override void Clean()
 		{
 			PhysicsContactManager.Instance.UnregisterCallback( ContactCallbackType.FixtureBBegin, Cone );
+			PhysicsContactManager.Instance.UnregisterCallback( ContactCallbackType.FixtureABegin, Cone );
 			Platform.Instance.PhysicsWorld.RemoveBody( Cone );
 		}
 	}

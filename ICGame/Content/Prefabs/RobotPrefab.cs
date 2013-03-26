@@ -160,10 +160,10 @@ namespace VertexArmy.Content.Prefabs
 				JointType = JointType.Revolute,
 				Path = new List<Vector2>
 					{
-						new Vector2(50f, -45f),
+						new Vector2(60f, -32f),
 						new Vector2(0f, 51f),
-						new Vector2(-50f, -45f ),
-						new Vector2(48f , -45f  )
+						new Vector2(-50f, -32f ),
+						new Vector2(55f , -38f  )
 					},
 				Body = link
 			};

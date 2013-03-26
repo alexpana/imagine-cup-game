@@ -17,8 +17,11 @@ namespace VertexArmy.GameWorld
 
 		public PhysicsEntity PhysicsEntity;
 		public Body MainBody;
-		public List<BodyController> Controllers;
+		public List<BodyController> BodyControllers;
+		public List<LineJointController> LineJointControllers;
+
 		public SceneNode MainNode;
+		public Dictionary<string, SceneNode> SceneNodes;
 
 		private Dictionary<string, BaseComponent> _componentsByName;
 		private Dictionary<ComponentType, List<BaseComponent>> _componentsByType;
@@ -26,7 +29,9 @@ namespace VertexArmy.GameWorld
 		public void init()
 		{
 			PhysicsEntity = new PhysicsEntity();
-			Controllers = new List<BodyController>();
+			BodyControllers = new List<BodyController>();
+			LineJointControllers = new List<LineJointController>();
+			SceneNodes = new Dictionary<string, SceneNode>();
 			_componentsByName = new Dictionary<string, BaseComponent>();
 			_componentsByType = new Dictionary<ComponentType, List<BaseComponent>>();
 		}
@@ -100,7 +105,7 @@ namespace VertexArmy.GameWorld
 
 		public void SetScale( Vector3 newScale )
 		{
-			foreach ( BodyController c in Controllers )
+			foreach ( BodyController c in BodyControllers )
 			{
 				c.Transformable.SetScale( newScale );
 			}
@@ -153,7 +158,7 @@ namespace VertexArmy.GameWorld
 		public void Remove()
 		{
 			PhysicsEntity.Remove();
-			foreach ( BodyController tc in Controllers )
+			foreach ( BodyController tc in BodyControllers )
 			{
 				FrameUpdateManager.Instance.Unregister( tc );
 			}

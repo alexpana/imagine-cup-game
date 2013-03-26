@@ -6,7 +6,7 @@ using VertexArmy.Utilities;
 
 namespace VertexArmy.GameWorld.Prefabs.Structs
 {
-	public struct BodyPrefab
+	public class BodyPrefab
 	{
 		public string Name { get; set; }
 		public bool Static { get; set; }

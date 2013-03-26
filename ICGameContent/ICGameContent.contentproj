@@ -91,16 +91,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="models\robo_track_link.FBX">
-      <Name>robo_track_link</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-      <ProcessorParameters_GenerateTangentFrames>True</ProcessorParameters_GenerateTangentFrames>
-      <ProcessorParameters_PremultiplyVertexColors>False</ProcessorParameters_PremultiplyVertexColors>
-      <ProcessorParameters_PremultiplyTextureAlpha>False</ProcessorParameters_PremultiplyTextureAlpha>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="effects\robo.fx">
       <Name>robo</Name>
       <Importer>EffectImporter</Importer>
@@ -202,6 +192,11 @@
   <ItemGroup>
     <Compile Include="models\menu_cube.FBX">
       <Name>menu_cube</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
+    <Compile Include="models\robo_body.FBX">
+      <Name>robo_body</Name>
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
     </Compile>

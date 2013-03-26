@@ -34,13 +34,23 @@ namespace VertexArmy.Content.Prefabs
 
 			MeshSceneNodePrefab crateSceneNode = new MeshSceneNodePrefab
 												 {
-													 Body = "CrateBody",
 													 Material = "RobotMaterial",
 													 Mesh = "models/crate00",
 													 Name = "CrateNode"
 												 };
 
 			crate.RegisterMeshSceneNode( crateSceneNode );
+
+
+			ControllerPrefab crateController = new ControllerPrefab
+			{
+				Name = "CrateBodyController",
+				Type = ControllerType.BodyController,
+				Body = "CrateBody",
+				Transformable = "CrateNode"
+			};
+
+			crate.RegisterController( crateController );
 
 			return crate;
 		}

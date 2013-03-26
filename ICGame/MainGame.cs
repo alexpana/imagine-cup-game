@@ -52,7 +52,8 @@ namespace VertexArmy
 			PrefabRepository.Instance.RegisterPrefab( "crate", CratePrefab.CreatePrefab() );
 			PrefabRepository.Instance.RegisterPrefab( "mesh", SimpleMeshPrefab.CreatePrefab() );
 			PrefabRepository.Instance.RegisterPrefab( "camera", CameraPrefab.CreatePrefab() );
-			MaterialRepository.Instance.RegisterMaterial( "RobotMaterial", RobotMaterial.CreateMaterial() );
+			// HACK!
+			MaterialRepository.Instance.RegisterMaterial( "RobotMaterial", CelShading.CreateMaterial( ) );
 			MaterialRepository.Instance.RegisterMaterial( "CelShadingMaterial",
 				CelShading.CreateMaterial() );
 		}

@@ -176,7 +176,6 @@ namespace VertexArmy.Content.Prefabs
 				Name = "Gear1",
 				Mesh = "models/robo_wheel",
 				Material = "CelShadingMaterial",
-				Body = "Gear1"
 			};
 
 			MeshSceneNodePrefab gearNode2 = new MeshSceneNodePrefab
@@ -184,7 +183,6 @@ namespace VertexArmy.Content.Prefabs
 				Name = "Gear2",
 				Mesh = "models/robo_wheel",
 				Material = "CelShadingMaterial",
-				Body = "Gear2"
 			};
 
 			MeshSceneNodePrefab gearNode3 = new MeshSceneNodePrefab
@@ -192,7 +190,6 @@ namespace VertexArmy.Content.Prefabs
 				Name = "Gear3",
 				Mesh = "models/robo_wheel",
 				Material = "CelShadingMaterial",
-				Body = "Gear3"
 			};
 
 			robot.RegisterMeshSceneNode( gearNode1 );
@@ -200,13 +197,11 @@ namespace VertexArmy.Content.Prefabs
 			robot.RegisterMeshSceneNode( gearNode3 );
 
 
-
 			MeshSceneNodePrefab chassisNode = new MeshSceneNodePrefab
 			{
-				Name = "Chassis",
-				Mesh = "models/robo_link",
+				Name = "ChassisNode",
+				Mesh = "models/robo_body",
 				Material = "CelShadingMaterial",
-				Body = "Chassis"
 			};
 
 			robot.RegisterMeshSceneNode( chassisNode );
@@ -223,6 +218,46 @@ namespace VertexArmy.Content.Prefabs
 			};
 
 			robot.RegisterArrayMeshSceneNode( linkNode );
+
+			ControllerPrefab gear1Controller = new ControllerPrefab
+											   {
+												   Name = "Gear1BodyController",
+												   Type = ControllerType.BodyController,
+												   Body = "Gear1",
+												   Transformable = "Gear1"
+											   };
+
+			robot.RegisterController( gear1Controller );
+
+			ControllerPrefab gear2Controller = new ControllerPrefab
+			{
+				Name = "Gear2BodyController",
+				Type = ControllerType.BodyController,
+				Body = "Gear2",
+				Transformable = "Gear2"
+			};
+
+			robot.RegisterController( gear2Controller );
+
+			ControllerPrefab gear3Controller = new ControllerPrefab
+			{
+				Name = "Gear3BodyController",
+				Type = ControllerType.BodyController,
+				Body = "Gear3",
+				Transformable = "Gear3"
+			};
+
+			ControllerPrefab chassisController = new ControllerPrefab
+			{
+				Name = "ChassisController",
+				Type = ControllerType.BodyController,
+				Body = "Chassis",
+				Transformable = "ChassisNode"
+			};
+
+			robot.RegisterController( chassisController );
+
+			robot.RegisterController( gear3Controller );
 
 			return robot;
 		}

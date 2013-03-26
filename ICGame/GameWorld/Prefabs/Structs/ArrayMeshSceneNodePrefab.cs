@@ -5,7 +5,7 @@ using VertexArmy.Graphics;
 
 namespace VertexArmy.GameWorld.Prefabs.Structs
 {
-	public struct ArrayMeshSceneNodePrefab
+	public class ArrayMeshSceneNodePrefab
 	{
 		public string Name { get; set; }
 		public string Path;

@@ -204,7 +204,7 @@ namespace VertexArmy.Content.Prefabs
 			MeshSceneNodePrefab chassisNode = new MeshSceneNodePrefab
 			{
 				Name = "Chassis",
-				Mesh = "models/robo_link",
+				Mesh = "models/robo_body",
 				Material = "CelShadingMaterial",
 				Body = "Chassis"
 			};

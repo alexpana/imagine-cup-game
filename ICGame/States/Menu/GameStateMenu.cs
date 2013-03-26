@@ -1,10 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using VertexArmy.GameWorld.Prefabs;
+using VertexArmy.GameWorld.Prefabs.Structs;
 using VertexArmy.Global;
+using VertexArmy.Global.Managers;
 
 namespace VertexArmy.States.Menu
 {
@@ -19,7 +23,10 @@ namespace VertexArmy.States.Menu
 		private SpriteFont _font;
 		private Song _backgroundMusic;
 
-		private ContentManager _content;
+		private readonly ContentManager _content;
+
+		private bool _shouldRotate = false;
+		private Quaternion _rotation = new Quaternion();
 
 		public GameStateMenu( ContentManager content )
 		{
@@ -69,10 +76,13 @@ namespace VertexArmy.States.Menu
 				{
 					_activeCube.SelectedItem--;
 				}
+
+				_shouldRotate = true;
 			}
 			else if ( Platform.Instance.Input.IsKeyPressed( Keys.Right, false ) )
 			{
 				_activeCube.SelectedItem = ( _activeCube.SelectedItem + 1 ) % _activeCube.Items.Count;
+				_shouldRotate = true;
 			}
 			else if ( Platform.Instance.Input.IsKeyPressed( Keys.Enter, false ) )
 			{
@@ -86,6 +96,17 @@ namespace VertexArmy.States.Menu
 					ActivateMenuCube( _activeCube.PreviousMenu );
 				}
 			}
+
+			if ( _shouldRotate )
+			{
+				_rotation = Quaternion.Concatenate( _rotation, Quaternion.CreateFromAxisAngle( Vector3.UnitY, MathHelper.ToRadians( 10 ) ) );
+				_shouldRotate = false;
+			}
+
+			GameWorldManager.Instance.GetEntity( "mesh1" ).SetRotation( _rotation );
+
+			Platform.Instance.PhysicsWorld.Step( Math.Min( ( float ) gameTime.ElapsedGameTime.TotalMilliseconds * 0.001f, ( 1f / 30f ) ) );
+			FrameUpdateManager.Instance.Update( gameTime );
 		}
 
 		public void OnRender( GameTime gameTime )
@@ -100,6 +121,8 @@ namespace VertexArmy.States.Menu
 					new Vector2( 100, 150 ), Color.Black );
 
 				_spriteBatch.End();
+
+				SceneManager.Instance.Render( gameTime.ElapsedGameTime.Milliseconds );
 			}
 		}
 
@@ -111,10 +134,27 @@ namespace VertexArmy.States.Menu
 			_backgroundMusic = _content.Load<Song>( "music/proto1_menu" );
 
 			Platform.Instance.SoundPlayer.PlayMusic( _backgroundMusic );
+
+			PrefabEntity mesh = new PrefabEntity();
+
+			GameWorldManager.Instance.SpawnEntity( "camera", "camera1", new Vector3( 0, 0, 100 ) );
+
+			MeshSceneNodePrefab crateSceneNode = new MeshSceneNodePrefab
+			{
+				Material = "CelShadingMaterial",
+				Mesh = "models/menu_cube",
+				Name = "Mesh",
+				LocalRotation = new Quaternion( new Vector3( 0f, 0f, 0f ), 0f )
+			};
+
+			mesh.RegisterMeshSceneNode( crateSceneNode );
+			GameWorldManager.Instance.SpawnEntity( mesh, "mesh1", new Vector3( 0f, 0, 0f ) );
 		}
 
 		public void OnClose()
 		{
+			SceneManager.Instance.Clear();
+			GameWorldManager.Instance.Clear();
 			Platform.Instance.SoundPlayer.StopMusic();
 		}
 	}

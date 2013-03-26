@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Xna.Framework.Content;
 using VertexArmy.Global;
 using VertexArmy.States.Menu;
@@ -81,24 +82,18 @@ namespace VertexArmy.States
 		{
 			if ( _statesChangeRequested )
 			{
-				foreach ( var gameState in _requestedStates )
+				foreach ( var gameState in _states.Except( _requestedStates ) )
 				{
-					if ( !_states.Contains( gameState ) )
-					{
-						gameState.OnEnter();
-					}
+					gameState.OnClose();
 				}
 
-				foreach ( var gameState in _states )
+				foreach ( var gameState in _requestedStates.Except( _states ) )
 				{
-					if ( !_requestedStates.Contains( gameState ) )
-					{
-						gameState.OnClose();
-					}
+					gameState.OnEnter();
 				}
 
 				IGameState[] newStates = _requestedStates.ToArray();
-				Array.Reverse(newStates);
+				Array.Reverse( newStates );
 
 				_states = new Stack<IGameState>( newStates );
 				_statesChangeRequested = false;

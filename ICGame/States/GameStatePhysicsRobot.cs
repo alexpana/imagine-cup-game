@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using FarseerPhysics;
 using FarseerPhysics.Common;
 using FarseerPhysics.Dynamics;
@@ -12,6 +13,7 @@ using VertexArmy.Global.Controllers;
 using VertexArmy.Global.Controllers.Components;
 using VertexArmy.Global.Managers;
 using VertexArmy.Physics.DebugView;
+using VertexArmy.Utilities;
 
 namespace VertexArmy.States
 {
@@ -55,6 +57,26 @@ namespace VertexArmy.States
 			{
 
 				bool moving = false;
+
+				if ( !_cameraMoving && Math.Abs( _cameraPosition - Robot.GetPosition().X ) > _cameraError )
+				{
+					_cameraMoving = true;
+					_cameraStep = ( -1 ) * ( _cameraPosition - Robot.GetPosition().X ) / 15;
+				}
+
+				if ( _cameraMoving )
+				{
+					_cameraPosition += _cameraStep;
+
+					if ( Math.Abs( _cameraPosition - Robot.GetPosition().X ) <= _cameraError / 2 )
+					{
+						_cameraMoving = false;
+					}
+					else
+					{
+						_cameraStep = ( -1 ) * ( _cameraPosition - Robot.GetPosition().X ) / 15;
+					}
+				}
 
 				Robot.PhysicsEntity.SetLineJointMotorSpeed( _jointNames, 0f );
 				if ( Keyboard.GetState( PlayerIndex.One ).IsKeyDown( Keys.Left ) )
@@ -159,9 +181,10 @@ namespace VertexArmy.States
 
 			if ( _debugViewState )
 			{
+				float cameraPosition = UnitsConverter.ToSimUnits( _cameraPosition );
 				_projection = Matrix.CreateOrthographicOffCenter(
-					_cameraPosition - Platform.Instance.Device.Viewport.Width / 2f * 0.05f,
-					_cameraPosition + Platform.Instance.Device.Viewport.Width / 2f * 0.05f,
+					cameraPosition - Platform.Instance.Device.Viewport.Width / 2f * 0.05f,
+					cameraPosition + Platform.Instance.Device.Viewport.Width / 2f * 0.05f,
 					Platform.Instance.Device.Viewport.Height * 0.05f,
 					0f,
 					0f,

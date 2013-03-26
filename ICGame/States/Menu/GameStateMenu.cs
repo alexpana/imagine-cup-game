@@ -1,5 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using FarseerPhysics;
+using FarseerPhysics.Common;
+using FarseerPhysics.Dynamics;
+using FarseerPhysics.Factories;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -7,6 +11,8 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using VertexArmy.Global;
 using VertexArmy.Global.Managers;
+using VertexArmy.Physics.DebugView;
+using Settings = VertexArmy.Global.Settings;
 
 namespace VertexArmy.States.Menu
 {
@@ -20,6 +26,12 @@ namespace VertexArmy.States.Menu
 		private SpriteBatch _spriteBatch;
 		private SpriteFont _font;
 		private Song _backgroundMusic;
+
+		private DebugViewXNA _debugView;
+		private Matrix _projection;
+		private Matrix _view;
+
+		private Body _ground;
 
 		private readonly ContentManager _content;
 
@@ -71,7 +83,6 @@ namespace VertexArmy.States.Menu
 				_spriteBatch.Begin();
 
 				_spriteBatch.DrawString( _font, _activeCube.Title, new Vector2( 100, 100 ), Color.Black );
-
 				_spriteBatch.DrawString( _font, "< " + _activeCube.Items[_activeCube.SelectedItem].Title + " >",
 					new Vector2( 100, 150 ), Color.Black );
 
@@ -79,19 +90,65 @@ namespace VertexArmy.States.Menu
 
 				SceneManager.Instance.Render( gameTime.ElapsedGameTime.Milliseconds );
 			}
+
+			_projection = Matrix.CreateOrthographicOffCenter(
+					Platform.Instance.Device.Viewport.Width / 2f * 0.05f,
+					Platform.Instance.Device.Viewport.Width / 2f * 0.05f,
+					Platform.Instance.Device.Viewport.Height * 0.05f,
+					0f,
+					0f,
+					1f
+					);
+
+			_debugView.DrawString( 1, 1, "Left/Right - arrow switch items, ENTER - activate, ESC - go back." );
+			_debugView.RenderDebugData( ref _projection, ref _view );
 		}
 
 		public void OnEnter()
 		{
-			CreateMenus();
-
-			ActivateMenuCube( _mainMenuCube );
 			_spriteBatch = new SpriteBatch( Platform.Instance.Device );
 			_font = Platform.Instance.Content.Load<SpriteFont>( "fonts/SpriteFont1" );
 			_backgroundMusic = _content.Load<Song>( "music/proto1_menu" );
 
+			CreateMenus();
+			CreateCubesGround();
+			CreateDebugView( _content );
+
+			ActivateMenuCube( _mainMenuCube );
+
 			Platform.Instance.SoundPlayer.PlayMusic( _backgroundMusic );
 			GameWorldManager.Instance.SpawnEntity( "camera", "camera1", new Vector3( 0, 0, 100 ) );
+		}
+
+		private void CreateCubesGround()
+		{
+			_ground = new Body( Platform.Instance.PhysicsWorld )
+			{
+				Friction = 1.2f,
+				Restitution = 0f
+			};
+
+			Vertices vertices = new Vertices
+			{	
+				new Vector2( -20f, 20f ),
+				new Vector2( 20f, 20f )
+			};
+
+			for ( int i = 0; i < vertices.Count - 1; ++i )
+			{
+				FixtureFactory.AttachEdge( vertices[i], vertices[i + 1], _ground );
+			}
+		}
+
+		private void CreateDebugView( ContentManager content )
+		{
+			_debugView = new DebugViewXNA( Platform.Instance.PhysicsWorld );
+
+			_debugView.LoadContent( Platform.Instance.Device, content );
+			_debugView.RemoveFlags( DebugViewFlags.Joint );
+
+			_debugView.TextColor = Color.Black;
+			_view = Matrix.Identity;
 		}
 
 		private void CreateMenus()
@@ -128,9 +185,16 @@ namespace VertexArmy.States.Menu
 			_mainMenuCube.Destroy();
 			_optionsMenuCube.Destroy();
 
-			SceneManager.Instance.Clear();
-			GameWorldManager.Instance.Clear();
 			Platform.Instance.SoundPlayer.StopMusic();
+
+			GameWorldManager.Instance.Clear();
+			ControllerRepository.Instance.Clear();
+			PhysicsContactManager.Instance.Clear();
+			FrameUpdateManager.Instance.Clear();
+			Platform.Instance.PhysicsWorld.Clear();
+			SceneManager.Instance.Clear();
+
+			_content.Unload();
 		}
 	}
 }

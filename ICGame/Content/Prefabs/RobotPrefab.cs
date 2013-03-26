@@ -192,15 +192,6 @@ namespace VertexArmy.Content.Prefabs
 				Material = "CelShadingMaterial",
 			};
 
-			MeshSceneNodePrefab jointest = new MeshSceneNodePrefab
-			{
-				Name = "linkusedasjoint",
-				Mesh = "models/robo_link",
-				Material = "CelShadingMaterial",
-			};
-
-			robot.RegisterMeshSceneNode( jointest );
-
 			robot.RegisterMeshSceneNode( gearNode1 );
 			robot.RegisterMeshSceneNode( gearNode2 );
 			robot.RegisterMeshSceneNode( gearNode3 );
@@ -267,16 +258,6 @@ namespace VertexArmy.Content.Prefabs
 			robot.RegisterController( chassisController );
 
 			robot.RegisterController( gear3Controller );
-
-			ControllerPrefab lineJointController = new ControllerPrefab
-			{
-				Name = "Gear1JointController",
-				Type = ControllerType.LineJointController,
-				Joint = "GearJoint1",
-				Transformable = "linkusedasjoint"
-			};
-
-			robot.RegisterController( lineJointController );
 
 			return robot;
 		}

@@ -270,10 +270,6 @@ namespace VertexArmy.States
 
 			Robot.RegisterComponent( "force", new SentientForceComponent( CursorManager.Instance.SceneNode ) );
 
-			//GameWorldManager.Instance.GetEntity( "crate5" ).PhysicsEntity.Enabled = false;
-			//RelativeController cursorController = new RelativeController( GameWorldManager.Instance.GetEntity( "crate5" ), CursorManager.Instance.SceneNode );
-			//FrameUpdateManager.Instance.Register( cursorController );
-
 			CameraController camControl = new CameraController( GameWorldManager.Instance.GetEntity( "robot1" ), SceneManager.Instance.GetCurrentCamera() );
 			ControllerRepository.Instance.RegisterController( "camcontrol", camControl );
 			FrameUpdateManager.Instance.Register( camControl );

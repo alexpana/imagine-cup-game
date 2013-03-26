@@ -92,7 +92,7 @@ namespace VertexArmy.Global.Controllers
 			if ( !ok ) return;
 
 			Vector2 line = body2.Value.Position - body1.Value.Position;
-			Vector2 newPosition = line / 2;
+			Vector2 newPosition = body1.Value.Position + line / 2;
 
 			line.Normalize();
 
@@ -121,7 +121,7 @@ namespace VertexArmy.Global.Controllers
 			ParameterVector2 position = data[3] as ParameterVector2;
 			ParameterFloat rotation = data[4] as ParameterFloat;
 
-			bool apply = ( trans != null && body1 != null && body2 != null );
+			bool apply = ( trans != null && body1 != null && body2 != null && position != null && rotation != null );
 
 			if ( !apply ) return;
 

@@ -101,9 +101,6 @@ namespace VertexArmy.States
 
 			mesh.RegisterMeshSceneNode( crateSceneNode );
 			GameWorldManager.Instance.SpawnEntity( mesh, "mesh1", new Vector3( 0f, 0, 0f ) );
-			//_rotate( (float)Math.PI / 4.0f, new Vector3( 1, 0, 0 ) );
-			//_rotate( ( float ) Math.PI, new Vector3( 0, 1, 0 ) );
-			//GameWorldManager.Instance.GetEntity( "mesh1" ).SetScale( new Vector3( 10, 10, 10 ) );
 		}
 
 		public override void OnClose()

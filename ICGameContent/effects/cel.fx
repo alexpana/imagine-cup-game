@@ -60,7 +60,7 @@ float4 main_PS(VertexShaderOutput input) : COLOR
 	float Kd = (step( step2, ndotl ) * 0.33) + (step( step1, ndotl ) * 0.33) + 0.3;
 
 	// uncomment for lambertian reflectance
-	//Kd = ndotl;
+	Kd = ndotl;
 
 	Kd = Kd * rim;
 

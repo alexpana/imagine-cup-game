@@ -206,6 +206,15 @@ namespace VertexArmy.Content.Prefabs
 			robot.RegisterMeshSceneNode( gearNode3 );
 
 
+			MeshSceneNodePrefab chassisNode = new MeshSceneNodePrefab
+			{
+				Name = "ChassisNode",
+				Mesh = "models/robo_body",
+				Material = "CelShadingMaterial",
+			};
+
+			robot.RegisterMeshSceneNode( chassisNode );
+
 			ArrayMeshSceneNodePrefab linkNode = new ArrayMeshSceneNodePrefab
 			{
 				Name = "Links",
@@ -246,6 +255,16 @@ namespace VertexArmy.Content.Prefabs
 				Body = "Gear3",
 				Transformable = "Gear3"
 			};
+
+			ControllerPrefab chassisController = new ControllerPrefab
+			{
+				Name = "ChassisController",
+				Type = ControllerType.BodyController,
+				Body = "Chassis",
+				Transformable = "ChassisNode"
+			};
+
+			robot.RegisterController( chassisController );
 
 			robot.RegisterController( gear3Controller );
 

@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace VertexArmy.GameWorld.Prefabs.Structs
 {
-	public struct PhysicsPrefab
+	public class PhysicsPrefab
 	{
 		public Dictionary<string, BodyPrefab> Bodies;
 		public Dictionary<string, JointPrefab> Joints;

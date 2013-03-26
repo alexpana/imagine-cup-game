@@ -10,14 +10,7 @@ using VertexArmy.Utilities;
 
 namespace VertexArmy.GameWorld.Prefabs.Structs
 {
-	/* main prefab components */
-
-	/* BodyPrefab */
-
-	/*JointPrefab*/
-
-	/*PathPrefab*/
-	public struct PathPrefab
+	public class PathPrefab
 	{
 		public string Name { get; set; }
 

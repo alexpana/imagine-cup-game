@@ -16,6 +16,7 @@ namespace VertexArmy.GameWorld.Prefabs
 		private PhysicsPrefab _physicsPrefab;
 		private Dictionary<string, MeshSceneNodePrefab> _sceneNodesPrefab;
 		private Dictionary<string, ArrayMeshSceneNodePrefab> _arrayMeshSceneNodesPrefab;
+		private Dictionary<string, ControllerPrefab> _controllersPrefab;
 
 		private Dictionary<string, CameraSceneNodePrefab> _cameraSceneNodesPrefab;
 
@@ -30,6 +31,7 @@ namespace VertexArmy.GameWorld.Prefabs
 			_sceneNodesPrefab = new Dictionary<string, MeshSceneNodePrefab>();
 			_arrayMeshSceneNodesPrefab = new Dictionary<string, ArrayMeshSceneNodePrefab>();
 			_cameraSceneNodesPrefab = new Dictionary<string, CameraSceneNodePrefab>();
+			_controllersPrefab = new Dictionary<string, ControllerPrefab>();
 		}
 
 		public void RegisterCamera( string name, CameraSceneNodePrefab prefab )
@@ -40,6 +42,11 @@ namespace VertexArmy.GameWorld.Prefabs
 		public void RegisterBody( BodyPrefab body )
 		{
 			_physicsPrefab.Bodies.Add( body.Name, body );
+		}
+
+		public void RegisterController( ControllerPrefab controller )
+		{
+			_controllersPrefab[controller.Name] = controller;
 		}
 
 		public void RegisterPath( PathPrefab path )
@@ -83,6 +90,7 @@ namespace VertexArmy.GameWorld.Prefabs
 
 			GameEntityCreatePhysics( obj, scale );
 			GameEntityCreateSceneNodes( obj, scale );
+			GameEntityCreateControllers( obj );
 
 			return obj;
 		}
@@ -102,9 +110,10 @@ namespace VertexArmy.GameWorld.Prefabs
 
 			foreach ( JointPrefab j in _physicsPrefab.Joints.Values )
 			{
+				j.FatherEntity = entity;
 				entity.PhysicsEntity.AddJoint(
 					j.Name,
-					j.GetPhysicsJoint( entity.PhysicsEntity.GetBody( j.Body1 ), entity.PhysicsEntity.GetBody( j.Body2 ), scale )
+					j.GetPhysicsJoint( scale )
 				);
 			}
 
@@ -126,29 +135,9 @@ namespace VertexArmy.GameWorld.Prefabs
 			foreach ( MeshSceneNodePrefab scnp in _sceneNodesPrefab.Values )
 			{
 				SceneNode scn = scnp.GetSceneNode();
-
+				entity.SceneNodes.Add( scnp.Name, scn );
 				mainNode.AddChild( scn );
 				scn.SetScale( scn.GetScale() * scale );
-
-				if ( scnp.Body != null && entity.PhysicsEntity.GetBody( scnp.Body ) != null )
-				{
-					BodyController controller = new BodyController( scn, entity.PhysicsEntity.GetBody( scnp.Body ) );
-					entity.Controllers.Add( controller );
-
-					FrameUpdateManager.Instance.Register( controller );
-				}
-				else
-				{
-					if ( scnp.LocalPosition != null )
-					{
-						scn.SetPosition( scnp.LocalPosition );
-					}
-
-					if ( scnp.LocalRotation != null )
-					{
-						scn.SetRotation( scnp.LocalRotation );
-					}
-				}
 			}
 
 
@@ -163,7 +152,7 @@ namespace VertexArmy.GameWorld.Prefabs
 					if ( scnp.Path != null && entity.PhysicsEntity.GetBodyFromPath( scnp.Path, i ) != null )
 					{
 						BodyController controller = new BodyController( scn, entity.PhysicsEntity.GetBodyFromPath( scnp.Path, i ) );
-						entity.Controllers.Add( controller );
+						entity.BodyControllers.Add( controller );
 
 						FrameUpdateManager.Instance.Register( controller );
 					}
@@ -185,6 +174,29 @@ namespace VertexArmy.GameWorld.Prefabs
 			/* finish main node */
 			SceneManager.Instance.RegisterSceneTree( mainNode );
 			entity.MainNode = mainNode;
+		}
+
+		private void GameEntityCreateControllers( GameEntity entity )
+		{
+			foreach ( ControllerPrefab cp in _controllersPrefab.Values )
+			{
+				cp.FatherEntity = entity;
+				switch ( cp.Type )
+				{
+					case ControllerType.BodyController:
+						BodyController bc = cp.GetController() as BodyController;
+						entity.BodyControllers.Add( bc );
+						FrameUpdateManager.Instance.Register( bc );
+						break;
+
+					case ControllerType.LineJointController:
+						LineJointController ljc = cp.GetController() as LineJointController;
+						entity.LineJointControllers.Add( ljc );
+						FrameUpdateManager.Instance.Register( ljc );
+						break;
+				}
+
+			}
 		}
 
 		public static void ImportJsonScript( string file )

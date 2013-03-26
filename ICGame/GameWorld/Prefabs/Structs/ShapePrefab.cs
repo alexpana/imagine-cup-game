@@ -7,7 +7,7 @@ using VertexArmy.Utilities;
 
 namespace VertexArmy.GameWorld.Prefabs.Structs
 {
-	public struct ShapePrefab
+	public class ShapePrefab
 	{
 		public ShapeType Type { get; set; }
 
@@ -40,7 +40,7 @@ namespace VertexArmy.GameWorld.Prefabs.Structs
 					break;
 				case ShapeType.Polygon:
 
-					Vertices p = new Vertices( );
+					Vertices p = new Vertices();
 					foreach ( Vector2 node in Polygon[0] )
 					{
 						p.Add( UnitsConverter.ToSimUnits( node ) * scale );
@@ -50,10 +50,10 @@ namespace VertexArmy.GameWorld.Prefabs.Structs
 					break;
 				case ShapeType.CompoundPolygon:
 
-					List<Vertices> cp = new List<Vertices>( );
+					List<Vertices> cp = new List<Vertices>();
 					foreach ( Vertices v in Polygon )
 					{
-						Vertices polygon = new Vertices( );
+						Vertices polygon = new Vertices();
 						foreach ( Vector2 node in v )
 						{
 							polygon.Add( UnitsConverter.ToSimUnits( node ) * scale );

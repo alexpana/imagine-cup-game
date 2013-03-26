@@ -176,7 +176,6 @@ namespace VertexArmy.Content.Prefabs
 				Name = "Gear1",
 				Mesh = "models/robo_wheel",
 				Material = "CelShadingMaterial",
-				Body = "Gear1"
 			};
 
 			MeshSceneNodePrefab gearNode2 = new MeshSceneNodePrefab
@@ -184,7 +183,6 @@ namespace VertexArmy.Content.Prefabs
 				Name = "Gear2",
 				Mesh = "models/robo_wheel",
 				Material = "CelShadingMaterial",
-				Body = "Gear2"
 			};
 
 			MeshSceneNodePrefab gearNode3 = new MeshSceneNodePrefab
@@ -192,24 +190,21 @@ namespace VertexArmy.Content.Prefabs
 				Name = "Gear3",
 				Mesh = "models/robo_wheel",
 				Material = "CelShadingMaterial",
-				Body = "Gear3"
 			};
+
+			MeshSceneNodePrefab jointest = new MeshSceneNodePrefab
+			{
+				Name = "linkusedasjoint",
+				Mesh = "models/robo_link",
+				Material = "CelShadingMaterial",
+			};
+
+			robot.RegisterMeshSceneNode( jointest );
 
 			robot.RegisterMeshSceneNode( gearNode1 );
 			robot.RegisterMeshSceneNode( gearNode2 );
 			robot.RegisterMeshSceneNode( gearNode3 );
 
-
-
-			MeshSceneNodePrefab chassisNode = new MeshSceneNodePrefab
-			{
-				Name = "Chassis",
-				Mesh = "models/robo_link",
-				Material = "CelShadingMaterial",
-				Body = "Chassis"
-			};
-
-			robot.RegisterMeshSceneNode( chassisNode );
 
 			ArrayMeshSceneNodePrefab linkNode = new ArrayMeshSceneNodePrefab
 			{
@@ -223,6 +218,46 @@ namespace VertexArmy.Content.Prefabs
 			};
 
 			robot.RegisterArrayMeshSceneNode( linkNode );
+
+			ControllerPrefab gear1Controller = new ControllerPrefab
+											   {
+												   Name = "Gear1BodyController",
+												   Type = ControllerType.BodyController,
+												   Body = "Gear1",
+												   Transformable = "Gear1"
+											   };
+
+			robot.RegisterController( gear1Controller );
+
+			ControllerPrefab gear2Controller = new ControllerPrefab
+			{
+				Name = "Gear2BodyController",
+				Type = ControllerType.BodyController,
+				Body = "Gear2",
+				Transformable = "Gear2"
+			};
+
+			robot.RegisterController( gear2Controller );
+
+			ControllerPrefab gear3Controller = new ControllerPrefab
+			{
+				Name = "Gear3BodyController",
+				Type = ControllerType.BodyController,
+				Body = "Gear3",
+				Transformable = "Gear3"
+			};
+
+			robot.RegisterController( gear3Controller );
+
+			ControllerPrefab lineJointController = new ControllerPrefab
+			{
+				Name = "Gear1JointController",
+				Type = ControllerType.LineJointController,
+				Joint = "GearJoint1",
+				Transformable = "linkusedasjoint"
+			};
+
+			robot.RegisterController( lineJointController );
 
 			return robot;
 		}

@@ -44,4 +44,24 @@ namespace VertexArmy.Global.Controllers
 
 		public Body Value;
 	}
+
+	public class ParameterVector2 : IParameter
+	{
+		public bool Null { get; set; }
+		public bool Input { get; set; }
+		public bool Output { get; set; }
+		public bool Alive { get; set; }
+
+		public Vector2 Value;
+	}
+
+	public class ParameterFloat : IParameter
+	{
+		public bool Null { get; set; }
+		public bool Input { get; set; }
+		public bool Output { get; set; }
+		public bool Alive { get; set; }
+
+		public float Value;
+	}
 }

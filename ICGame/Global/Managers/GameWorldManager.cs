@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using VertexArmy.GameWorld;
 using VertexArmy.GameWorld.Prefabs;
@@ -60,12 +61,10 @@ namespace VertexArmy.Global.Managers
 
 		public void Clear()
 		{
-			foreach ( string entityName in _entities.Keys )
+			while ( _entities.Count > 0 )
 			{
-				_entities[entityName].Remove();
+				RemoveEntity( _entities.Keys.First() );
 			}
-
-			_entities.Clear();
 		}
 
 		private static class GameWorldManagerInstanceHolder

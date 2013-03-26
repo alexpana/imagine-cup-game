@@ -119,6 +119,7 @@ namespace VertexArmy.States
 					{
 						GameWorldManager.Instance.SpawnEntity( "robot", "robotSecond", new Vector3( 0f, -1000f, 0f ) );
 						Robot = GameWorldManager.Instance.GetEntity( "robotSecond" );
+						Robot.RegisterComponent( "force", new SentientForceComponent( CursorManager.Instance.SceneNode ) );
 					}
 					else
 					{

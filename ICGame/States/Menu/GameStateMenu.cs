@@ -91,15 +91,6 @@ namespace VertexArmy.States.Menu
 				SceneManager.Instance.Render( gameTime.ElapsedGameTime.Milliseconds );
 			}
 
-			_projection = Matrix.CreateOrthographicOffCenter(
-					Platform.Instance.Device.Viewport.Width / 2f * 0.05f,
-					Platform.Instance.Device.Viewport.Width / 2f * 0.05f,
-					Platform.Instance.Device.Viewport.Height * 0.05f,
-					0f,
-					0f,
-					1f
-					);
-
 			_debugView.DrawString( 1, 1, "Left/Right - arrow switch items, ENTER - activate, ESC - go back." );
 			_debugView.RenderDebugData( ref _projection, ref _view );
 		}
@@ -130,8 +121,8 @@ namespace VertexArmy.States.Menu
 
 			Vertices vertices = new Vertices
 			{	
-				new Vector2( -20f, 20f ),
-				new Vector2( 20f, 20f )
+				new Vector2( -10f, 0.5f ),
+				new Vector2( 10f, 0.5f )
 			};
 
 			for ( int i = 0; i < vertices.Count - 1; ++i )
@@ -149,6 +140,7 @@ namespace VertexArmy.States.Menu
 
 			_debugView.TextColor = Color.Black;
 			_view = Matrix.Identity;
+			_projection = Matrix.CreateOrthographicOffCenter( -20f, 20f, 2f, -4f, 0f, 1f );
 		}
 
 		private void CreateMenus()

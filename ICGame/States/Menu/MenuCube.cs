@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using VertexArmy.GameWorld.Prefabs;
-using VertexArmy.GameWorld.Prefabs.Structs;
 using VertexArmy.Global.Managers;
 
 namespace VertexArmy.States.Menu
@@ -18,13 +16,14 @@ namespace VertexArmy.States.Menu
 		public string Title { get; set; }
 
 		public string Id { get; private set; }
-		public PrefabEntity Mesh { get; private set; }
+
+		private const float DropHeight = 50f;
+		private const float RotationTime = 200.0f;
+		private const float RotationStep = 90.0f;
 
 		private bool _requestedRotation;
 		private bool _isRotating;
 		private float _currentRotationTime;
-		private const float RotationTime = 200.0f;
-		private const float RotationStep = 90.0f;
 		private Quaternion _previousRotation = Quaternion.Identity;
 		private Quaternion _nextRotation = Quaternion.Identity;
 		private Quaternion _rotation = Quaternion.Identity;
@@ -32,12 +31,11 @@ namespace VertexArmy.States.Menu
 		public MenuCube()
 		{
 			Id = Guid.NewGuid().ToString();
-			InitMesh();
 		}
 
 		public void Spawn()
 		{
-			GameWorldManager.Instance.SpawnEntity( Mesh, Id, new Vector3( 0f, 0, 0f ) );
+			GameWorldManager.Instance.SpawnEntity( "menu_cube", Id, new Vector3( 0f, DropHeight, 0f ) );
 		}
 
 		public void Destroy()
@@ -57,9 +55,9 @@ namespace VertexArmy.States.Menu
 					_requestedRotation = false;
 					_isRotating = false;
 				}
-			}
 
-			GameWorldManager.Instance.GetEntity( Id ).SetRotation( _rotation );
+				GameWorldManager.Instance.GetEntity( Id ).SetRotation( _rotation );
+			}
 		}
 
 		public void SelectPreviousItem()
@@ -90,21 +88,6 @@ namespace VertexArmy.States.Menu
 
 			SelectedItem = ( SelectedItem + 1 ) % Items.Count;
 			InitRotation( RotationStep );
-		}
-
-		private void InitMesh()
-		{
-			Mesh = new PrefabEntity();
-
-			MeshSceneNodePrefab crateSceneNode = new MeshSceneNodePrefab
-			{
-				Material = "CelShadingMaterial",
-				Mesh = "models/menu_cube",
-				Name = Id + "Mesh",
-				LocalRotation = new Quaternion( new Vector3( 0f, 0f, 0f ), 0f )
-			};
-
-			Mesh.RegisterMeshSceneNode( crateSceneNode );
 		}
 
 		private void InitRotation( float angle )

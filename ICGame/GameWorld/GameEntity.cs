@@ -85,10 +85,11 @@ namespace VertexArmy.GameWorld
 			{
 				PhysicsEntity.SetRotation( MainBody, TransformUtility.GetAngleRollFromQuaternion( newRot ) );
 			}
-			else
-			{
-				MainNode.SetRotation( newRot );
-			}
+
+			//TODO: andi, check this pls. I think the scene node should keep the rotation as well, 
+			// in addition to the physics part. This should go for other properties as well. Otherwise we'll
+			// have out-of-sync scene nodes and physics entities.
+			MainNode.SetRotation( newRot );
 		}
 
 		public void SetRotation( float newRot )

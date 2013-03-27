@@ -22,7 +22,7 @@ namespace VertexArmy.Content.Prefabs
 
 			BodyPrefab cubeBody = new BodyPrefab
 								   {
-									   Friction = 1f,
+									   Friction = 0f,
 									   LocalPosition = Vector2.Zero,
 									   Name = "MenuCubeBody",
 									   Shapes = new List<ShapePrefab> { cubeShape },

@@ -7,6 +7,8 @@ namespace VertexArmy.States.Menu
 {
 	public class MenuCube
 	{
+		private static readonly Random Random = new Random();
+
 		// remove this?
 		public MenuCube PreviousMenu { get; set; }
 
@@ -20,6 +22,8 @@ namespace VertexArmy.States.Menu
 		private const float DropHeight = 50f;
 		private const float RotationTime = 200.0f;
 		private const float RotationStep = 90.0f;
+		private const int InitialRotationMin = -5;
+		private const int InitialRotationMax = 5;
 
 		private bool _requestedRotation;
 		private bool _isRotating;
@@ -36,6 +40,10 @@ namespace VertexArmy.States.Menu
 		public void Spawn()
 		{
 			GameWorldManager.Instance.SpawnEntity( "menu_cube", Id, new Vector3( 0f, DropHeight, 0f ) );
+			
+			// set a small horizontal rotation to give a better impression
+			_rotation = Quaternion.CreateFromAxisAngle(Vector3.UnitY,
+				MathHelper.ToRadians((float)(Random.NextDouble() + Random.Next(InitialRotationMin, InitialRotationMax))));
 		}
 
 		public void Destroy()

@@ -278,7 +278,6 @@ namespace VertexArmy.States
 
 		public override void OnEnter()
 		{
-
 			//Camera
 			GameWorldManager.Instance.SpawnEntity( "camera", "camera1", new Vector3( 0, -1300, 600 ) );
 			GameWorldManager.Instance.SpawnEntity( "robot", "robot1", new Vector3( -400f, -1000f, 0f ), 2f );

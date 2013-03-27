@@ -69,7 +69,7 @@ namespace VertexArmy.GameWorld
 
 		public void SetPosition( Vector3 newPos )
 		{
-			if ( MainBody != null )
+			if ( MainBody != null && PhysicsEntity.Enabled )
 			{
 				PhysicsEntity.SetPosition( MainBody, UnitsConverter.ToSimUnits( new Vector2( newPos.X, newPos.Y ) ), newPos.Z );
 			}
@@ -81,7 +81,7 @@ namespace VertexArmy.GameWorld
 
 		public void SetRotation( Quaternion newRot )
 		{
-			if ( MainBody != null )
+			if ( MainBody != null && PhysicsEntity.Enabled )
 			{
 				PhysicsEntity.SetRotation( MainBody, TransformUtility.GetAngleRollFromQuaternion( newRot ) );
 			}

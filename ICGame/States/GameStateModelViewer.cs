@@ -4,9 +4,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
 using VertexArmy.GameWorld.Prefabs;
 using VertexArmy.GameWorld.Prefabs.Structs;
-using VertexArmy.Global;
 using VertexArmy.Global.Managers;
-using VertexArmy.Graphics;
 
 namespace VertexArmy.States
 {
@@ -17,6 +15,8 @@ namespace VertexArmy.States
 		private float _modelScale = 10.0f;
 
 		private bool _dragging = false;
+		private int _frames = 0;
+		private const int _frameFreeze = 25;
 		private Vector2 _lastMousePos;
 
 		public GameStateModelViewer( ContentManager content )
@@ -28,19 +28,33 @@ namespace VertexArmy.States
 			Vector3 localAxis;
 			if ( axis.Equals( new Vector3( 0, 1, 0 ) ) )
 			{
-				 localAxis = Vector3.Transform( axis, Matrix.CreateFromQuaternion( _modelRotation ) );
-			} else
+				localAxis = Vector3.Transform( axis, Matrix.CreateFromQuaternion( _modelRotation ) );
+			}
+			else
 			{
 				localAxis = axis;
 			}
 
 			_modelRotation = Quaternion.Concatenate( _modelRotation, new Quaternion(
 				localAxis * ( float ) Math.Sin( delta / 2.0f ),
-				( float ) Math.Cos( delta / 2.0f ) ) );	
+				( float ) Math.Cos( delta / 2.0f ) ) );
 		}
 
 		public override void OnUpdate( GameTime gameTime )
 		{
+			base.OnUpdate( gameTime );
+
+			if ( _frames < _frameFreeze )
+			{
+				_frames++;
+			}
+			else if ( _frames == _frameFreeze )
+			{
+				GameWorldManager.Instance.GetEntity( "mesh1" ).SetPosition( Vector3.Zero );
+				GameWorldManager.Instance.GetEntity( "mesh1" ).PhysicsEntity.Enabled = false;
+			}
+
+
 			Vector2 mouseDelta = new Vector2( 0, 0 );
 
 			if ( _dragging )
@@ -100,7 +114,8 @@ namespace VertexArmy.States
 			};
 
 			mesh.RegisterMeshSceneNode( crateSceneNode );
-			GameWorldManager.Instance.SpawnEntity( mesh, "mesh1", new Vector3( 0f, 0, 0f ) );
+			GameWorldManager.Instance.SpawnEntity( "robot", "mesh1", new Vector3( 0f, 0, 0f ) );
+
 		}
 
 		public override void OnClose()

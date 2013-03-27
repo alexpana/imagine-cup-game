@@ -61,8 +61,6 @@ namespace VertexArmy.Global.Controllers
 			if ( !apply ) return;
 
 
-
-
 			_delta = trans.Value.GetPosition() - camera.Value.Parent.GetPosition();
 			_delta.Z = 0;
 

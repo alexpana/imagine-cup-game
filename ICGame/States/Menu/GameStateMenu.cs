@@ -65,8 +65,11 @@ namespace VertexArmy.States.Menu
 				else if ( Platform.Instance.Input.IsKeyPressed( Keys.Escape, false ) ||
 						 Platform.Instance.Input.IsKeyPressed( Keys.Back, false ) )
 				{
-					_activeCube.Destroy();
-					_activeCube = _activeCube.PreviousMenu;
+					if ( _activeCube.PreviousMenu != null )
+					{
+						_activeCube.Destroy();
+						_activeCube = _activeCube.PreviousMenu;
+					}
 				}
 
 				_activeCube.Update( gameTime );

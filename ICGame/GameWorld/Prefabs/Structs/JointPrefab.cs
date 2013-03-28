@@ -20,6 +20,9 @@ namespace VertexArmy.GameWorld.Prefabs.Structs
 		public bool MotorEnabled;
 		public float Frequency;
 		public float DampingRatio;
+		public bool CollideConnected;
+
+		public float MinLength, MaxLength;
 
 
 		public Joint GetPhysicsJoint( float scale )
@@ -54,13 +57,28 @@ namespace VertexArmy.GameWorld.Prefabs.Structs
 					joint.MotorEnabled = MotorEnabled;
 					joint.Frequency = Frequency;
 					joint.DampingRatio = DampingRatio;
+					joint.CollideConnected = CollideConnected;
 
 					Platform.Instance.PhysicsWorld.AddJoint( joint );
 					return joint;
 				case JointType.Revolute:
-					return new RevoluteJoint( body1, body2, UnitsConverter.ToSimUnits( Anchor ) * scale, UnitsConverter.ToSimUnits( Anchor2 ) * scale );
+					RevoluteJoint joint2 = new RevoluteJoint( body1, body2, UnitsConverter.ToSimUnits( Anchor ) * scale, UnitsConverter.ToSimUnits( Anchor2 ) * scale );
+					joint2.CollideConnected = CollideConnected;
+					joint2.MaxMotorTorque = MaxMotorTorque;
+					joint2.MotorEnabled = MotorEnabled;
+
+					return joint2;
 				case JointType.Weld:
-					return new WeldJoint( body1, body2, UnitsConverter.ToSimUnits( Anchor ) * scale, UnitsConverter.ToSimUnits( Anchor2 ) * scale );
+					WeldJoint joint3 = new WeldJoint( body1, body2, UnitsConverter.ToSimUnits( Anchor ) * scale, UnitsConverter.ToSimUnits( Anchor2 ) * scale );
+					joint3.CollideConnected = CollideConnected;
+					return joint3;
+
+				case JointType.Slider:
+					SliderJoint joint4 = new SliderJoint( body1, body2, UnitsConverter.ToSimUnits( Anchor ) * scale, UnitsConverter.ToSimUnits( Anchor2 ) * scale, MinLength, MaxLength );
+					joint4.DampingRatio = DampingRatio;
+					joint4.CollideConnected = CollideConnected;
+
+					return joint4;
 				default:
 					return null;
 			}

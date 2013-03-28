@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using VertexArmy.Graphics;
@@ -16,6 +17,8 @@ namespace VertexArmy.Global.Managers
 
 		private readonly List<CameraAttachable> _sceneCameras = new List<CameraAttachable>();
 		private readonly List<LightAttachable> _sceneLights = new List<LightAttachable>();
+
+		private AudioListener _audioListener;
 
 		public static SceneManager Instance
 		{
@@ -35,6 +38,7 @@ namespace VertexArmy.Global.Managers
 
 		public SceneManager()
 		{
+			_audioListener = new AudioListener();
 		}
 
 		public void Clear()
@@ -112,6 +116,12 @@ namespace VertexArmy.Global.Managers
 		public CameraAttachable GetCurrentCamera()
 		{
 			return _sceneCameras[0];
+		}
+
+		public AudioListener GetCurrentCameraAudioListener()
+		{
+			_audioListener.Position = _sceneCameras[0].Parent.GetPosition();
+			return _audioListener;
 		}
 
 		public void Render( float dt )

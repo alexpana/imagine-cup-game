@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using FarseerPhysics.Dynamics;
 using Microsoft.Xna.Framework;
 using VertexArmy.Global;
+using VertexArmy.Global.Managers;
 using VertexArmy.Utilities;
 
 namespace VertexArmy.GameWorld.Prefabs.Structs
@@ -14,6 +15,7 @@ namespace VertexArmy.GameWorld.Prefabs.Structs
 		public float Restitution { get; set; }
 		public short CollisionGroup { get; set; }
 		public Vector2 LocalPosition;
+		public List<string> CollisionSounds;
 
 		public List<ShapePrefab> Shapes;
 
@@ -32,6 +34,11 @@ namespace VertexArmy.GameWorld.Prefabs.Structs
 			}
 
 			pBody.CollisionGroup = CollisionGroup;
+
+			if ( CollisionSounds != null )
+			{
+				SoundManager.Instance.RegisterCollisionSound( pBody, CollisionSounds );
+			}
 
 			return pBody;
 		}

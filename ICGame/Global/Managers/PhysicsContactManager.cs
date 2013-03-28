@@ -87,17 +87,24 @@ namespace VertexArmy.Global.Managers
 
 		public bool BeginContact( Contact c )
 		{
+			bool collision = true;
 			if ( _fixtureABeginCallbacks.ContainsKey( c.FixtureA.Body ) )
 			{
-				return _fixtureABeginCallbacks[c.FixtureA.Body]( c );
+				collision = _fixtureABeginCallbacks[c.FixtureA.Body]( c );
 			}
 
 			if ( _fixtureBBeginCallbacks.ContainsKey( c.FixtureB.Body ) )
 			{
-				return _fixtureBBeginCallbacks[c.FixtureB.Body]( c );
+				collision = _fixtureBBeginCallbacks[c.FixtureB.Body]( c );
 			}
 
-			return true;
+			if ( collision )
+			{
+				SoundManager.Instance.PlayCollisionFor( c.FixtureA.Body );
+				SoundManager.Instance.PlayCollisionFor( c.FixtureB.Body );
+			}
+
+			return collision;
 		}
 
 		public void EndContact( Contact c )

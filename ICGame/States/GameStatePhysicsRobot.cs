@@ -279,7 +279,7 @@ namespace VertexArmy.States
 		{
 			//Camera
 			GameWorldManager.Instance.SpawnEntity( "camera", "camera1", new Vector3( 0, -1300, 600 ) );
-			GameWorldManager.Instance.SpawnEntity( "robot", "robot1", new Vector3( -400f, -1000f, -100f ), 2f );
+			GameWorldManager.Instance.SpawnEntity( "robot", "robot1", new Vector3( -400f, -1000f, 0f ), 2f );
 			GameWorldManager.Instance.SpawnEntity( "crate", "crate", new Vector3( -50f, -1200f, 0f ), 3f );
 			GameWorldManager.Instance.SpawnEntity( "crate", "crate2", new Vector3( -50f, -1100f, 0f ), 2.6f );
 			GameWorldManager.Instance.SpawnEntity( "crate", "crate3", new Vector3( -50f, -1000f, 0f ), 2f );

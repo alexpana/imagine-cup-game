@@ -50,8 +50,8 @@ namespace VertexArmy.States
 			}
 			else if ( _frames == _frameFreeze )
 			{
+				GameWorldManager.Instance.GetEntity( "mesh1" ).SetPhysicsEnabled( false );
 				GameWorldManager.Instance.GetEntity( "mesh1" ).SetPosition( Vector3.Zero );
-				GameWorldManager.Instance.GetEntity( "mesh1" ).PhysicsEntity.Enabled = false;
 			}
 
 

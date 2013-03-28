@@ -17,13 +17,6 @@ namespace VertexArmy.GameWorld
 		private Dictionary<string, Joint> _joints;
 		private Dictionary<string, PathEntity> _paths;
 
-		private float _z;
-
-		public float Depth
-		{
-			get { return _z; }
-		}
-
 		public bool Active
 		{
 			get { return _isActive; }
@@ -172,7 +165,7 @@ namespace VertexArmy.GameWorld
 			return -1;
 		}
 
-		public void SetPosition( Body center, Vector2 newPosition, float z )
+		public void SetPosition( Body center, Vector2 newPosition )
 		{
 			Vector2 relative = newPosition - center.Position;
 
@@ -190,7 +183,6 @@ namespace VertexArmy.GameWorld
 				}
 			}
 
-			_z = z;
 		}
 
 		public void SetRotation( Body center, float newRotation )

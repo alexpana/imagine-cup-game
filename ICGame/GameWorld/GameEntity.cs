@@ -43,7 +43,7 @@ namespace VertexArmy.GameWorld
 				Vector3 actualPosition = GetPosition();
 				Quaternion actualRotation = GetRotation();
 
-				SetPosition( Vector3.Zero );
+				SetPosition( new Vector3( Vector2.Zero, GetPosition().Z ) );
 				SetRotation( 0f );
 				PhysicsEntity.Enabled = true;
 
@@ -61,7 +61,7 @@ namespace VertexArmy.GameWorld
 				Vector3 actualPosition = GetPosition();
 				Quaternion actualRotation = GetRotation();
 
-				SetPosition( Vector3.Zero );
+				SetPosition( new Vector3( Vector2.Zero, GetPosition().Z ) );
 				SetRotation( 0f );
 				PhysicsEntity.Enabled = false;
 
@@ -111,7 +111,8 @@ namespace VertexArmy.GameWorld
 		{
 			if ( MainBody != null && PhysicsEntity.Enabled )
 			{
-				PhysicsEntity.SetPosition( MainBody, UnitsConverter.ToSimUnits( new Vector2( newPos.X, newPos.Y ) ), newPos.Z );
+				PhysicsEntity.SetPosition( MainBody, UnitsConverter.ToSimUnits( new Vector2( newPos.X, newPos.Y ) ) );
+				MainNode.SetPosition( Vector3.UnitZ * newPos.Z );
 			}
 			else
 			{
@@ -155,7 +156,7 @@ namespace VertexArmy.GameWorld
 		{
 			if ( MainBody != null && PhysicsEntity.Enabled )
 			{
-				return new Vector3( UnitsConverter.ToDisplayUnits( MainBody.Position ), 0f );
+				return new Vector3( UnitsConverter.ToDisplayUnits( MainBody.Position ), MainNode.GetPosition().Z );
 			}
 
 			return MainNode.GetPosition();

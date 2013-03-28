@@ -86,7 +86,7 @@ namespace VertexArmy.Global.Controllers
 
 			if ( !apply ) return;
 
-			trans.Value.SetPosition( new Vector3( UnitsConverter.ToDisplayUnits( body.Value.Position ), 0f ) );
+			trans.Value.SetPosition( new Vector3( UnitsConverter.ToDisplayUnits( body.Value.Position ), trans.Value.GetPosition().Z ) );
 			trans.Value.SetRotation( UnitsConverter.To3DRotation( body.Value.Rotation ) );
 		}
 

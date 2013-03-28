@@ -124,7 +124,7 @@ namespace VertexArmy.GameWorld
 
 		public void SetRotation( Quaternion newRot )
 		{
-			
+			bool hasController = false;
 			foreach ( BodyController c in BodyControllers )
 			{
 				ParameterBody body = c.Data[1] as ParameterBody;
@@ -137,23 +137,30 @@ namespace VertexArmy.GameWorld
 					{
 						body.HasExternalRotation = false;
 					}
+					hasController = true;
 					body.ExternalRotation = newRot;
 				}
+				if(!hasController)
+					MainNode.SetRotation( newRot );
 			}
 		}
 
 		public void SetRotation( float newRot )
 		{
+			bool hasController = false;
 			foreach ( BodyController c in BodyControllers )
 			{
 				ParameterBody body = c.Data[1] as ParameterBody;
 
 				if ( body != null )
 				{
+					hasController = true;
 					body.HasExternalRotation = true;
 					body.ExternalRotation = UnitsConverter.To3DRotation( newRot );
 				}
 			}
+			if(!hasController)
+				MainNode.SetRotation( UnitsConverter.To3DRotation( newRot ) );
 		}
 
 		public void SetScale( Vector3 newScale )

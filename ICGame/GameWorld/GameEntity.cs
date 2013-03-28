@@ -36,6 +36,46 @@ namespace VertexArmy.GameWorld
 			_componentsByType = new Dictionary<ComponentType, List<BaseComponent>>();
 		}
 
+		public void SetPhysicsEnabled( bool value )
+		{
+			if ( value && !PhysicsEntity.Enabled )
+			{
+				Vector3 actualPosition = GetPosition();
+				Quaternion actualRotation = GetRotation();
+
+				SetPosition( Vector3.Zero );
+				SetRotation( 0f );
+				PhysicsEntity.Enabled = true;
+
+				GameTime dt = new GameTime();
+				foreach ( var c in BodyControllers )
+				{
+					c.Update( dt );
+				}
+
+				SetPosition( actualPosition );
+				SetRotation( actualRotation );
+			}
+			else if ( !value && PhysicsEntity.Enabled )
+			{
+				Vector3 actualPosition = GetPosition();
+				Quaternion actualRotation = GetRotation();
+
+				SetPosition( Vector3.Zero );
+				SetRotation( 0f );
+				PhysicsEntity.Enabled = false;
+
+				GameTime dt = new GameTime();
+				foreach ( var c in BodyControllers )
+				{
+					c.Update( dt );
+				}
+
+				SetPosition( actualPosition );
+				SetRotation( actualRotation );
+			}
+		}
+
 		public void RegisterComponent( string name, BaseComponent component )
 		{
 			if ( !_componentsByName.ContainsKey( name ) )
@@ -85,22 +125,21 @@ namespace VertexArmy.GameWorld
 			{
 				PhysicsEntity.SetRotation( MainBody, TransformUtility.GetAngleRollFromQuaternion( newRot ) );
 			}
-
-			//TODO: andi, check this pls. I think the scene node should keep the rotation as well, 
-			// in addition to the physics part. This should go for other properties as well. Otherwise we'll
-			// have out-of-sync scene nodes and physics entities.
-			MainNode.SetRotation( newRot );
+			else
+			{
+				MainNode.SetRotation( newRot );
+			}
 		}
 
 		public void SetRotation( float newRot )
 		{
-			if ( MainBody != null )
+			if ( MainBody != null && PhysicsEntity.Enabled )
 			{
 				PhysicsEntity.SetRotation( MainBody, newRot );
 			}
 			else
 			{
-				MainNode.SetRotation( new Quaternion( Vector3.UnitZ, newRot ) );
+				MainNode.SetRotation( UnitsConverter.To3DRotation( newRot ) );
 			}
 		}
 
@@ -114,40 +153,34 @@ namespace VertexArmy.GameWorld
 
 		public Vector3 GetPosition()
 		{
-			if ( MainBody != null )
+			if ( MainBody != null && PhysicsEntity.Enabled )
 			{
 				return new Vector3( UnitsConverter.ToDisplayUnits( MainBody.Position ), 0f );
 			}
-			else
-			{
-				return MainNode.GetPosition();
-			}
 
+			return MainNode.GetPosition();
 		}
 
 		public Quaternion GetRotation()
 		{
-			if ( MainBody != null )
+			if ( MainBody != null && PhysicsEntity.Enabled )
 			{
 				return UnitsConverter.To3DRotation( MainBody.Rotation );
 			}
-			else
-			{
-				return MainNode.GetRotation();
-			}
+
+			return MainNode.GetRotation();
+
 
 		}
 
 		public float GetRotationRadians()
 		{
-			if ( MainBody != null )
+			if ( MainBody != null && PhysicsEntity.Enabled )
 			{
 				return MainBody.Rotation;
 			}
-			else
-			{
-				return MainNode.GetRotationRadians();
-			}
+
+			return MainNode.GetRotationRadians();
 		}
 
 		public Vector3 GetScale()

@@ -94,7 +94,7 @@ namespace VertexArmy.States
 				{
 					if ( !_actionFreeze )
 					{
-						Robot.PhysicsEntity.Enabled = !Robot.PhysicsEntity.Enabled;
+						Robot.SetPhysicsEnabled( !Robot.PhysicsEntity.Enabled );
 						_actionFreeze = true;
 					}
 				}
@@ -116,6 +116,15 @@ namespace VertexArmy.States
 				if ( Keyboard.GetState( PlayerIndex.One ).IsKeyUp( Keys.R ) )
 				{
 					_actionReset = false;
+				}
+
+				if ( Keyboard.GetState( PlayerIndex.One ).IsKeyDown( Keys.O ) )
+				{
+					Robot.SetRotation( Robot.GetRotationRadians() - 0.4f * ( float ) gameTime.ElapsedGameTime.TotalSeconds );
+				}
+				else if ( Keyboard.GetState( PlayerIndex.One ).IsKeyDown( Keys.P ) )
+				{
+					Robot.SetRotation( Robot.GetRotationRadians() + 0.4f * ( float ) gameTime.ElapsedGameTime.TotalSeconds );
 				}
 			}
 
@@ -152,21 +161,13 @@ namespace VertexArmy.States
 					}
 					_actionSpawn = true;
 				}
+
+
 			}
 
 			if ( Keyboard.GetState( PlayerIndex.One ).IsKeyUp( Keys.S ) )
 			{
 				_actionSpawn = false;
-			}
-
-
-			if ( Keyboard.GetState( PlayerIndex.One ).IsKeyDown( Keys.O ) )
-			{
-				Robot.SetRotation( Robot.GetRotationRadians() - 0.4f * ( float ) gameTime.ElapsedGameTime.TotalSeconds );
-			}
-			else if ( Keyboard.GetState( PlayerIndex.One ).IsKeyDown( Keys.P ) )
-			{
-				Robot.SetRotation( Robot.GetRotationRadians() + 0.4f * ( float ) gameTime.ElapsedGameTime.TotalSeconds );
 			}
 
 		}
@@ -272,8 +273,6 @@ namespace VertexArmy.States
 			rec.Position = new Vector2( 249f, 10f );
 			rec.BodyType = BodyType.Dynamic;
 			 */
-
-
 		}
 
 		public override void OnEnter()

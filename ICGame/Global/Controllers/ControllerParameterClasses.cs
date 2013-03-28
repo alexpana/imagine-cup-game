@@ -42,6 +42,8 @@ namespace VertexArmy.Global.Controllers
 		public bool Output { get; set; }
 		public bool Alive { get; set; }
 
+		public bool HasExternalRotation = false;
+		public Quaternion ExternalRotation = Quaternion.Identity;
 		public Body Value;
 	}
 

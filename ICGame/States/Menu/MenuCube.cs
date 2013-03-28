@@ -56,7 +56,7 @@ namespace VertexArmy.States.Menu
 			if ( _requestedRotation )
 			{
 				_currentRotationTime = MathHelper.Clamp( _currentRotationTime + ( float ) gameTime.ElapsedGameTime.TotalMilliseconds, 0, RotationTime );
-				_rotation = Quaternion.Lerp( _previousRotation, _nextRotation, _currentRotationTime / RotationTime );
+				_rotation = Quaternion.Slerp( _previousRotation, _nextRotation, _currentRotationTime / RotationTime );
 
 				if ( _currentRotationTime >= RotationTime )
 				{

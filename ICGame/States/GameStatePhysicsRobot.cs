@@ -287,9 +287,9 @@ namespace VertexArmy.States
 			//GameWorldManager.Instance.SpawnEntity( "crate", "crate5", new Vector3( 500f, -850f, 0f ), 0.1f );
 
 			Robot = GameWorldManager.Instance.GetEntity( "robot1" );
-			Quaternion rotation = new Quaternion( 1f, 2f, 1f, 2f );
-			rotation.Normalize();
-			Robot.SetRotation( rotation );
+			//Quaternion rotation = new Quaternion( 1f, 2f, 1f, 2f );
+			//rotation.Normalize();
+			//Robot.SetRotation( rotation );
 			Robot.PhysicsEntity.Enabled = true;
 
 			Robot.RegisterComponent( "force", new SentientForceComponent( CursorManager.Instance.SceneNode ) );

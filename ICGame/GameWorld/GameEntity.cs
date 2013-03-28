@@ -26,6 +26,8 @@ namespace VertexArmy.GameWorld
 		private Dictionary<string, BaseComponent> _componentsByName;
 		private Dictionary<ComponentType, List<BaseComponent>> _componentsByType;
 
+		private Quaternion _externalRotation = Quaternion.Identity;
+
 		public void init()
 		{
 			PhysicsEntity = new PhysicsEntity();
@@ -122,25 +124,35 @@ namespace VertexArmy.GameWorld
 
 		public void SetRotation( Quaternion newRot )
 		{
-			if ( MainBody != null && PhysicsEntity.Enabled )
+			
+			foreach ( BodyController c in BodyControllers )
 			{
-				PhysicsEntity.SetRotation( MainBody, TransformUtility.GetAngleRollFromQuaternion( newRot ) );
-			}
-			else
-			{
-				MainNode.SetRotation( newRot );
+				ParameterBody body = c.Data[1] as ParameterBody;
+
+				if(body != null)
+				{
+					if(newRot != Quaternion.Identity)
+						body.HasExternalRotation = true;
+					else
+					{
+						body.HasExternalRotation = false;
+					}
+					body.ExternalRotation = newRot;
+				}
 			}
 		}
 
 		public void SetRotation( float newRot )
 		{
-			if ( MainBody != null && PhysicsEntity.Enabled )
+			foreach ( BodyController c in BodyControllers )
 			{
-				PhysicsEntity.SetRotation( MainBody, newRot );
-			}
-			else
-			{
-				MainNode.SetRotation( UnitsConverter.To3DRotation( newRot ) );
+				ParameterBody body = c.Data[1] as ParameterBody;
+
+				if ( body != null )
+				{
+					body.HasExternalRotation = true;
+					body.ExternalRotation = UnitsConverter.To3DRotation( newRot );
+				}
 			}
 		}
 

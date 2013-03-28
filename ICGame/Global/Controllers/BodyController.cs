@@ -61,7 +61,7 @@ namespace VertexArmy.Global.Controllers
 			float rotationDelta = Math.Abs( body.Value.Rotation - _lastBodyRotation );
 			float positionDelta = ( body.Value.Position - _lastBodyPosition ).LengthSquared();
 
-			if ( rotationDelta > RotationError || positionDelta > PositionError )
+			if ( rotationDelta > RotationError || positionDelta > PositionError || body.HasExternalRotation )
 			{
 				List<IParameter> parameters = Data;
 				DirectCompute( ref parameters );
@@ -87,7 +87,8 @@ namespace VertexArmy.Global.Controllers
 			if ( !apply ) return;
 
 			trans.Value.SetPosition( new Vector3( UnitsConverter.ToDisplayUnits( body.Value.Position ), trans.Value.GetPosition().Z ) );
-			trans.Value.SetRotation( UnitsConverter.To3DRotation( body.Value.Rotation ) );
+			trans.Value.SetRotation( UnitsConverter.To3DRotation( body.Value.Rotation ) * body.ExternalRotation );
+			
 		}
 
 		public List<IParameter> Data { get; set; }

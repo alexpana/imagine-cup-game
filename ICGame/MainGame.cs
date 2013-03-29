@@ -57,7 +57,7 @@ namespace VertexArmy
 			MaterialRepository.Instance.RegisterMaterial( "DefaultMaterial", CelShading.CreateMaterial() );
 			MaterialRepository.Instance.RegisterMaterial( "RobotMaterial", CelShading.CreateMaterial() );
 			MaterialRepository.Instance.RegisterMaterial( "CelShadingMaterial", CelShading.CreateMaterial() );
-			//MaterialRepository.Instance.RegisterMaterial( "MenuCubeMaterial", MenuCubeMaterial.CreateMaterial() );
+			MaterialRepository.Instance.RegisterMaterial( "MenuCubeMaterial", MenuCubeMaterial.CreateMaterial() );
 		}
 
 		protected override void UnloadContent()

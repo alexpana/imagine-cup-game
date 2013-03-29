@@ -10,13 +10,10 @@ namespace VertexArmy.Content.Materials
 		public static Material CreateMaterial()
 		{
 			Material material = new Material();
-			Effect effect = Platform.Instance.Content.Load<Effect>( @"effects\MenuCube" );
+			Effect effect = Platform.Instance.Content.Load<Effect>( @"effects\textured" );
 			material.Effect = effect;
 
-			material.AddParameter( "ColorMap", Platform.Instance.Content.Load<Texture2D>( "images/" + "color" ) );
-			material.AddParameter( "NormalMap", Platform.Instance.Content.Load<Texture2D>( "images/" + "normal" ) );
-			material.AddParameter( "SpecularMap", Platform.Instance.Content.Load<Texture2D>( "images/" + "specular" ) );
-			material.AddParameter( "AOMap", Platform.Instance.Content.Load<Texture2D>( "images/" + "ao" ) );
+			material.AddParameter( "ColorMap", Platform.Instance.Content.Load<Texture2D>( "images/" + "menu_cube" ) );
 			material.AddParameter( "matWorldViewProj", Matrix.Identity );
 			material.AddParameter( "matWorldInverseTranspose", Matrix.Identity );
 			material.AddParameter( "matWorld", Matrix.Identity );

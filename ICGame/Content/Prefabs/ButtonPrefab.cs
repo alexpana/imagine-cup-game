@@ -15,27 +15,27 @@ namespace VertexArmy.Content.Prefabs
 			ShapePrefab caseBottom = new ShapePrefab
 			{
 				Density = 1f,
-				Width = 80f,
-				Height = 5f,
-				Offset = Vector2.Zero,
+				Width = 26f,
+				Height = 0.5f,
+				Offset = new Vector2( 0f, 0.25f ),
 				Type = ShapeType.Rectangle
 			};
 
 			ShapePrefab caseWall1 = new ShapePrefab
 			{
 				Density = 1f,
-				Width = 10f,
-				Height = 15f,
-				Offset = new Vector2( -35f, 10f ),
+				Width = 4.70f,
+				Height = 3.5f,
+				Offset = new Vector2( -10.65f, 2f ),
 				Type = ShapeType.Rectangle
 			};
 
 			ShapePrefab caseWall2 = new ShapePrefab
 			{
 				Density = 1f,
-				Width = 10f,
-				Height = 15f,
-				Offset = new Vector2( 35f, 10f ),
+				Width = 4.70f,
+				Height = 3.5f,
+				Offset = new Vector2( 10.65f, 2f ),
 				Type = ShapeType.Rectangle
 			};
 
@@ -54,8 +54,8 @@ namespace VertexArmy.Content.Prefabs
 			ShapePrefab buttonShape = new ShapePrefab
 			{
 				Density = 0.3f,
-				Width = 58f,
-				Height = 10f,
+				Width = 16.5f,
+				Height = 2.5f,
 				Offset = Vector2.Zero,
 				Type = ShapeType.Rectangle
 			};
@@ -63,7 +63,7 @@ namespace VertexArmy.Content.Prefabs
 			BodyPrefab buttonBody = new BodyPrefab
 			{
 				Friction = 1f,
-				LocalPosition = new Vector2( 0f, 17.5f ),
+				LocalPosition = new Vector2( 0f, 4f ),
 				Name = "Button",
 				Shapes = new List<ShapePrefab> { buttonShape },
 				Restitution = 0.1f,
@@ -78,9 +78,9 @@ namespace VertexArmy.Content.Prefabs
 				Type = JointType.Distance,
 				Body1 = "Button",
 				Body2 = "ButtonCase",
-				Length = 17.5f,
-				Anchor = new Vector2( -20f, 0f ),
-				Anchor2 = new Vector2( -20f, 0f ),
+				Length = 4f,
+				Anchor = new Vector2( -5f, 0f ),
+				Anchor2 = new Vector2( -5f, 0f ),
 				CollideConnected = true,
 				Frequency = 3f,
 				DampingRatio = 0.3f
@@ -92,9 +92,9 @@ namespace VertexArmy.Content.Prefabs
 				Type = JointType.Distance,
 				Body1 = "Button",
 				Body2 = "ButtonCase",
-				Length = 17.5f,
-				Anchor = new Vector2( 20f, 0f ),
-				Anchor2 = new Vector2( 20f, 0f ),
+				Length = 4f,
+				Anchor = new Vector2( 5f, 0f ),
+				Anchor2 = new Vector2( 5f, 0f ),
 				CollideConnected = true,
 				Frequency = 3f,
 				DampingRatio = 0.3f

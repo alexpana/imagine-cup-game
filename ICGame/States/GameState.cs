@@ -9,6 +9,7 @@
 		RoomPreview,
 		ModelView,
 		LevelLoading,
-		PhysicsPresentationRobot
+		PhysicsPresentationRobot,
+		TutorialLevel
 	};
 }

@@ -22,7 +22,7 @@ namespace VertexArmy.GameWorld.Prefabs.Structs
 		public float DampingRatio;
 		public bool CollideConnected;
 
-		public float MinLength, MaxLength;
+		public float MinLength, MaxLength, Length;
 
 
 		public Joint GetPhysicsJoint( float scale )
@@ -66,19 +66,30 @@ namespace VertexArmy.GameWorld.Prefabs.Structs
 					joint2.CollideConnected = CollideConnected;
 					joint2.MaxMotorTorque = MaxMotorTorque;
 					joint2.MotorEnabled = MotorEnabled;
+					Platform.Instance.PhysicsWorld.AddJoint( joint2 );
 
 					return joint2;
 				case JointType.Weld:
 					WeldJoint joint3 = new WeldJoint( body1, body2, UnitsConverter.ToSimUnits( Anchor ) * scale, UnitsConverter.ToSimUnits( Anchor2 ) * scale );
 					joint3.CollideConnected = CollideConnected;
+					Platform.Instance.PhysicsWorld.AddJoint( joint3 );
 					return joint3;
 
 				case JointType.Slider:
-					SliderJoint joint4 = new SliderJoint( body1, body2, UnitsConverter.ToSimUnits( Anchor ) * scale, UnitsConverter.ToSimUnits( Anchor2 ) * scale, MinLength, MaxLength );
+					SliderJoint joint4 = new SliderJoint( body1, body2, UnitsConverter.ToSimUnits( Anchor ) * scale, UnitsConverter.ToSimUnits( Anchor2 ) * scale, UnitsConverter.ToSimUnits( MinLength ) * scale, UnitsConverter.ToSimUnits( MaxLength ) * scale );
 					joint4.DampingRatio = DampingRatio;
 					joint4.CollideConnected = CollideConnected;
-
+					Platform.Instance.PhysicsWorld.AddJoint( joint4 );
 					return joint4;
+				case JointType.Distance:
+					DistanceJoint joint5 = new DistanceJoint( body1, body2, UnitsConverter.ToSimUnits( Anchor ) * scale, UnitsConverter.ToSimUnits( Anchor2 ) * scale );
+					joint5.Frequency = Frequency;
+					joint5.DampingRatio = DampingRatio;
+					joint5.CollideConnected = CollideConnected;
+					joint5.Length = UnitsConverter.ToSimUnits( Length ) * scale;
+					Platform.Instance.PhysicsWorld.AddJoint( joint5 );
+					return joint5;
+
 				default:
 					return null;
 			}

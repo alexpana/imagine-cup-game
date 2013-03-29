@@ -11,7 +11,7 @@ namespace VertexArmy.Global
 	//TODO: save/load from file
 	public class Settings
 	{
-		public const string IsMusicEnabled = "IsMusicEnabled";
+		public const string IsMusicEnabledSetting = "IsMusicEnabled";
 
 		private readonly Dictionary<string, object> _settings;
 
@@ -20,7 +20,13 @@ namespace VertexArmy.Global
 			_settings = new Dictionary<string, object>();
 
 			// default settings
-			_settings[IsMusicEnabled] = true;
+			_settings[IsMusicEnabledSetting] = true;
+		}
+
+		public bool IsMusicEnabled
+		{
+			get { return GetValue( IsMusicEnabledSetting, true ); }
+			set { SetValue( IsMusicEnabledSetting, value ); }
 		}
 
 		public T GetValue<T>( string setting, T defaultValue )

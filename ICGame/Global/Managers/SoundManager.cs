@@ -55,6 +55,11 @@ namespace VertexArmy.Global.Managers
 
 		public void PlayCollisionFor( Body body )
 		{
+			if ( !_settings.IsMusicEnabled )
+			{
+				return;
+			}
+
 			if ( _collisionSounds.ContainsKey( body ) )
 			{
 				if ( _collisionSoundsInstances.ContainsKey( body ) && _collisionSoundsInstances[body].State.Equals( SoundState.Playing ) )
@@ -93,10 +98,9 @@ namespace VertexArmy.Global.Managers
 
 		private void SettingChanged( object sender, SettingEventArgs settingEventArgs )
 		{
-			if ( settingEventArgs.SettingName == Settings.IsMusicEnabled )
+			if ( settingEventArgs.SettingName == Settings.IsMusicEnabledSetting )
 			{
-				bool musicOn = _settings.GetValue( Settings.IsMusicEnabled, true );
-				if ( !musicOn )
+				if ( !_settings.IsMusicEnabled )
 				{
 					MediaPlayer.Pause();
 				}
@@ -112,7 +116,7 @@ namespace VertexArmy.Global.Managers
 
 		public void PlayMusic( Song song )
 		{
-			if ( !_settings.GetValue( Settings.IsMusicEnabled, true ) )
+			if ( !_settings.IsMusicEnabled )
 			{
 				return;
 			}
@@ -123,6 +127,16 @@ namespace VertexArmy.Global.Managers
 		public void StopMusic()
 		{
 			MediaPlayer.Stop();
+		}
+
+		public void PlaySound( SoundEffect sound )
+		{
+			if ( !_settings.IsMusicEnabled )
+			{
+				return;
+			}
+
+			sound.Play();
 		}
 	}
 }

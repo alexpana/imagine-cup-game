@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
+using VertexArmy.Global;
 using VertexArmy.Global.Managers;
 
 namespace VertexArmy.States.Menu
@@ -14,6 +16,7 @@ namespace VertexArmy.States.Menu
 
 		public List<MenuItem> Items { get; set; }
 		public int SelectedItem { get; set; }
+		public SoundEffect SelectionSound { get; set; }
 
 		public string Title { get; set; }
 
@@ -40,10 +43,10 @@ namespace VertexArmy.States.Menu
 		public void Spawn()
 		{
 			GameWorldManager.Instance.SpawnEntity( "menu_cube", Id, new Vector3( 0f, DropHeight, 0f ) );
-			
+
 			// set a small horizontal rotation to give a better impression
-			_rotation = Quaternion.CreateFromAxisAngle(Vector3.UnitY,
-				MathHelper.ToRadians((float)(Random.NextDouble() + Random.Next(InitialRotationMin, InitialRotationMax))));
+			_rotation = Quaternion.CreateFromAxisAngle( Vector3.UnitY,
+				MathHelper.ToRadians( ( float ) ( Random.NextDouble() + Random.Next( InitialRotationMin, InitialRotationMax ) ) ) );
 		}
 
 		public void Destroy()
@@ -85,6 +88,11 @@ namespace VertexArmy.States.Menu
 			}
 
 			InitRotation( -RotationStep );
+
+			if ( SelectionSound != null )
+			{
+				Platform.Instance.SoundManager.PlaySound( SelectionSound );
+			}
 		}
 
 		public void SelectNextItem()
@@ -96,6 +104,11 @@ namespace VertexArmy.States.Menu
 
 			SelectedItem = ( SelectedItem + 1 ) % Items.Count;
 			InitRotation( RotationStep );
+
+			if ( SelectionSound != null )
+			{
+				Platform.Instance.SoundManager.PlaySound( SelectionSound );
+			}
 		}
 
 		private void InitRotation( float angle )

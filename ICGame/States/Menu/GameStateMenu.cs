@@ -5,6 +5,7 @@ using FarseerPhysics.Common;
 using FarseerPhysics.Dynamics;
 using FarseerPhysics.Factories;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -12,7 +13,6 @@ using Microsoft.Xna.Framework.Media;
 using VertexArmy.Global;
 using VertexArmy.Global.Managers;
 using VertexArmy.Physics.DebugView;
-using Settings = VertexArmy.Global.Settings;
 
 namespace VertexArmy.States.Menu
 {
@@ -26,6 +26,8 @@ namespace VertexArmy.States.Menu
 		private SpriteBatch _spriteBatch;
 		private SpriteFont _font;
 		private Song _backgroundMusic;
+		private SoundEffect _menuItemSelectionSound;
+		private SoundEffect _menuEventSound;
 
 		private DebugViewXNA _debugView;
 		private Matrix _projection;
@@ -34,10 +36,12 @@ namespace VertexArmy.States.Menu
 		private Body _ground;
 
 		private readonly ContentManager _content;
+		private readonly Platform _platform;
 
 		public GameStateMenu( ContentManager content )
 		{
 			_content = content;
+			_platform = Platform.Instance;
 		}
 
 		private void ActivateMenuCube( MenuCube cube )
@@ -50,32 +54,34 @@ namespace VertexArmy.States.Menu
 		{
 			if ( _activeCube != null )
 			{
-				if ( Platform.Instance.Input.IsKeyPressed( Keys.Left, false ) )
+				if ( _platform.Input.IsKeyPressed( Keys.Left, false ) )
 				{
 					_activeCube.SelectPreviousItem();
 				}
-				else if ( Platform.Instance.Input.IsKeyPressed( Keys.Right, false ) )
+				else if ( _platform.Input.IsKeyPressed( Keys.Right, false ) )
 				{
 					_activeCube.SelectNextItem();
 				}
-				else if ( Platform.Instance.Input.IsKeyPressed( Keys.Enter, false ) )
+				else if ( _platform.Input.IsKeyPressed( Keys.Enter, false ) )
 				{
 					_activeCube.Items[_activeCube.SelectedItem].Activate();
+					_platform.SoundManager.PlaySound( _menuEventSound );
 				}
-				else if ( Platform.Instance.Input.IsKeyPressed( Keys.Escape, false ) ||
-						 Platform.Instance.Input.IsKeyPressed( Keys.Back, false ) )
+				else if ( _platform.Input.IsKeyPressed( Keys.Escape, false ) ||
+						 _platform.Input.IsKeyPressed( Keys.Back, false ) )
 				{
 					if ( _activeCube.PreviousMenu != null )
 					{
 						_activeCube.Destroy();
 						_activeCube = _activeCube.PreviousMenu;
+						_platform.SoundManager.PlaySound( _menuEventSound );
 					}
 				}
 
 				_activeCube.Update( gameTime );
 			}
 
-			Platform.Instance.PhysicsWorld.Step( Math.Min( ( float ) gameTime.ElapsedGameTime.TotalMilliseconds * 0.001f, ( 1f / 30f ) ) );
+			_platform.PhysicsWorld.Step( Math.Min( ( float ) gameTime.ElapsedGameTime.TotalMilliseconds * 0.001f, ( 1f / 30f ) ) );
 			FrameUpdateManager.Instance.Update( gameTime );
 		}
 
@@ -100,9 +106,11 @@ namespace VertexArmy.States.Menu
 
 		public void OnEnter()
 		{
-			_spriteBatch = new SpriteBatch( Platform.Instance.Device );
-			_font = Platform.Instance.Content.Load<SpriteFont>( "fonts/SpriteFont1" );
+			_spriteBatch = new SpriteBatch( _platform.Device );
+			_font = _platform.Content.Load<SpriteFont>( "fonts/SpriteFont1" );
 			_backgroundMusic = _content.Load<Song>( "music/proto1_menu" );
+			_menuItemSelectionSound = _content.Load<SoundEffect>( "sounds/button-27" );
+			_menuEventSound = _content.Load<SoundEffect>( "sounds/button-30" );
 
 			CreateMenus();
 			CreateCubesGround();
@@ -110,13 +118,13 @@ namespace VertexArmy.States.Menu
 
 			ActivateMenuCube( _mainMenuCube );
 
-			Platform.Instance.SoundManager.PlayMusic( _backgroundMusic );
+			_platform.SoundManager.PlayMusic( _backgroundMusic );
 			GameWorldManager.Instance.SpawnEntity( "camera", "menu_camera", new Vector3( 0, 0, 100 ) );
 		}
 
 		private void CreateCubesGround()
 		{
-			_ground = new Body( Platform.Instance.PhysicsWorld )
+			_ground = new Body( _platform.PhysicsWorld )
 			{
 				Friction = 1.2f,
 				Restitution = 0f
@@ -136,9 +144,9 @@ namespace VertexArmy.States.Menu
 
 		private void CreateDebugView( ContentManager content )
 		{
-			_debugView = new DebugViewXNA( Platform.Instance.PhysicsWorld );
+			_debugView = new DebugViewXNA( _platform.PhysicsWorld );
 
-			_debugView.LoadContent( Platform.Instance.Device, content );
+			_debugView.LoadContent( _platform.Device, content );
 			_debugView.RemoveFlags( DebugViewFlags.Joint );
 
 			_debugView.TextColor = Color.Black;
@@ -151,11 +159,12 @@ namespace VertexArmy.States.Menu
 			_mainMenuCube = new MenuCube
 			{
 				Title = "Main menu",
+				SelectionSound = _menuItemSelectionSound,
 				Items = new List<MenuItem>
 				{
 					new MenuItem { Title = "Play!", Activated = args => StateManager.Instance.ChangeState(GameState.TutorialLevel) },
 					new MenuItem { Title = "Options", Activated = args => ActivateMenuCube(_optionsMenuCube) },
-					new MenuItem { Title = "Exit", Activated = args => Platform.Instance.Game.Exit() }
+					new MenuItem { Title = "Exit", Activated = args => _platform.Game.Exit() }
 				}
 			};
 
@@ -163,13 +172,14 @@ namespace VertexArmy.States.Menu
 			{
 				Title = "Options menu",
 				PreviousMenu = _mainMenuCube,
+				SelectionSound = _menuItemSelectionSound,
 				Items = new List<MenuItem>
 				{
 					new SwitchMenuItem
 					{
 						OnTitle = "On", OffTitle = "Off", Prefix = "Music",
-						IsOn = Platform.Instance.Settings.GetValue(Settings.IsMusicEnabled, true),
-						Activated = args => Platform.Instance.Settings.SetValue(Settings.IsMusicEnabled, (bool)args)
+						IsOn = _platform.Settings.IsMusicEnabled,
+						Activated = args => _platform.Settings.IsMusicEnabled= (bool)args
 					}
 				}
 			};
@@ -180,13 +190,13 @@ namespace VertexArmy.States.Menu
 			_mainMenuCube.Destroy();
 			_optionsMenuCube.Destroy();
 
-			Platform.Instance.SoundManager.StopMusic();
+			_platform.SoundManager.StopMusic();
 
 			GameWorldManager.Instance.Clear();
 			ControllerRepository.Instance.Clear();
 			PhysicsContactManager.Instance.Clear();
 			FrameUpdateManager.Instance.Clear();
-			Platform.Instance.PhysicsWorld.Clear();
+			_platform.PhysicsWorld.Clear();
 			SceneManager.Instance.Clear();
 
 			_content.Unload();

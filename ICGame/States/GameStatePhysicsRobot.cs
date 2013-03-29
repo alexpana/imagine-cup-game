@@ -42,8 +42,6 @@ namespace VertexArmy.States
 		private bool _actionToggleDebugView;
 		private bool _debugViewState;
 
-		private readonly List<string> _jointNames = new List<string> { "GearJoint1", "GearJoint2", "GearJoint3" };
-
 		public GameStatePhysicsRobot( ContentManager content )
 		{
 			_contentManager = content;
@@ -76,18 +74,6 @@ namespace VertexArmy.States
 					{
 						_cameraStep = ( -1 ) * ( _cameraPosition - Robot.GetPosition().X ) / 15;
 					}
-				}
-
-				Robot.PhysicsEntity.SetLineJointMotorSpeed( _jointNames, 0f );
-				if ( Keyboard.GetState( PlayerIndex.One ).IsKeyDown( Keys.Left ) )
-				{
-					moving = true;
-					Robot.PhysicsEntity.SetLineJointMotorSpeed( _jointNames, -20f );
-				}
-				else if ( Keyboard.GetState( PlayerIndex.One ).IsKeyDown( Keys.Right ) )
-				{
-					moving = true;
-					Robot.PhysicsEntity.SetLineJointMotorSpeed( _jointNames, 20f );
 				}
 
 				if ( Keyboard.GetState( PlayerIndex.One ).IsKeyDown( Keys.F ) )
@@ -293,6 +279,10 @@ namespace VertexArmy.States
 			Robot.PhysicsEntity.Enabled = true;
 
 			Robot.RegisterComponent( "force", new SentientForceComponent( CursorManager.Instance.SceneNode ) );
+			Robot.RegisterComponent(
+				"control",
+				new CarControlComponent( new List<string> { "GearJoint1", "GearJoint2", "GearJoint3" }, new List<float>() { 20f, 20f, 20f } )
+				);
 
 			CameraController camControl = new CameraController( GameWorldManager.Instance.GetEntity( "robot1" ), SceneManager.Instance.GetCurrentCamera() );
 			ControllerRepository.Instance.RegisterController( "camcontrol", camControl );

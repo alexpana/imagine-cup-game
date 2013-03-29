@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using FarseerPhysics.Dynamics;
 using Microsoft.Xna.Framework;
 using VertexArmy.Global;
-using VertexArmy.Global.Managers;
 using VertexArmy.Utilities;
 
 namespace VertexArmy.GameWorld.Prefabs.Structs
@@ -37,7 +36,7 @@ namespace VertexArmy.GameWorld.Prefabs.Structs
 
 			if ( CollisionSounds != null )
 			{
-				SoundManager.Instance.RegisterCollisionSound( pBody, CollisionSounds );
+				Platform.Instance.SoundManager.RegisterCollisionSound( pBody, CollisionSounds );
 			}
 
 			return pBody;

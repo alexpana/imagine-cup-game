@@ -110,8 +110,8 @@ namespace VertexArmy.States.Menu
 
 			ActivateMenuCube( _mainMenuCube );
 
-			Platform.Instance.SoundPlayer.PlayMusic( _backgroundMusic );
-			GameWorldManager.Instance.SpawnEntity( "camera", "camera1", new Vector3( 0, 0, 100 ) );
+			Platform.Instance.SoundManager.PlayMusic( _backgroundMusic );
+			GameWorldManager.Instance.SpawnEntity( "camera", "menu_camera", new Vector3( 0, 0, 100 ) );
 		}
 
 		private void CreateCubesGround()
@@ -180,7 +180,7 @@ namespace VertexArmy.States.Menu
 			_mainMenuCube.Destroy();
 			_optionsMenuCube.Destroy();
 
-			Platform.Instance.SoundPlayer.StopMusic();
+			Platform.Instance.SoundManager.StopMusic();
 
 			GameWorldManager.Instance.Clear();
 			ControllerRepository.Instance.Clear();

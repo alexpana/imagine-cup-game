@@ -97,6 +97,7 @@
     <Reference Include="System.Net" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Content\Prefabs\ButtonPrefab.cs" />
     <Compile Include="Content\Prefabs\MenuCubePrefab.cs" />
     <Compile Include="GameWorld\Prefabs\PrefabUtils.cs" />
     <Compile Include="GameWorld\Prefabs\Structs\ControllerType.cs" />
@@ -163,6 +164,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="MainGame.cs" />
     <Compile Include="Serialization\ISerializableObject.cs" />
+    <Compile Include="States\GameStateTutorial.cs" />
     <Compile Include="States\GameStatePhysicsRobot.cs" />
     <Compile Include="States\GameState.cs" />
     <Compile Include="States\GameStateLevelLoading.cs" />

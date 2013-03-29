@@ -74,6 +74,8 @@ namespace VertexArmy.States
 					return new GameStateLevelLoading( contentManager );
 				case GameState.PhysicsPresentationRobot:
 					return new GameStatePhysicsRobot( contentManager );
+				case GameState.TutorialLevel:
+					return new GameStateTutorial( contentManager );
 			}
 			return null;
 		}

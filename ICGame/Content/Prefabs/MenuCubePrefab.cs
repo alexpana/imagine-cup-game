@@ -35,7 +35,7 @@ namespace VertexArmy.Content.Prefabs
 
 			MeshSceneNodePrefab cubeSceneNode = new MeshSceneNodePrefab
 												 {
-													 Material = "DefaultMaterial",
+													 Material = "MenuCubeMaterial",
 													 Mesh = "models/menu_cube",
 													 Name = "MenuCubeNode"
 												 };

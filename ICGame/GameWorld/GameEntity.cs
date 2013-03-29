@@ -46,8 +46,8 @@ namespace VertexArmy.GameWorld
 				Quaternion actualRotation = GetRotation();
 
 				SetPosition( new Vector3( Vector2.Zero, GetPosition().Z ) );
-				MainNode.SetRotation(Quaternion.Identity);
-				
+				MainNode.SetRotation( Quaternion.Identity );
+
 				PhysicsEntity.Enabled = true;
 
 				GameTime dt = new GameTime();
@@ -65,7 +65,7 @@ namespace VertexArmy.GameWorld
 				Quaternion actualRotation = GetRotation();
 
 				SetPosition( new Vector3( Vector2.Zero, GetPosition().Z ) );
-				PhysicsEntity.SetRotation( MainBody, 0);
+				PhysicsEntity.SetRotation( MainBody, 0 );
 				PhysicsEntity.Enabled = false;
 
 				GameTime dt = new GameTime();
@@ -75,7 +75,7 @@ namespace VertexArmy.GameWorld
 				}
 
 				SetPosition( actualPosition );
-				MainNode.SetRotation(actualRotation);
+				MainNode.SetRotation( actualRotation );
 			}
 		}
 
@@ -128,6 +128,7 @@ namespace VertexArmy.GameWorld
 			bool hasController = false;
 
 			if ( PhysicsEntity.Enabled )
+			{
 				foreach ( BodyController c in BodyControllers )
 				{
 					ParameterBody body = c.Data[1] as ParameterBody;
@@ -143,9 +144,14 @@ namespace VertexArmy.GameWorld
 						hasController = true;
 						body.ExternalRotation = newRot;
 					}
-					if ( !hasController )
-						MainNode.SetRotation( newRot );
+
 				}
+			}
+
+			if ( !hasController )
+			{
+				MainNode.SetRotation( newRot );
+			}
 		}
 
 		public void SetRotation( float newRot )
@@ -153,6 +159,7 @@ namespace VertexArmy.GameWorld
 			bool hasController = false;
 
 			if ( PhysicsEntity.Enabled )
+			{
 				foreach ( BodyController c in BodyControllers )
 				{
 					ParameterBody body = c.Data[1] as ParameterBody;
@@ -164,8 +171,11 @@ namespace VertexArmy.GameWorld
 						body.ExternalRotation = UnitsConverter.To3DRotation( newRot );
 					}
 				}
+			}
 			if ( !hasController )
+			{
 				MainNode.SetRotation( UnitsConverter.To3DRotation( newRot ) );
+			}
 		}
 
 		public void SetScale( Vector3 newScale )

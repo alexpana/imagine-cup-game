@@ -103,6 +103,42 @@ namespace VertexArmy.Content.Prefabs
 			button.RegisterJoint( sliderJoint1 );
 			button.RegisterJoint( sliderJoint2 );
 
+			MeshSceneNodePrefab caseNode = new MeshSceneNodePrefab
+			{
+				Name = "CaseNode",
+				Mesh = "models/button_body",
+				Material = "CelShadingMaterial",
+			};
+
+			MeshSceneNodePrefab buttonNode = new MeshSceneNodePrefab
+			{
+				Name = "ButtonNode",
+				Mesh = "models/button_head",
+				Material = "CelShadingMaterial",
+			};
+
+			button.RegisterMeshSceneNode( caseNode );
+			button.RegisterMeshSceneNode( buttonNode );
+
+			ControllerPrefab buttonController = new ControllerPrefab
+			{
+				Name = "ButtonController",
+				Type = ControllerType.BodyController,
+				Body = "Button",
+				Transformable = "ButtonNode"
+			};
+
+			ControllerPrefab caseController = new ControllerPrefab
+			{
+				Name = "CaseController",
+				Type = ControllerType.BodyController,
+				Body = "ButtonCase",
+				Transformable = "CaseNode"
+			};
+
+			button.RegisterController( buttonController );
+			button.RegisterController( caseController );
+
 			return button;
 		}
 	}

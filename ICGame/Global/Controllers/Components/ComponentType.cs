@@ -3,5 +3,6 @@
 	public enum ComponentType
 	{
 		SentientForce,
+		CarControlComponent
 	}
 }

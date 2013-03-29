@@ -100,8 +100,8 @@ namespace VertexArmy.Global.Managers
 
 			if ( collision )
 			{
-				SoundManager.Instance.PlayCollisionFor( c.FixtureA.Body );
-				SoundManager.Instance.PlayCollisionFor( c.FixtureB.Body );
+				Platform.Instance.SoundManager.PlayCollisionFor( c.FixtureA.Body );
+				Platform.Instance.SoundManager.PlayCollisionFor( c.FixtureB.Body );
 			}
 
 			return collision;

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using FarseerPhysics.Dynamics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Media;
 using VertexArmy.Utilities;
 
 namespace VertexArmy.Global.Managers
@@ -11,12 +12,17 @@ namespace VertexArmy.Global.Managers
 	public class SoundManager
 	{
 		public const float Distance3DAudio = 0.01f;
-		private Dictionary<Body, List<string>> _collisionSounds;
-		private Dictionary<Body, SoundEffectInstance> _collisionSoundsInstances;
+		private readonly Dictionary<Body, List<string>> _collisionSounds;
+		private readonly Dictionary<Body, SoundEffectInstance> _collisionSoundsInstances;
+		private readonly Settings _settings;
 
-		public static SoundManager Instance
+		public SoundManager( Settings settings )
 		{
-			get { return SoundManagerInstanceHolder.Instance; }
+			_collisionSounds = new Dictionary<Body, List<string>>();
+			_collisionSoundsInstances = new Dictionary<Body, SoundEffectInstance>();
+
+			_settings = settings;
+			_settings.SettingChanged += SettingChanged;
 		}
 
 		public void RegisterCollisionSound( Body body, string sound )
@@ -80,23 +86,43 @@ namespace VertexArmy.Global.Managers
 			}
 		}
 
-
-		public SoundManager()
-		{
-			_collisionSounds = new Dictionary<Body, List<string>>();
-			_collisionSoundsInstances = new Dictionary<Body, SoundEffectInstance>();
-		}
-
 		public void Clear()
 		{
 			_collisionSounds.Clear();
 		}
 
-		private static class SoundManagerInstanceHolder
+		private void SettingChanged( object sender, SettingEventArgs settingEventArgs )
 		{
-			// ReSharper disable MemberHidesStaticFromOuterClass
-			public static readonly SoundManager Instance = new SoundManager();
-			// ReSharper restore MemberHidesStaticFromOuterClass
+			if ( settingEventArgs.SettingName == Settings.IsMusicEnabled )
+			{
+				bool musicOn = _settings.GetValue( Settings.IsMusicEnabled, true );
+				if ( !musicOn )
+				{
+					MediaPlayer.Pause();
+				}
+				else
+				{
+					if ( MediaPlayer.State == MediaState.Paused )
+					{
+						MediaPlayer.Resume();
+					}
+				}
+			}
+		}
+
+		public void PlayMusic( Song song )
+		{
+			if ( !_settings.GetValue( Settings.IsMusicEnabled, true ) )
+			{
+				return;
+			}
+
+			MediaPlayer.Play( song );
+		}
+
+		public void StopMusic()
+		{
+			MediaPlayer.Stop();
 		}
 	}
 }

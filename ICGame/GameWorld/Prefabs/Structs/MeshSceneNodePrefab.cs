@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using VertexArmy.Global;
@@ -14,25 +16,19 @@ namespace VertexArmy.GameWorld.Prefabs.Structs
 		public Vector3 LocalPosition;
 		public Quaternion LocalRotation;
 
-		public Material GetMaterial()
+		public Func<IDictionary<string, object>, Material> GetMaterialFunc()
 		{
 			return MaterialRepository.Instance.GetMaterial( Material );
 		}
 
-		public SceneNode GetSceneNode()
+		public SceneNode GetSceneNode( IDictionary<string, object> parameters )
 		{
+			var materialFunc = GetMaterialFunc();
 			SceneNode scn = new SceneNode();
-			scn.AddAttachable( new MeshAttachable( Platform.Instance.Content.Load<Model>( Mesh ), GetMaterial() ) );
+			scn.AddAttachable( new MeshAttachable( Platform.Instance.Content.Load<Model>( Mesh ), materialFunc( parameters ) ) );
 
-			if ( LocalPosition != null )
-			{
-				scn.SetPosition( LocalPosition );
-			}
-
-			if ( LocalRotation != null )
-			{
-				scn.SetRotation( LocalRotation );
-			}
+			scn.SetPosition( LocalPosition );
+			scn.SetRotation( LocalRotation );
 
 			return scn;
 		}

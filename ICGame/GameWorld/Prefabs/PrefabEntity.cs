@@ -13,12 +13,12 @@ namespace VertexArmy.GameWorld.Prefabs
 		public GameEntityFlags Flags { get; set; }
 		public string MainBody { get; set; }
 
-		private PhysicsPrefab _physicsPrefab;
-		private Dictionary<string, MeshSceneNodePrefab> _sceneNodesPrefab;
-		private Dictionary<string, ArrayMeshSceneNodePrefab> _arrayMeshSceneNodesPrefab;
-		private Dictionary<string, ControllerPrefab> _controllersPrefab;
+		private readonly PhysicsPrefab _physicsPrefab;
+		private readonly Dictionary<string, MeshSceneNodePrefab> _sceneNodesPrefab;
+		private readonly Dictionary<string, ArrayMeshSceneNodePrefab> _arrayMeshSceneNodesPrefab;
+		private readonly Dictionary<string, ControllerPrefab> _controllersPrefab;
 
-		private Dictionary<string, CameraSceneNodePrefab> _cameraSceneNodesPrefab;
+		private readonly Dictionary<string, CameraSceneNodePrefab> _cameraSceneNodesPrefab;
 
 		public PrefabEntity()
 		{
@@ -79,7 +79,7 @@ namespace VertexArmy.GameWorld.Prefabs
 			_arrayMeshSceneNodesPrefab.Add( pscn.Name, pscn );
 		}
 
-		public GameEntity CreateGameEntity( GameWorldManager world, float scale )
+		public GameEntity CreateGameEntity( GameWorldManager world, float scale, GameEntityParameters parameters )
 		{
 			GameEntity obj = new GameEntity();
 
@@ -89,7 +89,7 @@ namespace VertexArmy.GameWorld.Prefabs
 			obj.Flags = Flags;
 
 			GameEntityCreatePhysics( obj, scale );
-			GameEntityCreateSceneNodes( obj, scale );
+			GameEntityCreateSceneNodes( obj, scale, parameters != null ? parameters.SceneNodeParameters : null );
 			GameEntityCreateControllers( obj );
 
 			return obj;
@@ -126,7 +126,7 @@ namespace VertexArmy.GameWorld.Prefabs
 			}
 		}
 
-		private void GameEntityCreateSceneNodes( GameEntity entity, float scale )
+		private void GameEntityCreateSceneNodes( GameEntity entity, float scale, IDictionary<string, object> parameters )
 		{
 			/* create main node */
 			SceneNode mainNode = new SceneNode();
@@ -134,24 +134,23 @@ namespace VertexArmy.GameWorld.Prefabs
 			/* rest of nodes */
 			foreach ( MeshSceneNodePrefab scnp in _sceneNodesPrefab.Values )
 			{
-				SceneNode scn = scnp.GetSceneNode();
+				SceneNode scn = scnp.GetSceneNode( parameters );
 				entity.SceneNodes.Add( scnp.Name, scn );
 				mainNode.AddChild( scn );
 				scn.SetScale( scn.GetScale() * scale );
 			}
 
-
-			foreach ( ArrayMeshSceneNodePrefab scnp in _arrayMeshSceneNodesPrefab.Values )
+			foreach ( ArrayMeshSceneNodePrefab ascnp in _arrayMeshSceneNodesPrefab.Values )
 			{
-				for ( int i = scnp.StartIndex; i <= scnp.EndIndex; i++ )
+				for ( int i = ascnp.StartIndex; i <= ascnp.EndIndex; i++ )
 				{
-					SceneNode scn = scnp.GetSceneNode();
+					SceneNode scn = ascnp.GetSceneNode( parameters );
 					mainNode.AddChild( scn );
 					scn.SetScale( scn.GetScale() * scale );
 
-					if ( scnp.Path != null && entity.PhysicsEntity.GetBodyFromPath( scnp.Path, i ) != null )
+					if ( ascnp.Path != null && entity.PhysicsEntity.GetBodyFromPath( ascnp.Path, i ) != null )
 					{
-						BodyController controller = new BodyController( scn, entity.PhysicsEntity.GetBodyFromPath( scnp.Path, i ) );
+						BodyController controller = new BodyController( scn, entity.PhysicsEntity.GetBodyFromPath( ascnp.Path, i ) );
 						entity.BodyControllers.Add( controller );
 
 						FrameUpdateManager.Instance.Register( controller );

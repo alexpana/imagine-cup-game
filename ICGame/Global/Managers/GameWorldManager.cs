@@ -15,26 +15,16 @@ namespace VertexArmy.Global.Managers
 			return _entities[name];
 		}
 
-		public void SpawnEntity( string prefabName, string entityName, Vector3 position )
+		public void SpawnEntity( string prefabName, string entityName, Vector3 position, float scale = 1f,
+			GameEntityParameters parameters = null )
 		{
-			SpawnEntity( PrefabRepository.Instance.GetPrefab( prefabName ), entityName, position );
+			SpawnEntity( PrefabRepository.Instance.GetPrefab( prefabName ), entityName, position, scale, parameters );
 		}
 
-		public void SpawnEntity( PrefabEntity prefab, string entityName, Vector3 position )
+		public void SpawnEntity( PrefabEntity prefab, string entityName, Vector3 position, float scale = 1f,
+			GameEntityParameters parameters = null )
 		{
-			GameEntity entity = prefab.CreateGameEntity( this, 1f );
-			_entities.Add( entityName, entity );
-			entity.SetPosition( position );
-		}
-
-		public void SpawnEntity( string prefabName, string entityName, Vector3 position, float scale )
-		{
-			SpawnEntity( PrefabRepository.Instance.GetPrefab( prefabName ), entityName, position, scale );
-		}
-
-		public void SpawnEntity( PrefabEntity prefab, string entityName, Vector3 position, float scale )
-		{
-			GameEntity entity = prefab.CreateGameEntity( this, scale );
+			GameEntity entity = prefab.CreateGameEntity( this, scale, parameters );
 			_entities.Add( entityName, entity );
 			entity.SetPosition( position );
 		}

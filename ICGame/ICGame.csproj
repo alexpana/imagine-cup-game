@@ -101,6 +101,7 @@
     <Compile Include="Content\Prefabs\ButtonPrefab.cs" />
     <Compile Include="Content\Prefabs\LiftedDoorPrefab.cs" />
     <Compile Include="Content\Prefabs\MenuCubePrefab.cs" />
+    <Compile Include="GameWorld\GameEntityParameters.cs" />
     <Compile Include="GameWorld\Prefabs\PrefabUtils.cs" />
     <Compile Include="GameWorld\Prefabs\Structs\ControllerType.cs" />
     <Compile Include="GameWorld\Prefabs\Structs\ControllerPrefab.cs" />
@@ -182,6 +183,7 @@
     <Compile Include="States\GameStatePaused.cs" />
     <Compile Include="Global\Platform.cs" />
     <Compile Include="States\GameStateRoomPreview.cs" />
+    <Compile Include="Utilities\DictionaryExtensions.cs" />
     <Compile Include="Utilities\TransformUtility.cs" />
     <Compile Include="Utilities\UnitsConverter.cs" />
     <Compile Include="Serialization\ISerializer.cs" />

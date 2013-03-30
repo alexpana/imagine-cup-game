@@ -32,13 +32,13 @@ namespace VertexArmy.Global.Managers
 
 		public PrefabRepository()
 		{
-			_prefabs = new Dictionary<string, PrefabEntity>( );
+			_prefabs = new Dictionary<string, PrefabEntity>();
 		}
 
 		private static class PrefabRepositoryInstanceHolder
 		{
 			// ReSharper disable MemberHidesStaticFromOuterClass
-			public static readonly PrefabRepository Instance = new PrefabRepository( );
+			public static readonly PrefabRepository Instance = new PrefabRepository();
 			// ReSharper restore MemberHidesStaticFromOuterClass
 		}
 	}

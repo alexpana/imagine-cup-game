@@ -54,10 +54,10 @@ namespace VertexArmy
 			PrefabRepository.Instance.RegisterPrefab( "menu_cube", MenuCubePrefab.CreatePrefab() );
 			PrefabRepository.Instance.RegisterPrefab( "button", ButtonPrefab.CreatePrefab() );
 			// HACK!
-			MaterialRepository.Instance.RegisterMaterial( "DefaultMaterial", CelShading.CreateMaterial() );
-			MaterialRepository.Instance.RegisterMaterial( "RobotMaterial", CelShading.CreateMaterial() );
-			MaterialRepository.Instance.RegisterMaterial( "CelShadingMaterial", CelShading.CreateMaterial() );
-			MaterialRepository.Instance.RegisterMaterial( "MenuCubeMaterial", MenuCubeMaterial.CreateMaterial() );
+			MaterialRepository.Instance.RegisterMaterial( "DefaultMaterial", args => CelShading.CreateMaterial() );
+			MaterialRepository.Instance.RegisterMaterial( "RobotMaterial", args => CelShading.CreateMaterial() );
+			MaterialRepository.Instance.RegisterMaterial( "CelShadingMaterial", args => CelShading.CreateMaterial() );
+			MaterialRepository.Instance.RegisterMaterial( "MenuCubeMaterial", args => MenuCubeMaterial.CreateMaterial( args ) );
 		}
 
 		protected override void UnloadContent()

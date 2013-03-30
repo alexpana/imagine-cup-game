@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
+using VertexArmy.GameWorld;
 using VertexArmy.Global;
 using VertexArmy.Global.Managers;
+using VertexArmy.Graphics;
 
 namespace VertexArmy.States.Menu
 {
@@ -21,6 +23,8 @@ namespace VertexArmy.States.Menu
 		public string Title { get; set; }
 
 		public string Id { get; private set; }
+
+		public string BackgroundTexture { get; set; }
 
 		private const float DropHeight = 50f;
 		private const float RotationTime = 200.0f;
@@ -42,7 +46,15 @@ namespace VertexArmy.States.Menu
 
 		public void Spawn()
 		{
-			GameWorldManager.Instance.SpawnEntity( "menu_cube", Id, new Vector3( 0f, DropHeight, 0f ) );
+			var parameters = new GameEntityParameters
+			{
+				SceneNodeParameters = new Dictionary<string, object>
+				{
+					{ Material.ColorMap, BackgroundTexture }
+				}
+			};
+
+			GameWorldManager.Instance.SpawnEntity( "menu_cube", Id, new Vector3( 0f, DropHeight, 0f ), 1f, parameters );
 
 			// set a small horizontal rotation to give a better impression
 			_rotation = Quaternion.CreateFromAxisAngle( Vector3.UnitY,

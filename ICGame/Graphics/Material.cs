@@ -6,15 +6,16 @@ namespace VertexArmy.Graphics
 {
 	public class Material
 	{
-		
+		public const string ColorMap = "ColorMap";
+
 		public Effect Effect;
-		private readonly dynamic _parameter = new List<object>( );
-		private readonly Dictionary<String, int> _bindings = new Dictionary<string, int>( );
+		private readonly dynamic _parameter = new List<object>();
+		private readonly Dictionary<String, int> _bindings = new Dictionary<string, int>();
 
 		public void Apply()
 		{
-			Effect.CurrentTechnique.Passes[0].Apply( );
-			foreach (var additionalInformation in _bindings)
+			Effect.CurrentTechnique.Passes[0].Apply();
+			foreach ( var additionalInformation in _bindings )
 			{
 				if ( Effect.Parameters[additionalInformation.Key] != null )
 				{
@@ -23,7 +24,7 @@ namespace VertexArmy.Graphics
 			}
 		}
 
-		public void AddParameter(string name, object data)
+		public void AddParameter( string name, object data )
 		{
 			_bindings[name] = _parameter.Count;
 			_parameter.Add( data );
@@ -31,7 +32,7 @@ namespace VertexArmy.Graphics
 
 		public void SetParameter( string name, object data )
 		{
-			if(_bindings.ContainsKey(name))
+			if ( _bindings.ContainsKey( name ) )
 				_parameter[_bindings[name]] = data;
 		}
 	}

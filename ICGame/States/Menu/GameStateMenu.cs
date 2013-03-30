@@ -54,35 +54,40 @@ namespace VertexArmy.States.Menu
 		{
 			if ( _activeCube != null )
 			{
-				if ( _platform.Input.IsKeyPressed( Keys.Left, false ) )
-				{
-					_activeCube.SelectPreviousItem();
-				}
-				else if ( _platform.Input.IsKeyPressed( Keys.Right, false ) )
-				{
-					_activeCube.SelectNextItem();
-				}
-				else if ( _platform.Input.IsKeyPressed( Keys.Enter, false ) )
-				{
-					_activeCube.Items[_activeCube.SelectedItem].Activate();
-					_platform.SoundManager.PlaySound( _menuEventSound );
-				}
-				else if ( _platform.Input.IsKeyPressed( Keys.Escape, false ) ||
-						 _platform.Input.IsKeyPressed( Keys.Back, false ) )
-				{
-					if ( _activeCube.PreviousMenu != null )
-					{
-						_activeCube.Destroy();
-						_activeCube = _activeCube.PreviousMenu;
-						_platform.SoundManager.PlaySound( _menuEventSound );
-					}
-				}
+				HandleInput();
 
 				_activeCube.Update( gameTime );
 			}
 
 			_platform.PhysicsWorld.Step( Math.Min( ( float ) gameTime.ElapsedGameTime.TotalMilliseconds * 0.001f, ( 1f / 30f ) ) );
 			FrameUpdateManager.Instance.Update( gameTime );
+		}
+
+		private void HandleInput()
+		{
+			if ( _platform.Input.IsKeyPressed( Keys.Left, false ) )
+			{
+				_activeCube.SelectPreviousItem();
+			}
+			else if ( _platform.Input.IsKeyPressed( Keys.Right, false ) )
+			{
+				_activeCube.SelectNextItem();
+			}
+			else if ( _platform.Input.IsKeyPressed( Keys.Enter, false ) )
+			{
+				_activeCube.Items[_activeCube.SelectedItem].Activate();
+				_platform.SoundManager.PlaySound( _menuEventSound );
+			}
+			else if ( _platform.Input.IsKeyPressed( Keys.Escape, false ) ||
+					 _platform.Input.IsKeyPressed( Keys.Back, false ) )
+			{
+				if ( _activeCube.PreviousMenu != null )
+				{
+					_activeCube.Destroy();
+					_activeCube = _activeCube.PreviousMenu;
+					_platform.SoundManager.PlaySound( _menuEventSound );
+				}
+			}
 		}
 
 		public void OnRender( GameTime gameTime )
@@ -159,6 +164,7 @@ namespace VertexArmy.States.Menu
 			_mainMenuCube = new MenuCube
 			{
 				Title = "Main menu",
+				BackgroundTexture = "mainmenu_cube",
 				SelectionSound = _menuItemSelectionSound,
 				Items = new List<MenuItem>
 				{
@@ -171,6 +177,7 @@ namespace VertexArmy.States.Menu
 			_optionsMenuCube = new MenuCube
 			{
 				Title = "Options menu",
+				BackgroundTexture = "optionsmenu_cube",
 				PreviousMenu = _mainMenuCube,
 				SelectionSound = _menuItemSelectionSound,
 				Items = new List<MenuItem>

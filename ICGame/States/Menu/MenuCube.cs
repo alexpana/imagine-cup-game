@@ -79,7 +79,7 @@ namespace VertexArmy.States.Menu
 			}
 
 			SelectedItem--;
-			InitRotation( -RotationStep );
+			StartRotation( RotationStep );
 
 			if ( SelectionSound != null )
 			{
@@ -95,7 +95,7 @@ namespace VertexArmy.States.Menu
 			}
 
 			SelectedItem++;
-			InitRotation( RotationStep );
+			StartRotation( -RotationStep );
 
 			if ( SelectionSound != null )
 			{
@@ -103,7 +103,7 @@ namespace VertexArmy.States.Menu
 			}
 		}
 
-		private void InitRotation( float angle )
+		private void StartRotation( float angle )
 		{
 			_requestedRotation = true;
 			if ( !_isRotating )

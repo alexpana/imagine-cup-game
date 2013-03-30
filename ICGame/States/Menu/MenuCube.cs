@@ -73,20 +73,12 @@ namespace VertexArmy.States.Menu
 
 		public void SelectPreviousItem()
 		{
-			if ( _isRotating || Items.Count == 1 )
+			if ( _isRotating || Items.Count == 1 || SelectedItem == 0 )
 			{
 				return;
 			}
 
-			if ( SelectedItem == 0 )
-			{
-				SelectedItem = Items.Count - 1;
-			}
-			else
-			{
-				SelectedItem--;
-			}
-
+			SelectedItem--;
 			InitRotation( -RotationStep );
 
 			if ( SelectionSound != null )
@@ -97,12 +89,12 @@ namespace VertexArmy.States.Menu
 
 		public void SelectNextItem()
 		{
-			if ( _isRotating || Items.Count == 1 )
+			if ( _isRotating || Items.Count == 1 || SelectedItem >= Items.Count - 1 )
 			{
 				return;
 			}
 
-			SelectedItem = ( SelectedItem + 1 ) % Items.Count;
+			SelectedItem++;
 			InitRotation( RotationStep );
 
 			if ( SelectionSound != null )

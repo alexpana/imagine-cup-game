@@ -44,6 +44,7 @@ namespace VertexArmy.States
 		{
 			base.OnUpdate( gameTime );
 
+			/*
 			if ( _frames < _frameFreeze )
 			{
 				_frames++;
@@ -53,6 +54,7 @@ namespace VertexArmy.States
 				GameWorldManager.Instance.GetEntity( "mesh1" ).SetPhysicsEnabled( false );
 				GameWorldManager.Instance.GetEntity( "mesh1" ).SetPosition( Vector3.Zero );
 			}
+			*/
 
 
 			Vector2 mouseDelta = new Vector2( 0, 0 );
@@ -108,14 +110,14 @@ namespace VertexArmy.States
 			MeshSceneNodePrefab crateSceneNode = new MeshSceneNodePrefab
 			{
 				Material = "CelShadingMaterial",
-				Mesh = "models/crate00",
+				Mesh = "models/button_body",
 				Name = "Mesh",
 				LocalRotation = new Quaternion( new Vector3( 0f, 0f, 0f ), 0f )
 			};
 
 			mesh.RegisterMeshSceneNode( crateSceneNode );
-			GameWorldManager.Instance.SpawnEntity( "robot", "mesh1", new Vector3( 0f, 0, 0f ) );
-
+			GameWorldManager.Instance.SpawnEntity( mesh, "mesh1", new Vector3( 0, 0, 0 ) );
+			//GameWorldManager.Instance.SpawnEntity( "robot", "mesh1", new Vector3( 0f, 0, 0f ) );
 		}
 
 		public override void OnClose()

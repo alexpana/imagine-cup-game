@@ -8,7 +8,6 @@ using FarseerPhysics.Factories;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using VertexArmy.Global;
@@ -24,8 +23,6 @@ namespace VertexArmy.States.Menu
 
 		private MenuCube _activeCube;
 
-		private SpriteBatch _spriteBatch;
-		private SpriteFont _font;
 		private Song _backgroundMusic;
 		private SoundEffect _menuItemSelectionSound;
 		private SoundEffect _menuEventSound;
@@ -93,27 +90,11 @@ namespace VertexArmy.States.Menu
 
 		public void OnRender( GameTime gameTime )
 		{
-			if ( _activeCube != null )
-			{
-				_spriteBatch.Begin();
-
-				_spriteBatch.DrawString( _font, _activeCube.Title, new Vector2( 100, 100 ), Color.Black );
-				_spriteBatch.DrawString( _font, "< " + _activeCube.Items[_activeCube.SelectedItem].Title + " >",
-					new Vector2( 100, 150 ), Color.Black );
-
-				_spriteBatch.End();
-
-				SceneManager.Instance.Render( gameTime.ElapsedGameTime.Milliseconds );
-			}
-
-			_debugView.DrawString( 1, 1, "Left/Right - arrow switch items, ENTER - activate, ESC - go back." );
-			_debugView.RenderDebugData( ref _projection, ref _view );
+			SceneManager.Instance.Render( gameTime.ElapsedGameTime.Milliseconds );
 		}
 
 		public void OnEnter()
 		{
-			_spriteBatch = new SpriteBatch( _platform.Device );
-			_font = _platform.Content.Load<SpriteFont>( "fonts/SpriteFont1" );
 			_backgroundMusic = _content.Load<Song>( "music/proto1_menu" );
 			_menuItemSelectionSound = _content.Load<SoundEffect>( "sounds/button-27" );
 			_menuEventSound = _content.Load<SoundEffect>( "sounds/button-30" );

@@ -41,7 +41,7 @@ namespace VertexArmy.States.Menu
 		private Quaternion _rotation = Quaternion.Identity;
 
 		private bool _isSpawned;
-		private ContentManager _contentManager;
+		private readonly ContentManager _contentManager;
 
 		public MenuCube( ContentManager contentManager )
 		{
@@ -60,7 +60,7 @@ namespace VertexArmy.States.Menu
 				}
 			};
 
-			GameWorldManager.Instance.SpawnEntity( "menu_cube", Id, new Vector3( 0f, DropHeight, 0f ), 1f, parameters );
+			GameWorldManager.Instance.SpawnEntity( "menu_cube", Id, new Vector3( -25f, DropHeight, 0f ), 1f, parameters );
 
 			// set a small horizontal rotation to give a better impression
 			_rotation = Quaternion.CreateFromAxisAngle( Vector3.UnitY,

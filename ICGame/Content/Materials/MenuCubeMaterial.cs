@@ -13,7 +13,7 @@ namespace VertexArmy.Content.Materials
 			Effect effect = Platform.Instance.Content.Load<Effect>( @"effects\textured" );
 			material.Effect = effect;
 
-			material.AddParameter( "ColorMap", Platform.Instance.Content.Load<Texture2D>( "images/" + "menu_cube" ) );
+			material.AddParameter( "ColorMap", Platform.Instance.Content.Load<Texture2D>( "images/menu/" + "mainmenu_cube" ) );
 			material.AddParameter( "matWorldViewProj", Matrix.Identity );
 			material.AddParameter( "matWorldInverseTranspose", Matrix.Identity );
 			material.AddParameter( "matWorld", Matrix.Identity );

@@ -194,8 +194,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="images\menu_cube.tga">
-      <Name>menu_cube</Name>
+    <Compile Include="images\menu\mainmenu_cube.tga">
+      <Name>mainmenu_cube</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
@@ -245,6 +245,13 @@
       <Name>button-30</Name>
       <Importer>WavImporter</Importer>
       <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="images\menu\optionsmenu_cube.tga">
+      <Name>optionsmenu_cube</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />

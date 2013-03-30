@@ -19,11 +19,11 @@ namespace VertexArmy.States
 
 		public void OnUpdate( GameTime gameTime )
 		{
-			if ( Platform.Instance.Input.IsKeyPressed( Keys.Enter, false ) )
+			if ( Platform.Instance.Input.IsKeyPressed( Keys.Escape, false ) )
 			{
 				StateManager.Instance.PopState();
 			}
-			else if ( Platform.Instance.Input.IsKeyPressed( Keys.Escape, false ) )
+			else if ( Platform.Instance.Input.IsKeyPressed( Keys.Enter, false ) )
 			{
 				StateManager.Instance.PopState();
 				StateManager.Instance.ChangeState( GameState.Menu );
@@ -36,8 +36,8 @@ namespace VertexArmy.States
 
 			float x = Platform.Instance.Device.Viewport.Width / 2.0f - 100f;
 
-			_spriteBatch.DrawString( _font, "Paused. Press ENTER to resume.", new Vector2( x, Platform.Instance.Device.Viewport.Height / 2.0f ), Color.Black );
-			_spriteBatch.DrawString( _font, "        Press ESCAPE to exit to menu.", new Vector2( x, Platform.Instance.Device.Viewport.Height / 2.0f + 30f ), Color.Black );
+			_spriteBatch.DrawString( _font, "Paused. Press ESCAPE to resume.", new Vector2( x, Platform.Instance.Device.Viewport.Height / 2.0f ), Color.Black );
+			_spriteBatch.DrawString( _font, "        Press ENTER to exit to menu.", new Vector2( x, Platform.Instance.Device.Viewport.Height / 2.0f + 30f ), Color.Black );
 			_spriteBatch.End();
 		}
 

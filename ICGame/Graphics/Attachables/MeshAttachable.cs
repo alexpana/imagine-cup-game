@@ -5,13 +5,13 @@ namespace VertexArmy.Graphics
 {
 	class MeshAttachable : Attachable
 	{
-		private Model _myMod;
-		private Material _myMat;
+		public Model Model { get; private set; }
+		public Material Material { get; private set; }
 		public BoundingSphere BoundingSphere { get; internal set; }
 
-		public MeshAttachable(Model mod, Material mat)
+		public MeshAttachable( Model mod, Material mat )
 		{
-			BoundingSphere = new BoundingSphere( );
+			BoundingSphere = new BoundingSphere();
 			foreach ( ModelMesh mesh in mod.Meshes )
 			{
 				BoundingSphere = BoundingSphere.CreateMerged( BoundingSphere, mesh.BoundingSphere );
@@ -21,17 +21,17 @@ namespace VertexArmy.Graphics
 				}
 			}
 
-			_myMod = mod;
-			_myMat = mat;
+			Model = mod;
+			Material = mat;
 		}
 
 		public override void Render( float dt )
 		{
-			Renderer.Instance.SetGlobalMaterialParameters( _myMat );
-			_myMat.Apply( );
-			foreach ( ModelMesh m in _myMod.Meshes )
+			Renderer.Instance.SetGlobalMaterialParameters( Material );
+			Material.Apply();
+			foreach ( ModelMesh m in Model.Meshes )
 			{
-				m.Draw( );
+				m.Draw();
 			}
 		}
 	}

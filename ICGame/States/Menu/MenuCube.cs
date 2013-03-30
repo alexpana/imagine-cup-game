@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
 using VertexArmy.GameWorld;
 using VertexArmy.Global;
 using VertexArmy.Global.Managers;
@@ -38,10 +41,12 @@ namespace VertexArmy.States.Menu
 		private Quaternion _rotation = Quaternion.Identity;
 
 		private bool _isSpawned;
+		private ContentManager _contentManager;
 
-		public MenuCube()
+		public MenuCube( ContentManager contentManager )
 		{
 			Id = Guid.NewGuid().ToString();
+			_contentManager = contentManager;
 		}
 
 		public void Spawn()
@@ -88,6 +93,17 @@ namespace VertexArmy.States.Menu
 		public void SetBackgroundImage( string backgroundImage )
 		{
 			_backgroundTexture = backgroundImage;
+
+			if ( _isSpawned )
+			{
+				var mainNode = GameWorldManager.Instance.GetEntity( Id ).MainNode;
+				var material = mainNode.Children.SelectMany( n => n.Attachable ).OfType<MeshAttachable>().Select( m => m.Material ).FirstOrDefault();
+				if ( material != null )
+				{
+					var texture = _contentManager.Load<Texture2D>( "images/menu/" + backgroundImage );
+					material.SetParameter( Material.ColorMap, texture );
+				}
+			}
 		}
 
 		public void SelectPreviousItem()

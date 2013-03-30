@@ -162,7 +162,7 @@ namespace VertexArmy.States.Menu
 
 		private void CreateMenus()
 		{
-			_mainMenuCube = new MenuCube
+			_mainMenuCube = new MenuCube( _content )
 			{
 				Title = "Main menu",
 				SelectionSound = _menuItemSelectionSound,
@@ -175,7 +175,7 @@ namespace VertexArmy.States.Menu
 			};
 			_mainMenuCube.SetBackgroundImage( "main" );
 
-			_optionsMenuCube = new MenuCube
+			_optionsMenuCube = new MenuCube( _content )
 			{
 				Title = "Options menu",
 				PreviousMenu = _mainMenuCube,

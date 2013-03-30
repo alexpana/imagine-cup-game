@@ -28,7 +28,7 @@ namespace VertexArmy.GameWorld
 
 		private Quaternion _externalRotation = Quaternion.Identity;
 
-		public void init()
+		public void Init()
 		{
 			PhysicsEntity = new PhysicsEntity();
 			BodyControllers = new List<BodyController>();

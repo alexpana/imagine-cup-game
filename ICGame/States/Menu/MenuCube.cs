@@ -21,10 +21,7 @@ namespace VertexArmy.States.Menu
 		public SoundEffect SelectionSound { get; set; }
 
 		public string Title { get; set; }
-
 		public string Id { get; private set; }
-
-		public string BackgroundTexture { get; set; }
 
 		private const float DropHeight = 50f;
 		private const float RotationTime = 200.0f;
@@ -32,12 +29,15 @@ namespace VertexArmy.States.Menu
 		private const int InitialRotationMin = -5;
 		private const int InitialRotationMax = 5;
 
+		private string _backgroundTexture;
 		private bool _requestedRotation;
 		private bool _isRotating;
 		private float _currentRotationTime;
 		private Quaternion _previousRotation = Quaternion.Identity;
 		private Quaternion _nextRotation = Quaternion.Identity;
 		private Quaternion _rotation = Quaternion.Identity;
+
+		private bool _isSpawned;
 
 		public MenuCube()
 		{
@@ -46,11 +46,12 @@ namespace VertexArmy.States.Menu
 
 		public void Spawn()
 		{
+			_isSpawned = true;
 			var parameters = new GameEntityParameters
 			{
 				SceneNodeParameters = new Dictionary<string, object>
 				{
-					{ Material.ColorMap, BackgroundTexture }
+					{ Material.ColorMap, _backgroundTexture }
 				}
 			};
 
@@ -63,6 +64,7 @@ namespace VertexArmy.States.Menu
 
 		public void Destroy()
 		{
+			_isSpawned = false;
 			GameWorldManager.Instance.RemoveEntity( Id );
 		}
 
@@ -81,6 +83,11 @@ namespace VertexArmy.States.Menu
 
 				GameWorldManager.Instance.GetEntity( Id ).SetRotation( _rotation );
 			}
+		}
+
+		public void SetBackgroundImage( string backgroundImage )
+		{
+			_backgroundTexture = backgroundImage;
 		}
 
 		public void SelectPreviousItem()

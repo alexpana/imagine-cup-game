@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 using FarseerPhysics;
 using FarseerPhysics.Common;
 using FarseerPhysics.Dynamics;
@@ -164,7 +165,6 @@ namespace VertexArmy.States.Menu
 			_mainMenuCube = new MenuCube
 			{
 				Title = "Main menu",
-				BackgroundTexture = "mainmenu_cube",
 				SelectionSound = _menuItemSelectionSound,
 				Items = new List<MenuItem>
 				{
@@ -173,23 +173,45 @@ namespace VertexArmy.States.Menu
 					new MenuItem { Title = "Exit", Activated = args => _platform.Game.Exit() }
 				}
 			};
+			_mainMenuCube.SetBackgroundImage( "main" );
 
 			_optionsMenuCube = new MenuCube
 			{
 				Title = "Options menu",
-				BackgroundTexture = "optionsmenu_cube",
 				PreviousMenu = _mainMenuCube,
 				SelectionSound = _menuItemSelectionSound,
 				Items = new List<MenuItem>
 				{
 					new SwitchMenuItem
 					{
-						OnTitle = "On", OffTitle = "Off", Prefix = "Music",
+						OnTitle = "On", OffTitle = "Off", Prefix = "Sounds",
 						IsOn = _platform.Settings.IsMusicEnabled,
-						Activated = args => _platform.Settings.IsMusicEnabled= (bool)args
+						Activated = args =>
+						{
+							_platform.Settings.IsMusicEnabled = (bool)args;
+							_optionsMenuCube.SetBackgroundImage(CreateImagePath("options", new Dictionary<string, string>
+							{
+								{ "sounds", ((bool)args) ? "on" : "off" }
+							}));
+						}
 					}
 				}
 			};
+			_optionsMenuCube.SetBackgroundImage( "options_sounds-on" );
+		}
+
+		private string CreateImagePath( string prefix, Dictionary<string, string> options )
+		{
+			StringBuilder stringBuilder = new StringBuilder();
+
+			stringBuilder.Append( prefix );
+
+			foreach ( var option in options )
+			{
+				stringBuilder.AppendFormat( "_{0}-{1}", option.Key, option.Value );
+			}
+
+			return stringBuilder.ToString();
 		}
 
 		public void OnClose()

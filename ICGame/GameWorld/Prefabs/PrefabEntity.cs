@@ -83,7 +83,7 @@ namespace VertexArmy.GameWorld.Prefabs
 		{
 			GameEntity obj = new GameEntity();
 
-			obj.init();
+			obj.Init();
 
 			obj.Name = Name;
 			obj.Flags = Flags;

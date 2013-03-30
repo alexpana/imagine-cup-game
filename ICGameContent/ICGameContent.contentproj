@@ -194,13 +194,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="images\menu\mainmenu_cube.tga">
-      <Name>mainmenu_cube</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="sounds\bang.wav">
       <Name>bang</Name>
       <Importer>WavImporter</Importer>
@@ -248,8 +241,18 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="images\menu\optionsmenu_cube.tga">
-      <Name>optionsmenu_cube</Name>
+    <Compile Include="images\menu\main.tga">
+      <Name>main</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="images\menu\options_sounds-off.tga">
+      <Name>options_sounds-off</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="images\menu\options_sounds-on.tga">
+      <Name>options_sounds-on</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

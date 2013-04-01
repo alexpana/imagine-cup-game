@@ -23,14 +23,16 @@ namespace VertexArmy.GameWorld.Prefabs.Structs
 			Body pBody = new Body( Platform.Instance.PhysicsWorld );
 
 			pBody.Position = UnitsConverter.ToSimUnits( LocalPosition ) * scale;
-			pBody.Restitution = Restitution;
 			pBody.IsStatic = Static;
-			pBody.Friction = Friction;
 
 			foreach ( ShapePrefab sp in Shapes )
 			{
 				sp.AttachToBody( pBody, scale );
 			}
+
+			pBody.Restitution = Restitution;
+			pBody.Friction = Friction;
+
 
 			pBody.CollisionGroup = CollisionGroup;
 

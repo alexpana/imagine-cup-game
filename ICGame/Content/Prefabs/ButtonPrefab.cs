@@ -82,7 +82,7 @@ namespace VertexArmy.Content.Prefabs
 				Anchor = new Vector2( -5f, 0f ),
 				Anchor2 = new Vector2( -5f, 0f ),
 				CollideConnected = true,
-				Frequency = 3f,
+				Frequency = 2f,
 				DampingRatio = 0.3f
 			};
 
@@ -96,7 +96,7 @@ namespace VertexArmy.Content.Prefabs
 				Anchor = new Vector2( 5f, 0f ),
 				Anchor2 = new Vector2( 5f, 0f ),
 				CollideConnected = true,
-				Frequency = 3f,
+				Frequency = 2f,
 				DampingRatio = 0.3f
 			};
 

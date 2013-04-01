@@ -27,7 +27,7 @@ namespace VertexArmy.Content.Prefabs
 									   Name = "MenuCubeBody",
 									   Shapes = new List<ShapePrefab> { cubeShape },
 									   //TODO: add a small bounce effect...
-									   Restitution = 3f,
+									   Restitution = 0.6f,
 									   Static = false
 								   };
 

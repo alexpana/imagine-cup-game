@@ -26,8 +26,7 @@ namespace VertexArmy.Content.Prefabs
 									   LocalPosition = Vector2.Zero,
 									   Name = "MenuCubeBody",
 									   Shapes = new List<ShapePrefab> { cubeShape },
-									   //TODO: add a small bounce effect...
-									   Restitution = 0.6f,
+									   Restitution = 0.25f,
 									   Static = false
 								   };
 

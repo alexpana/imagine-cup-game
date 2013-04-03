@@ -23,6 +23,10 @@ namespace VertexArmy.GameWorld.Prefabs.Structs
 		public bool CollideConnected;
 
 		public float MinLength, MaxLength, Length;
+		public float UpperLimit, LowerLimit;
+		public bool LimitEnabled;
+		public float MaxMotorForce;
+		public float MotorSpeed;
 
 
 		public Joint GetPhysicsJoint( float scale )
@@ -52,7 +56,6 @@ namespace VertexArmy.GameWorld.Prefabs.Structs
 			{
 				case JointType.Line:
 					LineJoint joint = new LineJoint( body1, body2, UnitsConverter.ToSimUnits( Anchor ) * scale, Axis );
-
 					joint.MaxMotorTorque = MaxMotorTorque;
 					joint.MotorEnabled = MotorEnabled;
 					joint.Frequency = Frequency;
@@ -89,6 +92,18 @@ namespace VertexArmy.GameWorld.Prefabs.Structs
 					joint5.Length = UnitsConverter.ToSimUnits( Length ) * scale;
 					Platform.Instance.PhysicsWorld.AddJoint( joint5 );
 					return joint5;
+				case JointType.Prismatic:
+					PrismaticJoint joint6 = new PrismaticJoint( body1, body2, UnitsConverter.ToSimUnits( Anchor ) * scale, UnitsConverter.ToSimUnits( Anchor2 ) * scale, Axis );
+					joint6.CollideConnected = CollideConnected;
+					joint6.UpperLimit = UnitsConverter.ToSimUnits( UpperLimit ) * scale;
+					joint6.LowerLimit = UnitsConverter.ToSimUnits( LowerLimit ) * scale;
+					joint6.LimitEnabled = LimitEnabled;
+					joint6.MotorEnabled = MotorEnabled;
+					joint6.MaxMotorForce = MaxMotorForce * scale;
+					joint6.MotorSpeed = MotorSpeed * scale;
+
+					Platform.Instance.PhysicsWorld.AddJoint( joint6 );
+					return joint6;
 
 				default:
 					return null;

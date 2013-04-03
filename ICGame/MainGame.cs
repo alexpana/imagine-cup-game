@@ -47,12 +47,13 @@ namespace VertexArmy
 
 		protected override void LoadContent()
 		{
-			PrefabRepository.Instance.RegisterPrefab( "robot", RobotPrefab.CreatePrefab() );
-			PrefabRepository.Instance.RegisterPrefab( "crate", CratePrefab.CreatePrefab() );
-			PrefabRepository.Instance.RegisterPrefab( "mesh", SimpleMeshPrefab.CreatePrefab() );
-			PrefabRepository.Instance.RegisterPrefab( "camera", CameraPrefab.CreatePrefab() );
-			PrefabRepository.Instance.RegisterPrefab( "menu_cube", MenuCubePrefab.CreatePrefab() );
-			PrefabRepository.Instance.RegisterPrefab( "button", ButtonPrefab.CreatePrefab() );
+			PrefabRepository.Instance.RegisterPrefab( "Robot", RobotPrefab.CreatePrefab() );
+			PrefabRepository.Instance.RegisterPrefab( "Crate", CratePrefab.CreatePrefab() );
+			PrefabRepository.Instance.RegisterPrefab( "Mesh", SimpleMeshPrefab.CreatePrefab() );
+			PrefabRepository.Instance.RegisterPrefab( "Camera", CameraPrefab.CreatePrefab() );
+			PrefabRepository.Instance.RegisterPrefab( "Menu_cube", MenuCubePrefab.CreatePrefab() );
+			PrefabRepository.Instance.RegisterPrefab( "Button", ButtonPrefab.CreatePrefab() );
+			PrefabRepository.Instance.RegisterPrefab( "LiftedDoor", LiftedDoorPrefab.CreatePrefab() );
 			// HACK!
 			MaterialRepository.Instance.RegisterMaterial( "DefaultMaterial", args => CelShading.CreateMaterial() );
 			MaterialRepository.Instance.RegisterMaterial( "RobotMaterial", args => CelShading.CreateMaterial() );

@@ -63,7 +63,7 @@ namespace VertexArmy.Content.Prefabs
 			BodyPrefab doorBody = new BodyPrefab
 			{
 				Friction = 1f,
-				LocalPosition = new Vector2( 0f, -120f ),
+				LocalPosition = new Vector2( 0f, -180f ),
 				Name = "Door",
 				Shapes = new List<ShapePrefab> { doorShape },
 				Restitution = 0.1f,
@@ -72,21 +72,26 @@ namespace VertexArmy.Content.Prefabs
 
 			liftedDoor.RegisterBody( doorBody );
 
-			JointPrefab sliderJoint = new JointPrefab
+			JointPrefab prismaticJoint = new JointPrefab
 			{
-				Name = "DoorJoint",
-				Type = JointType.Distance,
-				Body1 = "Door",
-				Body2 = "DoorCase",
-				Length = 150f,
+				Name = "DoorJoint1",
+				Type = JointType.Prismatic,
+				Body1 = "DoorCase",
+				Body2 = "Door",
 				Anchor = new Vector2( 0f, 0f ),
 				Anchor2 = new Vector2( 0f, 0f ),
+				Axis = new Vector2( 0f, 1f ),
 				CollideConnected = true,
-				Frequency = 3f,
-				DampingRatio = 0.3f
+
+				UpperLimit = 240f,
+				LowerLimit = 0f,
+				LimitEnabled = true,
+				MaxMotorForce = 10f,
+				MotorSpeed = 2f,
+				MotorEnabled = true
 			};
 
-			liftedDoor.RegisterJoint( sliderJoint );
+			liftedDoor.RegisterJoint( prismaticJoint );
 
 			return liftedDoor;
 		}

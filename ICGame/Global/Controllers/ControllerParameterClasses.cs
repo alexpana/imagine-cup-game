@@ -1,6 +1,7 @@
 ﻿using FarseerPhysics.Dynamics;
 using Microsoft.Xna.Framework;
 using VertexArmy.Global.Behaviours;
+using VertexArmy.Global.Controllers.Components;
 using VertexArmy.Graphics;
 
 namespace VertexArmy.Global.Controllers
@@ -65,5 +66,15 @@ namespace VertexArmy.Global.Controllers
 		public bool Alive { get; set; }
 
 		public float Value;
+	}
+
+	public class ParameterComponent : IParameter
+	{
+		public bool Null { get; set; }
+		public bool Input { get; set; }
+		public bool Output { get; set; }
+		public bool Alive { get; set; }
+
+		public BaseComponent Value;
 	}
 }

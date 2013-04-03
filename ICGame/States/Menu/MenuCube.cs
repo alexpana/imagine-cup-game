@@ -60,7 +60,7 @@ namespace VertexArmy.States.Menu
 				}
 			};
 
-			GameWorldManager.Instance.SpawnEntity( "menu_cube", Id, new Vector3( -25f, DropHeight, 0f ), 1f, parameters );
+			GameWorldManager.Instance.SpawnEntity( "Menu_cube", Id, new Vector3( -25f, DropHeight, 0f ), 1f, parameters );
 			GameWorldManager.Instance.GetEntity( Id ).SetRotation( 0.017f );
 
 			// set a small horizontal rotation to give a better impression

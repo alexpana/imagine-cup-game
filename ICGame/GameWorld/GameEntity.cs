@@ -110,6 +110,11 @@ namespace VertexArmy.GameWorld
 			}
 		}
 
+		public BaseComponent GetComponent( string name )
+		{
+			return _componentsByName[name];
+		}
+
 		public void SetPosition( Vector3 newPos )
 		{
 			if ( MainBody != null && PhysicsEntity.Enabled )

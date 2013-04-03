@@ -117,7 +117,7 @@ namespace VertexArmy.States.Menu
 			ActivateMenuCube( _mainMenuCube );
 
 			_platform.SoundManager.PlayMusic( _backgroundMusic );
-			GameWorldManager.Instance.SpawnEntity( "camera", "menu_camera", new Vector3( 0, 0, 100 ) );
+			GameWorldManager.Instance.SpawnEntity( "Camera", "menu_camera", new Vector3( 0, 0, 100 ) );
 		}
 
 		private void CreateCubesGround()
@@ -159,7 +159,7 @@ namespace VertexArmy.States.Menu
 				SelectionSound = _menuItemSelectionSound,
 				Items = new List<MenuItem>
 				{
-					new MenuItem { Title = "Play!", Activated = args => StateManager.Instance.ChangeState(GameState.PhysicsPresentationRobot) },
+					new MenuItem { Title = "Play!", Activated = args => StateManager.Instance.ChangeState(GameState.TutorialLevel) },
 					new MenuItem { Title = "Options", Activated = args => ActivateMenuCube(_optionsMenuCube) },
 					new MenuItem { Title = "Exit", Activated = args => _platform.Game.Exit() }
 				}

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using FarseerPhysics.Dynamics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
@@ -22,8 +21,6 @@ namespace VertexArmy.States
 		private DebugViewXNA _debugView;
 		private Matrix _projection;
 		private Matrix _view;
-
-		private Body _ground;
 
 		public GameEntity Robot;
 		public GameEntity Camera;
@@ -75,6 +72,16 @@ namespace VertexArmy.States
 					if ( !_actionFreeze )
 					{
 						Robot.SetPhysicsEnabled( !Robot.PhysicsEntity.Enabled );
+						if ( GameWorldManager.Instance.GetEntity( "crate1" ).PhysicsEntity.Enabled )
+						{
+
+							//GameWorldManager.Instance.GetEntity( "crate1" ).SetPosition( new Vector3( -400f, -800f, 0f ) );
+							//GameWorldManager.Instance.GetEntity( "crate1" ).SetPhysicsEnabled( false );
+						}
+						else
+						{
+							//GameWorldManager.Instance.GetEntity( "crate1" ).SetPhysicsEnabled( true );
+						}
 						_actionFreeze = true;
 					}
 				}
@@ -100,6 +107,7 @@ namespace VertexArmy.States
 
 				if ( Keyboard.GetState( PlayerIndex.One ).IsKeyDown( Keys.O ) )
 				{
+					GameWorldManager.Instance.GetEntity( "crate1" ).PhysicsEntity.GetBody( "CrateBody" ).ApplyForce( new Vector2( 0f, -50f ) );
 					Robot.SetRotation( Robot.GetRotationRadians() - 0.4f * ( float ) gameTime.ElapsedGameTime.TotalSeconds );
 				}
 				else if ( Keyboard.GetState( PlayerIndex.One ).IsKeyDown( Keys.P ) )
@@ -161,12 +169,11 @@ namespace VertexArmy.States
 
 			if ( _debugViewState )
 			{
-				float cameraPosition = UnitsConverter.ToSimUnits( _cameraPosition );
 				_projection = Matrix.CreateOrthographicOffCenter(
-					cameraPosition - Platform.Instance.Device.Viewport.Width / 2f * 0.05f,
-					cameraPosition + Platform.Instance.Device.Viewport.Width / 2f * 0.05f,
-					Platform.Instance.Device.Viewport.Height * 0.05f,
-					0f,
+					UnitsConverter.ToSimUnits( SceneManager.Instance.GetCurrentCamera().Parent.GetPosition().X - Platform.Instance.Device.Viewport.Width / 2f ),
+					UnitsConverter.ToSimUnits( SceneManager.Instance.GetCurrentCamera().Parent.GetPosition().X + Platform.Instance.Device.Viewport.Width / 2f ),
+					UnitsConverter.ToSimUnits( -SceneManager.Instance.GetCurrentCamera().Parent.GetPosition().Y + Platform.Instance.Device.Viewport.Height / 2f ),
+					UnitsConverter.ToSimUnits( -SceneManager.Instance.GetCurrentCamera().Parent.GetPosition().Y - Platform.Instance.Device.Viewport.Height / 2f ),
 					0f,
 					1f
 					);
@@ -187,10 +194,21 @@ namespace VertexArmy.States
 		public override void OnEnter()
 		{
 			//Camera
-			GameWorldManager.Instance.SpawnEntity( "camera", "camera1", new Vector3( 0, -1300, 600 ) );
-			GameWorldManager.Instance.SpawnEntity( "robot", "robotPlayer", new Vector3( -800f, -1000f, 0f ), 2f );
-			GameWorldManager.Instance.SpawnEntity( "button", "button1", new Vector3( -400f, -1000f, 0f ), 10f );
-			GameWorldManager.Instance.SpawnEntity( "crate", "crate1", new Vector3( -400f, 1000f, 0f ), 3f );
+			GameWorldManager.Instance.SpawnEntity( "Camera", "camera1", new Vector3( 0, -200, 600 ) );
+			GameWorldManager.Instance.SpawnEntity( "Robot", "robotPlayer", new Vector3( -800f, -1000f, 0f ), 2f );
+			GameWorldManager.Instance.SpawnEntity( "Button", "button1", new Vector3( -400f, -1000f, 0f ), 10f );
+			GameWorldManager.Instance.GetEntity( "button1" ).RegisterComponent(
+				"active",
+				new ButtonComponent( "ButtonJoint1" )
+				);
+			GameWorldManager.Instance.SpawnEntity( "Crate", "crate1", new Vector3( -400f, -800f, 0f ), 5f );
+			//GameWorldManager.Instance.GetEntity( "crate1" ).SetPhysicsEnabled( false );
+
+			GameWorldManager.Instance.SpawnEntity( "LiftedDoor", "door", new Vector3( -200f, -800f, 0f ), 1f );
+			GameWorldManager.Instance.GetEntity( "door" ).RegisterComponent(
+				"doorHandle",
+				new LiftedDoorComponent( GameWorldManager.Instance.GetEntity( "button1" ).GetComponent( "active" ), "DoorJoint1" )
+			);
 
 			Robot = GameWorldManager.Instance.GetEntity( "robotPlayer" );
 			Robot.PhysicsEntity.Enabled = true;

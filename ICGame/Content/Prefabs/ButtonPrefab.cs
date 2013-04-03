@@ -72,36 +72,25 @@ namespace VertexArmy.Content.Prefabs
 
 			button.RegisterBody( buttonBody );
 
-			JointPrefab sliderJoint1 = new JointPrefab
+			JointPrefab prismaticJoint = new JointPrefab
 			{
 				Name = "ButtonJoint1",
-				Type = JointType.Distance,
+				Type = JointType.Prismatic,
 				Body1 = "Button",
 				Body2 = "ButtonCase",
-				Length = 4f,
-				Anchor = new Vector2( -5f, 0f ),
-				Anchor2 = new Vector2( -5f, 0f ),
-				CollideConnected = true,
-				Frequency = 2f,
-				DampingRatio = 0.3f
+				Anchor = new Vector2( 0f, -1.25f ),
+				Anchor2 = new Vector2( 0f, 0f ),
+				Axis = new Vector2( 0f, 1f ),
+				CollideConnected = false,
+				UpperLimit = 2.25f,
+				LowerLimit = 0f,
+				LimitEnabled = true,
+				MaxMotorForce = 2f,
+				MotorSpeed = 1f,
+				MotorEnabled = true
 			};
 
-			JointPrefab sliderJoint2 = new JointPrefab
-			{
-				Name = "ButtonJoint2",
-				Type = JointType.Distance,
-				Body1 = "Button",
-				Body2 = "ButtonCase",
-				Length = 4f,
-				Anchor = new Vector2( 5f, 0f ),
-				Anchor2 = new Vector2( 5f, 0f ),
-				CollideConnected = true,
-				Frequency = 2f,
-				DampingRatio = 0.3f
-			};
-
-			button.RegisterJoint( sliderJoint1 );
-			button.RegisterJoint( sliderJoint2 );
+			button.RegisterJoint( prismaticJoint );
 
 			MeshSceneNodePrefab caseNode = new MeshSceneNodePrefab
 			{

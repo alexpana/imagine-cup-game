@@ -129,6 +129,8 @@
     <Compile Include="Global\Controllers\Components\BaseComponent.cs" />
     <Compile Include="Global\Controllers\Components\ComponentType.cs" />
     <Compile Include="Global\Controllers\Components\CarControlComponent.cs" />
+    <Compile Include="Global\Controllers\Components\ButtonComponent.cs" />
+    <Compile Include="Global\Controllers\Components\DoorComponent.cs" />
     <Compile Include="Global\Controllers\Components\SentientForceComponent.cs" />
     <Compile Include="Global\Controllers\ControllerParameterClasses.cs" />
     <Compile Include="Global\Controllers\LineJointController.cs" />

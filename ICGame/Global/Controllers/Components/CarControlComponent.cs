@@ -52,12 +52,8 @@ namespace VertexArmy.Global.Controllers.Components
 				direction = 1f;
 			}
 
-
-			if ( direction != 0f )
-			{
-				( ( ParameterFloat ) parameters[0] ).Value = direction;
-				DirectCompute( ref parameters );
-			}
+			( ( ParameterFloat ) parameters[0] ).Value = direction;
+			DirectCompute( ref parameters );
 		}
 
 		public override void DirectCompute( ref List<IParameter> data )

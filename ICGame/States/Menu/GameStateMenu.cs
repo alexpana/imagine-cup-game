@@ -13,6 +13,7 @@ using Microsoft.Xna.Framework.Media;
 using VertexArmy.Global;
 using VertexArmy.Global.Managers;
 using VertexArmy.Physics.DebugView;
+using VertexArmy.Utilities;
 
 namespace VertexArmy.States.Menu
 {
@@ -90,6 +91,16 @@ namespace VertexArmy.States.Menu
 
 		public void OnRender( GameTime gameTime )
 		{
+			_projection = Matrix.CreateOrthographicOffCenter(
+				UnitsConverter.ToSimUnits( -Platform.Instance.Device.Viewport.Width / 2f ),
+				UnitsConverter.ToSimUnits( Platform.Instance.Device.Viewport.Width / 2f ),
+				UnitsConverter.ToSimUnits( Platform.Instance.Device.Viewport.Height / 2f ),
+				UnitsConverter.ToSimUnits( -Platform.Instance.Device.Viewport.Height / 2f ),
+				0f,
+				1f
+			);
+
+			_debugView.RenderDebugData( ref _projection, ref _view );
 			SceneManager.Instance.Render( gameTime.ElapsedGameTime.Milliseconds );
 		}
 
@@ -138,7 +149,6 @@ namespace VertexArmy.States.Menu
 
 			_debugView.TextColor = Color.Black;
 			_view = Matrix.Identity;
-			_projection = Matrix.CreateOrthographicOffCenter( -20f, 20f, 2f, -4f, 0f, 1f );
 		}
 
 		private void CreateMenus()
@@ -149,7 +159,7 @@ namespace VertexArmy.States.Menu
 				SelectionSound = _menuItemSelectionSound,
 				Items = new List<MenuItem>
 				{
-					new MenuItem { Title = "Play!", Activated = args => StateManager.Instance.ChangeState(GameState.TutorialLevel) },
+					new MenuItem { Title = "Play!", Activated = args => StateManager.Instance.ChangeState(GameState.PhysicsPresentationRobot) },
 					new MenuItem { Title = "Options", Activated = args => ActivateMenuCube(_optionsMenuCube) },
 					new MenuItem { Title = "Exit", Activated = args => _platform.Game.Exit() }
 				}

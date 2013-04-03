@@ -61,6 +61,7 @@ namespace VertexArmy.States.Menu
 			};
 
 			GameWorldManager.Instance.SpawnEntity( "menu_cube", Id, new Vector3( -25f, DropHeight, 0f ), 1f, parameters );
+			GameWorldManager.Instance.GetEntity( Id ).SetRotation( 0.017f );
 
 			// set a small horizontal rotation to give a better impression
 			_rotation = Quaternion.CreateFromAxisAngle( Vector3.UnitY,
@@ -86,7 +87,7 @@ namespace VertexArmy.States.Menu
 					_isRotating = false;
 				}
 
-				GameWorldManager.Instance.GetEntity( Id ).SetRotation( _rotation );
+				GameWorldManager.Instance.GetEntity( Id ).SetExternalRotation( _rotation );
 			}
 		}
 

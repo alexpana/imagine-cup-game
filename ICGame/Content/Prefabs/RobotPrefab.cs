@@ -83,7 +83,7 @@ namespace VertexArmy.Content.Prefabs
 				Body2 = "Gear1",
 				Anchor = gear1.LocalPosition,
 				Axis = new Vector2( 0.66f, -0.33f ) * jointLengthModifier,
-				MaxMotorTorque = 60f,
+				MaxMotorTorque = 10f,
 				Frequency = 10f,
 				DampingRatio = 0.85f,
 				MotorEnabled = true,
@@ -97,7 +97,7 @@ namespace VertexArmy.Content.Prefabs
 				Body2 = "Gear2",
 				Anchor = gear2.LocalPosition,
 				Axis = new Vector2( -0.66f, -0.33f ) * jointLengthModifier,
-				MaxMotorTorque = 60f,
+				MaxMotorTorque = 10f,
 				Frequency = 10f,
 				DampingRatio = 0.85f,
 				MotorEnabled = true
@@ -111,7 +111,7 @@ namespace VertexArmy.Content.Prefabs
 				Body2 = "Gear3",
 				Anchor = gear3.LocalPosition,
 				Axis = new Vector2( 0f, 0.76f ) * jointLengthModifier,
-				MaxMotorTorque = 60f,
+				MaxMotorTorque = 10f,
 				Frequency = 10f,
 				DampingRatio = 0.85f,
 				MotorEnabled = true

@@ -125,6 +125,31 @@ namespace VertexArmy.GameWorld
 
 		public void SetRotation( Quaternion newRot )
 		{
+			if ( MainBody != null && PhysicsEntity.Enabled )
+			{
+				PhysicsEntity.SetRotation( MainBody, TransformUtility.GetAngleRollFromQuaternion( newRot ) );
+			}
+			else
+			{
+				MainNode.SetRotation( newRot );
+			}
+		}
+
+		public void SetRotation( float newRot )
+		{
+			if ( MainBody != null && PhysicsEntity.Enabled )
+			{
+				PhysicsEntity.SetRotation( MainBody, newRot );
+			}
+			else
+			{
+				MainNode.SetRotation( UnitsConverter.To3DRotation( newRot ) );
+			}
+		}
+
+
+		public void SetExternalRotation( Quaternion newRot )
+		{
 			bool hasController = false;
 
 			if ( PhysicsEntity.Enabled )
@@ -154,7 +179,7 @@ namespace VertexArmy.GameWorld
 			}
 		}
 
-		public void SetRotation( float newRot )
+		public void SetExternalRotation( float newRot )
 		{
 			bool hasController = false;
 

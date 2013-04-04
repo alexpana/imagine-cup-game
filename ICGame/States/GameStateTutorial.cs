@@ -219,6 +219,8 @@ namespace VertexArmy.States
 			Camera = GameWorldManager.Instance.GetEntity( "camera1" );
 
 			GameWorldManager.Instance.SpawnEntity( "Crate", "crate1", new Vector3( -250, 100f, 0f ), 3f );
+
+			GameWorldManager.Instance.SpawnEntity( "Saf", "saf1", new Vector3( 0, 0, 0 ), 15 );
 			//GameWorldManager.Instance.SpawnEntity( "Crate", "crate2", new Vector3( -250, 200f, 0f ), 3f );
 		}
 

@@ -89,7 +89,7 @@ namespace VertexArmy.States
 			_rotate( 0.01f * mouseDelta.X, Vector3.UnitY );
 			_rotate( 0.01f * mouseDelta.Y, Vector3.UnitX );
 
-			GameWorldManager.Instance.GetEntity( "mesh1" ).SetRotation( _modelRotation );
+			GameWorldManager.Instance.GetEntity( "saf1" ).SetRotation( _modelRotation );
 			GameWorldManager.Instance.GetEntity( "camera1" ).SetPosition(
 				new Vector3( 0, 0, 70 - Mouse.GetState().ScrollWheelValue / 4.0f ) );
 		}
@@ -102,21 +102,9 @@ namespace VertexArmy.States
 			CursorManager.Instance.SetActiveCursor( CursorType.Arrow );
 			CursorManager.Instance.SetVisible( true );
 
-			GameWorldManager.Instance.SpawnEntity( "camera", "camera1", new Vector3( 0, 0, 100 ) );
-
-
-			PrefabEntity mesh = new PrefabEntity();
-
-			MeshSceneNodePrefab crateSceneNode = new MeshSceneNodePrefab
-			{
-				Material = "CelShadingMaterial",
-				Mesh = "models/button_body",
-				Name = "Mesh",
-				LocalRotation = new Quaternion( new Vector3( 0f, 0f, 0f ), 0f )
-			};
-
-			mesh.RegisterMeshSceneNode( crateSceneNode );
-			GameWorldManager.Instance.SpawnEntity( mesh, "mesh1", new Vector3( 0, 0, 0 ) );
+			GameWorldManager.Instance.SpawnEntity( "Camera", "camera1", new Vector3( 0, 0, 100 ) );
+			GameWorldManager.Instance.SpawnEntity( "Saf", "saf1", new Vector3( 0, 0, 0 ) );
+			
 			//GameWorldManager.Instance.SpawnEntity( "robot", "mesh1", new Vector3( 0f, 0, 0f ) );
 		}
 

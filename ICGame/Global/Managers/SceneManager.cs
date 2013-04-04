@@ -130,6 +130,7 @@ namespace VertexArmy.Global.Managers
 				return;
 
 			Platform.Instance.Device.BlendState = new BlendState();
+			Platform.Instance.Device.RasterizerState = RasterizerState.CullCounterClockwise;
 
 
 			CameraAttachable currentCam = _sceneCameras[0];

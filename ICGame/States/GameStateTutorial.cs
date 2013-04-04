@@ -174,7 +174,17 @@ namespace VertexArmy.States
 				TransformUtility.RotateTransformableAroundPoint2D( GameWorldManager.Instance.GetEntity( "floor" + i ), rotationPoint, 0.3f );
 			}
 
-			for ( int i = 0; i < 20; i++ )
+			for ( int i = 0; i < 5; i++ )
+			{
+				GameWorldManager.Instance.SpawnEntity( "Floor", "floor" + floorCount++, new Vector3( 1183f + 60f * i, 87.5f, 0f ) );
+			}
+
+			for ( int i = 5; i < 7; i++ )
+			{
+				GameWorldManager.Instance.SpawnEntity( "Floor", "floor" + floorCount++, new Vector3( 1183f + 60f * i, 0f, 0f ) );
+			}
+
+			for ( int i = 7; i < 12; i++ )
 			{
 				GameWorldManager.Instance.SpawnEntity( "Floor", "floor" + floorCount++, new Vector3( 1183f + 60f * i, 87.5f, 0f ) );
 			}
@@ -212,7 +222,7 @@ namespace VertexArmy.States
 		public void LoadDynamics()
 		{
 			GameWorldManager.Instance.SpawnEntity( "Camera", "camera1", new Vector3( 0, -200, 800 ) );
-			GameWorldManager.Instance.SpawnEntity( "Robot", "robotPlayer", new Vector3( 500f, 100f, 0f ), 1.5f );
+			GameWorldManager.Instance.SpawnEntity( "Robot", "robotPlayer", new Vector3( 600f, 150f, 0f ), 1.5f );
 
 			Robot = GameWorldManager.Instance.GetEntity( "robotPlayer" );
 
@@ -228,8 +238,8 @@ namespace VertexArmy.States
 			Camera = GameWorldManager.Instance.GetEntity( "camera1" );
 
 			GameWorldManager.Instance.SpawnEntity( "Crate", "crate1", new Vector3( -250, 100f, 0f ), 3f );
+			GameWorldManager.Instance.SpawnEntity( "Crate", "crate2", new Vector3( 1700, 130f, 0f ), 5f );
 
-			//GameWorldManager.Instance.SpawnEntity( "Crate", "crate2", new Vector3( -250, 200f, 0f ), 3f );
 		}
 
 		public void LoadTriggers()

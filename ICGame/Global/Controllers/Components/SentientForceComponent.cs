@@ -17,7 +17,7 @@ namespace VertexArmy.Global.Controllers.Components
 	{
 		public const float Distance = 500f;
 		public const float Angle = 0.5f;
-		public const float AttractionForce = 10f;
+		public const float AttractionForce = 36f;
 		public const float RepulsiveForce = 10f;
 
 		private Vector2 _oldPosition;

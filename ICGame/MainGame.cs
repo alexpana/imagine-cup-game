@@ -53,7 +53,10 @@ namespace VertexArmy
 			PrefabRepository.Instance.RegisterPrefab( "Camera", CameraPrefab.CreatePrefab() );
 			PrefabRepository.Instance.RegisterPrefab( "Menu_cube", MenuCubePrefab.CreatePrefab() );
 			PrefabRepository.Instance.RegisterPrefab( "Button", ButtonPrefab.CreatePrefab() );
+			PrefabRepository.Instance.RegisterPrefab( "Floor", FloorPrefab.CreatePrefab() );
+			PrefabRepository.Instance.RegisterPrefab( "Wall", WallPrefab.CreatePrefab() );
 			PrefabRepository.Instance.RegisterPrefab( "LiftedDoor", LiftedDoorPrefab.CreatePrefab() );
+
 			// HACK!
 			MaterialRepository.Instance.RegisterMaterial( "DefaultMaterial", args => CelShading.CreateMaterial() );
 			MaterialRepository.Instance.RegisterMaterial( "RobotMaterial", args => CelShading.CreateMaterial() );

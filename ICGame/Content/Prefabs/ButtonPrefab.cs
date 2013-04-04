@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using FarseerPhysics.Common;
 using FarseerPhysics.Dynamics.Joints;
 using Microsoft.Xna.Framework;
 using VertexArmy.GameWorld.Prefabs;
@@ -21,23 +22,15 @@ namespace VertexArmy.Content.Prefabs
 				Type = ShapeType.Rectangle
 			};
 
-			ShapePrefab caseWall1 = new ShapePrefab
-			{
-				Density = 1f,
-				Width = 4.70f,
-				Height = 3.5f,
-				Offset = new Vector2( -10.65f, 2f ),
-				Type = ShapeType.Rectangle
-			};
+			ShapePrefab caseWall1 = new ShapePrefab { Type = ShapeType.Polygon, Density = 1f, Polygon = new List<Vertices> { new Vertices() } };
+			caseWall1.Polygon[0].Add( new Vector2( 8.25f, 0.5f ) );
+			caseWall1.Polygon[0].Add( new Vector2( 8.25f, 4f ) );
+			caseWall1.Polygon[0].Add( new Vector2( 13f, 0.5f ) );
 
-			ShapePrefab caseWall2 = new ShapePrefab
-			{
-				Density = 1f,
-				Width = 4.70f,
-				Height = 3.5f,
-				Offset = new Vector2( 10.65f, 2f ),
-				Type = ShapeType.Rectangle
-			};
+			ShapePrefab caseWall2 = new ShapePrefab { Type = ShapeType.Polygon, Density = 1f, Polygon = new List<Vertices> { new Vertices() } };
+			caseWall2.Polygon[0].Add( new Vector2( -8.25f, 4f ) );
+			caseWall2.Polygon[0].Add( new Vector2( -8.25f, 0.5f ) );
+			caseWall2.Polygon[0].Add( new Vector2( -13f, 0.5f ) );
 
 			BodyPrefab buttonCaseBody = new BodyPrefab
 								   {
@@ -55,7 +48,7 @@ namespace VertexArmy.Content.Prefabs
 			{
 				Density = 0.3f,
 				Width = 16.5f,
-				Height = 2.5f,
+				Height = 2.4f,
 				Offset = Vector2.Zero,
 				Type = ShapeType.Rectangle
 			};
@@ -85,7 +78,7 @@ namespace VertexArmy.Content.Prefabs
 				UpperLimit = 2.25f,
 				LowerLimit = 0f,
 				LimitEnabled = true,
-				MaxMotorForce = 2f,
+				MaxMotorForce = 1f,
 				MotorSpeed = 1f,
 				MotorEnabled = true
 			};

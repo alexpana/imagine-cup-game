@@ -85,12 +85,13 @@ namespace VertexArmy.GameWorld.Prefabs
 
 			obj.Init();
 
-			obj.Name = Name;
 			obj.Flags = Flags;
 
 			GameEntityCreatePhysics( obj, scale );
 			GameEntityCreateSceneNodes( obj, scale, parameters != null ? parameters.SceneNodeParameters : null );
 			GameEntityCreateControllers( obj );
+
+			obj.Prefab = this;
 
 			return obj;
 		}

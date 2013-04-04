@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using FarseerPhysics.Dynamics;
 using Microsoft.Xna.Framework;
+using VertexArmy.GameWorld.Prefabs;
 using VertexArmy.Global.Behaviours;
 using VertexArmy.Global.Controllers;
 using VertexArmy.Global.Controllers.Components;
@@ -17,6 +18,7 @@ namespace VertexArmy.GameWorld
 
 		public PhysicsEntity PhysicsEntity;
 		public Body MainBody;
+		public PrefabEntity Prefab;
 		public List<BodyController> BodyControllers;
 		public List<LineJointController> LineJointControllers;
 
@@ -152,9 +154,14 @@ namespace VertexArmy.GameWorld
 			}
 		}
 
+		public Quaternion GetExternalRotation()
+		{
+			return _externalRotation;
+		}
 
 		public void SetExternalRotation( Quaternion newRot )
 		{
+			_externalRotation = newRot;
 			bool hasController = false;
 
 			if ( PhysicsEntity.Enabled )
@@ -186,6 +193,7 @@ namespace VertexArmy.GameWorld
 
 		public void SetExternalRotation( float newRot )
 		{
+			_externalRotation = UnitsConverter.To3DRotation( newRot );
 			bool hasController = false;
 
 			if ( PhysicsEntity.Enabled )
@@ -198,7 +206,7 @@ namespace VertexArmy.GameWorld
 					{
 						hasController = true;
 						body.HasExternalRotation = true;
-						body.ExternalRotation = UnitsConverter.To3DRotation( newRot );
+						body.ExternalRotation = _externalRotation;
 					}
 				}
 			}

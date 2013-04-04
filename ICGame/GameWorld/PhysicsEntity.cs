@@ -172,6 +172,7 @@ namespace VertexArmy.GameWorld
 			foreach ( Body b in _bodies.Values )
 			{
 				b.SetTransform( b.Position + relative, b.Rotation );
+				b.Awake = true;
 			}
 
 			foreach ( var p in _paths.Values )
@@ -180,6 +181,7 @@ namespace VertexArmy.GameWorld
 				{
 					b.ResetDynamics();
 					b.SetTransform( b.Position + relative, b.Rotation );
+					b.Awake = true;
 				}
 			}
 

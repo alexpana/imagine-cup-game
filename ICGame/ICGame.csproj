@@ -99,6 +99,8 @@
   <ItemGroup>
     <Compile Include="Content\Materials\MenuCubeMaterial.cs" />
     <Compile Include="Content\Prefabs\ButtonPrefab.cs" />
+    <Compile Include="Content\Prefabs\WallPrefab.cs" />
+    <Compile Include="Content\Prefabs\FloorPrefab.cs" />
     <Compile Include="Content\Prefabs\LiftedDoorPrefab.cs" />
     <Compile Include="Content\Prefabs\MenuCubePrefab.cs" />
     <Compile Include="GameWorld\GameEntityParameters.cs" />

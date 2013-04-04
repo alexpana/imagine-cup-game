@@ -81,7 +81,7 @@ namespace VertexArmy.Content.Prefabs
 				Anchor = new Vector2( 0f, 0f ),
 				Anchor2 = new Vector2( 0f, 0f ),
 				Axis = new Vector2( 0f, 1f ),
-				CollideConnected = true,
+				CollideConnected = false,
 
 				UpperLimit = 240f,
 				LowerLimit = 0f,

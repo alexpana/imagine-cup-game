@@ -13,9 +13,9 @@ namespace VertexArmy.Content.Prefabs
 
 			ShapePrefab crateShape = new ShapePrefab
 									 {
-										 Density = 1f,
-										 Width = 20f,
-										 Height = 20f,
+										 Density = 0.4f,
+										 Width = 18f,
+										 Height = 18f,
 										 Offset = Vector2.Zero,
 										 Type = ShapeType.Rectangle
 									 };

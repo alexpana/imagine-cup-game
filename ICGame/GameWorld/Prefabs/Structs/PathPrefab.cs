@@ -60,7 +60,6 @@ namespace VertexArmy.GameWorld.Prefabs.Structs
 
 			switch ( JointType )
 			{
-
 				case JointType.Revolute:
 
 					pathEntity.Joints = new List<Joint>( PathManager.AttachBodiesWithRevoluteJoint(

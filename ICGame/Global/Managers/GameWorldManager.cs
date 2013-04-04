@@ -9,6 +9,7 @@ namespace VertexArmy.Global.Managers
 	public class GameWorldManager
 	{
 		private readonly Dictionary<string, GameEntity> _entities;
+		private List<EntityState> _savedState;
 
 		public GameEntity GetEntity( string name )
 		{
@@ -25,6 +26,7 @@ namespace VertexArmy.Global.Managers
 			GameEntityParameters parameters = null )
 		{
 			GameEntity entity = prefab.CreateGameEntity( this, scale, parameters );
+			entity.Name = entityName;
 			_entities.Add( entityName, entity );
 			entity.SetPosition( position );
 		}
@@ -57,11 +59,62 @@ namespace VertexArmy.Global.Managers
 			}
 		}
 
+		public void SaveState()
+		{
+			if ( _savedState == null )
+			{
+				_savedState = new List<EntityState>();
+			}
+
+			_savedState.Clear();
+
+			foreach ( GameEntity ent in _entities.Values )
+			{
+				EntityState state = new EntityState();
+				state.Name = ent.Name;
+				state.Position = ent.GetPosition();
+				state.Rotation = ent.GetRotation();
+				state.Prefab = ent.Prefab;
+
+				_savedState.Add( state );
+			}
+		}
+
+		public void LoadLastState()
+		{
+			if ( _savedState == null )
+			{
+				return;
+			}
+
+			foreach ( EntityState entState in _savedState )
+			{
+				if ( _entities.ContainsKey( entState.Name ) )
+				{
+					_entities[entState.Name].SetPosition( entState.Position );
+					_entities[entState.Name].SetRotation( entState.Rotation );
+				}
+				else
+				{
+
+				}
+			}
+		}
+
 		private static class GameWorldManagerInstanceHolder
 		{
 			// ReSharper disable MemberHidesStaticFromOuterClass
 			public static readonly GameWorldManager Instance = new GameWorldManager();
 			// ReSharper restore MemberHidesStaticFromOuterClass
 		}
+	}
+
+	public class EntityState
+	{
+		public string Name;
+		public Vector3 Position;
+		public Quaternion Rotation;
+		public Quaternion ExternalRotation;
+		public PrefabEntity Prefab;
 	}
 }

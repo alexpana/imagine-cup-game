@@ -24,11 +24,7 @@ namespace VertexArmy.States
 
 		public GameEntity Robot;
 		public GameEntity Camera;
-		private float _cameraPosition;
-		private float _cameraError = 0.7f;
-		private bool _cameraMoving;
 
-		private float _cameraStep;
 		private bool _actionFreeze;
 		private bool _actionReset;
 		private bool _actionSpawn;
@@ -47,26 +43,6 @@ namespace VertexArmy.States
 			if ( Robot != null )
 			{
 
-				if ( !_cameraMoving && Math.Abs( _cameraPosition - Robot.GetPosition().X ) > _cameraError )
-				{
-					_cameraMoving = true;
-					_cameraStep = ( -1 ) * ( _cameraPosition - Robot.GetPosition().X ) / 15;
-				}
-
-				if ( _cameraMoving )
-				{
-					_cameraPosition += _cameraStep;
-
-					if ( Math.Abs( _cameraPosition - Robot.GetPosition().X ) <= _cameraError / 2 )
-					{
-						_cameraMoving = false;
-					}
-					else
-					{
-						_cameraStep = ( -1 ) * ( _cameraPosition - Robot.GetPosition().X ) / 15;
-					}
-				}
-
 				if ( Keyboard.GetState( PlayerIndex.One ).IsKeyDown( Keys.F ) )
 				{
 					if ( !_actionFreeze )
@@ -75,12 +51,12 @@ namespace VertexArmy.States
 						if ( GameWorldManager.Instance.GetEntity( "crate1" ).PhysicsEntity.Enabled )
 						{
 
-							//GameWorldManager.Instance.GetEntity( "crate1" ).SetPosition( new Vector3( -400f, -800f, 0f ) );
-							//GameWorldManager.Instance.GetEntity( "crate1" ).SetPhysicsEnabled( false );
+							GameWorldManager.Instance.GetEntity( "crate1" ).SetPosition( new Vector3( -400f, -800f, 0f ) );
+							GameWorldManager.Instance.GetEntity( "crate1" ).SetPhysicsEnabled( false );
 						}
 						else
 						{
-							//GameWorldManager.Instance.GetEntity( "crate1" ).SetPhysicsEnabled( true );
+							GameWorldManager.Instance.GetEntity( "crate1" ).SetPhysicsEnabled( true );
 						}
 						_actionFreeze = true;
 					}
@@ -107,12 +83,13 @@ namespace VertexArmy.States
 
 				if ( Keyboard.GetState( PlayerIndex.One ).IsKeyDown( Keys.O ) )
 				{
-					GameWorldManager.Instance.GetEntity( "crate1" ).PhysicsEntity.GetBody( "CrateBody" ).ApplyForce( new Vector2( 0f, -50f ) );
-					Robot.SetRotation( Robot.GetRotationRadians() - 0.4f * ( float ) gameTime.ElapsedGameTime.TotalSeconds );
+					GameWorldManager.Instance.SaveState();
+					//Robot.SetRotation( Robot.GetRotationRadians() - 0.4f * ( float ) gameTime.ElapsedGameTime.TotalSeconds );
 				}
 				else if ( Keyboard.GetState( PlayerIndex.One ).IsKeyDown( Keys.P ) )
 				{
-					Robot.SetRotation( Robot.GetRotationRadians() + 0.4f * ( float ) gameTime.ElapsedGameTime.TotalSeconds );
+					GameWorldManager.Instance.LoadLastState();
+					//Robot.SetRotation( Robot.GetRotationRadians() + 0.4f * ( float ) gameTime.ElapsedGameTime.TotalSeconds );
 				}
 			}
 
@@ -136,7 +113,7 @@ namespace VertexArmy.States
 				{
 					if ( Robot == null )
 					{
-						GameWorldManager.Instance.SpawnEntity( "robot", "robotPlayer", new Vector3( 0f, -1000f, 0f ) );
+						GameWorldManager.Instance.SpawnEntity( "robot", "robotPlayer", new Vector3( 0f, 0f, 0f ), 2f );
 						Robot = GameWorldManager.Instance.GetEntity( "robotPlayer" );
 						Robot.RegisterComponent( "force", new SentientForceComponent( CursorManager.Instance.SceneNode ) );
 					}
@@ -187,45 +164,74 @@ namespace VertexArmy.States
 
 		}
 
-		public void LoadPhysicsContent()
+		public void LoadStatics()
 		{
+			int floorCount = 0;
+			int wallCount = 0;
+			for ( int i = 0; i < 20; i++ )
+			{
+				GameWorldManager.Instance.SpawnEntity( "Floor", "floor" + floorCount++, new Vector3( -300f + 60f * i, 0f, 0f ) );
+			}
+
+			for ( int i = 0; i < 5; i++ )
+			{
+				GameWorldManager.Instance.SpawnEntity( "Wall", "wall" + wallCount++, new Vector3( -355f, 0f + 60f * i, 0f ) );
+			}
 		}
 
-		public override void OnEnter()
+		public void LoadSemiStatics()
 		{
-			//Camera
-			GameWorldManager.Instance.SpawnEntity( "Camera", "camera1", new Vector3( 0, -200, 600 ) );
-			GameWorldManager.Instance.SpawnEntity( "Robot", "robotPlayer", new Vector3( -800f, -1000f, 0f ), 2f );
-			GameWorldManager.Instance.SpawnEntity( "Button", "button1", new Vector3( -400f, -1000f, 0f ), 10f );
+			GameWorldManager.Instance.SpawnEntity( "Button", "button1", new Vector3( -350f, 46f, 0f ), 5f );
 			GameWorldManager.Instance.GetEntity( "button1" ).RegisterComponent(
 				"active",
 				new ButtonComponent( "ButtonJoint1" )
 				);
-			GameWorldManager.Instance.SpawnEntity( "Crate", "crate1", new Vector3( -400f, -800f, 0f ), 5f );
-			//GameWorldManager.Instance.GetEntity( "crate1" ).SetPhysicsEnabled( false );
 
-			GameWorldManager.Instance.SpawnEntity( "LiftedDoor", "door", new Vector3( -200f, -800f, 0f ), 1f );
+			GameWorldManager.Instance.GetEntity( "button1" ).SetRotation( ( float ) Math.PI / 2f );
+
+			GameWorldManager.Instance.SpawnEntity( "LiftedDoor", "door", new Vector3( 50, 330f, 0f ), 1f );
 			GameWorldManager.Instance.GetEntity( "door" ).RegisterComponent(
 				"doorHandle",
 				new LiftedDoorComponent( GameWorldManager.Instance.GetEntity( "button1" ).GetComponent( "active" ), "DoorJoint1" )
 			);
+		}
+
+		public void LoadDynamics()
+		{
+			GameWorldManager.Instance.SpawnEntity( "Camera", "camera1", new Vector3( 0, -200, 800 ) );
+			GameWorldManager.Instance.SpawnEntity( "Robot", "robotPlayer", new Vector3( -150f, 100f, 0f ), 1.5f );
 
 			Robot = GameWorldManager.Instance.GetEntity( "robotPlayer" );
-			Robot.PhysicsEntity.Enabled = true;
 
 			Robot.RegisterComponent( "force", new SentientForceComponent( CursorManager.Instance.SceneNode ) );
 			Robot.RegisterComponent(
 				"control",
-				new CarControlComponent( new List<string> { "GearJoint1", "GearJoint2", "GearJoint3" }, new List<float>() { 20f, 20f, 20f } )
+				new CarControlComponent( new List<string> { "GearJoint1", "GearJoint2", "GearJoint3" }, new List<float>() { 7f, 7f, 7f } )
 				);
 
-			CameraController camControl = new CameraController( GameWorldManager.Instance.GetEntity( "button1" ), SceneManager.Instance.GetCurrentCamera() );
+			CameraController camControl = new CameraController( Robot, SceneManager.Instance.GetCurrentCamera() );
 			ControllerRepository.Instance.RegisterController( "camcontrol", camControl );
 			FrameUpdateManager.Instance.Register( camControl );
 
 			Camera = GameWorldManager.Instance.GetEntity( "camera1" );
 
-			_cameraMoving = false;
+			GameWorldManager.Instance.SpawnEntity( "Crate", "crate1", new Vector3( -250, 100f, 0f ), 3f );
+			//GameWorldManager.Instance.SpawnEntity( "Crate", "crate2", new Vector3( -250, 200f, 0f ), 3f );
+		}
+
+		public void LoadLevel()
+		{
+
+			LoadStatics();
+			LoadSemiStatics();
+			LoadDynamics();
+		}
+
+		public override void OnEnter()
+		{
+
+			LoadLevel();
+
 			_actionFreeze = false;
 			_actionSpawn = false;
 			_actionReset = false;
@@ -233,7 +239,6 @@ namespace VertexArmy.States
 			_actionToggleDebugView = false;
 
 
-			LoadPhysicsContent();
 			_debugView = new DebugViewXNA( Platform.Instance.PhysicsWorld );
 
 			_debugView.LoadContent( Platform.Instance.Device, Platform.Instance.Content );

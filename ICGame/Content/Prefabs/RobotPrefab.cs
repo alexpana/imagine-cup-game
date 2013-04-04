@@ -19,7 +19,7 @@ namespace VertexArmy.Content.Prefabs
 			BodyPrefab gear1 = new BodyPrefab
 			{
 				Name = "Gear1",
-				Friction = 10f,
+				Friction = 0.5f,
 				Restitution = 0.1f,
 				LocalPosition = new Vector2( -27.93f, -20.13f ),
 				Static = false,
@@ -30,7 +30,7 @@ namespace VertexArmy.Content.Prefabs
 			BodyPrefab gear2 = new BodyPrefab
 			{
 				Name = "Gear2",
-				Friction = 10f,
+				Friction = 0.5f,
 				Restitution = 0.1f,
 				LocalPosition = new Vector2( 27.93f, -20.13f ),
 				Static = false,
@@ -41,7 +41,7 @@ namespace VertexArmy.Content.Prefabs
 			BodyPrefab gear3 = new BodyPrefab
 			{
 				Name = "Gear3",
-				Friction = 10f,
+				Friction = 0.5f,
 				Restitution = 0.1f,
 				LocalPosition = new Vector2( 0f, 28.25f ),
 				Static = false,
@@ -54,7 +54,7 @@ namespace VertexArmy.Content.Prefabs
 			robot.RegisterBody( gear3 );
 
 			/* chassis body */
-			ShapePrefab chassisShape = new ShapePrefab { Type = ShapeType.Polygon, Density = 1f, Polygon = new List<Vertices> { new Vertices() } };
+			ShapePrefab chassisShape = new ShapePrefab { Type = ShapeType.Polygon, Density = 4f, Polygon = new List<Vertices> { new Vertices() } };
 			chassisShape.Polygon[0].Add( new Vector2( -15.41f, -13.87f ) );
 			chassisShape.Polygon[0].Add( new Vector2( 0f, 13.74f ) );
 			chassisShape.Polygon[0].Add( new Vector2( 15.41f, -13.87f ) );
@@ -63,11 +63,11 @@ namespace VertexArmy.Content.Prefabs
 			{
 				Name = "Chassis",
 				Restitution = 0.1f,
-				Friction = 1f,
+				Friction = 0.5f,
 				LocalPosition = Vector2.Zero,
 				Static = false,
 				Shapes = new List<ShapePrefab> { chassisShape },
-				CollisionGroup = 69
+				CollisionGroup = 69,
 			};
 
 			robot.RegisterBody( chassis, true ); // is main body
@@ -144,7 +144,7 @@ namespace VertexArmy.Content.Prefabs
 
 				Name = "Link",
 				Shapes = new List<ShapePrefab> { linkShape, linkFeetShape },
-				Friction = 0.1f,
+				Friction = 1f,
 				Restitution = 0f,
 				CollisionGroup = 69
 			};

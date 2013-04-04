@@ -25,7 +25,7 @@ namespace VertexArmy.States.Menu
 		private Matrix _projection;
 		private Matrix _view;
 
-		private Body MenuGround;
+		private Body _menuGround;
 
 		protected ContentManager ContentManager;
 
@@ -89,7 +89,7 @@ namespace VertexArmy.States.Menu
 
 		protected void CreateCubesGround()
 		{
-			MenuGround = new Body( Platform.Instance.PhysicsWorld )
+			_menuGround = new Body( Platform.Instance.PhysicsWorld )
 			{
 				Friction = 1.2f,
 				Restitution = 0f
@@ -103,7 +103,7 @@ namespace VertexArmy.States.Menu
 
 			for ( int i = 0; i < vertices.Count - 1; ++i )
 			{
-				FixtureFactory.AttachEdge( vertices[i], vertices[i + 1], MenuGround );
+				FixtureFactory.AttachEdge( vertices[i], vertices[i + 1], _menuGround );
 			}
 		}
 	}

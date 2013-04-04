@@ -218,7 +218,6 @@ namespace VertexArmy.States
 
 			Robot = GameWorldManager.Instance.GetEntity( "robotPlayer" );
 
-			Robot.RegisterComponent( "force", new SentientForceComponent( CursorManager.Instance.SceneNode ) );
 			Robot.RegisterComponent(
 				"control",
 				new CarControlComponent( new List<string> { "GearJoint1", "GearJoint2", "GearJoint3" }, new List<float>() { 7f, 7f, 7f } )
@@ -293,7 +292,10 @@ namespace VertexArmy.States
 
 		public void UpgradeCube1Callback()
 		{
-			Robot.SetPosition( Robot.GetPosition() + Vector3.UnitY * 6 );
+			if ( Robot.GetComponent( "force" ) == null )
+			{
+				Robot.RegisterComponent( "force", new SentientForceComponent( CursorManager.Instance.SceneNode ) );
+			}
 		}
 	}
 }

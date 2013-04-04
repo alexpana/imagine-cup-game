@@ -1,4 +1,5 @@
-﻿using FarseerPhysics.Dynamics;
+﻿using System;
+using FarseerPhysics.Dynamics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -35,6 +36,8 @@ namespace VertexArmy.Global
 		public Settings Settings { get; set; }
 
 		public SoundManager SoundManager { get; set; }
+
+		public Random GlobalRandom = new Random();
 
 		#region Singleton
 

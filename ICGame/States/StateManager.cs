@@ -76,8 +76,11 @@ namespace VertexArmy.States
 					return new GameStatePhysicsRobot( contentManager );
 				case GameState.TutorialLevel:
 					return new GameStateTutorial( contentManager );
+				case GameState.SelectLevelMenu:
+					return new GameStateSelectLevelMenu( contentManager );
 			}
-			return null;
+
+			throw new NotImplementedException( "Unknown state!" );
 		}
 
 		public void OnFrameEndCommitStates()

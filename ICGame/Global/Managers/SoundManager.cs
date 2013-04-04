@@ -129,6 +129,16 @@ namespace VertexArmy.Global.Managers
 			MediaPlayer.Stop();
 		}
 
+		public void PauseMusic()
+		{
+			MediaPlayer.Pause();
+		}
+
+		public void ResumeMusic()
+		{
+			MediaPlayer.Resume();
+		}
+
 		public void PlaySound( SoundEffect sound )
 		{
 			if ( !_settings.IsMusicEnabled )

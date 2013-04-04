@@ -33,7 +33,6 @@ namespace VertexArmy.GameWorld.Prefabs.Structs
 			pBody.Restitution = Restitution;
 			pBody.Friction = Friction;
 
-
 			pBody.CollisionGroup = CollisionGroup;
 
 			if ( CollisionSounds != null )

@@ -1,55 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Text;
-using FarseerPhysics;
-using FarseerPhysics.Common;
-using FarseerPhysics.Dynamics;
-using FarseerPhysics.Factories;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Media;
+using VertexArmy.Content.Prefabs;
 using VertexArmy.Global;
 using VertexArmy.Global.Managers;
-using VertexArmy.Physics.DebugView;
-using VertexArmy.Utilities;
 
 namespace VertexArmy.States.Menu
 {
-	public class GameStateMenu : IGameState
+	public class GameStateMenu : BaseMenuGameState
 	{
 		private MenuCube _mainMenuCube;
 		private MenuCube _optionsMenuCube;
 
 		private MenuCube _activeCube;
 
-		private Song _backgroundMusic;
-		private SoundEffect _menuItemSelectionSound;
-		private SoundEffect _menuEventSound;
-
-		private DebugViewXNA _debugView;
-		private Matrix _projection;
-		private Matrix _view;
-
-		private Body _ground;
-
-		private readonly ContentManager _content;
 		private readonly Platform _platform;
 
 		public GameStateMenu( ContentManager content )
+			: base( content )
 		{
-			_content = content;
 			_platform = Platform.Instance;
 		}
 
-		private void ActivateMenuCube( MenuCube cube )
-		{
-			_activeCube = cube;
-			_activeCube.Spawn();
-		}
-
-		public void OnUpdate( GameTime gameTime )
+		public override void OnUpdate( GameTime gameTime )
 		{
 			if ( _activeCube != null )
 			{
@@ -58,8 +33,7 @@ namespace VertexArmy.States.Menu
 				_activeCube.Update( gameTime );
 			}
 
-			_platform.PhysicsWorld.Step( Math.Min( ( float ) gameTime.ElapsedGameTime.TotalMilliseconds * 0.001f, ( 1f / 30f ) ) );
-			FrameUpdateManager.Instance.Update( gameTime );
+			base.OnUpdate( gameTime );
 		}
 
 		private void HandleInput()
@@ -75,7 +49,7 @@ namespace VertexArmy.States.Menu
 			else if ( _platform.Input.IsKeyPressed( Keys.Enter, false ) )
 			{
 				_activeCube.Items[_activeCube.SelectedItem].Activate();
-				_platform.SoundManager.PlaySound( _menuEventSound );
+				_platform.SoundManager.PlaySound( MenuEventSound );
 			}
 			else if ( _platform.Input.IsKeyPressed( Keys.Escape, false ) ||
 					 _platform.Input.IsKeyPressed( Keys.Back, false ) )
@@ -84,93 +58,31 @@ namespace VertexArmy.States.Menu
 				{
 					_activeCube.Destroy();
 					_activeCube = _activeCube.PreviousMenu;
-					_platform.SoundManager.PlaySound( _menuEventSound );
+					_platform.SoundManager.PlaySound( MenuEventSound );
 				}
 			}
 		}
 
-		public void OnRender( GameTime gameTime )
-		{
-			_projection = Matrix.CreateOrthographicOffCenter(
-				UnitsConverter.ToSimUnits( -Platform.Instance.Device.Viewport.Width / 2f ),
-				UnitsConverter.ToSimUnits( Platform.Instance.Device.Viewport.Width / 2f ),
-				UnitsConverter.ToSimUnits( Platform.Instance.Device.Viewport.Height / 2f ),
-				UnitsConverter.ToSimUnits( -Platform.Instance.Device.Viewport.Height / 2f ),
-				0f,
-				1f
-			);
-
-			_debugView.RenderDebugData( ref _projection, ref _view );
-			SceneManager.Instance.Render( gameTime.ElapsedGameTime.Milliseconds );
-		}
-
-		public void OnEnter()
-		{
-			_backgroundMusic = _content.Load<Song>( "music/proto1_menu" );
-			_menuItemSelectionSound = _content.Load<SoundEffect>( "sounds/button-27" );
-			_menuEventSound = _content.Load<SoundEffect>( "sounds/button-30" );
-
-			CreateMenus();
-			CreateCubesGround();
-			CreateDebugView( _content );
-
-			ActivateMenuCube( _mainMenuCube );
-
-			_platform.SoundManager.PlayMusic( _backgroundMusic );
-			GameWorldManager.Instance.SpawnEntity( "Camera", "menu_camera", new Vector3( 0, 0, 100 ) );
-		}
-
-		private void CreateCubesGround()
-		{
-			_ground = new Body( _platform.PhysicsWorld )
-			{
-				Friction = 1.2f,
-				Restitution = 0f
-			};
-
-			Vertices vertices = new Vertices
-			{	
-				new Vector2( -10f, 0.5f ),
-				new Vector2( 10f, 0.5f )
-			};
-
-			for ( int i = 0; i < vertices.Count - 1; ++i )
-			{
-				FixtureFactory.AttachEdge( vertices[i], vertices[i + 1], _ground );
-			}
-		}
-
-		private void CreateDebugView( ContentManager content )
-		{
-			_debugView = new DebugViewXNA( _platform.PhysicsWorld );
-
-			_debugView.LoadContent( _platform.Device, content );
-			_debugView.RemoveFlags( DebugViewFlags.Joint );
-
-			_debugView.TextColor = Color.Black;
-			_view = Matrix.Identity;
-		}
-
 		private void CreateMenus()
 		{
-			_mainMenuCube = new MenuCube( _content )
+			_mainMenuCube = new MenuCube( ContentManager )
 			{
 				Title = "Main menu",
-				SelectionSound = _menuItemSelectionSound,
+				SelectionSound = MenuItemSelectionSound,
 				Items = new List<MenuItem>
 				{
-					new MenuItem { Title = "Play!", Activated = args => StateManager.Instance.ChangeState(GameState.TutorialLevel) },
+					new MenuItem { Title = "Play!", Activated = args => StateManager.Instance.ChangeState(GameState.SelectLevelMenu) },
 					new MenuItem { Title = "Options", Activated = args => ActivateMenuCube(_optionsMenuCube) },
 					new MenuItem { Title = "Exit", Activated = args => _platform.Game.Exit() }
 				}
 			};
 			_mainMenuCube.SetBackgroundImage( "main" );
 
-			_optionsMenuCube = new MenuCube( _content )
+			_optionsMenuCube = new MenuCube( ContentManager )
 			{
 				Title = "Options menu",
 				PreviousMenu = _mainMenuCube,
-				SelectionSound = _menuItemSelectionSound,
+				SelectionSound = MenuItemSelectionSound,
 				Items = new List<MenuItem>
 				{
 					new SwitchMenuItem
@@ -191,6 +103,12 @@ namespace VertexArmy.States.Menu
 			_optionsMenuCube.SetBackgroundImage( "options_sounds-on" );
 		}
 
+		private void ActivateMenuCube( MenuCube cube )
+		{
+			_activeCube = cube;
+			_activeCube.Spawn( -25f );
+		}
+
 		private string CreateImagePath( string prefix, Dictionary<string, string> options )
 		{
 			StringBuilder stringBuilder = new StringBuilder();
@@ -205,21 +123,27 @@ namespace VertexArmy.States.Menu
 			return stringBuilder.ToString();
 		}
 
-		public void OnClose()
+		public override void OnEnter()
 		{
+			base.OnEnter();
+
+			CreateMenus();
+
+			ActivateMenuCube( _mainMenuCube );
+
+			_platform.SoundManager.PlayMusic( BackgroundMusic );
+
+			GameWorldManager.Instance.SpawnEntity( CameraPrefab.PrefabName, "menu_camera", new Vector3( 0, 0, 100 ) );
+		}
+
+		public override void OnClose()
+		{
+			base.OnClose();
+
 			_mainMenuCube.Destroy();
 			_optionsMenuCube.Destroy();
 
-			_platform.SoundManager.StopMusic();
-
-			GameWorldManager.Instance.Clear();
-			ControllerRepository.Instance.Clear();
-			PhysicsContactManager.Instance.Clear();
-			FrameUpdateManager.Instance.Clear();
-			_platform.PhysicsWorld.Clear();
-			SceneManager.Instance.Clear();
-
-			_content.Unload();
+			_platform.SoundManager.PauseMusic();
 		}
 	}
 }

@@ -4,6 +4,7 @@
 	{
 		Loading,
 		Menu,
+		SelectLevelMenu,
 		Pause,
 		Presentation,
 		RoomPreview,

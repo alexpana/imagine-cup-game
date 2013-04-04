@@ -81,16 +81,6 @@ namespace VertexArmy.States
 					_actionReset = false;
 				}
 
-				if ( Keyboard.GetState( PlayerIndex.One ).IsKeyDown( Keys.O ) )
-				{
-					GameWorldManager.Instance.SaveState();
-					//Robot.SetRotation( Robot.GetRotationRadians() - 0.4f * ( float ) gameTime.ElapsedGameTime.TotalSeconds );
-				}
-				else if ( Keyboard.GetState( PlayerIndex.One ).IsKeyDown( Keys.P ) )
-				{
-					GameWorldManager.Instance.LoadLastState();
-					//Robot.SetRotation( Robot.GetRotationRadians() + 0.4f * ( float ) gameTime.ElapsedGameTime.TotalSeconds );
-				}
 			}
 
 			if ( Keyboard.GetState( PlayerIndex.One ).IsKeyDown( Keys.D ) )
@@ -113,7 +103,7 @@ namespace VertexArmy.States
 				{
 					if ( Robot == null )
 					{
-						GameWorldManager.Instance.SpawnEntity( "robot", "robotPlayer", new Vector3( 0f, 0f, 0f ), 2f );
+						GameWorldManager.Instance.SpawnEntity( "Robot", "robotPlayer", new Vector3( 0f, 0f, 0f ), 2f );
 						Robot = GameWorldManager.Instance.GetEntity( "robotPlayer" );
 						Robot.RegisterComponent( "force", new SentientForceComponent( CursorManager.Instance.SceneNode ) );
 					}
@@ -132,6 +122,17 @@ namespace VertexArmy.States
 			if ( Keyboard.GetState( PlayerIndex.One ).IsKeyUp( Keys.S ) )
 			{
 				_actionSpawn = false;
+			}
+
+			if ( Keyboard.GetState( PlayerIndex.One ).IsKeyDown( Keys.O ) )
+			{
+				GameWorldManager.Instance.SaveState();
+				//Robot.SetRotation( Robot.GetRotationRadians() - 0.4f * ( float ) gameTime.ElapsedGameTime.TotalSeconds );
+			}
+			else if ( Keyboard.GetState( PlayerIndex.One ).IsKeyDown( Keys.P ) )
+			{
+				GameWorldManager.Instance.LoadLastState();
+				//Robot.SetRotation( Robot.GetRotationRadians() + 0.4f * ( float ) gameTime.ElapsedGameTime.TotalSeconds );
 			}
 
 		}

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using FarseerPhysics.Dynamics;
 using Microsoft.Xna.Framework;
 using VertexArmy.GameWorld;
 using VertexArmy.GameWorld.Prefabs;
@@ -76,7 +77,23 @@ namespace VertexArmy.Global.Managers
 				state.Rotation = ent.GetRotation();
 				state.ExternalRotation = ent.GetExternalRotation();
 				state.Prefab = ent.Prefab;
+				state.PhysicsEnabled = ent.PhysicsEntity.Enabled;
 
+				state.BodyPositions = new Dictionary<string, Vector2>();
+				state.BodyRotations = new Dictionary<string, float>();
+				state.BodyLinearVelocities = new Dictionary<string, Vector2>();
+				state.BodyAngularVelocities = new Dictionary<string, float>();
+				state.Scale = ent.Scale;
+
+				foreach ( string BodyName in ent.PhysicsEntity.BodyNames )
+				{
+					Body b = ent.PhysicsEntity.GetBody( BodyName );
+
+					state.BodyPositions.Add( BodyName, b.Position );
+					state.BodyRotations.Add( BodyName, b.Rotation );
+					state.BodyLinearVelocities.Add( BodyName, b.LinearVelocity );
+					state.BodyAngularVelocities.Add( BodyName, b.AngularVelocity );
+				}
 
 				_savedState.Add( state );
 			}
@@ -91,15 +108,26 @@ namespace VertexArmy.Global.Managers
 
 			foreach ( EntityState entState in _savedState )
 			{
-				if ( _entities.ContainsKey( entState.Name ) )
+				if ( !_entities.ContainsKey( entState.Name ) )
 				{
-					_entities[entState.Name].SetPosition( entState.Position );
-					_entities[entState.Name].SetRotation( entState.Rotation );
+					this.SpawnEntity( entState.Prefab, entState.Name, entState.Position, entState.Scale );
 				}
-				else
-				{
 
+				GameEntity entity = _entities[entState.Name];
+				entity.SetPhysicsEnabled( entState.PhysicsEnabled );
+
+				entity.SetPosition( entState.Position );
+				entity.SetRotation( entState.Rotation );
+
+				foreach ( string BodyName in entState.BodyPositions.Keys )
+				{
+					entity.PhysicsEntity.GetBody( BodyName ).ResetDynamics();
+					entity.PhysicsEntity.GetBody( BodyName ).Position = entState.BodyPositions[BodyName];
+					entity.PhysicsEntity.GetBody( BodyName ).Rotation = entState.BodyRotations[BodyName];
+					entity.PhysicsEntity.GetBody( BodyName ).ApplyLinearImpulse( entState.BodyLinearVelocities[BodyName] );
+					entity.PhysicsEntity.GetBody( BodyName ).ApplyAngularImpulse( entState.BodyAngularVelocities[BodyName] );
 				}
+
 			}
 		}
 
@@ -118,5 +146,13 @@ namespace VertexArmy.Global.Managers
 		public Quaternion Rotation;
 		public Quaternion ExternalRotation;
 		public PrefabEntity Prefab;
+		public bool PhysicsEnabled;
+		public float Scale;
+
+		public Dictionary<string, Vector2> BodyPositions;
+		public Dictionary<string, float> BodyRotations;
+		public Dictionary<string, Vector2> BodyLinearVelocities;
+		public Dictionary<string, float> BodyAngularVelocities;
+
 	}
 }

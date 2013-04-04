@@ -92,6 +92,7 @@ namespace VertexArmy.GameWorld.Prefabs
 			GameEntityCreateControllers( obj );
 
 			obj.Prefab = this;
+			obj.Scale = scale;
 
 			return obj;
 		}

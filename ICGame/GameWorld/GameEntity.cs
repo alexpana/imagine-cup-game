@@ -30,6 +30,8 @@ namespace VertexArmy.GameWorld
 
 		private Quaternion _externalRotation = Quaternion.Identity;
 
+		public float Scale;
+
 		public void Init()
 		{
 			PhysicsEntity = new PhysicsEntity();
@@ -258,8 +260,7 @@ namespace VertexArmy.GameWorld
 
 		public Vector3 GetScale()
 		{
-			//TODO
-			return Vector3.Zero;
+			return Vector3.One * Scale;
 		}
 
 		public void Remove()

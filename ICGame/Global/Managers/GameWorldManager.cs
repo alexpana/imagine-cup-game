@@ -74,7 +74,9 @@ namespace VertexArmy.Global.Managers
 				state.Name = ent.Name;
 				state.Position = ent.GetPosition();
 				state.Rotation = ent.GetRotation();
+				state.ExternalRotation = ent.GetExternalRotation();
 				state.Prefab = ent.Prefab;
+
 
 				_savedState.Add( state );
 			}

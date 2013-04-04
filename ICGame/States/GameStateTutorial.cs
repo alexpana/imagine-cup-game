@@ -169,15 +169,32 @@ namespace VertexArmy.States
 		{
 			int floorCount = 0;
 			int wallCount = 0;
-			for ( int i = 0; i < 20; i++ )
+
+			//first floor part
+			for ( int i = 0; i < 25; i++ )
 			{
 				GameWorldManager.Instance.SpawnEntity( "Floor", "floor" + floorCount++, new Vector3( -300f + 60f * i, 0f, 0f ) );
 			}
 
+			Vector2 rotationPoint = new Vector2( -300f + 60f * 19, -10f );
+			for ( int i = 20; i < 25; i++ )
+			{
+				TransformUtility.RotateTransformableAroundPoint2D( GameWorldManager.Instance.GetEntity( "floor" + i ), rotationPoint, 0.3f );
+			}
+
+			//left wall (first)
 			for ( int i = 0; i < 5; i++ )
 			{
 				GameWorldManager.Instance.SpawnEntity( "Wall", "wall" + wallCount++, new Vector3( -355f, 0f + 60f * i, 0f ) );
 			}
+
+			//upgrade cube platform
+			GameWorldManager.Instance.SpawnEntity( "Floor", "floor" + floorCount++, new Vector3( 500f + 60f, 10f, 0f ) );
+			GameWorldManager.Instance.SpawnEntity( "Floor", "floor" + floorCount++, new Vector3( 500f + 60f * 2, 10f, 0f ) );
+			GameWorldManager.Instance.SpawnEntity( "Floor", "floor" + floorCount++, new Vector3( 500f + 60f * 3, 10f, 0f ) );
+
+
+
 		}
 
 		public void LoadSemiStatics()
@@ -200,7 +217,7 @@ namespace VertexArmy.States
 		public void LoadDynamics()
 		{
 			GameWorldManager.Instance.SpawnEntity( "Camera", "camera1", new Vector3( 0, -200, 800 ) );
-			GameWorldManager.Instance.SpawnEntity( "Robot", "robotPlayer", new Vector3( -150f, 100f, 0f ), 1.5f );
+			GameWorldManager.Instance.SpawnEntity( "Robot", "robotPlayer", new Vector3( 500f, 100f, 0f ), 1.5f );
 
 			Robot = GameWorldManager.Instance.GetEntity( "robotPlayer" );
 

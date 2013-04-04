@@ -6,7 +6,7 @@ namespace VertexArmy.Graphics.Attachables
 {
 	class SafAttachable : Attachable
 	{
-			public Model Model { get; private set; }
+		public Model Model { get; private set; }
 		public Material Material { get; private set; }
 		public BoundingSphere BoundingSphere { get; internal set; }
 
@@ -43,10 +43,10 @@ namespace VertexArmy.Graphics.Attachables
 			};
 			Platform.Instance.Device.BlendState = bs;
 
-			
-			Material.SetParameter( "fTime", _fTime += dt);
-			Material.SetParameter( "fVel", new Vector2(0.0000f, 0.0001f) );
-			Material.SetParameter( "fAlpha", 0.2f);
+
+			Material.SetParameter( "fTime", _fTime += dt );
+			Material.SetParameter( "fVel", new Vector2( 0.0000f, 0.0005f ) );
+			Material.SetParameter( "fAlpha", 0.2f );
 
 
 			foreach ( ModelMesh m in Model.Meshes )

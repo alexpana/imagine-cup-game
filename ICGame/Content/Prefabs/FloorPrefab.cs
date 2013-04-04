@@ -32,6 +32,25 @@ namespace VertexArmy.Content.Prefabs
 
 			floor.RegisterBody( floorBody, true );
 
+
+			MeshSceneNodePrefab mesh = new MeshSceneNodePrefab
+			{
+				Name = "FloorMesh",
+				Mesh = "models/floor_tile",
+				Material = "CelShadingMaterial",
+			};
+
+			floor.RegisterMeshSceneNode( mesh );
+			ControllerPrefab meshController = new ControllerPrefab
+			{
+				Name = "FloorController",
+				Type = ControllerType.BodyController,
+				Body = "FloorBody",
+				Transformable = "FloorMesh"
+			};
+
+			floor.RegisterController( meshController );
+
 			return floor;
 		}
 	}

@@ -138,10 +138,6 @@ namespace VertexArmy.States
 
 		}
 
-		public void RenderScene()
-		{
-		}
-
 		public override void OnRender( GameTime gameTime )
 		{
 			base.OnRender( gameTime );
@@ -238,12 +234,22 @@ namespace VertexArmy.States
 			//GameWorldManager.Instance.SpawnEntity( "Crate", "crate2", new Vector3( -250, 200f, 0f ), 3f );
 		}
 
+		public void LoadTriggers()
+		{
+			GameWorldManager.Instance.SpawnEntity( "Trigger", "upgradeCube1", new Vector3( 500f + 60f * 2, 70f, 0f ) );
+			GameWorldManager.Instance.GetEntity( "upgradeCube1" ).RegisterComponent(
+					"trigger",
+					new BodyTriggerAreaComponent( new Vector2( 10f, 10f ), Robot.MainBody, UpgradeCube1Callback )
+				);
+		}
+
 		public void LoadLevel()
 		{
 
 			LoadStatics();
 			LoadSemiStatics();
 			LoadDynamics();
+			LoadTriggers();
 		}
 
 		public override void OnEnter()
@@ -283,6 +289,11 @@ namespace VertexArmy.States
 			Platform.Instance.SoundManager.StopMusic();
 
 			_contentManager.Unload();
+		}
+
+		public void UpgradeCube1Callback()
+		{
+			Robot.SetPosition( Robot.GetPosition() + Vector3.UnitY * 6 );
 		}
 	}
 }

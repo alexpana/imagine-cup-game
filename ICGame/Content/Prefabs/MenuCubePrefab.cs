@@ -2,11 +2,19 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using VertexArmy.GameWorld.Prefabs;
 using VertexArmy.GameWorld.Prefabs.Structs;
+using VertexArmy.Global;
 
 namespace VertexArmy.Content.Prefabs
 {
 	public class MenuCubePrefab
 	{
+		public const string PrefabName = "Menu_cube";
+
+		private static float GetRandomFriction()
+		{
+			return 0.01f + ( float ) Platform.Instance.GlobalRandom.NextDouble();
+		}
+
 		public static PrefabEntity CreatePrefab()
 		{
 			PrefabEntity cube = new PrefabEntity { Name = "Menu Cube" };
@@ -22,7 +30,7 @@ namespace VertexArmy.Content.Prefabs
 
 			BodyPrefab cubeBody = new BodyPrefab
 								   {
-									   Friction = 1f,
+									   Friction = GetRandomFriction(),
 									   LocalPosition = Vector2.Zero,
 									   Name = "MenuCubeBody",
 									   Shapes = new List<ShapePrefab> { cubeShape },

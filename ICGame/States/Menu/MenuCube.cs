@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using VertexArmy.Content.Prefabs;
 using VertexArmy.GameWorld;
 using VertexArmy.Global;
 using VertexArmy.Global.Managers;
@@ -60,8 +61,8 @@ namespace VertexArmy.States.Menu
 				}
 			};
 
-			GameWorldManager.Instance.SpawnEntity( "Menu_cube", Id, new Vector3( -25f, DropHeight, 0f ), 1f, parameters );
-			GameWorldManager.Instance.GetEntity( Id ).SetRotation( 0.017f );
+			GameWorldManager.Instance.SpawnEntity( MenuCubePrefab.PrefabName, Id, new Vector3( -25f, DropHeight, 0f ), 1f, parameters );
+			GameWorldManager.Instance.GetEntity( Id ).SetRotation( MathHelper.Clamp( ( float ) ( 0.017f - Random.NextDouble() ), -0.017f, 0.017f ) );
 
 			// set a small horizontal rotation to give a better impression
 			_rotation = Quaternion.CreateFromAxisAngle( Vector3.UnitY,

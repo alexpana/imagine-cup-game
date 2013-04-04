@@ -51,7 +51,7 @@ namespace VertexArmy
 			PrefabRepository.Instance.RegisterPrefab( "Crate", CratePrefab.CreatePrefab() );
 			PrefabRepository.Instance.RegisterPrefab( "Mesh", SimpleMeshPrefab.CreatePrefab() );
 			PrefabRepository.Instance.RegisterPrefab( "Camera", CameraPrefab.CreatePrefab() );
-			PrefabRepository.Instance.RegisterPrefab( "Menu_cube", MenuCubePrefab.CreatePrefab() );
+			PrefabRepository.Instance.RegisterPrefab( MenuCubePrefab.PrefabName, MenuCubePrefab.CreatePrefab() );
 			PrefabRepository.Instance.RegisterPrefab( "Button", ButtonPrefab.CreatePrefab() );
 			PrefabRepository.Instance.RegisterPrefab( "Floor", FloorPrefab.CreatePrefab() );
 			PrefabRepository.Instance.RegisterPrefab( "Wall", WallPrefab.CreatePrefab() );

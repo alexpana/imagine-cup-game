@@ -27,6 +27,18 @@ sampler2D ColorMapSampler = sampler_state
     AddressV = Wrap;
 };
 
+
+texture2D AlphaMap;
+sampler2D AlphaMapSampler = sampler_state
+{
+	Texture = <AlphaMap>;
+	MinFilter = linear;
+	MagFilter = linear;
+	MipFilter = linear;
+	AddressU = Wrap;
+    AddressV = Wrap;
+};
+
 VertexShaderOutput main_VS(VertexShaderInput input)
 {
 	VertexShaderOutput output;
@@ -40,9 +52,12 @@ VertexShaderOutput main_VS(VertexShaderInput input)
 float4 main_PS(VertexShaderOutput input) : COLOR
 {
 	float2 texcoord = input.Texcoord.xy + float2(fTime * fVel.x, fTime * fVel.y);
-	float4 color = tex2D(ColorMapSampler, texcoord);
 
-	return float4( color.xyz, fAlpha * color.a );
+
+	float4 color = tex2D(ColorMapSampler, texcoord);
+	float alpha = tex2D(AlphaMapSampler, input.Texcoord.xy).a;
+
+	return float4( color.xyz, fAlpha * alpha );
 }
 
 technique Technique1

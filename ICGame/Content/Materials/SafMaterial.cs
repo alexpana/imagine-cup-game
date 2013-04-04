@@ -14,7 +14,8 @@ namespace VertexArmy.Content.Materials
 			Effect effect = Platform.Instance.Content.Load<Effect>( @"effects\saf" );
 			material.Effect = effect;
 
-			material.AddParameter(Material.ColorMap, Platform.Instance.Content.Load<Texture2D>("images/waves"));
+			material.AddParameter( Material.ColorMap, Platform.Instance.Content.Load<Texture2D>( "images/waves-noalpha" ) );
+			material.AddParameter( "AlphaMap", Platform.Instance.Content.Load<Texture2D>( "images/waves" ) );
 			
 				
 			material.AddParameter( "matWorldViewProj", Matrix.Identity );

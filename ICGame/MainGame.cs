@@ -42,7 +42,7 @@ namespace VertexArmy
 #elif MODEL_VIEW
 			StateManager.Instance.ChangeState( GameState.ModelView );
 #else
-			StateManager.Instance.ChangeState( GameState.Menu );
+			StateManager.Instance.ChangeState( GameState.TutorialLevel );
 #endif
 		}
 

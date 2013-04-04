@@ -105,7 +105,25 @@ namespace VertexArmy.Content.Prefabs
 				Transformable = "InnerDoorNode"
 			};
 
+			MeshSceneNodePrefab outerDoorMesh = new MeshSceneNodePrefab
+			{
+				Name = "OuterDoorNode",
+				Mesh = "models/door_outer",
+				Material = "CelShadingMaterial",
+			};
+
+			liftedDoor.RegisterMeshSceneNode( outerDoorMesh );
+
+			ControllerPrefab outerDoorController = new ControllerPrefab
+			{
+				Name = "OuterDoorController",
+				Type = ControllerType.BodyController,
+				Body = "DoorCase",
+				Transformable = "OuterDoorNode"
+			};
+
 			liftedDoor.RegisterController( innerDoorController );
+			liftedDoor.RegisterController( outerDoorController );
 
 			return liftedDoor;
 		}

@@ -218,7 +218,7 @@ namespace VertexArmy.States
 		public void LoadDynamics()
 		{
 			GameWorldManager.Instance.SpawnEntity( "Camera", "camera1", new Vector3( 0, -200, 800 ) );
-			GameWorldManager.Instance.SpawnEntity( "Robot", "robotPlayer", new Vector3( 500f, 100f, 0f ), 1.5f );
+			GameWorldManager.Instance.SpawnEntity( "Robot", "robotPlayer", new Vector3( -100f, 100f, 0f ), 1.5f );
 
 			Robot = GameWorldManager.Instance.GetEntity( "robotPlayer" );
 

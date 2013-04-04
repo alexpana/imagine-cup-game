@@ -93,7 +93,12 @@ namespace VertexArmy.Content.Prefabs
 
 			liftedDoor.RegisterJoint( prismaticJoint );
 
-			MeshSceneNodePrefab innerDoorMesh = new MeshSceneNodePrefab { Mesh = "models/door_inner", Material = "RobotMaterial", Name = "InnerDoorNode" };
+			MeshSceneNodePrefab innerDoorMesh = new MeshSceneNodePrefab
+			{
+				Mesh = "models/door_inner",
+				Material = "RobotMaterial",
+				Name = "InnerDoorNode"
+			};
 
 			liftedDoor.RegisterMeshSceneNode( innerDoorMesh );
 
@@ -113,7 +118,6 @@ namespace VertexArmy.Content.Prefabs
 			};
 
 			liftedDoor.RegisterMeshSceneNode( outerDoorMesh );
-
 			ControllerPrefab outerDoorController = new ControllerPrefab
 			{
 				Name = "OuterDoorController",

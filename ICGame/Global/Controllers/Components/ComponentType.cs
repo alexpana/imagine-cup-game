@@ -5,6 +5,7 @@
 		SentientForce,
 		CarControlComponent,
 		ButtonComponent,
-		LiftedDoorComponent
+		LiftedDoorComponent,
+		BodyTriggerArea
 	}
 }

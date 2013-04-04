@@ -57,6 +57,7 @@ namespace VertexArmy
 			PrefabRepository.Instance.RegisterPrefab( "Floor", FloorPrefab.CreatePrefab() );
 			PrefabRepository.Instance.RegisterPrefab( "Wall", WallPrefab.CreatePrefab() );
 			PrefabRepository.Instance.RegisterPrefab( "LiftedDoor", LiftedDoorPrefab.CreatePrefab() );
+			PrefabRepository.Instance.RegisterPrefab( "Trigger", TriggerPrefab.CreatePrefab() );
 
 			// HACK!
 			MaterialRepository.Instance.RegisterMaterial( "DefaultMaterial", args => CelShading.CreateMaterial() );
@@ -98,3 +99,4 @@ namespace VertexArmy
 		}
 	}
 }
+

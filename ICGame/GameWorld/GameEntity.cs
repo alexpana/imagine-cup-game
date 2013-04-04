@@ -116,7 +116,12 @@ namespace VertexArmy.GameWorld
 
 		public BaseComponent GetComponent( string name )
 		{
-			return _componentsByName[name];
+			if ( _componentsByName.ContainsKey( name ) )
+			{
+				return _componentsByName[name];
+			}
+
+			return null;
 		}
 
 		public void SetPosition( Vector3 newPos )

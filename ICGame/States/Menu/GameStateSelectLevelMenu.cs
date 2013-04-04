@@ -92,9 +92,7 @@ namespace VertexArmy.States.Menu
 
 			CreateLevelsCubes();
 
-			Platform.Instance.SoundManager.ResumeMusic();
-
-			GameWorldManager.Instance.SpawnEntity( CameraPrefab.PrefabName, "menu_camera", new Vector3( 0, 0, 200 ) );
+			GameWorldManager.Instance.SpawnEntity( CameraPrefab.PrefabName, "levelmenu_camera", new Vector3( 0, 0, 200 ) );
 		}
 
 		private void CreateLevelsCubes()

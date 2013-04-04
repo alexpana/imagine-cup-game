@@ -131,7 +131,10 @@ namespace VertexArmy.States.Menu
 
 			ActivateMenuCube( _mainMenuCube );
 
-			_platform.SoundManager.PlayMusic( BackgroundMusic );
+			if ( !_platform.SoundManager.IsMusicPlaying )
+			{
+				_platform.SoundManager.PlayMusic( BackgroundMusic );
+			}
 
 			GameWorldManager.Instance.SpawnEntity( CameraPrefab.PrefabName, "menu_camera", new Vector3( 0, 0, 100 ) );
 		}
@@ -142,8 +145,6 @@ namespace VertexArmy.States.Menu
 
 			_mainMenuCube.Destroy();
 			_optionsMenuCube.Destroy();
-
-			_platform.SoundManager.PauseMusic();
 		}
 	}
 }

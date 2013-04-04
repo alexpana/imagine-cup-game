@@ -274,7 +274,14 @@
       <Name>door_inner</Name>
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
-	</Compile>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="music\Beluga_-_Lost_In_Outer_Space.mp3">
+      <Name>Beluga_-_Lost_In_Outer_Space</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SongProcessor</Processor>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="models\pyramid.FBX">

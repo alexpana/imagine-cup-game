@@ -14,6 +14,7 @@ namespace VertexArmy.Global.Managers
 		public const float Distance3DAudio = 0.01f;
 		private readonly Dictionary<Body, List<string>> _collisionSounds;
 		private readonly Dictionary<Body, SoundEffectInstance> _collisionSoundsInstances;
+
 		private readonly Settings _settings;
 
 		public SoundManager( Settings settings )
@@ -23,6 +24,11 @@ namespace VertexArmy.Global.Managers
 
 			_settings = settings;
 			_settings.SettingChanged += SettingChanged;
+		}
+
+		public bool IsMusicPlaying
+		{
+			get { return MediaPlayer.State == MediaState.Playing; }
 		}
 
 		public void RegisterCollisionSound( Body body, string sound )
@@ -136,6 +142,11 @@ namespace VertexArmy.Global.Managers
 
 		public void ResumeMusic()
 		{
+			if ( !_settings.IsMusicEnabled )
+			{
+				return;
+			}
+
 			MediaPlayer.Resume();
 		}
 

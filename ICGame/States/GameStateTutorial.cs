@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 using VertexArmy.GameWorld;
 using VertexArmy.Global;
 using VertexArmy.Global.Controllers;
@@ -248,6 +249,9 @@ namespace VertexArmy.States
 			_debugView.TextColor = Color.Black;
 
 			_view = Matrix.Identity;
+
+			Song song = _contentManager.Load<Song>( "music/Beluga_-_Lost_In_Outer_Space" );
+			Platform.Instance.SoundManager.PlayMusic( song );
 		}
 
 		public override void OnClose()
@@ -258,6 +262,8 @@ namespace VertexArmy.States
 			FrameUpdateManager.Instance.Clear();
 			Platform.Instance.PhysicsWorld.Clear();
 			SceneManager.Instance.Clear();
+
+			Platform.Instance.SoundManager.StopMusic();
 
 			_contentManager.Unload();
 		}

@@ -94,7 +94,7 @@ namespace VertexArmy.Global.Managers
 		{
 			if ( _isVisible )
 			{
-				_tempSpriteBatch.Begin( SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullNone, null );
+				_tempSpriteBatch.Begin( SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullCounterClockwise, null );
 				_tempSpriteBatch.Draw( _activeCursor.Sprite, new Rectangle( ( int ) _cursorPosition.X, ( int ) _cursorPosition.Y, 32, 32 ), Color.White );
 				_tempSpriteBatch.End();
 			}

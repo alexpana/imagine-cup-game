@@ -168,7 +168,10 @@ namespace VertexArmy.Global.Managers
 
 				foreach ( var attachable in registeredNode.Attachable )
 				{
-					attachable.Render( dt );
+					if ( !attachable.Parent.Invisible )
+					{
+						attachable.Render( dt );
+					}
 				}
 			}
 

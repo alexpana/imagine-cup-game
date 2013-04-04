@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using VertexArmy.GameWorld.Prefabs;
 using VertexArmy.GameWorld.Prefabs.Structs;
-using VertexArmy.Global.Managers;
 
 namespace VertexArmy.Content.Prefabs
 {

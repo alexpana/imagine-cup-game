@@ -35,6 +35,7 @@ namespace VertexArmy.Graphics
 		private bool _recomputeAbsoluteTransformation;
 		private bool _recomputeRelativeTransformation;
 
+		public bool Invisible { get; set; }
 
 		public List<SceneNode> Children
 		{
@@ -48,14 +49,15 @@ namespace VertexArmy.Graphics
 
 		public SceneNode()
 		{
+			Invisible = false;
 			_scale = new Vector3( 1, 1, 1 );
 			_position = new Vector3( 0, 0, 0 );
 			_rotation = Quaternion.Identity;
 			_recomputeAbsoluteTransformation =
 				_recomputeRelativeTransformation = false;
 			_parent = null;
-			_children = new List<SceneNode>( );
-			_attachables = new List<Attachable>( );
+			_children = new List<SceneNode>();
+			_attachables = new List<Attachable>();
 			_absoluteTransformation = Matrix.Identity;
 			_relativeTransformation = Matrix.Identity;
 		}
@@ -78,15 +80,15 @@ namespace VertexArmy.Graphics
 
 		public Matrix GetAbsoluteTransformation()
 		{
-			if ( ShouldRecomputeTransformations( ) )
+			if ( ShouldRecomputeTransformations() )
 			{
 				_absoluteTransformation = Matrix.Identity;
 				if ( _parent != null )
 				{
-					_absoluteTransformation = _parent.GetAbsoluteTransformation( );
+					_absoluteTransformation = _parent.GetAbsoluteTransformation();
 				}
 
-				_absoluteTransformation = GetRelativeTransformation( ) * _absoluteTransformation;
+				_absoluteTransformation = GetRelativeTransformation() * _absoluteTransformation;
 
 				for ( int i = 0, l = _children.Count; i < l; ++i )
 				{
@@ -174,7 +176,7 @@ namespace VertexArmy.Graphics
 				_children[i]._parent = null;
 				_children[i]._recomputeAbsoluteTransformation = true;
 			}
-			_children.Clear( );
+			_children.Clear();
 		}
 
 		public SceneNode GetChild( int index )

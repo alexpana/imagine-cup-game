@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Runtime.Serialization.Json;
 
 namespace VertexArmy.Global
 {
@@ -8,12 +10,11 @@ namespace VertexArmy.Global
 		public string SettingName { get; set; }
 	}
 
-	//TODO: save/load from file
 	public class Settings
 	{
 		public const string IsMusicEnabledSetting = "IsMusicEnabled";
 
-		private readonly Dictionary<string, object> _settings;
+		private Dictionary<string, object> _settings;
 
 		public Settings()
 		{
@@ -44,6 +45,30 @@ namespace VertexArmy.Global
 		{
 			_settings[setting] = value;
 			OnSettingChanged( setting );
+		}
+
+		public void Save( string fileName = "Settings.txt" )
+		{
+			using ( StreamWriter sw = new StreamWriter( fileName ) )
+			{
+				DataContractJsonSerializer serializer = new DataContractJsonSerializer( _settings.GetType() );
+				serializer.WriteObject( sw.BaseStream, _settings );
+			}
+		}
+
+		public void Load( string fileName = "Settings.txt" )
+		{
+			try
+			{
+				using ( StreamReader sr = new StreamReader( fileName ) )
+				{
+					DataContractJsonSerializer serializer = new DataContractJsonSerializer( _settings.GetType() );
+					_settings = ( Dictionary<string, object> ) serializer.ReadObject( sr.BaseStream );
+				}
+			}
+			catch
+			{
+			}
 		}
 
 		public EventHandler<SettingEventArgs> SettingChanged { get; set; }

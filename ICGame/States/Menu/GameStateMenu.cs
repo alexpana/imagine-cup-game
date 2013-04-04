@@ -92,15 +92,21 @@ namespace VertexArmy.States.Menu
 						Activated = args =>
 						{
 							_platform.Settings.IsMusicEnabled = (bool)args;
-							_optionsMenuCube.SetBackgroundImage(CreateImagePath("options", new Dictionary<string, string>
-							{
-								{ "sounds", ((bool)args) ? "on" : "off" }
-							}));
+							SetSwitchMenuItemBackgroundImage(_optionsMenuCube, (bool)args);
+							_platform.Settings.Save();
 						}
 					}
 				}
 			};
-			_optionsMenuCube.SetBackgroundImage( "options_sounds-on" );
+			SetSwitchMenuItemBackgroundImage( _optionsMenuCube, _platform.Settings.IsMusicEnabled );
+		}
+
+		private void SetSwitchMenuItemBackgroundImage( MenuCube menuCube, bool isSoundEnabled )
+		{
+			menuCube.SetBackgroundImage( CreateImagePath( "options", new Dictionary<string, string>
+			{
+				{ "sounds", isSoundEnabled ? "on" : "off" }
+			} ) );
 		}
 
 		private void ActivateMenuCube( MenuCube cube )

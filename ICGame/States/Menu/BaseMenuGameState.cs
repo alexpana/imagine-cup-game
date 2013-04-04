@@ -1,5 +1,9 @@
 ﻿
+using System;
 using FarseerPhysics;
+using FarseerPhysics.Common;
+using FarseerPhysics.Dynamics;
+using FarseerPhysics.Factories;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
@@ -20,6 +24,8 @@ namespace VertexArmy.States.Menu
 		private DebugViewXNA _debugView;
 		private Matrix _projection;
 		private Matrix _view;
+
+		private Body MenuGround;
 
 		protected ContentManager ContentManager;
 
@@ -60,7 +66,7 @@ namespace VertexArmy.States.Menu
 			MenuEventSound = ContentManager.Load<SoundEffect>( "sounds/button-30" );
 
 			CreateDebugView( ContentManager );
-			GameWorldManager.Instance.SpawnEntity( "Camera", "menu_camera", new Vector3( 0, 0, 100 ) );
+			CreateCubesGround();
 		}
 
 		public virtual void OnClose()
@@ -77,7 +83,28 @@ namespace VertexArmy.States.Menu
 
 		public virtual void OnUpdate( GameTime gameTime )
 		{
+			Platform.Instance.PhysicsWorld.Step( Math.Min( ( float ) gameTime.ElapsedGameTime.TotalMilliseconds * 0.001f, ( 1f / 30f ) ) );
 			FrameUpdateManager.Instance.Update( gameTime );
+		}
+
+		protected void CreateCubesGround()
+		{
+			MenuGround = new Body( Platform.Instance.PhysicsWorld )
+			{
+				Friction = 1.2f,
+				Restitution = 0f
+			};
+
+			Vertices vertices = new Vertices
+			{	
+				new Vector2( -10f, 0.5f ),
+				new Vector2( 10f, 0.5f )
+			};
+
+			for ( int i = 0; i < vertices.Count - 1; ++i )
+			{
+				FixtureFactory.AttachEdge( vertices[i], vertices[i + 1], MenuGround );
+			}
 		}
 	}
 }

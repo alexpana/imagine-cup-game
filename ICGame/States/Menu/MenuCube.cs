@@ -50,8 +50,13 @@ namespace VertexArmy.States.Menu
 			_contentManager = contentManager;
 		}
 
-		public void Spawn()
+		public void Spawn( float spawnX )
 		{
+			if ( _backgroundTexture == null )
+			{
+				throw new InvalidOperationException( "No background texture specified!" );
+			}
+
 			_isSpawned = true;
 			var parameters = new GameEntityParameters
 			{
@@ -61,7 +66,7 @@ namespace VertexArmy.States.Menu
 				}
 			};
 
-			GameWorldManager.Instance.SpawnEntity( MenuCubePrefab.PrefabName, Id, new Vector3( -25f, DropHeight, 0f ), 1f, parameters );
+			GameWorldManager.Instance.SpawnEntity( MenuCubePrefab.PrefabName, Id, new Vector3( spawnX, DropHeight, 0f ), 1f, parameters );
 			GameWorldManager.Instance.GetEntity( Id ).SetRotation( MathHelper.Clamp( ( float ) ( 0.017f - Random.NextDouble() ), -0.017f, 0.017f ) );
 
 			// set a small horizontal rotation to give a better impression

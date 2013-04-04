@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Text;
-using FarseerPhysics.Common;
-using FarseerPhysics.Dynamics;
-using FarseerPhysics.Factories;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
+using VertexArmy.Content.Prefabs;
 using VertexArmy.Global;
+using VertexArmy.Global.Managers;
 
 namespace VertexArmy.States.Menu
 {
@@ -18,20 +16,12 @@ namespace VertexArmy.States.Menu
 
 		private MenuCube _activeCube;
 
-		private Body _ground;
-
 		private readonly Platform _platform;
 
 		public GameStateMenu( ContentManager content )
 			: base( content )
 		{
 			_platform = Platform.Instance;
-		}
-
-		private void ActivateMenuCube( MenuCube cube )
-		{
-			_activeCube = cube;
-			_activeCube.Spawn();
 		}
 
 		public override void OnUpdate( GameTime gameTime )
@@ -43,7 +33,6 @@ namespace VertexArmy.States.Menu
 				_activeCube.Update( gameTime );
 			}
 
-			_platform.PhysicsWorld.Step( Math.Min( ( float ) gameTime.ElapsedGameTime.TotalMilliseconds * 0.001f, ( 1f / 30f ) ) );
 			base.OnUpdate( gameTime );
 		}
 
@@ -71,26 +60,6 @@ namespace VertexArmy.States.Menu
 					_activeCube = _activeCube.PreviousMenu;
 					_platform.SoundManager.PlaySound( MenuEventSound );
 				}
-			}
-		}
-
-		private void CreateCubesGround()
-		{
-			_ground = new Body( _platform.PhysicsWorld )
-			{
-				Friction = 1.2f,
-				Restitution = 0f
-			};
-
-			Vertices vertices = new Vertices
-			{	
-				new Vector2( -10f, 0.5f ),
-				new Vector2( 10f, 0.5f )
-			};
-
-			for ( int i = 0; i < vertices.Count - 1; ++i )
-			{
-				FixtureFactory.AttachEdge( vertices[i], vertices[i + 1], _ground );
 			}
 		}
 
@@ -134,6 +103,12 @@ namespace VertexArmy.States.Menu
 			_optionsMenuCube.SetBackgroundImage( "options_sounds-on" );
 		}
 
+		private void ActivateMenuCube( MenuCube cube )
+		{
+			_activeCube = cube;
+			_activeCube.Spawn( -25f );
+		}
+
 		private string CreateImagePath( string prefix, Dictionary<string, string> options )
 		{
 			StringBuilder stringBuilder = new StringBuilder();
@@ -153,11 +128,12 @@ namespace VertexArmy.States.Menu
 			base.OnEnter();
 
 			CreateMenus();
-			CreateCubesGround();
 
 			ActivateMenuCube( _mainMenuCube );
 
 			_platform.SoundManager.PlayMusic( BackgroundMusic );
+
+			GameWorldManager.Instance.SpawnEntity( CameraPrefab.PrefabName, "menu_camera", new Vector3( 0, 0, 100 ) );
 		}
 
 		public override void OnClose()

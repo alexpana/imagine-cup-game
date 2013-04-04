@@ -72,7 +72,7 @@ namespace VertexArmy.States
 				{
 					if ( !_actionReset )
 					{
-						Robot.SetPosition( Vector3.Zero );
+						GameWorldManager.Instance.LoadLastState();
 						_actionReset = true;
 					}
 				}
@@ -123,17 +123,6 @@ namespace VertexArmy.States
 			if ( Keyboard.GetState( PlayerIndex.One ).IsKeyUp( Keys.S ) )
 			{
 				_actionSpawn = false;
-			}
-
-			if ( Keyboard.GetState( PlayerIndex.One ).IsKeyDown( Keys.O ) )
-			{
-				GameWorldManager.Instance.SaveState();
-				//Robot.SetRotation( Robot.GetRotationRadians() - 0.4f * ( float ) gameTime.ElapsedGameTime.TotalSeconds );
-			}
-			else if ( Keyboard.GetState( PlayerIndex.One ).IsKeyDown( Keys.P ) )
-			{
-				GameWorldManager.Instance.LoadLastState();
-				//Robot.SetRotation( Robot.GetRotationRadians() + 0.4f * ( float ) gameTime.ElapsedGameTime.TotalSeconds );
 			}
 
 		}
@@ -249,6 +238,8 @@ namespace VertexArmy.States
 			LoadSemiStatics();
 			LoadDynamics();
 			LoadTriggers();
+
+			GameWorldManager.Instance.SaveState();
 		}
 
 		public override void OnEnter()
@@ -295,6 +286,7 @@ namespace VertexArmy.States
 			if ( Robot.GetComponent( "force" ) == null )
 			{
 				Robot.RegisterComponent( "force", new SentientForceComponent( CursorManager.Instance.SceneNode ) );
+				GameWorldManager.Instance.SaveState();
 			}
 		}
 	}

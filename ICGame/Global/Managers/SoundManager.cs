@@ -127,7 +127,7 @@ namespace VertexArmy.Global.Managers
 				return;
 			}
 
-			MediaPlayer.Play( song );
+			//MediaPlayer.Play( song );
 		}
 
 		public void StopMusic()

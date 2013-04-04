@@ -301,13 +301,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="images\waves.jpg">
-      <Name>waves</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="models\door_outer.FBX">
       <Name>door_outer</Name>
       <Importer>FbxImporter</Importer>
@@ -334,6 +327,13 @@
       <Name>Beluga_-_Lost_In_Outer_Space</Name>
       <Importer>Mp3Importer</Importer>
       <Processor>SongProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="images\waves.png">
+      <Name>waves</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />

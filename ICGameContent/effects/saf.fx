@@ -39,9 +39,10 @@ VertexShaderOutput main_VS(VertexShaderInput input)
 
 float4 main_PS(VertexShaderOutput input) : COLOR
 {
-	float3 color = tex2D(ColorMapSampler, input.Texcoord.xy + float2(fTime * fVel.x, fTime * fVel.y));
+	float2 texcoord = input.Texcoord.xy + float2(fTime * fVel.x, fTime * fVel.y);
+	float4 color = tex2D(ColorMapSampler, texcoord);
 
-	return float4( color, fAlpha );
+	return float4( color.xyz, fAlpha * color.a );
 }
 
 technique Technique1

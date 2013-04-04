@@ -20,7 +20,7 @@ namespace VertexArmy.Content.Materials
 			material.AddParameter( "matWorldViewProj", Matrix.Identity );
 			material.AddParameter( "fTime", 0f );
 			material.AddParameter( "fAlpha", 1f );
-			material.AddParameter( "fVel", new Vector2( 0.01f, 0.01f ) );
+			material.AddParameter( "fVel", new Vector2( 0.01f, 0.00f ) );
 			
 			return material;
 		}

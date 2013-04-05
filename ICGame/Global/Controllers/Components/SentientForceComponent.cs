@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Input;
 using VertexArmy.GameWorld;
 using VertexArmy.Global.Behaviours;
 using VertexArmy.Global.Managers;
+using VertexArmy.Graphics.Attachables;
 using VertexArmy.Utilities;
 
 namespace VertexArmy.Global.Controllers.Components
@@ -17,8 +18,8 @@ namespace VertexArmy.Global.Controllers.Components
 	{
 		public const float Distance = 500f;
 		public const float Angle = 0.5f;
-		public const float AttractionForce = 10f;
-		public const float RepulsiveForce = 10f;
+		public const float AttractionForce = 40f;
+		public const float RepulsiveForce = 40f;
 
 		private Vector2 _oldPosition;
 		private float _distanceSim;
@@ -119,6 +120,14 @@ namespace VertexArmy.Global.Controllers.Components
 					{
 						ConeEntity.SetPosition( new Vector3( UnitsConverter.ToDisplayUnits( Cone.Position ), ConeEntity.GetPosition().Z ) );
 						ConeEntity.SetRotation( UnitsConverter.To3DRotation( Cone.Rotation ) );
+						( ( SafAttachable ) ConeEntity.SceneNodes["Mesh"].Attachable[0] ).Material.SetParameter( "fVel", new Vector2( 0.0000f, 0.00025f ) );
+						ConeEntity.SceneNodes["Mesh"].Invisible = false;
+					}
+					else if ( Mouse.GetState().RightButton.Equals( ButtonState.Pressed ) )
+					{
+						ConeEntity.SetPosition( new Vector3( UnitsConverter.ToDisplayUnits( Cone.Position ), ConeEntity.GetPosition().Z ) );
+						ConeEntity.SetRotation( UnitsConverter.To3DRotation( Cone.Rotation ) );
+						( ( SafAttachable ) ConeEntity.SceneNodes["Mesh"].Attachable[0] ).Material.SetParameter( "fVel", new Vector2( 0.0000f, -0.00025f ) );
 						ConeEntity.SceneNodes["Mesh"].Invisible = false;
 					}
 					else

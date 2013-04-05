@@ -280,6 +280,10 @@ namespace VertexArmy.States
 				GameWorldManager.Instance.SpawnEntity( "Wall", "wall" + wallCount++, new Vector3( 2080f + 60f * 20, -78 - 60f * i, 0f ) );
 			}
 
+			GameWorldManager.Instance.SpawnEntity( "Floor", "floor" + floorCount, new Vector3( 2050f + 60f * 20, -170, 0f ) );
+			GameWorldManager.Instance.GetEntity( "floor" + floorCount ).SetRotation( -0.3f );
+			floorCount++;
+
 			GameWorldManager.Instance.SpawnEntity( "FloorBridge", "bridge", new Vector3( 2040f + 60f * 18, -43f, 0f ) );
 			JointFactory.CreateFixedRevoluteJoint(
 				Platform.Instance.PhysicsWorld,

@@ -11,11 +11,12 @@ namespace VertexArmy.Global.Managers
 {
 	public class SoundManager
 	{
-		public const float Distance3DAudio = 0.01f;
+		public const float Distance3DAudio = 0.001f;
 		private readonly Dictionary<Body, List<string>> _collisionSounds;
 		private readonly Dictionary<Body, SoundEffectInstance> _collisionSoundsInstances;
 
 		private readonly Settings _settings;
+		private readonly Random _random;
 
 		public SoundManager( Settings settings )
 		{
@@ -24,6 +25,7 @@ namespace VertexArmy.Global.Managers
 
 			_settings = settings;
 			_settings.SettingChanged += SettingChanged;
+			_random = new Random();
 		}
 
 		public bool IsMusicPlaying
@@ -73,7 +75,7 @@ namespace VertexArmy.Global.Managers
 					return;
 				}
 
-				int random = new Random().Next( _collisionSounds[body].Count );
+				int random = _random.Next( _collisionSounds[body].Count );
 
 				SoundEffect soundToPlay = Platform.Instance.Content.Load<SoundEffect>( _collisionSounds[body][random] );
 

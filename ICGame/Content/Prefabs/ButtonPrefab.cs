@@ -78,7 +78,7 @@ namespace VertexArmy.Content.Prefabs
 				UpperLimit = 2.25f,
 				LowerLimit = 0f,
 				LimitEnabled = true,
-				MaxMotorForce = 1f,
+				MaxMotorForce = 0.2f,
 				MotorSpeed = 1f,
 				MotorEnabled = true
 			};

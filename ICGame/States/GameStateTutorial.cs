@@ -199,9 +199,19 @@ namespace VertexArmy.States
 			}
 
 			//left wall (first)
+			for ( int i = 0; i < 10; i++ )
+			{
+				GameWorldManager.Instance.SpawnEntity( "Wall", "wall" + wallCount++, new Vector3( -335f, 0f + 60f * i, 0f ) );
+			}
+
+			// door walls
 			for ( int i = 0; i < 5; i++ )
 			{
-				GameWorldManager.Instance.SpawnEntity( "Wall", "wall" + wallCount++, new Vector3( -355f, 0f + 60f * i, 0f ) );
+				GameWorldManager.Instance.SpawnEntity( "Wall", "wall" + wallCount++, new Vector3( 15f, 240f + 60f * i, 0f ) );
+			}
+			for ( int i = 0; i < 5; i++ )
+			{
+				GameWorldManager.Instance.SpawnEntity( "Wall", "wall" + wallCount++, new Vector3( 85f, 240f + 60f * i, 0f ) );
 			}
 
 			//wall 1
@@ -259,9 +269,15 @@ namespace VertexArmy.States
 			}
 
 			//floor
-			for ( int i = 20; i < 25; i++ )
+			for ( int i = 20; i < 30; i++ )
 			{
 				GameWorldManager.Instance.SpawnEntity( "Floor", "floor" + floorCount++, new Vector3( 2080f + 60f * i, -43f, 0f ) );
+			}
+
+			//wall 2
+			for ( int i = 0; i < 3; i++ )
+			{
+				GameWorldManager.Instance.SpawnEntity( "Wall", "wall" + wallCount++, new Vector3( 2080f + 60f * 20, -78 - 60f * i, 0f ) );
 			}
 
 			GameWorldManager.Instance.SpawnEntity( "FloorBridge", "bridge", new Vector3( 2040f + 60f * 18, -43f, 0f ) );
@@ -293,7 +309,7 @@ namespace VertexArmy.States
 
 		public void LoadSemiStatics()
 		{
-			GameWorldManager.Instance.SpawnEntity( "Button", "button1", new Vector3( -350f, 46f, 0f ), 5f );
+			GameWorldManager.Instance.SpawnEntity( "Button", "button1", new Vector3( -330f, 46f, 0f ), 5f );
 			GameWorldManager.Instance.GetEntity( "button1" ).RegisterComponent(
 				"active",
 				new ButtonComponent( "ButtonJoint1" )
@@ -311,7 +327,9 @@ namespace VertexArmy.States
 		public void LoadDynamics()
 		{
 			GameWorldManager.Instance.SpawnEntity( "Camera", "camera1", new Vector3( 0, -200, 800 ) );
-			GameWorldManager.Instance.SpawnEntity( "Robot", "robotPlayer", new Vector3( 2000f, 150f, 0f ), 1.5f );
+			GameWorldManager.Instance.SpawnEntity( "Robot", "robotPlayer", new Vector3( -150f, 100f, 0f ), 1.5f );
+			GameWorldManager.Instance.SpawnEntity( "WallBackground", "wallBackground1",
+				new Vector3( 0f, 0f, -800f ), Quaternion.CreateFromAxisAngle( Vector3.UnitX, -0.3f ), 150 );
 
 			Robot = GameWorldManager.Instance.GetEntity( "robotPlayer" );
 
@@ -335,8 +353,7 @@ namespace VertexArmy.States
 
 		public void LoadTriggers()
 		{
-			//GameWorldManager.Instance.SpawnEntity( "Trigger", "upgradeCube1", new Vector3( 500f + 60f * 2, 70f, 0f ) );
-			GameWorldManager.Instance.SpawnEntity( "Trigger", "upgradeCube1", new Vector3( 2000f, 150f, 0f ) );
+			GameWorldManager.Instance.SpawnEntity( "Trigger", "upgradeCube1", new Vector3( 500f + 60f * 2, 70f, 0f ) );
 			GameWorldManager.Instance.GetEntity( "upgradeCube1" ).RegisterComponent(
 					"trigger",
 					new BodyTriggerAreaComponent( new Vector2( 10f, 10f ), Robot.MainBody, UpgradeCube1Callback )
@@ -346,6 +363,18 @@ namespace VertexArmy.States
 			GameWorldManager.Instance.GetEntity( "death1" ).RegisterComponent(
 					"trigger",
 					new BodyTriggerAreaComponent( new Vector2( 10f, 10f ), Robot.MainBody, LoadLastSateCallback )
+				);
+
+			GameWorldManager.Instance.SpawnEntity( "Trigger", "death2", new Vector3( 2455, -60f, 0f ) );
+			GameWorldManager.Instance.GetEntity( "death2" ).RegisterComponent(
+					"trigger",
+					new BodyTriggerAreaComponent( new Vector2( 10f, 10f ), Robot.MainBody, LoadLastSateCallback )
+				);
+
+			GameWorldManager.Instance.SpawnEntity( "Trigger", "endGame", new Vector3( 3500, 30f, 0f ) );
+			GameWorldManager.Instance.GetEntity( "endGame" ).RegisterComponent(
+					"trigger",
+					new BodyTriggerAreaComponent( new Vector2( 10f, 10f ), Robot.MainBody, EndGameCallback )
 				);
 		}
 
@@ -411,6 +440,12 @@ namespace VertexArmy.States
 		public void LoadLastSateCallback()
 		{
 			GameWorldManager.Instance.LoadLastState();
+		}
+
+		public void EndGameCallback()
+		{
+			StateManager.Instance.PopState();
+			StateManager.Instance.ChangeState( GameState.Menu );
 		}
 	}
 }

@@ -21,5 +21,21 @@ namespace VertexArmy.Content.Prefabs
 
 			return mesh;
 		}
+
+		public static PrefabEntity CreatePrefab(string mesh, string material, string name)
+		{
+			PrefabEntity prf = new PrefabEntity { Name = name };
+
+			MeshSceneNodePrefab crateSceneNode = new MeshSceneNodePrefab
+			{
+				Material = material,
+				Mesh = mesh,
+				Name = name
+			};
+
+			prf.RegisterMeshSceneNode( crateSceneNode );
+
+			return prf;
+		}
 	}
 }

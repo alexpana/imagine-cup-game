@@ -60,6 +60,7 @@ namespace VertexArmy
 			PrefabRepository.Instance.RegisterPrefab( "Trigger", TriggerPrefab.CreatePrefab() );
 			PrefabRepository.Instance.RegisterPrefab( "Saf", SafPrefab.CreatePrefab() );
 			PrefabRepository.Instance.RegisterPrefab( "FloorBridge", FloorBridgePrefab.CreatePrefab() );
+			PrefabRepository.Instance.RegisterPrefab( "WallBackground", SimpleMeshPrefab.CreatePrefab( "models/quad", "WallMaterial", "wall-node" ) );
 
 			// HACK!
 			MaterialRepository.Instance.RegisterMaterial( "DefaultMaterial", args => CelShading.CreateMaterial() );
@@ -67,6 +68,7 @@ namespace VertexArmy
 			MaterialRepository.Instance.RegisterMaterial( "CelShadingMaterial", args => CelShading.CreateMaterial() );
 			MaterialRepository.Instance.RegisterMaterial( "MenuCubeMaterial", args => MenuCubeMaterial.CreateMaterial( args ) );
 			MaterialRepository.Instance.RegisterMaterial( "SafMaterial", args => SafMaterial.CreateMaterial() );
+			MaterialRepository.Instance.RegisterMaterial( "WallMaterial", args => WallMaterial.CreateMaterial() );
 		}
 
 		protected override void UnloadContent()
@@ -102,4 +104,3 @@ namespace VertexArmy
 		}
 	}
 }
-

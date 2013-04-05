@@ -10,6 +10,8 @@ namespace VertexArmy.Graphics.Attachables
 		public Material Material { get; private set; }
 		public BoundingSphere BoundingSphere { get; internal set; }
 
+		private BlendState _safBlend, _defaultBlend;
+
 		public SafAttachable( Model mod, Material mat )
 		{
 			BoundingSphere = new BoundingSphere();
@@ -24,6 +26,17 @@ namespace VertexArmy.Graphics.Attachables
 
 			Model = mod;
 			Material = mat;
+
+			_safBlend = new BlendState()
+			{
+				AlphaSourceBlend = Blend.SourceAlpha,
+				AlphaDestinationBlend = Blend.InverseSourceAlpha,
+				ColorSourceBlend = Blend.SourceAlpha,
+				ColorDestinationBlend = Blend.InverseSourceAlpha,
+				AlphaBlendFunction = BlendFunction.Add,
+			};
+
+			_defaultBlend = new BlendState();
 		}
 
 		private float _fTime = 0f;
@@ -33,15 +46,8 @@ namespace VertexArmy.Graphics.Attachables
 			Renderer.Instance.SetGlobalMaterialParameters( Material );
 			Material.Apply();
 
-			BlendState bs = new BlendState()
-			{
-				AlphaSourceBlend = Blend.SourceAlpha,
-				AlphaDestinationBlend = Blend.InverseSourceAlpha,
-				ColorSourceBlend = Blend.SourceAlpha,
-				ColorDestinationBlend = Blend.InverseSourceAlpha,
-				AlphaBlendFunction = BlendFunction.Add,
-			};
-			Platform.Instance.Device.BlendState = bs;
+
+			Platform.Instance.Device.BlendState = _safBlend;
 
 
 			Material.SetParameter( "fTime", _fTime += dt );
@@ -54,7 +60,7 @@ namespace VertexArmy.Graphics.Attachables
 				m.Draw();
 			}
 
-			Platform.Instance.Device.BlendState = new BlendState();
+			Platform.Instance.Device.BlendState = _defaultBlend;
 		}
 	}
 }

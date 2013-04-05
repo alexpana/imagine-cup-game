@@ -6,6 +6,7 @@ using FarseerPhysics.Dynamics.Contacts;
 using FarseerPhysics.Factories;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using VertexArmy.GameWorld;
 using VertexArmy.Global.Behaviours;
 using VertexArmy.Global.Managers;
 using VertexArmy.Utilities;
@@ -23,6 +24,7 @@ namespace VertexArmy.Global.Controllers.Components
 		private float _distanceSim;
 
 		public Body Cone;
+		public GameEntity ConeEntity;
 
 		public SentientForceComponent( ITransformable pointingDirection )
 		{
@@ -70,6 +72,9 @@ namespace VertexArmy.Global.Controllers.Components
 
 			_oldPosition = Vector2.Zero;
 			_distanceSim = UnitsConverter.ToSimUnits( Distance );
+
+			GameWorldManager.Instance.SpawnEntity( "Saf", "saf1", new Vector3( 0, 0, 0 ), 15 );
+			ConeEntity = GameWorldManager.Instance.GetEntity( "saf1" );
 		}
 
 		public override void InitEntity()
@@ -110,6 +115,16 @@ namespace VertexArmy.Global.Controllers.Components
 					direction.Normalize();
 
 					Cone.Rotation = ( float ) Math.Acos( direction.X ) * Math.Sign( ( float ) Math.Asin( direction.Y ) );
+					if ( Mouse.GetState().LeftButton.Equals( ButtonState.Pressed ) )
+					{
+						ConeEntity.SetPosition( new Vector3( UnitsConverter.ToDisplayUnits( Cone.Position ), ConeEntity.GetPosition().Z ) );
+						ConeEntity.SetRotation( UnitsConverter.To3DRotation( Cone.Rotation ) );
+						ConeEntity.SceneNodes["Mesh"].Invisible = false;
+					}
+					else
+					{
+						ConeEntity.SceneNodes["Mesh"].Invisible = true;
+					}
 				}
 				else
 				{
@@ -163,6 +178,7 @@ namespace VertexArmy.Global.Controllers.Components
 			PhysicsContactManager.Instance.UnregisterCallback( ContactCallbackType.FixtureBBegin, Cone );
 			PhysicsContactManager.Instance.UnregisterCallback( ContactCallbackType.FixtureABegin, Cone );
 			Platform.Instance.PhysicsWorld.RemoveBody( Cone );
+			GameWorldManager.Instance.RemoveEntity( "saf1" );
 		}
 	}
 }

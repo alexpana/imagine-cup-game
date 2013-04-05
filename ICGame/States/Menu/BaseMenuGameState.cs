@@ -55,7 +55,7 @@ namespace VertexArmy.States.Menu
 
 		public virtual void OnRender( GameTime gameTime )
 		{
-			_debugView.RenderDebugData( ref _projection, ref _view );
+			//_debugView.RenderDebugData( ref _projection, ref _view );
 			SceneManager.Instance.Render( gameTime.ElapsedGameTime.Milliseconds );
 		}
 

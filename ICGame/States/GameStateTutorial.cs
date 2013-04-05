@@ -44,6 +44,11 @@ namespace VertexArmy.States
 			if ( Robot != null )
 			{
 
+				if ( Robot.GetPosition().Y < -2000 )
+				{
+					GameWorldManager.Instance.LoadLastState();
+				}
+
 				if ( Keyboard.GetState( PlayerIndex.One ).IsKeyDown( Keys.F ) )
 				{
 					if ( !_actionFreeze )
@@ -72,7 +77,7 @@ namespace VertexArmy.States
 				{
 					if ( !_actionReset )
 					{
-						Robot.SetPosition( Vector3.Zero );
+						GameWorldManager.Instance.LoadLastState();
 						_actionReset = true;
 					}
 				}
@@ -125,17 +130,6 @@ namespace VertexArmy.States
 				_actionSpawn = false;
 			}
 
-			if ( Keyboard.GetState( PlayerIndex.One ).IsKeyDown( Keys.O ) )
-			{
-				GameWorldManager.Instance.SaveState();
-				//Robot.SetRotation( Robot.GetRotationRadians() - 0.4f * ( float ) gameTime.ElapsedGameTime.TotalSeconds );
-			}
-			else if ( Keyboard.GetState( PlayerIndex.One ).IsKeyDown( Keys.P ) )
-			{
-				GameWorldManager.Instance.LoadLastState();
-				//Robot.SetRotation( Robot.GetRotationRadians() + 0.4f * ( float ) gameTime.ElapsedGameTime.TotalSeconds );
-			}
-
 		}
 
 		public override void OnRender( GameTime gameTime )
@@ -168,7 +162,7 @@ namespace VertexArmy.States
 			int wallCount = 0;
 
 			//first floor part
-			for ( int i = 0; i < 25; i++ )
+			for ( int i = 0; i < 20; i++ )
 			{
 				GameWorldManager.Instance.SpawnEntity( "Floor", "floor" + floorCount++, new Vector3( -300f + 60f * i, 0f, 0f ) );
 			}
@@ -176,7 +170,13 @@ namespace VertexArmy.States
 			Vector2 rotationPoint = new Vector2( -300f + 60f * 19, -10f );
 			for ( int i = 20; i < 25; i++ )
 			{
+				GameWorldManager.Instance.SpawnEntity( "Floor", "floor" + floorCount++, new Vector3( -300f + 60f * i, -9f, 0f ) );
 				TransformUtility.RotateTransformableAroundPoint2D( GameWorldManager.Instance.GetEntity( "floor" + i ), rotationPoint, 0.3f );
+			}
+
+			for ( int i = 0; i < 20; i++ )
+			{
+				GameWorldManager.Instance.SpawnEntity( "Floor", "floor" + floorCount++, new Vector3( 1183f + 60f * i, 87.5f, 0f ) );
 			}
 
 			//left wall (first)
@@ -189,8 +189,6 @@ namespace VertexArmy.States
 			GameWorldManager.Instance.SpawnEntity( "Floor", "floor" + floorCount++, new Vector3( 500f + 60f, 10f, 0f ) );
 			GameWorldManager.Instance.SpawnEntity( "Floor", "floor" + floorCount++, new Vector3( 500f + 60f * 2, 10f, 0f ) );
 			GameWorldManager.Instance.SpawnEntity( "Floor", "floor" + floorCount++, new Vector3( 500f + 60f * 3, 10f, 0f ) );
-
-
 
 		}
 
@@ -214,7 +212,7 @@ namespace VertexArmy.States
 		public void LoadDynamics()
 		{
 			GameWorldManager.Instance.SpawnEntity( "Camera", "camera1", new Vector3( 0, -200, 800 ) );
-			GameWorldManager.Instance.SpawnEntity( "Robot", "robotPlayer", new Vector3( -100f, 100f, 0f ), 1.5f );
+			GameWorldManager.Instance.SpawnEntity( "Robot", "robotPlayer", new Vector3( 500f, 100f, 0f ), 1.5f );
 
 			Robot = GameWorldManager.Instance.GetEntity( "robotPlayer" );
 
@@ -230,6 +228,7 @@ namespace VertexArmy.States
 			Camera = GameWorldManager.Instance.GetEntity( "camera1" );
 
 			GameWorldManager.Instance.SpawnEntity( "Crate", "crate1", new Vector3( -250, 100f, 0f ), 3f );
+
 			//GameWorldManager.Instance.SpawnEntity( "Crate", "crate2", new Vector3( -250, 200f, 0f ), 3f );
 		}
 
@@ -249,6 +248,8 @@ namespace VertexArmy.States
 			LoadSemiStatics();
 			LoadDynamics();
 			LoadTriggers();
+
+			GameWorldManager.Instance.SaveState();
 		}
 
 		public override void OnEnter()
@@ -295,6 +296,7 @@ namespace VertexArmy.States
 			if ( Robot.GetComponent( "force" ) == null )
 			{
 				Robot.RegisterComponent( "force", new SentientForceComponent( CursorManager.Instance.SceneNode ) );
+				GameWorldManager.Instance.SaveState();
 			}
 		}
 	}

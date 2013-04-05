@@ -17,6 +17,7 @@ namespace VertexArmy.GameWorld.Prefabs
 		private readonly Dictionary<string, MeshSceneNodePrefab> _sceneNodesPrefab;
 		private readonly Dictionary<string, ArrayMeshSceneNodePrefab> _arrayMeshSceneNodesPrefab;
 		private readonly Dictionary<string, ControllerPrefab> _controllersPrefab;
+		private readonly Dictionary<string, SafSceneNodePrefab> _safSceneNodesPrefab;
 
 		private readonly Dictionary<string, CameraSceneNodePrefab> _cameraSceneNodesPrefab;
 
@@ -29,6 +30,7 @@ namespace VertexArmy.GameWorld.Prefabs
 			_physicsPrefab.Paths = new Dictionary<string, PathPrefab>();
 
 			_sceneNodesPrefab = new Dictionary<string, MeshSceneNodePrefab>();
+			_safSceneNodesPrefab = new Dictionary<string, SafSceneNodePrefab>();
 			_arrayMeshSceneNodesPrefab = new Dictionary<string, ArrayMeshSceneNodePrefab>();
 			_cameraSceneNodesPrefab = new Dictionary<string, CameraSceneNodePrefab>();
 			_controllersPrefab = new Dictionary<string, ControllerPrefab>();
@@ -72,6 +74,11 @@ namespace VertexArmy.GameWorld.Prefabs
 		public void RegisterMeshSceneNode( MeshSceneNodePrefab scn )
 		{
 			_sceneNodesPrefab.Add( scn.Name, scn );
+		}
+
+		public void RegisterSafSceneNode (SafSceneNodePrefab scn )
+		{
+			_safSceneNodesPrefab.Add(scn.Name, scn);
 		}
 
 		public void RegisterArrayMeshSceneNode( ArrayMeshSceneNodePrefab pscn )
@@ -138,6 +145,14 @@ namespace VertexArmy.GameWorld.Prefabs
 			{
 				SceneNode scn = scnp.GetSceneNode( parameters );
 				entity.SceneNodes.Add( scnp.Name, scn );
+				mainNode.AddChild( scn );
+				scn.SetScale( scn.GetScale() * scale );
+			}
+
+			foreach (SafSceneNodePrefab parameter in _safSceneNodesPrefab.Values)
+			{
+				SceneNode scn = parameter.GetSceneNode( parameters );
+				entity.SceneNodes.Add( parameter.Name, scn );
 				mainNode.AddChild( scn );
 				scn.SetScale( scn.GetScale() * scale );
 			}

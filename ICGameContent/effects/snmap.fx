@@ -3,6 +3,7 @@ float4x4 matWorldInverseTranspose;
 float4x4 matWorld;
 float3 eyePosition;
 float3 lightPosition;
+float2 uvScale;
 // This is the texture that SpriteBatch will try to set before drawing 
 // Our sampler for the texture, which is just going to be pretty simple
 
@@ -64,7 +65,7 @@ VertexShaderOutput main_VS(VertexShaderInput input)
 	float3 tangentW = normalize(mul(float4(input.Tangent, 0.0), matWorldInverseTranspose).xyz);
 	float3 bitangentW = normalize(cross(normalW, tangentW));
 
-	output.Texcoord.xy = input.Texcoord * float2(0.125, 0.25); // * float2 ( length (float3(matWorld[0][0], matWorld[1][0], matWorld[2][0])),
+	output.Texcoord.xy = input.Texcoord * uvScale; // * float2 ( length (float3(matWorld[0][0], matWorld[1][0], matWorld[2][0])),
 											//	   length (float3(matWorld[0][1], matWorld[1][1], matWorld[2][1])) ) / 20;
 
 	float3 toEyeW = eyePosition - posW;

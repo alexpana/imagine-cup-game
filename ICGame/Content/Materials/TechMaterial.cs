@@ -5,7 +5,7 @@ using VertexArmy.Graphics;
 
 namespace VertexArmy.Content.Materials
 {
-	class TileMaterial
+	class TechMaterial
 	{
 		public static Material CreateMaterial()
 		{
@@ -14,8 +14,8 @@ namespace VertexArmy.Content.Materials
 
 			mat.Effect = effect;
 
-			mat.AddParameter( "ColorMap", Platform.Instance.Content.Load<Texture2D>( "images/" + "tile-d" ) );
-			mat.AddParameter( "NormalMap", Platform.Instance.Content.Load<Texture2D>( "images/" + "tile-n" ) );
+			mat.AddParameter( "ColorMap", Platform.Instance.Content.Load<Texture2D>( "images/" + "tech-d" ) );
+			mat.AddParameter( "NormalMap", Platform.Instance.Content.Load<Texture2D>( "images/" + "tech-n" ) );
 			mat.AddParameter( "SpecularMap", Platform.Instance.Content.Load<Texture2D>( "images/" + "specular2" ) );
 			mat.AddParameter( "AOMap", Platform.Instance.Content.Load<Texture2D>( "images/" + "ao" ) );
 			mat.AddParameter( "matWorldViewProj", Matrix.Identity );
@@ -23,7 +23,7 @@ namespace VertexArmy.Content.Materials
 			mat.AddParameter( "matWorld", Matrix.Identity );
 			mat.AddParameter( "eyePosition", Vector3.Zero );
 			mat.AddParameter( "lightPosition", Vector3.Zero );
-			mat.AddParameter( "uvScale", new Vector2(0.125f, 0.25f) );
+			mat.AddParameter( "uvScale", new Vector2( 0.125f, 0.625f ) );
 
 			return mat;
 		}

@@ -420,7 +420,7 @@
       <ProcessorParameters_GenerateMipmaps>True</ProcessorParameters_GenerateMipmaps>
     </Compile>
   </ItemGroup>
-  <ItemGroup>
+   <ItemGroup>
     <Compile Include="sounds\engine_run.wav">
       <Name>engine_run</Name>
       <Importer>WavImporter</Importer>
@@ -441,23 +441,6 @@
       <Processor>TextureProcessor</Processor>
       <ProcessorParameters_GenerateMipmaps>True</ProcessorParameters_GenerateMipmaps>
       <ProcessorParameters_ResizeToPowerOfTwo>True</ProcessorParameters_ResizeToPowerOfTwo>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="images\crystal-d.jpg">
-      <Name>crystal-d</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="images\crystal-n.jpg">
-      <Name>crystal-n</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="images\crystal-s.jpg">
-      <Name>crystal-s</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />

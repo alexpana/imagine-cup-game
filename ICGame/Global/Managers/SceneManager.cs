@@ -155,7 +155,7 @@ namespace VertexArmy.Global.Managers
 			CursorManager.Instance.SceneNode.SetPosition( boardpointW );
 
 			Renderer.Instance.SetParameter( "eyePosition", currentCam.Parent.GetPosition() );
-			Renderer.Instance.SetParameter( "lightPosition", new Vector3( 0, 40000, -200 ) );
+			Renderer.Instance.SetParameter( "lightPosition", new Vector3( 0, 40000, 20000 ) );
 
 			foreach ( var registeredNode in _registeredNodes )
 			{

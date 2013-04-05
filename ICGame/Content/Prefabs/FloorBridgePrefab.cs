@@ -27,7 +27,7 @@ namespace VertexArmy.Content.Prefabs
 				Name = "FloorBody",
 				Shapes = new List<ShapePrefab> { floorShape },
 				Restitution = 0.1f,
-				Static = true,
+				Static = false,
 			};
 
 			floor.RegisterBody( floorBody, true );

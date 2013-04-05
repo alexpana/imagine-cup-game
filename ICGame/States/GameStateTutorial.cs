@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using FarseerPhysics.Dynamics.Joints;
+using FarseerPhysics.Factories;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
@@ -259,10 +261,27 @@ namespace VertexArmy.States
 			//floor
 			for ( int i = 20; i < 25; i++ )
 			{
-				GameWorldManager.Instance.SpawnEntity( "Floor", "floor" + floorCount++, new Vector3( 2070f + 60f * i, -43f, 0f ) );
+				GameWorldManager.Instance.SpawnEntity( "Floor", "floor" + floorCount++, new Vector3( 2080f + 60f * i, -43f, 0f ) );
 			}
 
-			GameWorldManager.Instance.SpawnEntity( "FloorBridge", "bridge", new Vector3( 2070f + 60f * 18, -43f, 0f ) );
+			GameWorldManager.Instance.SpawnEntity( "FloorBridge", "bridge", new Vector3( 2040f + 60f * 18, -43f, 0f ) );
+			JointFactory.CreateFixedRevoluteJoint(
+				Platform.Instance.PhysicsWorld,
+				GameWorldManager.Instance.GetEntity( "bridge" ).PhysicsEntity.GetBody( "FloorBody" ),
+				UnitsConverter.ToSimUnits( new Vector2( -120f, 0f ) ),
+				UnitsConverter.ToSimUnits( new Vector2( 2040f + 60f * 16, -43 ) )
+				);
+
+
+			FixedDistanceJoint dj = JointFactory.CreateFixedDistanceJoint(
+				Platform.Instance.PhysicsWorld,
+				GameWorldManager.Instance.GetEntity( "bridge" ).PhysicsEntity.GetBody( "FloorBody" ),
+				UnitsConverter.ToSimUnits( new Vector2( 120f, -5f ) ),
+				UnitsConverter.ToSimUnits( new Vector2( 2040f + 60f * 20, -180f ) )
+				);
+			dj.Frequency = 2f;
+			dj.DampingRatio = 0.4f;
+
 
 
 			//upgrade cube platform
@@ -292,7 +311,7 @@ namespace VertexArmy.States
 		public void LoadDynamics()
 		{
 			GameWorldManager.Instance.SpawnEntity( "Camera", "camera1", new Vector3( 0, -200, 800 ) );
-			GameWorldManager.Instance.SpawnEntity( "Robot", "robotPlayer", new Vector3( 2700f, 150f, 0f ), 1.5f );
+			GameWorldManager.Instance.SpawnEntity( "Robot", "robotPlayer", new Vector3( 2000f, 150f, 0f ), 1.5f );
 
 			Robot = GameWorldManager.Instance.GetEntity( "robotPlayer" );
 
@@ -309,7 +328,7 @@ namespace VertexArmy.States
 
 			GameWorldManager.Instance.SpawnEntity( "Crate", "crate1", new Vector3( -250, 100f, 0f ), 3f );
 			GameWorldManager.Instance.SpawnEntity( "Crate", "crate2", new Vector3( 1700, 130f, 0f ), 4f );
-			GameWorldManager.Instance.SpawnEntity( "Crate", "crate3", new Vector3( 2200, 360f, 0f ), 4f );
+			GameWorldManager.Instance.SpawnEntity( "Crate", "crate3", new Vector3( 2200, 360f, 0f ), 5f );
 			GameWorldManager.Instance.SpawnEntity( "Crate", "crate4", new Vector3( 2450, -90f, 0f ), 4f );
 
 		}

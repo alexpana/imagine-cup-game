@@ -26,6 +26,8 @@ namespace VertexArmy.Global.Managers
 			_settings = settings;
 			_settings.SettingChanged += SettingChanged;
 			_random = new Random();
+
+			MediaPlayer.IsRepeating = true;
 		}
 
 		public bool IsMusicPlaying

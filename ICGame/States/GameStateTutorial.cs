@@ -1,4 +1,5 @@
-﻿using System;
+﻿//#define ALLOW_HACKS
+using System;
 using System.Collections.Generic;
 using FarseerPhysics.Dynamics.Joints;
 using FarseerPhysics.Factories;
@@ -18,7 +19,6 @@ namespace VertexArmy.States
 {
 	internal class GameStateTutorial : PlayableGameState
 	{
-
 		private ContentManager _contentManager;
 
 		private DebugViewXNA _debugView;
@@ -51,6 +51,30 @@ namespace VertexArmy.States
 					GameWorldManager.Instance.LoadLastState();
 				}
 
+				if ( Keyboard.GetState( PlayerIndex.One ).IsKeyDown( Keys.F ) )
+				{
+					if ( !_actionFreeze )
+					{
+						Robot.SetPhysicsEnabled( !Robot.PhysicsEntity.Enabled );
+						if ( GameWorldManager.Instance.GetEntity( "crate1" ).PhysicsEntity.Enabled )
+						{
+
+							GameWorldManager.Instance.GetEntity( "crate1" ).SetPosition( new Vector3( -400f, -800f, 0f ) );
+							GameWorldManager.Instance.GetEntity( "crate1" ).SetPhysicsEnabled( false );
+						}
+						else
+						{
+							GameWorldManager.Instance.GetEntity( "crate1" ).SetPhysicsEnabled( true );
+						}
+						_actionFreeze = true;
+					}
+				}
+
+				if ( Keyboard.GetState( PlayerIndex.One ).IsKeyUp( Keys.F ) )
+				{
+					_actionFreeze = false;
+				}
+
 				if ( Keyboard.GetState( PlayerIndex.One ).IsKeyDown( Keys.R ) )
 				{
 					if ( !_actionReset )
@@ -65,7 +89,7 @@ namespace VertexArmy.States
 					_actionReset = false;
 				}
 			}
-
+#if ALLOW_HACKS
 			if ( Keyboard.GetState( PlayerIndex.One ).IsKeyDown( Keys.D ) )
 			{
 				if ( !_actionToggleDebugView )

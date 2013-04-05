@@ -75,6 +75,9 @@ namespace VertexArmy
 			MaterialRepository.Instance.RegisterMaterial( "WallMenuMaterial2", args => WallMenuMaterial2.CreateMaterial() );
 			MaterialRepository.Instance.RegisterMaterial( "TileMaterial", args => TileMaterial.CreateMaterial() );
 			MaterialRepository.Instance.RegisterMaterial( "TechMaterial", args => TechMaterial.CreateMaterial() );
+
+
+			FrameUpdateManager.Instance.Register(HintManager.Instance);
 		}
 
 		protected override void UnloadContent()

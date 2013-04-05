@@ -1,4 +1,5 @@
-﻿using System;
+﻿//#define ALLOW_HACKS
+using System;
 using System.Collections.Generic;
 using FarseerPhysics.Dynamics.Joints;
 using FarseerPhysics.Factories;
@@ -18,7 +19,6 @@ namespace VertexArmy.States
 {
 	internal class GameStateTutorial : PlayableGameState
 	{
-
 		private ContentManager _contentManager;
 
 		private DebugViewXNA _debugView;
@@ -51,6 +51,7 @@ namespace VertexArmy.States
 					GameWorldManager.Instance.LoadLastState();
 				}
 
+#if ALLOW_HACKS
 				if ( Keyboard.GetState( PlayerIndex.One ).IsKeyDown( Keys.F ) )
 				{
 					if ( !_actionFreeze )
@@ -74,6 +75,7 @@ namespace VertexArmy.States
 				{
 					_actionFreeze = false;
 				}
+#endif
 
 				if ( Keyboard.GetState( PlayerIndex.One ).IsKeyDown( Keys.R ) )
 				{
@@ -88,9 +90,8 @@ namespace VertexArmy.States
 				{
 					_actionReset = false;
 				}
-
 			}
-
+#if ALLOW_HACKS
 			if ( Keyboard.GetState( PlayerIndex.One ).IsKeyDown( Keys.D ) )
 			{
 				if ( !_actionToggleDebugView )
@@ -131,6 +132,7 @@ namespace VertexArmy.States
 			{
 				_actionSpawn = false;
 			}
+#endif
 
 		}
 

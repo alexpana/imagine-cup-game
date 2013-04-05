@@ -50,6 +50,14 @@ namespace VertexArmy.Global.Controllers.Components
 
 		public override void Update( GameTime dt )
 		{
+			if ( Platform.Instance.Settings.IsMusicEnabled )
+			{
+				_engineSound.Volume = 0.1f;
+			}
+			else
+			{
+				_engineSound.Volume = 0.0f;
+			}
 			List<IParameter> parameters = Data;
 			float direction = 0f;
 			if ( Keyboard.GetState().IsKeyDown( Keys.Left ) )

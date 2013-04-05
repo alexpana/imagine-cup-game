@@ -128,7 +128,7 @@ namespace VertexArmy.Global.Managers
 			{
 				return;
 			}
-
+			MediaPlayer.Volume = 0.3f;
 			MediaPlayer.Play( song );
 		}
 

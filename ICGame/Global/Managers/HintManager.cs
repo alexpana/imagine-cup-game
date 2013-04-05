@@ -1,4 +1,5 @@
-﻿
+
+using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -11,10 +12,12 @@ namespace VertexArmy.Global.Managers
 		private List<Hint> _activeHints;
 		private SpriteBatch _spriteBatch;
 		private SpriteFont _font;
+		private Object _lockThis = new Object();
+
 		public HintManager()
 		{
 			_activeHints = new List<Hint>();
-			_spriteBatch = new SpriteBatch( Platform.Instance.Device );
+			_spriteBatch = new SpriteBatch(Platform.Instance.Device);
 			_font = Platform.Instance.Content.Load<SpriteFont>( "fonts/SpriteFont1" );
 		}
 
@@ -27,6 +30,7 @@ namespace VertexArmy.Global.Managers
 			get { return HintManagerInstanceHolder.Instance; }
 		}
 
+
 		private static class HintManagerInstanceHolder
 		{
 			// ReSharper disable MemberHidesStaticFromOuterClass
@@ -34,25 +38,35 @@ namespace VertexArmy.Global.Managers
 			// ReSharper restore MemberHidesStaticFromOuterClass
 		}
 
-		public void Update( GameTime dt )
+		public void Update(GameTime dt)
 		{
-			for ( int i = 0; i < _activeHints.Count; ++i )
+			lock ( _activeHints )
 			{
-				var activeHint = _activeHints[i];
-				if ( activeHint.RegisteredTime < 0 )
+				List<Hint> removethis = new List<Hint>();
+				foreach ( var activeHint in _activeHints )
 				{
-					_activeHints.RemoveAt( i );
-					--i;
+					activeHint.Time -= dt.ElapsedGameTime.Milliseconds;
+					if ( activeHint.Time < 0 )
+						removethis.Add( activeHint );
+				}
+
+				foreach ( var activeHint in removethis )
+				{
+					_activeHints.Remove(activeHint);
 				}
 			}
+			
+			
 		}
 
-		public void Render( float dt )
+		public void Render(float dt)
 		{
+			
+
 			_spriteBatch.Begin( SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullCounterClockwise, null );
-
-
-			foreach ( var activeHint in _activeHints )
+			
+			
+			foreach (var activeHint in _activeHints)
 			{
 				_spriteBatch.DrawString( _font, activeHint.Text, activeHint.Position, activeHint.Color );
 			}
@@ -63,11 +77,13 @@ namespace VertexArmy.Global.Managers
 
 	public class Hint
 	{
+		public Hint ()
+		{
+			Color = Color.White;
+		}
 		public string Text;
 		public Vector2 Position;
 		public float Time; // in seconds
-		public float RegisteredTime;
 		public Color Color;
 	}
-
 }

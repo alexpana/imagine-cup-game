@@ -422,7 +422,9 @@ namespace VertexArmy.States
 		{
 			if ( !_hint1 )
 			{
+				
 				string Text = "Crates can be pushed around, try pushing that crate towards that button.";
+				HintManager.Instance.SpawnHint( Text, new Vector2( 100, 100 ), 5000 );
 				_hint1 = true;
 			}
 		}
@@ -432,6 +434,7 @@ namespace VertexArmy.States
 			if ( !_hint2 )
 			{
 				string Text = "Step onto the platform ahead for an upgrade.";
+				HintManager.Instance.SpawnHint( Text, new Vector2( 100, 100 ), 5000 );
 				_hint2 = true;
 			}
 		}
@@ -441,6 +444,7 @@ namespace VertexArmy.States
 			if ( !_hint3 )
 			{
 				string Text = "Sometimes you can get stuck. Press R to reverse to the last checkpoint.";
+				HintManager.Instance.SpawnHint( Text, new Vector2( 100, 100 ), 5000 );
 				_hint3 = true;
 			}
 		}

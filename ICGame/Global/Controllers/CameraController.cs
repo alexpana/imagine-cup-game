@@ -64,7 +64,7 @@ namespace VertexArmy.Global.Controllers
 			_delta = trans.Value.GetPosition() - camera.Value.Parent.GetPosition() + new Vector3( 0, 130, 0 );
 			_delta.Z = 0;
 
-			_delta /= 10;
+			_delta /= 40;
 
 			Vector3 lookingPosition = camera.Value.Parent.GetPosition() + _delta;
 			Vector3 lookingDirection = Vector3.Normalize( -lookingPosition + trans.Value.GetPosition() );

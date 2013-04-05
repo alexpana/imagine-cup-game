@@ -32,6 +32,7 @@ sampler2D ColorMapSampler = sampler_state
 	MipFilter = linear;
 	AddressU = Wrap;
     AddressV = Wrap;
+	MipLODBias = -1;
 };
 
 texture2D NormalMap;
@@ -41,6 +42,7 @@ sampler2D NormalMapSampler = sampler_state
 	MinFilter = linear;
 	MagFilter = linear;
 	MipFilter = linear;
+	MipLODBias = -1;
 };
 
 texture2D SpecularMap;

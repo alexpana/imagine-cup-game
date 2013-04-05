@@ -309,6 +309,7 @@
       <Name>floor_tile</Name>
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
+      <ProcessorParameters_RotationX>90</ProcessorParameters_RotationX>
     </Compile>
     <Compile Include="models\quad.FBX">
       <Name>quad</Name>
@@ -340,6 +341,14 @@
       <Name>waves-noalpha</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="models\wall_tile.FBX">
+      <Name>wall_tile</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+      <ProcessorParameters_RotationX>90</ProcessorParameters_RotationX>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />

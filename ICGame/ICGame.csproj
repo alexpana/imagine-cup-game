@@ -99,6 +99,7 @@
   <ItemGroup>
     <Compile Include="Content\Materials\MenuCubeMaterial.cs" />
     <Compile Include="Content\Materials\SafMaterial.cs" />
+    <Compile Include="Content\Materials\TechMaterial.cs" />
     <Compile Include="Content\Materials\TileMaterial.cs" />
     <Compile Include="Content\Materials\WallMaterial.cs" />
     <Compile Include="Content\Prefabs\ButtonPrefab.cs" />

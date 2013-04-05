@@ -96,7 +96,7 @@ namespace VertexArmy.Content.Prefabs
 			MeshSceneNodePrefab innerDoorMesh = new MeshSceneNodePrefab
 			{
 				Mesh = "models/door_inner",
-				Material = "RobotMaterial",
+				Material = "TechMaterial",
 				Name = "InnerDoorNode"
 			};
 
@@ -114,7 +114,7 @@ namespace VertexArmy.Content.Prefabs
 			{
 				Name = "OuterDoorNode",
 				Mesh = "models/door_outer",
-				Material = "CelShadingMaterial",
+				Material = "TechMaterial",
 			};
 
 			liftedDoor.RegisterMeshSceneNode( outerDoorMesh );

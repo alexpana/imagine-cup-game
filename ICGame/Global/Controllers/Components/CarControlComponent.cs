@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Input;
 using VertexArmy.Global.Behaviours;
 
@@ -10,6 +12,8 @@ namespace VertexArmy.Global.Controllers.Components
 	{
 		private readonly List<string> _lineJoints;
 		private readonly List<float> _lineJointsSpeeds;
+		private readonly SoundEffectInstance _engineSound;
+		private float _oldDirection;
 
 		public CarControlComponent( ICollection<string> lineJointNames, ICollection<float> speeds )
 		{
@@ -31,11 +35,16 @@ namespace VertexArmy.Global.Controllers.Components
 				Value = 0f
 			};
 
+			_engineSound = Platform.Instance.Content.Load<SoundEffect>( "sounds/engine_run" ).CreateInstance();
+			_engineSound.IsLooped = true;
+			_engineSound.Volume = 0.1f;
+
 			Data.Add( direction );
 		}
 
 		public override void InitEntity()
 		{
+			_engineSound.Play();
 		}
 
 
@@ -51,6 +60,11 @@ namespace VertexArmy.Global.Controllers.Components
 			{
 				direction = 1f;
 			}
+
+			_engineSound.Pitch = Math.Min( Entity.MainBody.LinearVelocity.Length() / 10f, 1f );
+
+
+			_oldDirection = direction;
 
 			( ( ParameterFloat ) parameters[0] ).Value = direction;
 			DirectCompute( ref parameters );
@@ -76,6 +90,7 @@ namespace VertexArmy.Global.Controllers.Components
 		{
 			_lineJoints.Clear();
 			_lineJointsSpeeds.Clear();
+			_engineSound.Stop();
 		}
 	}
 }

@@ -371,6 +371,8 @@ namespace VertexArmy.States
 
 			LoadLevel();
 
+			FrameUpdateManager.Instance.Register(HintManager.Instance);
+
 			_hint1 = _hint2 = _hint3 = _hint4 = false;
 			_actionReset = false;
 			_debugViewState = false;

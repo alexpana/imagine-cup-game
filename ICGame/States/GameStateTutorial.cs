@@ -256,12 +256,13 @@ namespace VertexArmy.States
 				GameWorldManager.Instance.SpawnEntity( "Floor", "floor" + floorCount++, new Vector3( 2070f + 60f * i, -250f, 0f ) );
 			}
 
-
 			//floor
 			for ( int i = 20; i < 25; i++ )
 			{
 				GameWorldManager.Instance.SpawnEntity( "Floor", "floor" + floorCount++, new Vector3( 2070f + 60f * i, -43f, 0f ) );
 			}
+
+			GameWorldManager.Instance.SpawnEntity( "FloorBridge", "bridge", new Vector3( 2070f + 60f * 18, -43f, 0f ) );
 
 
 			//upgrade cube platform
@@ -291,7 +292,7 @@ namespace VertexArmy.States
 		public void LoadDynamics()
 		{
 			GameWorldManager.Instance.SpawnEntity( "Camera", "camera1", new Vector3( 0, -200, 800 ) );
-			GameWorldManager.Instance.SpawnEntity( "Robot", "robotPlayer", new Vector3( 2000f, 150f, 0f ), 1.5f );
+			GameWorldManager.Instance.SpawnEntity( "Robot", "robotPlayer", new Vector3( 2700f, 150f, 0f ), 1.5f );
 
 			Robot = GameWorldManager.Instance.GetEntity( "robotPlayer" );
 

@@ -150,6 +150,7 @@
     <Compile Include="Global\Controllers\RelativeController.cs" />
     <Compile Include="Global\Behaviours\IController.cs" />
     <Compile Include="Global\Controllers\BodyController.cs" />
+    <Compile Include="Global\Managers\HintManager.cs" />
     <Compile Include="Global\Managers\SoundManager.cs" />
     <Compile Include="Global\Managers\FrameUpdateManager.cs" />
     <Compile Include="Global\Managers\PhysicsContactManager.cs" />

@@ -32,7 +32,7 @@ namespace VertexArmy.States
 		private bool _actionToggleDebugView;
 		private bool _debugViewState;
 
-		private bool _hint1, _hint2, _hint3;
+		private bool _hint1, _hint2, _hint3, _hint4;
 
 		public GameStateTutorial( ContentManager content )
 		{
@@ -336,7 +336,7 @@ namespace VertexArmy.States
 					new BodyTriggerAreaComponent( new Vector2( 10f, 10f ), Robot.MainBody, Hint1 )
 				);
 
-			GameWorldManager.Instance.SpawnEntity( "Trigger", "hint2", new Vector3( 400, 60f, 0f ) );
+			GameWorldManager.Instance.SpawnEntity( "Trigger", "hint2", new Vector3( 320, 60f, 0f ) );
 			GameWorldManager.Instance.GetEntity( "hint2" ).RegisterComponent(
 					"trigger",
 					new BodyTriggerAreaComponent( new Vector2( 10f, 10f ), Robot.MainBody, Hint2 )
@@ -346,6 +346,12 @@ namespace VertexArmy.States
 			GameWorldManager.Instance.GetEntity( "hint3" ).RegisterComponent(
 					"trigger",
 					new BodyTriggerAreaComponent( new Vector2( 10f, 10f ), Robot.MainBody, Hint3 )
+				);
+
+			GameWorldManager.Instance.SpawnEntity( "Trigger", "hint4", new Vector3( 1900, 150f, 0f ) );
+			GameWorldManager.Instance.GetEntity( "hint4" ).RegisterComponent(
+					"trigger",
+					new BodyTriggerAreaComponent( new Vector2( 10f, 10f ), Robot.MainBody, Hint4 )
 				);
 		}
 
@@ -365,7 +371,7 @@ namespace VertexArmy.States
 
 			LoadLevel();
 
-			_hint1 = _hint2 = _hint3 = false;
+			_hint1 = _hint2 = _hint3 = _hint4 = false;
 			_actionReset = false;
 			_debugViewState = false;
 			_actionToggleDebugView = false;
@@ -404,6 +410,8 @@ namespace VertexArmy.States
 			{
 				Robot.RegisterComponent( "force", new SentientForceComponent( CursorManager.Instance.SceneNode ) );
 				GameWorldManager.Instance.SaveState();
+				string Text = "Press Mouse1 to pull objects towards the robot. \n Press Mouse2 to push away objects from the robot.";
+				HintManager.Instance.SpawnHint( Text, new Vector2( 100, 100 ), 7000 );
 			}
 		}
 
@@ -422,9 +430,9 @@ namespace VertexArmy.States
 		{
 			if ( !_hint1 )
 			{
-				
-				string Text = "Crates can be pushed around, try pushing that crate towards that button.";
-				HintManager.Instance.SpawnHint( Text, new Vector2( 100, 100 ), 5000 );
+
+				string Text = "Crates can be pushed around,\n try pushing that crate towards that button.";
+				HintManager.Instance.SpawnHint( Text, new Vector2( 100, 100 ), 4000 );
 				_hint1 = true;
 			}
 		}
@@ -434,7 +442,7 @@ namespace VertexArmy.States
 			if ( !_hint2 )
 			{
 				string Text = "Step onto the platform ahead for an upgrade.";
-				HintManager.Instance.SpawnHint( Text, new Vector2( 100, 100 ), 5000 );
+				HintManager.Instance.SpawnHint( Text, new Vector2( 100, 100 ), 2000 );
 				_hint2 = true;
 			}
 		}
@@ -443,9 +451,19 @@ namespace VertexArmy.States
 		{
 			if ( !_hint3 )
 			{
-				string Text = "Sometimes you can get stuck. Press R to reverse to the last checkpoint.";
+				string Text = "Sometimes you can get stuck.\nPress R to reverse to the last checkpoint.";
 				HintManager.Instance.SpawnHint( Text, new Vector2( 100, 100 ), 5000 );
 				_hint3 = true;
+			}
+		}
+
+		public void Hint4()
+		{
+			if ( !_hint4 )
+			{
+				string Text = "Some puzzles can be harder to overcome.\n Remember to press R incase you get stuck.";
+				HintManager.Instance.SpawnHint( Text, new Vector2( 100, 100 ), 5000 );
+				_hint4 = true;
 			}
 		}
 	}

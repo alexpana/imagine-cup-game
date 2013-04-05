@@ -1,4 +1,4 @@
-
+﻿
 using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
@@ -17,7 +17,7 @@ namespace VertexArmy.Global.Managers
 		public HintManager()
 		{
 			_activeHints = new List<Hint>();
-			_spriteBatch = new SpriteBatch(Platform.Instance.Device);
+			_spriteBatch = new SpriteBatch( Platform.Instance.Device );
 			_font = Platform.Instance.Content.Load<SpriteFont>( "fonts/SpriteFont1" );
 		}
 
@@ -38,7 +38,7 @@ namespace VertexArmy.Global.Managers
 			// ReSharper restore MemberHidesStaticFromOuterClass
 		}
 
-		public void Update(GameTime dt)
+		public void Update( GameTime dt )
 		{
 			lock ( _activeHints )
 			{
@@ -52,21 +52,21 @@ namespace VertexArmy.Global.Managers
 
 				foreach ( var activeHint in removethis )
 				{
-					_activeHints.Remove(activeHint);
+					_activeHints.Remove( activeHint );
 				}
 			}
-			
-			
+
+
 		}
 
-		public void Render(float dt)
+		public void Render( float dt )
 		{
-			
+
 
 			_spriteBatch.Begin( SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullCounterClockwise, null );
-			
-			
-			foreach (var activeHint in _activeHints)
+
+
+			foreach ( var activeHint in _activeHints )
 			{
 				_spriteBatch.DrawString( _font, activeHint.Text, activeHint.Position, activeHint.Color );
 			}
@@ -77,9 +77,9 @@ namespace VertexArmy.Global.Managers
 
 	public class Hint
 	{
-		public Hint ()
+		public Hint()
 		{
-			Color = Color.White;
+			Color = Color.Red;
 		}
 		public string Text;
 		public Vector2 Position;

@@ -36,7 +36,7 @@ namespace VertexArmy.Content.Prefabs
 			{
 				Name = "WallMesh",
 				Mesh = "models/wall_tile",
-				Material = "CelShadingMaterial",
+				Material = "TileMaterial",
 			};
 
 			wall.RegisterMeshSceneNode( mesh );

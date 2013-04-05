@@ -44,7 +44,10 @@ namespace VertexArmy.Global.Controllers.Components
 
 		public override void InitEntity()
 		{
-			_engineSound.Play();
+			if ( Platform.Instance.Settings.IsMusicEnabled )
+			{
+				_engineSound.Play();
+			}
 		}
 
 

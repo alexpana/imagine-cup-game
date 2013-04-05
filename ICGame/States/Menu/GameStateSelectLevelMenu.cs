@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
@@ -13,6 +14,7 @@ namespace VertexArmy.States.Menu
 		private readonly List<MenuCube> _levelCubes;
 		private int _selectedCubeIndex;
 		private MenuCube _activeCube;
+		Vector3 _lightPos = new Vector3( 0, 40000, 20000 );
 
 		private readonly float _cubeRotationDelta = MathHelper.ToRadians( 0.5f );
 
@@ -25,6 +27,10 @@ namespace VertexArmy.States.Menu
 		public override void OnUpdate( GameTime gameTime )
 		{
 			base.OnUpdate( gameTime );
+
+
+			_lightPos.Z = ( float ) ( 20000f + 20000.0 * Math.Sin( gameTime.TotalGameTime.TotalMilliseconds / 1000.0 ) );
+			SceneManager.Instance.SetLightPosition( _lightPos );
 
 			foreach ( var levelCube in _levelCubes )
 			{
@@ -93,6 +99,9 @@ namespace VertexArmy.States.Menu
 			CreateLevelsCubes();
 
 			GameWorldManager.Instance.SpawnEntity( CameraPrefab.PrefabName, "levelmenu_camera", new Vector3( 0, 0, 200 ) );
+
+			GameWorldManager.Instance.SpawnEntity( "WallMenu2", "wallMenu1",
+			new Vector3( 0f, 0f, -1800f ), Quaternion.CreateFromAxisAngle( Vector3.UnitX, -0.3f ), 150 );
 		}
 
 		private void CreateLevelsCubes()

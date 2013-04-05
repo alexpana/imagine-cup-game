@@ -61,6 +61,8 @@ namespace VertexArmy
 			PrefabRepository.Instance.RegisterPrefab( "Saf", SafPrefab.CreatePrefab() );
 			PrefabRepository.Instance.RegisterPrefab( "FloorBridge", FloorBridgePrefab.CreatePrefab() );
 			PrefabRepository.Instance.RegisterPrefab( "WallBackground", SimpleMeshPrefab.CreatePrefab( "models/quad", "WallMaterial", "wall-node" ) );
+			PrefabRepository.Instance.RegisterPrefab( "WallMenu",		SimpleMeshPrefab.CreatePrefab( "models/quad", "WallMenuMaterial", "wall-node-2" ) );
+			PrefabRepository.Instance.RegisterPrefab( "WallMenu2",		SimpleMeshPrefab.CreatePrefab( "models/quad", "WallMenuMaterial2", "wall-node-3" ) );
 
 			// HACK!
 			MaterialRepository.Instance.RegisterMaterial( "DefaultMaterial", args => CelShading.CreateMaterial() );
@@ -69,6 +71,8 @@ namespace VertexArmy
 			MaterialRepository.Instance.RegisterMaterial( "MenuCubeMaterial", args => MenuCubeMaterial.CreateMaterial( args ) );
 			MaterialRepository.Instance.RegisterMaterial( "SafMaterial", args => SafMaterial.CreateMaterial() );
 			MaterialRepository.Instance.RegisterMaterial( "WallMaterial", args => WallMaterial.CreateMaterial() );
+			MaterialRepository.Instance.RegisterMaterial( "WallMenuMaterial", args => WallMenuMaterial.CreateMaterial() );
+			MaterialRepository.Instance.RegisterMaterial( "WallMenuMaterial2", args => WallMenuMaterial2.CreateMaterial() );
 			MaterialRepository.Instance.RegisterMaterial( "TileMaterial", args => TileMaterial.CreateMaterial() );
 			MaterialRepository.Instance.RegisterMaterial( "TechMaterial", args => TechMaterial.CreateMaterial() );
 		}

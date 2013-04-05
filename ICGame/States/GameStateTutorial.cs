@@ -28,11 +28,11 @@ namespace VertexArmy.States
 		public GameEntity Robot;
 		public GameEntity Camera;
 
-		private bool _actionFreeze;
 		private bool _actionReset;
-		private bool _actionSpawn;
 		private bool _actionToggleDebugView;
 		private bool _debugViewState;
+
+		private bool _hint1, _hint2, _hint3;
 
 		public GameStateTutorial( ContentManager content )
 		{
@@ -51,30 +51,6 @@ namespace VertexArmy.States
 					GameWorldManager.Instance.LoadLastState();
 				}
 
-				if ( Keyboard.GetState( PlayerIndex.One ).IsKeyDown( Keys.F ) )
-				{
-					if ( !_actionFreeze )
-					{
-						Robot.SetPhysicsEnabled( !Robot.PhysicsEntity.Enabled );
-						if ( GameWorldManager.Instance.GetEntity( "crate1" ).PhysicsEntity.Enabled )
-						{
-
-							GameWorldManager.Instance.GetEntity( "crate1" ).SetPosition( new Vector3( -400f, -800f, 0f ) );
-							GameWorldManager.Instance.GetEntity( "crate1" ).SetPhysicsEnabled( false );
-						}
-						else
-						{
-							GameWorldManager.Instance.GetEntity( "crate1" ).SetPhysicsEnabled( true );
-						}
-						_actionFreeze = true;
-					}
-				}
-
-				if ( Keyboard.GetState( PlayerIndex.One ).IsKeyUp( Keys.F ) )
-				{
-					_actionFreeze = false;
-				}
-
 				if ( Keyboard.GetState( PlayerIndex.One ).IsKeyDown( Keys.R ) )
 				{
 					if ( !_actionReset )
@@ -88,7 +64,6 @@ namespace VertexArmy.States
 				{
 					_actionReset = false;
 				}
-
 			}
 
 			if ( Keyboard.GetState( PlayerIndex.One ).IsKeyDown( Keys.D ) )
@@ -103,33 +78,6 @@ namespace VertexArmy.States
 			if ( Keyboard.GetState( PlayerIndex.One ).IsKeyUp( Keys.D ) )
 			{
 				_actionToggleDebugView = false;
-			}
-
-			if ( Keyboard.GetState( PlayerIndex.One ).IsKeyDown( Keys.S ) )
-			{
-				if ( !_actionSpawn )
-				{
-					if ( Robot == null )
-					{
-						GameWorldManager.Instance.SpawnEntity( "Robot", "robotPlayer", new Vector3( 0f, 0f, 0f ), 2f );
-						Robot = GameWorldManager.Instance.GetEntity( "robotPlayer" );
-						Robot.RegisterComponent( "force", new SentientForceComponent( CursorManager.Instance.SceneNode ) );
-					}
-					else
-					{
-						GameWorldManager.Instance.RemoveEntity( "robotPlayer" );
-
-						Robot = null;
-					}
-					_actionSpawn = true;
-				}
-
-
-			}
-
-			if ( Keyboard.GetState( PlayerIndex.One ).IsKeyUp( Keys.S ) )
-			{
-				_actionSpawn = false;
 			}
 
 		}
@@ -380,6 +328,24 @@ namespace VertexArmy.States
 					"trigger",
 					new BodyTriggerAreaComponent( new Vector2( 10f, 10f ), Robot.MainBody, EndGameCallback )
 				);
+
+			GameWorldManager.Instance.SpawnEntity( "Trigger", "hint1", new Vector3( -150, 60f, 0f ) );
+			GameWorldManager.Instance.GetEntity( "hint1" ).RegisterComponent(
+					"trigger",
+					new BodyTriggerAreaComponent( new Vector2( 10f, 10f ), Robot.MainBody, Hint1 )
+				);
+
+			GameWorldManager.Instance.SpawnEntity( "Trigger", "hint2", new Vector3( 400, 60f, 0f ) );
+			GameWorldManager.Instance.GetEntity( "hint2" ).RegisterComponent(
+					"trigger",
+					new BodyTriggerAreaComponent( new Vector2( 10f, 10f ), Robot.MainBody, Hint2 )
+				);
+
+			GameWorldManager.Instance.SpawnEntity( "Trigger", "hint3", new Vector3( 1200, 150f, 0f ) );
+			GameWorldManager.Instance.GetEntity( "hint3" ).RegisterComponent(
+					"trigger",
+					new BodyTriggerAreaComponent( new Vector2( 10f, 10f ), Robot.MainBody, Hint3 )
+				);
 		}
 
 		public void LoadLevel()
@@ -398,8 +364,7 @@ namespace VertexArmy.States
 
 			LoadLevel();
 
-			_actionFreeze = false;
-			_actionSpawn = false;
+			_hint1 = _hint2 = _hint3 = false;
 			_actionReset = false;
 			_debugViewState = false;
 			_actionToggleDebugView = false;
@@ -450,6 +415,33 @@ namespace VertexArmy.States
 		{
 			StateManager.Instance.PopState();
 			StateManager.Instance.ChangeState( GameState.Menu );
+		}
+
+		public void Hint1()
+		{
+			if ( !_hint1 )
+			{
+				string Text = "Crates can be pushed around, try pushing that crate towards that button.";
+				_hint1 = true;
+			}
+		}
+
+		public void Hint2()
+		{
+			if ( !_hint2 )
+			{
+				string Text = "Step onto the platform ahead for an upgrade.";
+				_hint2 = true;
+			}
+		}
+
+		public void Hint3()
+		{
+			if ( !_hint3 )
+			{
+				string Text = "Sometimes you can get stuck. Press R to reverse to the last checkpoint.";
+				_hint3 = true;
+			}
 		}
 	}
 }

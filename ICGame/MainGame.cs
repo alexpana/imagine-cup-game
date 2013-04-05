@@ -42,7 +42,7 @@ namespace VertexArmy
 #elif MODEL_VIEW
 			StateManager.Instance.ChangeState( GameState.ModelView );
 #else
-			StateManager.Instance.ChangeState( GameState.TutorialLevel );
+			StateManager.Instance.ChangeState( GameState.Menu );
 #endif
 		}
 
@@ -61,8 +61,8 @@ namespace VertexArmy
 			PrefabRepository.Instance.RegisterPrefab( "Saf", SafPrefab.CreatePrefab() );
 			PrefabRepository.Instance.RegisterPrefab( "FloorBridge", FloorBridgePrefab.CreatePrefab() );
 			PrefabRepository.Instance.RegisterPrefab( "WallBackground", SimpleMeshPrefab.CreatePrefab( "models/quad", "WallMaterial", "wall-node" ) );
-			PrefabRepository.Instance.RegisterPrefab( "WallMenu",		SimpleMeshPrefab.CreatePrefab( "models/quad", "WallMenuMaterial", "wall-node-2" ) );
-			PrefabRepository.Instance.RegisterPrefab( "WallMenu2",		SimpleMeshPrefab.CreatePrefab( "models/quad", "WallMenuMaterial2", "wall-node-3" ) );
+			PrefabRepository.Instance.RegisterPrefab( "WallMenu", SimpleMeshPrefab.CreatePrefab( "models/quad", "WallMenuMaterial", "wall-node-2" ) );
+			PrefabRepository.Instance.RegisterPrefab( "WallMenu2", SimpleMeshPrefab.CreatePrefab( "models/quad", "WallMenuMaterial2", "wall-node-3" ) );
 
 			// HACK!
 			MaterialRepository.Instance.RegisterMaterial( "DefaultMaterial", args => CelShading.CreateMaterial() );
@@ -77,7 +77,7 @@ namespace VertexArmy
 			MaterialRepository.Instance.RegisterMaterial( "TechMaterial", args => TechMaterial.CreateMaterial() );
 
 
-			FrameUpdateManager.Instance.Register(HintManager.Instance);
+			FrameUpdateManager.Instance.Register( HintManager.Instance );
 		}
 
 		protected override void UnloadContent()

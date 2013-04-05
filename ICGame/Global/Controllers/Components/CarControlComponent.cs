@@ -63,11 +63,11 @@ namespace VertexArmy.Global.Controllers.Components
 			}
 			List<IParameter> parameters = Data;
 			float direction = 0f;
-			if ( Keyboard.GetState().IsKeyDown( Keys.Left ) )
+			if ( Keyboard.GetState().IsKeyDown( Keys.Left ) || Keyboard.GetState().IsKeyDown( Keys.A ) )
 			{
 				direction = -1f;
 			}
-			else if ( Keyboard.GetState().IsKeyDown( Keys.Right ) )
+			else if ( Keyboard.GetState().IsKeyDown( Keys.Right ) || Keyboard.GetState().IsKeyDown( Keys.D ) )
 			{
 				direction = 1f;
 			}

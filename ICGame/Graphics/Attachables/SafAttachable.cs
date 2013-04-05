@@ -52,8 +52,6 @@ namespace VertexArmy.Graphics.Attachables
 
 			Material.SetParameter( "fTime", _fTime += dt );
 			Material.SetParameter( "fVel", new Vector2( 0.0000f, 0.0005f ) );
-			Material.SetParameter( "fAlpha", 0.1f );
-
 
 			foreach ( ModelMesh m in Model.Meshes )
 			{

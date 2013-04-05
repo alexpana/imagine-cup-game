@@ -23,6 +23,12 @@ namespace VertexArmy.Global.Managers
 			SpawnEntity( PrefabRepository.Instance.GetPrefab( prefabName ), entityName, position, scale, parameters );
 		}
 
+		public void SpawnEntity( string prefab, string entityName, Vector3 position, Quaternion externalRotation, float scale = 1f,
+		GameEntityParameters parameters = null )
+		{
+			SpawnEntity( PrefabRepository.Instance.GetPrefab( prefab ), entityName, position, externalRotation, scale, parameters );
+		}
+
 		public void SpawnEntity( PrefabEntity prefab, string entityName, Vector3 position, float scale = 1f,
 			GameEntityParameters parameters = null )
 		{
@@ -30,6 +36,17 @@ namespace VertexArmy.Global.Managers
 			entity.Name = entityName;
 			_entities.Add( entityName, entity );
 			entity.SetPosition( position );
+		}
+
+
+		public void SpawnEntity( PrefabEntity prefab, string entityName, Vector3 position, Quaternion externalRotation, float scale = 1f,
+		GameEntityParameters parameters = null )
+		{
+			GameEntity entity = prefab.CreateGameEntity( this, scale, parameters );
+			entity.Name = entityName;
+			_entities.Add( entityName, entity );
+			entity.SetPosition( position );
+			entity.SetExternalRotation( externalRotation );
 		}
 
 		public void RemoveEntity( string entityName )
@@ -156,4 +173,5 @@ namespace VertexArmy.Global.Managers
 		public Dictionary<string, float> BodyAngularVelocities;
 
 	}
+
 }

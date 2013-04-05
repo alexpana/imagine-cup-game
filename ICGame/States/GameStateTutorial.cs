@@ -293,6 +293,8 @@ namespace VertexArmy.States
 		{
 			GameWorldManager.Instance.SpawnEntity( "Camera", "camera1", new Vector3( 0, -200, 800 ) );
 			GameWorldManager.Instance.SpawnEntity( "Robot", "robotPlayer", new Vector3( 2700f, 150f, 0f ), 1.5f );
+			GameWorldManager.Instance.SpawnEntity( "WallBackground", "wallBackground1", 
+				new Vector3( 0f, 0f, -800f ), Quaternion.CreateFromAxisAngle(Vector3.UnitX, -0.3f), 150 );
 
 			Robot = GameWorldManager.Instance.GetEntity( "robotPlayer" );
 

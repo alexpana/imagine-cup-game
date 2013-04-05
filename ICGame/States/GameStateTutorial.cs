@@ -371,7 +371,7 @@ namespace VertexArmy.States
 
 			LoadLevel();
 
-			FrameUpdateManager.Instance.Register(HintManager.Instance);
+			FrameUpdateManager.Instance.Register( HintManager.Instance );
 
 			_hint1 = _hint2 = _hint3 = _hint4 = false;
 			_actionReset = false;
@@ -444,7 +444,7 @@ namespace VertexArmy.States
 			if ( !_hint2 )
 			{
 				string Text = "Step onto the platform ahead for an upgrade.";
-				HintManager.Instance.SpawnHint( Text, new Vector2( 100, 100 ), 2000 );
+				HintManager.Instance.SpawnHint( Text, new Vector2( 100, 150 ), 2000 );
 				_hint2 = true;
 			}
 		}
@@ -454,7 +454,7 @@ namespace VertexArmy.States
 			if ( !_hint3 )
 			{
 				string Text = "Sometimes you can get stuck.\nPress R to reverse to the last checkpoint.";
-				HintManager.Instance.SpawnHint( Text, new Vector2( 100, 100 ), 5000 );
+				HintManager.Instance.SpawnHint( Text, new Vector2( 100, 180 ), 5000 );
 				_hint3 = true;
 			}
 		}
@@ -464,7 +464,7 @@ namespace VertexArmy.States
 			if ( !_hint4 )
 			{
 				string Text = "Some puzzles can be harder to overcome.\n Remember to press R incase you get stuck.";
-				HintManager.Instance.SpawnHint( Text, new Vector2( 100, 100 ), 5000 );
+				HintManager.Instance.SpawnHint( Text, new Vector2( 100, 70 ), 5000 );
 				_hint4 = true;
 			}
 		}

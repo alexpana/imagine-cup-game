@@ -180,7 +180,7 @@ namespace VertexArmy.Global.Managers
 					}
 				}
 			}
-
+			HintManager.Instance.Render(dt);
 		}
 	}
 }

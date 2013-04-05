@@ -353,13 +353,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="images\waves_nogradient.png">
-      <Name>waves_nogradient</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="effects\wall.fx">
       <Name>wall</Name>
       <Importer>EffectImporter</Importer>
@@ -392,13 +385,16 @@
       <Name>specular2</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
-    </Compile>
-     <Compile Include="models\floor_tile_1.FBX">
+    </Compile>    
+  </ItemGroup>
+  
+  <ItemGroup>
+  <Compile Include="models\floor_tile_1.FBX">
       <Name>floor_tile_1</Name>
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
-    </Compile
-  </ItemGroup>
+    </Compile>
+   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
   <!--  To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

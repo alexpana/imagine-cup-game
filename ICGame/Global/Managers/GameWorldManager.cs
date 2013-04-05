@@ -122,6 +122,7 @@ namespace VertexArmy.Global.Managers
 				foreach ( string BodyName in entState.BodyPositions.Keys )
 				{
 					entity.PhysicsEntity.GetBody( BodyName ).ResetDynamics();
+					entity.PhysicsEntity.GetBody( BodyName ).ResetMassData();
 					entity.PhysicsEntity.GetBody( BodyName ).Position = entState.BodyPositions[BodyName];
 					entity.PhysicsEntity.GetBody( BodyName ).Rotation = entState.BodyRotations[BodyName];
 					entity.PhysicsEntity.GetBody( BodyName ).ApplyLinearImpulse( entState.BodyLinearVelocities[BodyName] );

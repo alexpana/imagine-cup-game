@@ -18,8 +18,8 @@ namespace VertexArmy.Global.Controllers.Components
 	{
 		public const float Distance = 500f;
 		public const float Angle = 0.5f;
-		public const float AttractionForce = 40f;
-		public const float RepulsiveForce = 40f;
+		public const float AttractionForce = 10f;
+		public const float RepulsiveForce = 5f;
 
 		private Vector2 _oldPosition;
 		private float _distanceSim;
@@ -144,17 +144,23 @@ namespace VertexArmy.Global.Controllers.Components
 
 		public bool BeginContactB( Contact c )
 		{
+			if ( c.FixtureA.Body.IsStatic )
+			{
+				return false;
+			}
 			if ( Mouse.GetState().LeftButton.Equals( ButtonState.Pressed ) )
 			{
 				Vector2 forceDirection = _oldPosition - c.FixtureA.Body.Position;
-				float ratio = 1 - ( forceDirection.Length() / _distanceSim );
+				//float ratio = 1 - ( forceDirection.Length() / _distanceSim );
+				float ratio = 1f;
 				forceDirection.Normalize();
 				c.FixtureA.Body.ApplyForce( forceDirection * ratio * AttractionForce );
 			}
 			else if ( Mouse.GetState().RightButton.Equals( ButtonState.Pressed ) )
 			{
 				Vector2 forceDirection = c.FixtureA.Body.Position - _oldPosition;
-				float ratio = 1 - ( forceDirection.Length() / _distanceSim );
+				//float ratio = 1 - ( forceDirection.Length() / _distanceSim );
+				float ratio = 1f;
 				forceDirection.Normalize();
 				c.FixtureA.Body.ApplyForce( forceDirection * ratio * RepulsiveForce );
 			}
@@ -164,17 +170,23 @@ namespace VertexArmy.Global.Controllers.Components
 
 		public bool BeginContactA( Contact c )
 		{
+			if ( c.FixtureB.Body.IsStatic )
+			{
+				return false;
+			}
 			if ( Mouse.GetState().LeftButton.Equals( ButtonState.Pressed ) )
 			{
 				Vector2 forceDirection = _oldPosition - c.FixtureB.Body.Position;
-				float ratio = 1 - ( forceDirection.Length() / _distanceSim );
+				//float ratio = 1 - ( forceDirection.Length() / _distanceSim );
+				float ratio = 1f;
 				forceDirection.Normalize();
 				c.FixtureB.Body.ApplyForce( forceDirection * ratio * AttractionForce );
 			}
 			else if ( Mouse.GetState().RightButton.Equals( ButtonState.Pressed ) )
 			{
 				Vector2 forceDirection = c.FixtureB.Body.Position - _oldPosition;
-				float ratio = 1 - ( forceDirection.Length() / _distanceSim );
+				//float ratio = 1 - ( forceDirection.Length() / _distanceSim );
+				float ratio = 1f;
 				forceDirection.Normalize();
 				c.FixtureB.Body.ApplyForce( forceDirection * ratio * RepulsiveForce );
 			}

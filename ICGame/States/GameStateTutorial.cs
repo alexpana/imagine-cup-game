@@ -160,6 +160,13 @@ namespace VertexArmy.States
 		{
 			int floorCount = 0;
 			int wallCount = 0;
+			int roofCount = 0;
+
+			// roof part
+			for ( int i = 0; i < 80; i++ )
+			{
+				GameWorldManager.Instance.SpawnEntity( "Floor", "roof" + roofCount++, new Vector3( -300f + 60f * i, 500f, 0f ) );
+			}
 
 			//first floor part
 			for ( int i = 0; i < 20; i++ )
@@ -184,7 +191,7 @@ namespace VertexArmy.States
 				GameWorldManager.Instance.SpawnEntity( "Floor", "floor" + floorCount++, new Vector3( 1183f + 60f * i, 10f, 0f ) );
 			}
 
-			for ( int i = 7; i < 12; i++ )
+			for ( int i = 7; i < 15; i++ )
 			{
 				GameWorldManager.Instance.SpawnEntity( "Floor", "floor" + floorCount++, new Vector3( 1183f + 60f * i, 87.5f, 0f ) );
 			}
@@ -194,6 +201,68 @@ namespace VertexArmy.States
 			{
 				GameWorldManager.Instance.SpawnEntity( "Wall", "wall" + wallCount++, new Vector3( -355f, 0f + 60f * i, 0f ) );
 			}
+
+			//wall 1
+			for ( int i = 0; i < 2; i++ )
+			{
+				GameWorldManager.Instance.SpawnEntity( "Wall", "wall" + wallCount++, new Vector3( 2048f, 52f - 60f * i, 0f ) );
+			}
+
+			//wall air
+			for ( int i = 0; i < 3; i++ )
+			{
+				GameWorldManager.Instance.SpawnEntity( "Wall", "wall" + wallCount++, new Vector3( 2370f, 344f + 60f * i, 0f ) );
+			}
+
+			//floor air
+			for ( int i = 0; i < 3; i++ )
+			{
+				GameWorldManager.Instance.SpawnEntity( "Floor", "floor" + floorCount++, new Vector3( 2215f + 60f * i, 320f, 0f ) );
+			}
+
+			//floor
+			for ( int i = 0; i < 6; i++ )
+			{
+				GameWorldManager.Instance.SpawnEntity( "Floor", "floor" + floorCount++, new Vector3( 2070f + 60f * i, -43f, 0f ) );
+			}
+
+			//floor
+			for ( int i = 8; i < 16; i++ )
+			{
+				GameWorldManager.Instance.SpawnEntity( "Floor", "floor" + floorCount++, new Vector3( 2070f + 60f * i, -43f, 0f ) );
+			}
+
+			//wall 2
+			for ( int i = 0; i < 3; i++ )
+			{
+				GameWorldManager.Instance.SpawnEntity( "Wall", "wall" + wallCount++, new Vector3( 2395f, -78 - 60f * i, 0f ) );
+			}
+
+			//floor
+			for ( int i = 6; i < 12; i++ )
+			{
+				GameWorldManager.Instance.SpawnEntity( "Floor", "floor" + floorCount++, new Vector3( 2070f + 60f * i, -180f, 0f ) );
+			}
+
+			//floor
+			for ( int i = 14; i < 22; i++ )
+			{
+				GameWorldManager.Instance.SpawnEntity( "Floor", "floor" + floorCount++, new Vector3( 2070f + 60f * i, -180f, 0f ) );
+			}
+
+			//floor
+			for ( int i = 12; i < 14; i++ )
+			{
+				GameWorldManager.Instance.SpawnEntity( "Floor", "floor" + floorCount++, new Vector3( 2070f + 60f * i, -250f, 0f ) );
+			}
+
+
+			//floor
+			for ( int i = 20; i < 25; i++ )
+			{
+				GameWorldManager.Instance.SpawnEntity( "Floor", "floor" + floorCount++, new Vector3( 2070f + 60f * i, -43f, 0f ) );
+			}
+
 
 			//upgrade cube platform
 			GameWorldManager.Instance.SpawnEntity( "Floor", "floor" + floorCount++, new Vector3( 500f + 60f, 10f, 0f ) );
@@ -222,7 +291,7 @@ namespace VertexArmy.States
 		public void LoadDynamics()
 		{
 			GameWorldManager.Instance.SpawnEntity( "Camera", "camera1", new Vector3( 0, -200, 800 ) );
-			GameWorldManager.Instance.SpawnEntity( "Robot", "robotPlayer", new Vector3( 600f, 150f, 0f ), 1.5f );
+			GameWorldManager.Instance.SpawnEntity( "Robot", "robotPlayer", new Vector3( 2000f, 150f, 0f ), 1.5f );
 
 			Robot = GameWorldManager.Instance.GetEntity( "robotPlayer" );
 
@@ -239,12 +308,15 @@ namespace VertexArmy.States
 
 			GameWorldManager.Instance.SpawnEntity( "Crate", "crate1", new Vector3( -250, 100f, 0f ), 3f );
 			GameWorldManager.Instance.SpawnEntity( "Crate", "crate2", new Vector3( 1700, 130f, 0f ), 4f );
+			GameWorldManager.Instance.SpawnEntity( "Crate", "crate3", new Vector3( 2200, 360f, 0f ), 4f );
+			GameWorldManager.Instance.SpawnEntity( "Crate", "crate4", new Vector3( 2450, -90f, 0f ), 4f );
 
 		}
 
 		public void LoadTriggers()
 		{
-			GameWorldManager.Instance.SpawnEntity( "Trigger", "upgradeCube1", new Vector3( 500f + 60f * 2, 70f, 0f ) );
+			//GameWorldManager.Instance.SpawnEntity( "Trigger", "upgradeCube1", new Vector3( 500f + 60f * 2, 70f, 0f ) );
+			GameWorldManager.Instance.SpawnEntity( "Trigger", "upgradeCube1", new Vector3( 2000f, 150f, 0f ) );
 			GameWorldManager.Instance.GetEntity( "upgradeCube1" ).RegisterComponent(
 					"trigger",
 					new BodyTriggerAreaComponent( new Vector2( 10f, 10f ), Robot.MainBody, UpgradeCube1Callback )

@@ -5,52 +5,53 @@ using VertexArmy.GameWorld.Prefabs.Structs;
 
 namespace VertexArmy.Content.Prefabs
 {
-	public class WallPrefab
+	public class FloorBridgePrefab
 	{
 		public static PrefabEntity CreatePrefab()
 		{
-			PrefabEntity wall = new PrefabEntity { Name = "Wall" };
+			PrefabEntity floor = new PrefabEntity { Name = "FloorBridge" };
 
-			ShapePrefab wallShape = new ShapePrefab
+			ShapePrefab floorShape = new ShapePrefab
 			{
 				Density = 1f,
-				Width = 10f,
-				Height = 60f,
+				Width = 240f,
+				Height = 10f,
 				Offset = Vector2.Zero,
 				Type = ShapeType.Rectangle
 			};
 
-			BodyPrefab wallBody = new BodyPrefab
+			BodyPrefab floorBody = new BodyPrefab
 			{
 				Friction = 1f,
 				LocalPosition = Vector2.Zero,
-				Name = "WallBody",
-				Shapes = new List<ShapePrefab> { wallShape },
+				Name = "FloorBody",
+				Shapes = new List<ShapePrefab> { floorShape },
 				Restitution = 0.1f,
 				Static = true,
 			};
 
-			wall.RegisterBody( wallBody, true );
+			floor.RegisterBody( floorBody, true );
+
 
 			MeshSceneNodePrefab mesh = new MeshSceneNodePrefab
 			{
-				Name = "WallMesh",
-				Mesh = "models/wall_tile",
+				Name = "FloorMesh",
+				Mesh = "models/floor_tile_1",
 				Material = "CelShadingMaterial",
 			};
 
-			wall.RegisterMeshSceneNode( mesh );
+			floor.RegisterMeshSceneNode( mesh );
 			ControllerPrefab meshController = new ControllerPrefab
 			{
-				Name = "WallController",
+				Name = "FloorController",
 				Type = ControllerType.BodyController,
-				Body = "WallBody",
-				Transformable = "WallMesh"
+				Body = "FloorBody",
+				Transformable = "FloorMesh"
 			};
 
-			wall.RegisterController( meshController );
+			floor.RegisterController( meshController );
 
-			return wall;
+			return floor;
 		}
 	}
 }

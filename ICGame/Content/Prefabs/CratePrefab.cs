@@ -22,7 +22,7 @@ namespace VertexArmy.Content.Prefabs
 
 			BodyPrefab crateBody = new BodyPrefab
 								   {
-									   Friction = 1f,
+									   Friction = 0.3f,
 									   LocalPosition = Vector2.Zero,
 									   Name = "CrateBody",
 									   Shapes = new List<ShapePrefab> { crateShape },

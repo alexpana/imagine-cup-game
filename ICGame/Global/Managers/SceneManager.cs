@@ -20,6 +20,8 @@ namespace VertexArmy.Global.Managers
 
 		private AudioListener _audioListener;
 
+		private Vector3 _lightPosition = new Vector3(0, 40000, 20000);
+
 		public static SceneManager Instance
 		{
 			get
@@ -46,6 +48,11 @@ namespace VertexArmy.Global.Managers
 			_registeredNodes.Clear();
 			_sceneCameras.Clear();
 			_sceneLights.Clear();
+		}
+
+		public void SetLightPosition (Vector3 newposition)
+		{
+			_lightPosition = newposition;
 		}
 
 		public void RegisterSceneTree( SceneNode node )
@@ -155,7 +162,7 @@ namespace VertexArmy.Global.Managers
 			CursorManager.Instance.SceneNode.SetPosition( boardpointW );
 
 			Renderer.Instance.SetParameter( "eyePosition", currentCam.Parent.GetPosition() );
-			Renderer.Instance.SetParameter( "lightPosition", new Vector3( 0, 40000, 20000 ) );
+			Renderer.Instance.SetParameter( "lightPosition", _lightPosition );
 
 			foreach ( var registeredNode in _registeredNodes )
 			{

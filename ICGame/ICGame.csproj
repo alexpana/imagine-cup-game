@@ -97,6 +97,8 @@
     <Reference Include="System.Net" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Content\Materials\WallMenuMaterial2.cs" />
+    <Compile Include="Content\Materials\WallMenuMaterial.cs" />
     <Compile Include="Content\Materials\MenuCubeMaterial.cs" />
     <Compile Include="Content\Materials\SafMaterial.cs" />
     <Compile Include="Content\Materials\TechMaterial.cs" />

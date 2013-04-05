@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -18,6 +19,8 @@ namespace VertexArmy.States.Menu
 
 		private readonly Platform _platform;
 
+		Vector3 _lightPos = new Vector3(0, 40000, 20000);
+		
 		public GameStateMenu( ContentManager content )
 			: base( content )
 		{
@@ -32,6 +35,9 @@ namespace VertexArmy.States.Menu
 
 				_activeCube.Update( gameTime );
 			}
+
+			_lightPos.Z = (float)(20000f + 25000.0 * Math.Sin(gameTime.TotalGameTime.TotalMilliseconds / 1000.0));
+			SceneManager.Instance.SetLightPosition(_lightPos);
 
 			base.OnUpdate( gameTime );
 		}
@@ -143,6 +149,9 @@ namespace VertexArmy.States.Menu
 			}
 
 			GameWorldManager.Instance.SpawnEntity( CameraPrefab.PrefabName, "menu_camera", new Vector3( 0, 0, 100 ) );
+
+			GameWorldManager.Instance.SpawnEntity( "WallMenu", "wallMenu1",
+				new Vector3( 0f, 0f, -1800f ), Quaternion.CreateFromAxisAngle( Vector3.UnitX, -0.3f ), 150 );
 		}
 
 		public override void OnClose()
@@ -151,6 +160,8 @@ namespace VertexArmy.States.Menu
 
 			_mainMenuCube.Destroy();
 			_optionsMenuCube.Destroy();
+
+			GameWorldManager.Instance.Clear();
 		}
 	}
 }

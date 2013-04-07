@@ -166,33 +166,23 @@ namespace VertexArmy.GameWorld
 			return _externalRotation;
 		}
 
-		public void SetExternalRotation( Quaternion newRot )
+		public bool HasExternalRotation()
 		{
-			_externalRotation = newRot;
-			bool hasController = false;
-
-			if ( PhysicsEntity.Enabled )
+			if ( _externalRotation != Quaternion.Identity )
 			{
-				foreach ( BodyController c in BodyControllers )
-				{
-					ParameterBody body = c.Data[1] as ParameterBody;
-
-					if ( body != null )
-					{
-						if ( newRot != Quaternion.Identity )
-							body.HasExternalRotation = true;
-						else
-						{
-							body.HasExternalRotation = false;
-						}
-						hasController = true;
-						body.ExternalRotation = newRot;
-					}
-
-				}
+				return true;
 			}
 
-			if ( !hasController )
+			return false;
+		}
+
+		public void SetExternalRotation( Quaternion newRot )
+		{
+			if ( PhysicsEntity.Enabled )
+			{
+				_externalRotation = newRot;
+			}
+			else
 			{
 				MainNode.SetRotation( newRot );
 			}
@@ -200,24 +190,12 @@ namespace VertexArmy.GameWorld
 
 		public void SetExternalRotation( float newRot )
 		{
-			_externalRotation = UnitsConverter.To3DRotation( newRot );
-			bool hasController = false;
 
 			if ( PhysicsEntity.Enabled )
 			{
-				foreach ( BodyController c in BodyControllers )
-				{
-					ParameterBody body = c.Data[1] as ParameterBody;
-
-					if ( body != null )
-					{
-						hasController = true;
-						body.HasExternalRotation = true;
-						body.ExternalRotation = _externalRotation;
-					}
-				}
+				_externalRotation = UnitsConverter.To3DRotation( newRot );
 			}
-			if ( !hasController )
+			else
 			{
 				MainNode.SetRotation( UnitsConverter.To3DRotation( newRot ) );
 			}

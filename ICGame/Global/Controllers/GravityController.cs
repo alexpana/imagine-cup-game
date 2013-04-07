@@ -5,7 +5,7 @@ using VertexArmy.Global.Behaviours;
 
 namespace VertexArmy.Global.Controllers
 {
-	public class GravityController : IController, IUpdatable
+	public class GravityController : IController
 	{
 		private bool _actionChangeGravity;
 		private Vector2 _startPosition, _endPosition;
@@ -27,16 +27,11 @@ namespace VertexArmy.Global.Controllers
 				_endPosition = new Vector2( Mouse.GetState().X, Mouse.GetState().Y );
 				Vector2 gravity = ( _endPosition - _startPosition );
 				gravity.Normalize();
-				Platform.Instance.PhysicsWorld.Gravity = gravity * 9.82f;
+				Platform.Instance.PhysicsWorld.Gravity = gravity * Platform.Instance.PhysicsWorld.Gravity.Length();
 			}
 		}
 
-		public void DirectCompute( ref List<IParameter> data )
-		{
-
-		}
-
-		public List<IParameter> Data { get; set; }
+		public List<object> Data { get; set; }
 
 		public void Clean()
 		{

@@ -76,9 +76,9 @@ namespace VertexArmy.GameWorld.Prefabs
 			_sceneNodesPrefab.Add( scn.Name, scn );
 		}
 
-		public void RegisterSafSceneNode (SafSceneNodePrefab scn )
+		public void RegisterSafSceneNode( SafSceneNodePrefab scn )
 		{
-			_safSceneNodesPrefab.Add(scn.Name, scn);
+			_safSceneNodesPrefab.Add( scn.Name, scn );
 		}
 
 		public void RegisterArrayMeshSceneNode( ArrayMeshSceneNodePrefab pscn )
@@ -149,7 +149,7 @@ namespace VertexArmy.GameWorld.Prefabs
 				scn.SetScale( scn.GetScale() * scale );
 			}
 
-			foreach (SafSceneNodePrefab parameter in _safSceneNodesPrefab.Values)
+			foreach ( SafSceneNodePrefab parameter in _safSceneNodesPrefab.Values )
 			{
 				SceneNode scn = parameter.GetSceneNode( parameters );
 				entity.SceneNodes.Add( parameter.Name, scn );
@@ -167,7 +167,7 @@ namespace VertexArmy.GameWorld.Prefabs
 
 					if ( ascnp.Path != null && entity.PhysicsEntity.GetBodyFromPath( ascnp.Path, i ) != null )
 					{
-						BodyController controller = new BodyController( scn, entity.PhysicsEntity.GetBodyFromPath( ascnp.Path, i ) );
+						BodyController controller = new BodyController( scn, entity.PhysicsEntity.GetBodyFromPath( ascnp.Path, i ), entity );
 						entity.BodyControllers.Add( controller );
 
 						FrameUpdateManager.Instance.Register( controller );

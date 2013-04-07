@@ -371,6 +371,7 @@ namespace VertexArmy.States
 		{
 
 			LoadLevel();
+			Platform.Instance.PhysicsWorld.Gravity = Vector2.UnitY * Platform.Instance.PhysicsWorld.Gravity.Length();
 
 			FrameUpdateManager.Instance.Register( HintManager.Instance );
 

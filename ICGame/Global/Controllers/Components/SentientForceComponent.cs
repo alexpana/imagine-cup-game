@@ -29,27 +29,7 @@ namespace VertexArmy.Global.Controllers.Components
 
 		public SentientForceComponent( ITransformable pointingDirection )
 		{
-			Data = new List<IParameter>();
-			IParameter followParam = new ParameterTransformable
-			{
-				Alive = true,
-				Input = true,
-				Null = ( pointingDirection == null ),
-				Output = false,
-				Value = pointingDirection
-			};
-
-			IParameter dTimeParam = new ParameterGameTime
-			{
-				Alive = true,
-				Input = true,
-				Null = false,
-				Output = false,
-				Value = null
-			};
-
-			Data.Add( followParam );
-			Data.Add( dTimeParam );
+			Data = new List<object> { pointingDirection };
 
 			_type = ComponentType.SentientForce;
 
@@ -88,28 +68,20 @@ namespace VertexArmy.Global.Controllers.Components
 
 		public override void Update( GameTime dt )
 		{
-			( ( ParameterGameTime ) ( Data[1] ) ).Value = dt;
-			List<IParameter> parameters = Data;
-			DirectCompute( ref parameters );
-		}
-
-		public override void DirectCompute( ref List<IParameter> data )
-		{
 			if ( Entity != null )
 			{
-				ParameterTransformable followTransformable = data[0] as ParameterTransformable;
+				ITransformable followTransformable = Data[0] as ITransformable;
 				_oldPosition = Cone.Position;
 				Vector3 newPosition3D = UnitsConverter.ToSimUnits( Entity.GetPosition() );
 				Cone.Position = new Vector2( newPosition3D.X, newPosition3D.Y );
 
-				bool applyFollow = followTransformable != null && !followTransformable.Null;
-				applyFollow = applyFollow && followTransformable.Alive && followTransformable.Value != null;
+				bool applyFollow = followTransformable != null;
 
 				if ( applyFollow )
 				{
 					//double dTime = ( data[1] as ParameterGameTime ).Value.ElapsedGameTime.TotalSeconds;
 
-					Vector3 followPosition3D = UnitsConverter.ToSimUnits( followTransformable.Value.GetPosition() );
+					Vector3 followPosition3D = UnitsConverter.ToSimUnits( followTransformable.GetPosition() );
 					Vector2 followPosition = new Vector2( followPosition3D.X, followPosition3D.Y );
 
 					Vector2 direction = followPosition - Cone.Position;

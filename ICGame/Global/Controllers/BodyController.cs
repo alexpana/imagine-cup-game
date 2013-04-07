@@ -2,12 +2,13 @@ using System;
 using System.Collections.Generic;
 using FarseerPhysics.Dynamics;
 using Microsoft.Xna.Framework;
+using VertexArmy.GameWorld;
 using VertexArmy.Global.Behaviours;
 using VertexArmy.Utilities;
 
 namespace VertexArmy.Global.Controllers
 {
-	public class BodyController : IController, IUpdatable
+	public class BodyController : IController
 	{
 		private Vector2 _lastBodyPosition;
 		private float _lastBodyRotation;
@@ -15,83 +16,49 @@ namespace VertexArmy.Global.Controllers
 		private const float RotationError = 0.00001f;
 		private const float PositionError = 0.00001f;
 
-		public BodyController( ITransformable transformable, Body body )
+		public BodyController( ITransformable transformable, Body body, GameEntity entity )
 		{
-			IParameter transParam = new ParameterTransformable
-									{
-										Alive = true,
-										Input = false,
-										Null = false,
-										Output = true,
-										Value = transformable
-									};
-
-
-			IParameter bodyParam = new ParameterBody
-								   {
-									   Alive = true,
-									   Input = true,
-									   Null = false,
-									   Output = false,
-									   Value = body
-								   };
-
-			Data = new List<IParameter> { transParam, bodyParam };
+			Data = new List<object> { transformable, body, entity };
 		}
 
 		public Body Body
 		{
-			get { return ( ( ParameterBody ) Data[1] ).Value; }
+			get { return Data[1] as Body; }
 		}
 
 		public ITransformable Transformable
 		{
-			get { return ( ( ParameterTransformable ) Data[0] ).Value; }
+			get { return Data[0] as ITransformable; }
 		}
 
 		public void Update( GameTime dt )
 		{
-			ParameterTransformable trans = Data[0] as ParameterTransformable;
-			ParameterBody body = Data[1] as ParameterBody;
+			ITransformable trans = Data[0] as ITransformable;
+			Body body = Data[1] as Body;
+			GameEntity entity = Data[2] as GameEntity;
 
-			bool ok = ( trans != null && body != null );
+			bool ok = ( trans != null && body != null && entity != null );
 
-			if ( !ok ) return;
-
-			float rotationDelta = Math.Abs( body.Value.Rotation - _lastBodyRotation );
-			float positionDelta = ( body.Value.Position - _lastBodyPosition ).LengthSquared();
-
-			if ( rotationDelta > RotationError || positionDelta > PositionError || body.HasExternalRotation )
+			if ( !ok )
 			{
-				List<IParameter> parameters = Data;
-				DirectCompute( ref parameters );
+				return;
+			}
 
-				_lastBodyPosition = body.Value.Position;
-				_lastBodyRotation = body.Value.Rotation;
+			float rotationDelta = Math.Abs( body.Rotation - _lastBodyRotation );
+			float positionDelta = ( body.Position - _lastBodyPosition ).LengthSquared();
+
+			if ( rotationDelta > RotationError || positionDelta > PositionError || entity.HasExternalRotation() )
+			{
+				trans.SetPosition( new Vector3( UnitsConverter.ToDisplayUnits( body.Position ), trans.GetPosition().Z ) );
+				trans.SetRotation( UnitsConverter.To3DRotation( body.Rotation ) * entity.GetExternalRotation() );
+
+				_lastBodyPosition = body.Position;
+				_lastBodyRotation = body.Rotation;
 			}
 		}
 
-		public void DirectCompute( ref List<IParameter> data )
-		{
-			ParameterTransformable trans = data[0] as ParameterTransformable;
-			ParameterBody body = data[1] as ParameterBody;
 
-			bool apply = ( trans != null && body != null );
-
-			if ( !apply ) return;
-
-			apply = !trans.Null && !body.Null;
-			apply = apply && ( trans.Output && body.Input );
-			apply = apply && ( trans.Alive && body.Alive );
-
-			if ( !apply ) return;
-
-			trans.Value.SetPosition( new Vector3( UnitsConverter.ToDisplayUnits( body.Value.Position ), trans.Value.GetPosition().Z ) );
-			trans.Value.SetRotation( UnitsConverter.To3DRotation( body.Value.Rotation ) * body.ExternalRotation );
-			
-		}
-
-		public List<IParameter> Data { get; set; }
+		public List<object> Data { get; set; }
 
 		public void Clean()
 		{

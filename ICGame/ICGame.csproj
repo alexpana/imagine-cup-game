@@ -146,6 +146,7 @@
     <Compile Include="Global\Controllers\Components\DoorComponent.cs" />
     <Compile Include="Global\Controllers\Components\SentientForceComponent.cs" />
     <Compile Include="Global\Controllers\ControllerParameterClasses.cs" />
+    <Compile Include="Global\Controllers\GravityController.cs" />
     <Compile Include="Global\Controllers\LineJointController.cs" />
     <Compile Include="Global\Controllers\RelativeController.cs" />
     <Compile Include="Global\Behaviours\IController.cs" />

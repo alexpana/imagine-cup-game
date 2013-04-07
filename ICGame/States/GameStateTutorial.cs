@@ -301,7 +301,8 @@ namespace VertexArmy.States
 			FrameUpdateManager.Instance.Register( camControl );
 
 			Camera = GameWorldManager.Instance.GetEntity( "camera1" );
-
+			Camera.SetRotation( 5f );
+			FrameUpdateManager.Instance.Register( new GravityController() );
 		}
 
 		public void LoadTriggers()

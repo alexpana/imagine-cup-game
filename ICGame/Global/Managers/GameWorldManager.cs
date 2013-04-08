@@ -99,6 +99,12 @@ namespace VertexArmy.Global.Managers
 				state.BodyRotations = new Dictionary<string, float>();
 				state.BodyLinearVelocities = new Dictionary<string, Vector2>();
 				state.BodyAngularVelocities = new Dictionary<string, float>();
+
+				state.PathBodyPositions = new Dictionary<string, List<Vector2>>();
+				state.PathBodyRotations = new Dictionary<string, List<float>>();
+				state.PathBodyLinearVelocities = new Dictionary<string, List<Vector2>>();
+				state.PathBodyAngularVelocities = new Dictionary<string, List<float>>();
+
 				state.Scale = ent.Scale;
 
 				foreach ( string BodyName in ent.PhysicsEntity.BodyNames )
@@ -109,6 +115,28 @@ namespace VertexArmy.Global.Managers
 					state.BodyRotations.Add( BodyName, b.Rotation );
 					state.BodyLinearVelocities.Add( BodyName, b.LinearVelocity );
 					state.BodyAngularVelocities.Add( BodyName, b.AngularVelocity );
+				}
+
+				foreach ( string PathName in ent.PhysicsEntity.PathNames )
+				{
+					List<Vector2> positions = new List<Vector2>();
+					List<float> rotations = new List<float>();
+					List<Vector2> linearVelocities = new List<Vector2>();
+					List<float> angularVelocities = new List<float>();
+
+					for ( int i = 0; i < ent.PhysicsEntity.GetBodyCountFromPath( PathName ); i++ )
+					{
+						Body b = ent.PhysicsEntity.GetBodyFromPath( PathName, i );
+						positions.Add( b.Position );
+						rotations.Add( b.Rotation );
+						linearVelocities.Add( b.LinearVelocity );
+						angularVelocities.Add( b.AngularVelocity );
+					}
+
+					state.PathBodyPositions.Add( PathName, positions );
+					state.PathBodyRotations.Add( PathName, rotations );
+					state.PathBodyLinearVelocities.Add( PathName, linearVelocities );
+					state.PathBodyAngularVelocities.Add( PathName, angularVelocities );
 				}
 
 				_savedState.Add( state );
@@ -137,12 +165,31 @@ namespace VertexArmy.Global.Managers
 
 				foreach ( string BodyName in entState.BodyPositions.Keys )
 				{
-					entity.PhysicsEntity.GetBody( BodyName ).ResetDynamics();
-					entity.PhysicsEntity.GetBody( BodyName ).ResetMassData();
-					entity.PhysicsEntity.GetBody( BodyName ).Position = entState.BodyPositions[BodyName];
-					entity.PhysicsEntity.GetBody( BodyName ).Rotation = entState.BodyRotations[BodyName];
-					entity.PhysicsEntity.GetBody( BodyName ).ApplyLinearImpulse( entState.BodyLinearVelocities[BodyName] );
-					entity.PhysicsEntity.GetBody( BodyName ).ApplyAngularImpulse( entState.BodyAngularVelocities[BodyName] );
+					Body b = entity.PhysicsEntity.GetBody( BodyName );
+					b.ResetDynamics();
+					b.Position = entState.BodyPositions[BodyName];
+					b.Rotation = entState.BodyRotations[BodyName];
+					b.LinearVelocity = entState.BodyLinearVelocities[BodyName];
+					b.AngularVelocity = entState.BodyAngularVelocities[BodyName];
+				}
+
+				foreach ( string PathName in entState.PathBodyPositions.Keys )
+				{
+					var positions = entState.PathBodyPositions[PathName];
+					var rotations = entState.PathBodyRotations[PathName];
+					var linearVelocities = entState.PathBodyLinearVelocities[PathName];
+					var angularVelocities = entState.PathBodyAngularVelocities[PathName];
+
+					for ( int i = 0; i < positions.Count; i++ )
+					{
+
+						Body b = entity.PhysicsEntity.GetBodyFromPath( PathName, i );
+						b.ResetDynamics();
+						b.Position = positions[i];
+						b.Rotation = rotations[i];
+						b.LinearVelocity = linearVelocities[i];
+						b.AngularVelocity = angularVelocities[i];
+					}
 				}
 
 			}
@@ -171,6 +218,13 @@ namespace VertexArmy.Global.Managers
 		public Dictionary<string, Vector2> BodyLinearVelocities;
 		public Dictionary<string, float> BodyAngularVelocities;
 
+		public Dictionary<string, List<Vector2>> PathBodyPositions;
+		public Dictionary<string, List<float>> PathBodyRotations;
+		public Dictionary<string, List<Vector2>> PathBodyLinearVelocities;
+		public Dictionary<string, List<float>> PathBodyAngularVelocities;
+
 	}
+
+
 
 }

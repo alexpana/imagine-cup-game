@@ -122,7 +122,7 @@ namespace VertexArmy.States
 			//first floor part
 			for ( int i = 0; i < 20; i++ )
 			{
-				GameWorldManager.Instance.SpawnEntity( "Floor", "floor" + floorCount++, new Vector3( -300f + 60f * i, 0f, 0f ) );
+				GameWorldManager.Instance.SpawnEntity( "Floor", "floor" + floorCount++, new Vector3( -300f + 60f * i, 0f, 0f ), 1f );
 			}
 
 			Vector2 rotationPoint = new Vector2( -300f + 60f * 19, -10f );

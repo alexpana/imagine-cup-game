@@ -101,7 +101,7 @@ namespace VertexArmy.States.Menu
 			GameWorldManager.Instance.SpawnEntity( CameraPrefab.PrefabName, "levelmenu_camera", new Vector3( 0, 0, 200 ) );
 
 			GameWorldManager.Instance.SpawnEntity( "WallMenu2", "wallMenu1",
-			new Vector3( 0f, 0f, -1800f ), Quaternion.CreateFromAxisAngle( Vector3.UnitX, -0.3f ), 150 );
+				new Vector3( 0f, 0f, -1800f ), Quaternion.CreateFromAxisAngle( Vector3.UnitX, -0.3f ), 150 );
 		}
 
 		private void CreateLevelsCubes()

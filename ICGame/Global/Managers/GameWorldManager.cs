@@ -95,6 +95,8 @@ namespace VertexArmy.Global.Managers
 				state.Prefab = ent.Prefab;
 				state.PhysicsEnabled = ent.PhysicsEntity.Enabled;
 
+				state.CollisionCategory = ent.PhysicsEntity.GetCollisionLayer();
+
 				state.BodyPositions = new Dictionary<string, Vector2>();
 				state.BodyRotations = new Dictionary<string, float>();
 				state.BodyLinearVelocities = new Dictionary<string, Vector2>();
@@ -162,6 +164,7 @@ namespace VertexArmy.Global.Managers
 
 				entity.SetPosition( entState.Position );
 				entity.SetRotation( entState.Rotation );
+				entity.PhysicsEntity.SetCollisionLayer( entState.CollisionCategory );
 
 				foreach ( string BodyName in entState.BodyPositions.Keys )
 				{
@@ -211,6 +214,7 @@ namespace VertexArmy.Global.Managers
 		public PrefabEntity Prefab;
 		public bool PhysicsEnabled;
 		public float Scale;
+		public Category CollisionCategory;
 
 		public Dictionary<string, Vector2> BodyPositions;
 		public Dictionary<string, float> BodyRotations;

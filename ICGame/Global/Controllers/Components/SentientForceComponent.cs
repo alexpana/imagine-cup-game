@@ -100,14 +100,14 @@ namespace VertexArmy.Global.Controllers.Components
 					Cone.Rotation = ( float ) Math.Acos( direction.X ) * Math.Sign( ( float ) Math.Asin( direction.Y ) );
 					if ( Mouse.GetState().LeftButton.Equals( ButtonState.Pressed ) )
 					{
-						ConeEntity.SetPosition( new Vector3( UnitsConverter.ToDisplayUnits( Cone.Position ), ConeEntity.GetPosition().Z ) );
+						ConeEntity.SetPosition( new Vector3( UnitsConverter.ToDisplayUnits( Cone.Position ), Entity.GetPosition().Z ) );
 						ConeEntity.SetRotation( UnitsConverter.To3DRotation( Cone.Rotation ) );
 						( ( SafAttachable ) ConeEntity.SceneNodes["Mesh"].Attachable[0] ).Material.SetParameter( "fVel", new Vector2( 0.0000f, 0.00025f ) );
 						ConeEntity.SceneNodes["Mesh"].Invisible = false;
 					}
 					else if ( Mouse.GetState().RightButton.Equals( ButtonState.Pressed ) )
 					{
-						ConeEntity.SetPosition( new Vector3( UnitsConverter.ToDisplayUnits( Cone.Position ), ConeEntity.GetPosition().Z ) );
+						ConeEntity.SetPosition( new Vector3( UnitsConverter.ToDisplayUnits( Cone.Position ), Entity.GetPosition().Z ) );
 						ConeEntity.SetRotation( UnitsConverter.To3DRotation( Cone.Rotation ) );
 						( ( SafAttachable ) ConeEntity.SceneNodes["Mesh"].Attachable[0] ).Material.SetParameter( "fVel", new Vector2( 0.0000f, -0.00025f ) );
 						ConeEntity.SceneNodes["Mesh"].Invisible = false;

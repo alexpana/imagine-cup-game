@@ -17,6 +17,8 @@ namespace VertexArmy.GameWorld
 		private Dictionary<string, Joint> _joints;
 		private Dictionary<string, PathEntity> _paths;
 
+		private Category _collisionCategory;
+
 		public bool Active
 		{
 			get { return _isActive; }
@@ -67,6 +69,7 @@ namespace VertexArmy.GameWorld
 				}
 
 				_enabled = value;
+				_collisionCategory = Category.Cat1;
 			}
 
 			get { return _enabled; }
@@ -267,6 +270,7 @@ namespace VertexArmy.GameWorld
 
 		public void SetCollisionLayer( Category layer )
 		{
+			_collisionCategory = layer;
 			foreach ( Body b in Bodies )
 			{
 				b.CollisionCategories = layer;
@@ -281,6 +285,11 @@ namespace VertexArmy.GameWorld
 					b.CollidesWith = layer;
 				}
 			}
+		}
+
+		public Category GetCollisionLayer()
+		{
+			return _collisionCategory;
 		}
 	}
 

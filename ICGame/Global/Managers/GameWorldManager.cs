@@ -182,7 +182,6 @@ namespace VertexArmy.Global.Managers
 
 					for ( int i = 0; i < positions.Count; i++ )
 					{
-
 						Body b = entity.PhysicsEntity.GetBodyFromPath( PathName, i );
 						b.ResetDynamics();
 						b.Position = positions[i];

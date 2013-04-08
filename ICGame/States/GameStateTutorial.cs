@@ -1,6 +1,7 @@
 ﻿//#define ALLOW_HACKS
 using System;
 using System.Collections.Generic;
+using FarseerPhysics.Dynamics;
 using FarseerPhysics.Dynamics.Joints;
 using FarseerPhysics.Factories;
 using Microsoft.Xna.Framework;
@@ -49,6 +50,25 @@ namespace VertexArmy.States
 				if ( Robot.GetPosition().Y < -2000 )
 				{
 					GameWorldManager.Instance.LoadLastState();
+				}
+
+				if ( Keyboard.GetState( PlayerIndex.One ).IsKeyDown( Keys.Up ) )
+				{
+					if ( Robot.PhysicsEntity.GetCollisionLayer().Equals( Category.Cat1 ) )
+					{
+						Robot.PhysicsEntity.SetCollisionLayer( Category.Cat2 );
+						Vector3 position = Robot.GetPosition();
+						Robot.SetPosition( new Vector3( position.X, position.Y, -300f ) );
+					}
+				}
+				if ( Keyboard.GetState( PlayerIndex.One ).IsKeyDown( Keys.Down ) )
+				{
+					if ( Robot.PhysicsEntity.GetCollisionLayer().Equals( Category.Cat2 ) )
+					{
+						Robot.PhysicsEntity.SetCollisionLayer( Category.Cat1 );
+						Vector3 position = Robot.GetPosition();
+						Robot.SetPosition( new Vector3( position.X, position.Y, 0f ) );
+					}
 				}
 
 				if ( Keyboard.GetState( PlayerIndex.One ).IsKeyDown( Keys.R ) )
@@ -130,6 +150,12 @@ namespace VertexArmy.States
 			{
 				GameWorldManager.Instance.SpawnEntity( "Floor", "floor" + floorCount++, new Vector3( -300f + 60f * i, -9f, 0f ) );
 				TransformUtility.RotateTransformableAroundPoint2D( GameWorldManager.Instance.GetEntity( "floor" + i ), rotationPoint, 0.3f );
+			}
+
+			//first floor part background
+			for ( int i = 0; i < 20; i++ )
+			{
+				GameWorldManager.Instance.SpawnEntity( "Floor", "floor" + floorCount++, new Vector3( -300f + 60f * i, 0f, -300f ), 1f, Category.Cat2 );
 			}
 
 			for ( int i = 0; i < 5; i++ )
@@ -296,6 +322,10 @@ namespace VertexArmy.States
 			GameWorldManager.Instance.SpawnEntity( "Crate", "crate3", new Vector3( 2200, 360f, 0f ), 5f );
 			GameWorldManager.Instance.SpawnEntity( "Crate", "crate4", new Vector3( 2450, -90f, 0f ), 4f );
 
+			GameWorldManager.Instance.SpawnEntity( "Crate", "crate5", new Vector3( -80, 100f, -300f ), 4f, Category.Cat2 );
+			GameWorldManager.Instance.SpawnEntity( "Crate", "crate6", new Vector3( 0, 100f, -300f ), 4f, Category.Cat2 );
+			GameWorldManager.Instance.SpawnEntity( "Crate", "crate7", new Vector3( -50, 150f, -300f ), 3f, Category.Cat2 );
+
 			CameraController camControl = new CameraController( Robot, SceneManager.Instance.GetCurrentCamera() );
 			ControllerRepository.Instance.RegisterController( "camcontrol", camControl );
 			FrameUpdateManager.Instance.Register( camControl );
@@ -385,6 +415,7 @@ namespace VertexArmy.States
 
 			_debugView.LoadContent( Platform.Instance.Device, Platform.Instance.Content );
 			//_debugView.RemoveFlags( DebugViewFlags.Joint );
+			//_debugView.AppendFlags( DebugViewFlags.PerformanceGraph );
 
 			_debugView.TextColor = Color.Black;
 

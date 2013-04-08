@@ -23,6 +23,7 @@ namespace VertexArmy.Global.Controllers.Components
 
 		private Vector2 _oldPosition;
 		private float _distanceSim;
+		private Category _collisionCategory;
 
 		public Body Cone;
 		public GameEntity ConeEntity;
@@ -63,6 +64,9 @@ namespace VertexArmy.Global.Controllers.Components
 			Entity.PhysicsEntity.IgnoreCollisionWith( Cone );
 			PhysicsContactManager.Instance.RegisterBeginCallback( ContactCallbackType.FixtureBBegin, Cone, BeginContactB );
 			PhysicsContactManager.Instance.RegisterBeginCallback( ContactCallbackType.FixtureABegin, Cone, BeginContactA );
+			Cone.CollidesWith = Entity.PhysicsEntity.GetCollisionLayer();
+			Cone.CollisionCategories = Entity.PhysicsEntity.GetCollisionLayer();
+			_collisionCategory = Entity.PhysicsEntity.GetCollisionLayer();
 		}
 
 
@@ -70,6 +74,12 @@ namespace VertexArmy.Global.Controllers.Components
 		{
 			if ( Entity != null )
 			{
+				if ( !_collisionCategory.Equals( Entity.PhysicsEntity.GetCollisionLayer() ) )
+				{
+					Cone.CollidesWith = Entity.PhysicsEntity.GetCollisionLayer();
+					Cone.CollisionCategories = Entity.PhysicsEntity.GetCollisionLayer();
+					_collisionCategory = Entity.PhysicsEntity.GetCollisionLayer();
+				}
 				ITransformable followTransformable = Data[0] as ITransformable;
 				_oldPosition = Cone.Position;
 				Vector3 newPosition3D = UnitsConverter.ToSimUnits( Entity.GetPosition() );

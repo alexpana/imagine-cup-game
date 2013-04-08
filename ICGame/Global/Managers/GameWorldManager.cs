@@ -17,34 +17,33 @@ namespace VertexArmy.Global.Managers
 			return _entities[name];
 		}
 
-		public void SpawnEntity( string prefabName, string entityName, Vector3 position, float scale = 1f,
+		public void SpawnEntity( string prefabName, string entityName, Vector3 position, float scale = 1f, Category layer = Category.Cat1,
 			GameEntityParameters parameters = null )
 		{
-			SpawnEntity( PrefabRepository.Instance.GetPrefab( prefabName ), entityName, position, scale, parameters );
+			SpawnEntity( PrefabRepository.Instance.GetPrefab( prefabName ), entityName, position, scale, layer, parameters );
 		}
 
-		public void SpawnEntity( string prefab, string entityName, Vector3 position, Quaternion externalRotation, float scale = 1f,
-		GameEntityParameters parameters = null )
+		public void SpawnEntity( string prefab, string entityName, Vector3 position, Quaternion externalRotation, float scale = 1f, Category layer = Category.Cat1, GameEntityParameters parameters = null )
 		{
-			SpawnEntity( PrefabRepository.Instance.GetPrefab( prefab ), entityName, position, externalRotation, scale, parameters );
+			SpawnEntity( PrefabRepository.Instance.GetPrefab( prefab ), entityName, position, externalRotation, scale, layer, parameters );
 		}
 
-		public void SpawnEntity( PrefabEntity prefab, string entityName, Vector3 position, float scale = 1f,
+		public void SpawnEntity( PrefabEntity prefab, string entityName, Vector3 position, float scale = 1f, Category layer = Category.Cat1,
 			GameEntityParameters parameters = null )
 		{
 			GameEntity entity = prefab.CreateGameEntity( this, scale, parameters );
 			entity.Name = entityName;
 			_entities.Add( entityName, entity );
 			entity.SetPosition( position );
+			entity.PhysicsEntity.SetCollisionLayer( layer );
 		}
 
-
-		public void SpawnEntity( PrefabEntity prefab, string entityName, Vector3 position, Quaternion externalRotation, float scale = 1f,
-		GameEntityParameters parameters = null )
+		public void SpawnEntity( PrefabEntity prefab, string entityName, Vector3 position, Quaternion externalRotation, float scale = 1f, Category layer = Category.Cat1, GameEntityParameters parameters = null )
 		{
 			GameEntity entity = prefab.CreateGameEntity( this, scale, parameters );
 			entity.Name = entityName;
 			_entities.Add( entityName, entity );
+			entity.PhysicsEntity.SetCollisionLayer( layer );
 			entity.SetPosition( position );
 			entity.SetExternalRotation( externalRotation );
 		}

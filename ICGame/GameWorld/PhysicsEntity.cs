@@ -264,6 +264,24 @@ namespace VertexArmy.GameWorld
 				Platform.Instance.PhysicsWorld.RemoveJoint( j );
 			}
 		}
+
+		public void SetCollisionLayer( Category layer )
+		{
+			foreach ( Body b in Bodies )
+			{
+				b.CollisionCategories = layer;
+				b.CollidesWith = layer;
+			}
+
+			foreach ( var p in _paths.Values )
+			{
+				foreach ( var b in p.Bodies )
+				{
+					b.CollisionCategories = layer;
+					b.CollidesWith = layer;
+				}
+			}
+		}
 	}
 
 	public struct PathEntity

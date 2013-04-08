@@ -21,9 +21,19 @@ namespace VertexArmy.Global.Managers
 			_font = Platform.Instance.Content.Load<SpriteFont>( "fonts/SpriteFont1" );
 		}
 
-		public void SpawnHint( string text, Vector2 position, float time )
+		public void SpawnHint( string text, Vector2 position, float time, int layer = 0 )
 		{
-			_activeHints.Add( new Hint() { Text = text, Position = position, Time = time } );
+			if ( layer != 0 )
+			{
+				foreach ( Hint h in _activeHints )
+				{
+					if ( h.Layer == layer )
+					{
+						h.Time = -1f;
+					}
+				}
+			}
+			_activeHints.Add( new Hint() { Text = text, Position = position, Time = time, Layer = layer } );
 		}
 		public static HintManager Instance
 		{
@@ -62,7 +72,6 @@ namespace VertexArmy.Global.Managers
 		public void Render( float dt )
 		{
 
-
 			_spriteBatch.Begin( SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullCounterClockwise, null );
 
 
@@ -80,10 +89,12 @@ namespace VertexArmy.Global.Managers
 		public Hint()
 		{
 			Color = Color.Red;
+			Layer = 0;
 		}
 		public string Text;
 		public Vector2 Position;
 		public float Time; // in seconds
 		public Color Color;
+		public int Layer;
 	}
 }

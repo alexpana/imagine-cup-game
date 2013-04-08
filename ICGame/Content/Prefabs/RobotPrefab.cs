@@ -24,7 +24,6 @@ namespace VertexArmy.Content.Prefabs
 				LocalPosition = new Vector2( -27.93f, -20.13f ),
 				Static = false,
 				Shapes = new List<ShapePrefab> { gearShape },
-				CollisionGroup = 69
 			};
 
 			BodyPrefab gear2 = new BodyPrefab
@@ -35,7 +34,6 @@ namespace VertexArmy.Content.Prefabs
 				LocalPosition = new Vector2( 27.93f, -20.13f ),
 				Static = false,
 				Shapes = new List<ShapePrefab> { gearShape },
-				CollisionGroup = 69
 			};
 
 			BodyPrefab gear3 = new BodyPrefab
@@ -46,7 +44,6 @@ namespace VertexArmy.Content.Prefabs
 				LocalPosition = new Vector2( 0f, 28.25f ),
 				Static = false,
 				Shapes = new List<ShapePrefab> { gearShape },
-				CollisionGroup = 69
 			};
 
 			robot.RegisterBody( gear1 );
@@ -67,7 +64,6 @@ namespace VertexArmy.Content.Prefabs
 				LocalPosition = Vector2.Zero,
 				Static = false,
 				Shapes = new List<ShapePrefab> { chassisShape },
-				CollisionGroup = 69,
 			};
 
 			robot.RegisterBody( chassis, true ); // is main body
@@ -146,7 +142,6 @@ namespace VertexArmy.Content.Prefabs
 				Shapes = new List<ShapePrefab> { linkShape, linkFeetShape },
 				Friction = 1f,
 				Restitution = 0f,
-				CollisionGroup = 69
 			};
 
 			PathPrefab track = new PathPrefab

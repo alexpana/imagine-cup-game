@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using FarseerPhysics.Dynamics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
@@ -66,7 +67,7 @@ namespace VertexArmy.States.Menu
 				}
 			};
 
-			GameWorldManager.Instance.SpawnEntity( MenuCubePrefab.PrefabName, Id, new Vector3( spawnX, DropHeight, 0f ), 1f, parameters );
+			GameWorldManager.Instance.SpawnEntity( MenuCubePrefab.PrefabName, Id, new Vector3( spawnX, DropHeight, 0f ), 1f, Category.Cat1, parameters );
 			GameWorldManager.Instance.GetEntity( Id ).SetRotation( MathHelper.Clamp( ( float ) ( 0.017f - Random.NextDouble() ), -0.017f, 0.017f ) );
 
 			// set a small horizontal rotation to give a better impression

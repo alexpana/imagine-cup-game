@@ -3,7 +3,6 @@ using FarseerPhysics.Dynamics;
 using FarseerPhysics.Dynamics.Contacts;
 using FarseerPhysics.Factories;
 using Microsoft.Xna.Framework;
-using VertexArmy.Global.Behaviours;
 using VertexArmy.Global.Managers;
 using VertexArmy.Utilities;
 
@@ -18,7 +17,7 @@ namespace VertexArmy.Global.Controllers.Components
 
 		public BodyTriggerAreaComponent( Vector2 size, Body body, MethodToCall callback )
 		{
-			Data = new List<IParameter>();
+			Data = new List<object>();
 
 			_type = ComponentType.BodyTriggerArea;
 			Area = BodyFactory.CreateRectangle( Platform.Instance.PhysicsWorld, UnitsConverter.ToSimUnits( size.X ), UnitsConverter.ToSimUnits( size.Y ), 0.1f );
@@ -38,12 +37,6 @@ namespace VertexArmy.Global.Controllers.Components
 
 
 		public override void Update( GameTime dt )
-		{
-			List<IParameter> parameters = Data;
-			DirectCompute( ref parameters );
-		}
-
-		public override void DirectCompute( ref List<IParameter> data )
 		{
 			if ( Entity != null )
 			{

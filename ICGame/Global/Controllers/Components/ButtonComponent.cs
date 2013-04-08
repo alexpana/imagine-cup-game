@@ -2,7 +2,6 @@
 using System.Diagnostics;
 using FarseerPhysics.Dynamics.Joints;
 using Microsoft.Xna.Framework;
-using VertexArmy.Global.Behaviours;
 
 namespace VertexArmy.Global.Controllers.Components
 {
@@ -14,7 +13,7 @@ namespace VertexArmy.Global.Controllers.Components
 
 		public ButtonComponent( string jointName )
 		{
-			Data = new List<IParameter>();
+			Data = new List<object>();
 			_jointName = jointName;
 			_type = ComponentType.ButtonComponent;
 		}
@@ -26,12 +25,6 @@ namespace VertexArmy.Global.Controllers.Components
 		}
 
 		public override void Update( GameTime dt )
-		{
-			List<IParameter> parameters = Data;
-			DirectCompute( ref parameters );
-		}
-
-		public override void DirectCompute( ref List<IParameter> data )
 		{
 			if ( Entity != null )
 			{

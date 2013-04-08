@@ -2,10 +2,9 @@
 
 namespace VertexArmy.Global.Behaviours
 {
-	public interface IController
+	public interface IController : IUpdatable
 	{
-		void DirectCompute( ref List<IParameter> data );
-		List<IParameter> Data { get; set; }
+		List<object> Data { get; set; }
 		void Clean();
 	}
 }

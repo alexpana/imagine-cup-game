@@ -36,18 +36,22 @@ namespace VertexArmy.GameWorld.Prefabs.Structs
 				case ControllerType.BodyController:
 
 					Body body;
+					GameEntity ent;
 
 					string[] bodyNames = PrefabUtils.GetEntityAndComponentName( Body );
 					if ( bodyNames[0] == null )
 					{
 						body = FatherEntity.PhysicsEntity.GetBody( Body );
+						ent = FatherEntity;
 					}
 					else
 					{
-						body = GameWorldManager.Instance.GetEntity( bodyNames[0] ).PhysicsEntity.GetBody( bodyNames[1] );
+						ent = GameWorldManager.Instance.GetEntity( bodyNames[0] );
+						body = ent.PhysicsEntity.GetBody( bodyNames[1] );
+
 					}
 
-					BodyController bc = new BodyController( transf, body );
+					BodyController bc = new BodyController( transf, body, ent );
 					return bc;
 
 				case ControllerType.LineJointController:
@@ -67,7 +71,7 @@ namespace VertexArmy.GameWorld.Prefabs.Structs
 					LineJointController ljc = new LineJointController( transf, joint.BodyA, joint.BodyB );
 					return ljc;
 			}
-			return new BodyController( null, null );
+			return new BodyController( null, null, null );
 		}
 
 	}

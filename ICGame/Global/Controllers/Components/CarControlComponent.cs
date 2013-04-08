@@ -4,7 +4,6 @@ using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Input;
-using VertexArmy.Global.Behaviours;
 
 namespace VertexArmy.Global.Controllers.Components
 {
@@ -17,7 +16,7 @@ namespace VertexArmy.Global.Controllers.Components
 
 		public CarControlComponent( ICollection<string> lineJointNames, ICollection<float> speeds )
 		{
-			Data = new List<IParameter>();
+			Data = new List<object>();
 			Debug.Assert( lineJointNames.Count == speeds.Count );
 
 			_type = ComponentType.CarControlComponent;
@@ -26,20 +25,10 @@ namespace VertexArmy.Global.Controllers.Components
 			_lineJointsSpeeds = new List<float>();
 			_lineJointsSpeeds.AddRange( speeds );
 
-			ParameterFloat direction = new ParameterFloat
-			{
-				Alive = true,
-				Input = true,
-				Null = false,
-				Output = false,
-				Value = 0f
-			};
 
 			_engineSound = Platform.Instance.Content.Load<SoundEffect>( "sounds/engine_run" ).CreateInstance();
 			_engineSound.IsLooped = true;
 			_engineSound.Volume = 0.1f;
-
-			Data.Add( direction );
 		}
 
 		public override void InitEntity()
@@ -49,7 +38,6 @@ namespace VertexArmy.Global.Controllers.Components
 				_engineSound.Play();
 			}
 		}
-
 
 		public override void Update( GameTime dt )
 		{
@@ -61,7 +49,7 @@ namespace VertexArmy.Global.Controllers.Components
 			{
 				_engineSound.Volume = 0.0f;
 			}
-			List<IParameter> parameters = Data;
+
 			float direction = 0f;
 			if ( Keyboard.GetState().IsKeyDown( Keys.Left ) || Keyboard.GetState().IsKeyDown( Keys.A ) )
 			{
@@ -77,24 +65,14 @@ namespace VertexArmy.Global.Controllers.Components
 
 			_oldDirection = direction;
 
-			( ( ParameterFloat ) parameters[0] ).Value = direction;
-			DirectCompute( ref parameters );
-		}
-
-		public override void DirectCompute( ref List<IParameter> data )
-		{
 			if ( Entity != null && Entity.PhysicsEntity.Enabled )
 			{
-				var parameterFloat = data[0] as ParameterFloat;
-				if ( parameterFloat != null )
+				for ( int i = 0; i < _lineJoints.Count; i++ )
 				{
-					float direction = parameterFloat.Value;
-					for ( int i = 0; i < _lineJoints.Count; i++ )
-					{
-						Entity.PhysicsEntity.SetLineJointMotorSpeed( _lineJoints[i], direction * _lineJointsSpeeds[i] );
-					}
+					Entity.PhysicsEntity.SetLineJointMotorSpeed( _lineJoints[i], direction * _lineJointsSpeeds[i] );
 				}
 			}
+
 		}
 
 		public override void Clean()

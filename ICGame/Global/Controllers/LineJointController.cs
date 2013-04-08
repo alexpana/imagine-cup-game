@@ -7,7 +7,7 @@ using VertexArmy.Utilities;
 
 namespace VertexArmy.Global.Controllers
 {
-	public class LineJointController : IController, IUpdatable
+	public class LineJointController : IController
 	{
 		private Vector2 _lastBodyPosition;
 		private float _lastBodyRotation;
@@ -17,82 +17,36 @@ namespace VertexArmy.Global.Controllers
 
 		public LineJointController( ITransformable transformable, Body body1, Body body2 )
 		{
-			IParameter transParam = new ParameterTransformable
-									{
-										Alive = true,
-										Input = false,
-										Null = false,
-										Output = true,
-										Value = transformable
-									};
-
-
-			IParameter bodyParam1 = new ParameterBody
-								   {
-									   Alive = true,
-									   Input = true,
-									   Null = false,
-									   Output = false,
-									   Value = body1
-								   };
-
-			IParameter bodyParam2 = new ParameterBody
-			{
-				Alive = true,
-				Input = true,
-				Null = false,
-				Output = false,
-				Value = body2
-			};
-
-			IParameter positionParam = new ParameterVector2
-				{
-					Alive = true,
-					Input = true,
-					Null = false,
-					Output = false,
-					Value = Vector2.Zero
-				};
-
-			IParameter rotationParam = new ParameterFloat
-			{
-				Alive = true,
-				Input = true,
-				Null = false,
-				Output = false,
-				Value = 0f
-			};
-
-			Data = new List<IParameter> { transParam, bodyParam1, bodyParam2, positionParam, rotationParam };
+			Data = new List<object> { transformable, body1, body2 };
 		}
 
 		public Body Body1
 		{
-			get { return ( ( ParameterBody ) Data[1] ).Value; }
+			get { return Data[1] as Body; }
 		}
 
 		public Body Body2
 		{
-			get { return ( ( ParameterBody ) Data[2] ).Value; }
+			get { return Data[2] as Body; }
 		}
 
 		public ITransformable Transformable
 		{
-			get { return ( ( ParameterTransformable ) Data[0] ).Value; }
+			get { return Data[0] as ITransformable; }
 		}
 
 		public void Update( GameTime dt )
 		{
-			ParameterTransformable trans = Data[0] as ParameterTransformable;
-			ParameterBody body1 = Data[1] as ParameterBody;
-			ParameterBody body2 = Data[2] as ParameterBody;
+			ITransformable trans = Data[0] as ITransformable;
+			Body body1 = Data[1] as Body;
+			Body body2 = Data[2] as Body;
 
 			bool ok = ( trans != null && body1 != null && body2 != null );
 
 			if ( !ok ) return;
 
-			Vector2 line = body2.Value.Position - body1.Value.Position;
-			Vector2 newPosition = body1.Value.Position + line / 2;
+			Vector2 line = body2.Position - body1.Position;
+			Vector2 newPosition = body1.Position + line / 2;
 
 			line.Normalize();
 
@@ -103,39 +57,15 @@ namespace VertexArmy.Global.Controllers
 
 			if ( rotationDelta > RotationError || positionDelta > PositionError )
 			{
-				List<IParameter> parameters = Data;
-				( ( ParameterVector2 ) parameters[3] ).Value = newPosition;
-				( ( ParameterFloat ) parameters[4] ).Value = newRotation;
-				DirectCompute( ref parameters );
+				trans.SetPosition( new Vector3( UnitsConverter.ToDisplayUnits( newPosition ), 0f ) );
+				trans.SetRotation( UnitsConverter.To3DRotation( newRotation ) );
 
 				_lastBodyPosition = newPosition;
 				_lastBodyRotation = newRotation;
 			}
 		}
 
-		public void DirectCompute( ref List<IParameter> data )
-		{
-			ParameterTransformable trans = data[0] as ParameterTransformable;
-			ParameterBody body1 = Data[1] as ParameterBody;
-			ParameterBody body2 = Data[2] as ParameterBody;
-			ParameterVector2 position = data[3] as ParameterVector2;
-			ParameterFloat rotation = data[4] as ParameterFloat;
-
-			bool apply = ( trans != null && body1 != null && body2 != null && position != null && rotation != null );
-
-			if ( !apply ) return;
-
-			apply = !trans.Null && !body1.Null && !body2.Null;
-			apply = apply && ( trans.Output && body1.Input && body2.Input );
-			apply = apply && ( trans.Alive && body1.Alive && body2.Alive );
-
-			if ( !apply ) return;
-
-			trans.Value.SetPosition( new Vector3( UnitsConverter.ToDisplayUnits( position.Value ), 0f ) );
-			trans.Value.SetRotation( UnitsConverter.To3DRotation( rotation.Value ) );
-		}
-
-		public List<IParameter> Data { get; set; }
+		public List<object> Data { get; set; }
 
 		public void Clean()
 		{

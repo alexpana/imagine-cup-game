@@ -5,75 +5,38 @@ using VertexArmy.Graphics;
 
 namespace VertexArmy.Global.Controllers
 {
-	public class CameraController : IController, IUpdatable
+	public class CameraController : IController
 	{
 		private Vector3 _delta = Vector3.Zero;
 		public CameraController( ITransformable transformable, CameraAttachable camera )
 		{
-			IParameter transParam = new ParameterTransformable
-			{
-				Alive = true,
-				Input = true,
-				Null = false,
-				Output = false,
-				Value = transformable
-			};
-
-			IParameter cameraParam = new ParameterCamera
-			{
-				Alive = true,
-				Input = false,
-				Null = false,
-				Output = true,
-				Value = camera
-			};
-			Data = new List<IParameter> { transParam, cameraParam };
+			Data = new List<object> { transformable, camera };
 		}
 
 		public void Update( GameTime dt )
 		{
-			ParameterTransformable trans = Data[0] as ParameterTransformable;
-			ParameterCamera camera = Data[1] as ParameterCamera;
+			ITransformable trans = Data[0] as ITransformable;
+			CameraAttachable camera = Data[1] as CameraAttachable;
 
 			bool ok = ( trans != null && camera != null );
 
 			if ( !ok ) return;
 
 
-			List<IParameter> parameters = Data;
-			DirectCompute( ref parameters );
-		}
-
-		public void DirectCompute( ref List<IParameter> data )
-		{
-			ParameterTransformable trans = Data[0] as ParameterTransformable;
-			ParameterCamera camera = Data[1] as ParameterCamera;
-
-			bool apply = ( trans != null && camera != null );
-
-			if ( !apply ) return;
-
-			apply = !trans.Null && !camera.Null;
-			apply = apply && ( trans.Input && camera.Output );
-			apply = apply && ( trans.Alive && camera.Alive );
-
-
-			if ( !apply ) return;
-
-
-			_delta = trans.Value.GetPosition() - camera.Value.Parent.GetPosition() + new Vector3( 0, 130, 0 );
+			_delta = trans.GetPosition() - camera.Parent.GetPosition() + new Vector3( 0, 130, 0 );
 			_delta.Z = 0;
 
 			_delta /= 40;
 
-			Vector3 lookingPosition = camera.Value.Parent.GetPosition() + _delta;
-			Vector3 lookingDirection = Vector3.Normalize( -lookingPosition + trans.Value.GetPosition() );
+			Vector3 lookingPosition = camera.Parent.GetPosition() + _delta;
+			Vector3 lookingDirection = Vector3.Normalize( -lookingPosition + trans.GetPosition() );
 
-			camera.Value.Parent.SetPosition( lookingPosition );
+			camera.Parent.SetPosition( lookingPosition );
 			//camera.Value.LookingDirection = lookingDirection;
 		}
 
-		public List<IParameter> Data { get; set; }
+
+		public List<object> Data { get; set; }
 
 		public void Clean()
 		{

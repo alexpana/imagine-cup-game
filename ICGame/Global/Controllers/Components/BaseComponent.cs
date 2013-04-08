@@ -5,7 +5,7 @@ using VertexArmy.Global.Behaviours;
 
 namespace VertexArmy.Global.Controllers.Components
 {
-	public abstract class BaseComponent : IController, IUpdatable
+	public abstract class BaseComponent : IController
 	{
 		public GameEntity Entity { get; set; }
 
@@ -24,14 +24,10 @@ namespace VertexArmy.Global.Controllers.Components
 		{
 		}
 
-		public virtual void DirectCompute( ref List<IParameter> data )
-		{
-		}
-
 		public virtual void Clean()
 		{
 		}
 
-		public List<IParameter> Data { get; set; }
+		public List<object> Data { get; set; }
 	}
 }

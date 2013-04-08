@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -26,7 +27,7 @@ namespace VertexArmy.States.Menu
 		private Texture2D _lastVideoTexture;
 		private Rectangle _videoTargetRectangle;
 
-		//Vector3 _lightPos = new Vector3( 0, 40000, 20000 );
+		Vector3 _lightPos = new Vector3( 0, 40000, 20000 );
 
 		public GameStateMenu( ContentManager content )
 			: base( content )
@@ -65,8 +66,8 @@ namespace VertexArmy.States.Menu
 				_activeCube.Update( gameTime );
 			}
 
-			//_lightPos.Z = ( float ) ( 20000f + 25000.0 * Math.Sin( gameTime.TotalGameTime.TotalMilliseconds / 1000.0 ) );
-			//			SceneManager.Instance.SetLightPosition( _lightPos );
+			_lightPos.Z = ( float ) ( 20000f + 25000.0 * Math.Sin( gameTime.TotalGameTime.TotalMilliseconds / 1000.0 ) );
+			SceneManager.Instance.SetLightPosition( _lightPos );
 
 			base.OnUpdate( gameTime );
 		}
@@ -167,7 +168,7 @@ namespace VertexArmy.States.Menu
 		public override void OnEnter()
 		{
 			base.OnEnter();
-
+			Platform.Instance.PhysicsWorld.Gravity = Vector2.UnitY * Platform.Instance.PhysicsWorld.Gravity.Length();
 			CreateMenus();
 
 			ActivateMenuCube( _mainMenuCube );

@@ -23,8 +23,7 @@ namespace VertexArmy.Global.Controllers
 			if ( !ok ) return;
 
 
-			_delta = trans.GetPosition() - camera.Parent.GetPosition() + new Vector3( 0, 130, 0 );
-			_delta.Z = 0;
+			_delta = trans.GetPosition() - camera.Parent.GetPosition() + new Vector3( 0, 130, 800 );
 
 			_delta /= 40;
 

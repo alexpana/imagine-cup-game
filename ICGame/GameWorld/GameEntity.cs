@@ -227,8 +227,6 @@ namespace VertexArmy.GameWorld
 			}
 
 			return MainNode.GetRotation();
-
-
 		}
 
 		public float GetRotationRadians()

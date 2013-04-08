@@ -64,7 +64,22 @@ float4 main_PS(VertexShaderOutput input) : COLOR
 
 	Kd = Kd * rim;
 
-	float3 color = float3( 0.6, 0.3, 0.3 );
+	float3 color = float3( 0.6, 0.3, 0.2 );
+
+	// BLUE PRINT
+	// -----------------------------------------------------------------------------
+	float gridLineSIze = 0.02;
+	float gridSize = 0.2;
+	float gridLineX = step( fmod( input.Texcoord.x, gridSize ), gridLineSIze );
+	float gridLineY = step( fmod( input.Texcoord.y / 2, gridSize), gridLineSIze );
+	float grid = clamp( gridLineX + gridLineY, 0, 1 );
+	float3 gridColor = float3( 0.9, 0.9, 0.9 );
+	//color = grid * gridColor + ( 1 - grid ) * color;
+
+	// TEXTURE
+	// -----------------------------------------------------------------------------
+	//color = tex2D( ColorMapSampler, input.Texcoord );
+
 
 	return float4( color * Kd, 1.0 );
 }

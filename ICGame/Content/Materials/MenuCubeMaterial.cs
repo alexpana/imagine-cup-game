@@ -11,21 +11,22 @@ namespace VertexArmy.Content.Materials
 	{
 		public static Material CreateMaterial( IDictionary<string, object> args )
 		{
-			Material material = new Material();
-			Effect effect = Platform.Instance.Content.Load<Effect>( @"effects\textured" );
-			material.Effect = effect;
+			Material mat = new Material( );
+			Effect robofx = Platform.Instance.Content.Load<Effect>( "effects/" + "wall" );
 
-			var parameters = args ?? new Dictionary<string, object>();
+			mat.Effect = robofx;
 
-			material.AddParameter( Material.ColorMap, Platform.Instance.Content.Load<Texture2D>( "images/menu/" +
-				parameters.GetValue( Material.ColorMap, "mainmenu_cube" ) ) );
-			material.AddParameter( "matWorldViewProj", Matrix.Identity );
-			material.AddParameter( "matWorldInverseTranspose", Matrix.Identity );
-			material.AddParameter( "matWorld", Matrix.Identity );
-			material.AddParameter( "eyePosition", Vector3.Zero );
-			material.AddParameter( "lightPosition", Vector3.Zero );
+			mat.AddParameter( "ColorMap", Platform.Instance.Content.Load<Texture2D>( "images/" + "menu_cube_DIFF" ) );
+			mat.AddParameter( "NormalMap", Platform.Instance.Content.Load<Texture2D>( "images/" + "menu_cube_NORM_NRM" ) );
+			mat.AddParameter( "SpecularMap", Platform.Instance.Content.Load<Texture2D>( "images/" + "menu_cube_SPEC" ) );
+			mat.AddParameter( "AOMap", Platform.Instance.Content.Load<Texture2D>( "images/" + "menu_cube_OCC" ) );
+			mat.AddParameter( "matWorldViewProj", Matrix.Identity );
+			mat.AddParameter( "matWorldInverseTranspose", Matrix.Identity );
+			mat.AddParameter( "matWorld", Matrix.Identity );
+			mat.AddParameter( "eyePosition", Vector3.Zero );
+			mat.AddParameter( "lightPosition", Vector3.Zero );
 
-			return material;
+			return mat;
 		}
 	}
 }

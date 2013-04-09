@@ -65,7 +65,8 @@ VertexShaderOutput main_VS(VertexShaderInput input)
 	float3 tangentW = normalize(mul(float4(input.Tangent, 0.0), matWorldInverseTranspose).xyz);
 	float3 bitangentW = normalize(cross(normalW, tangentW));
 
-	output.Texcoord.xy = input.Texcoord * uvScale;
+	output.Texcoord.xy = input.Texcoord.xy *  float2 (	length (float3(matWorld[0][0], matWorld[1][0], matWorld[2][0])),
+														length (float3(matWorld[0][1], matWorld[1][1], matWorld[2][1])) ) * uvScale;
 
 	float3 toEyeW = eyePosition - posW;
 	float3 toLightW = lightPosition - posW;

@@ -113,6 +113,7 @@
     <Compile Include="Content\Prefabs\LevelPrefab.cs" />
     <Compile Include="Content\Prefabs\TriggerPrefab.cs" />
     <Compile Include="Content\Prefabs\SafPrefab.cs" />
+    <Compile Include="Content\Prefabs\UpgradePlatformPrefab.cs" />
     <Compile Include="Content\Prefabs\WallPrefab.cs" />
     <Compile Include="Content\Prefabs\FloorPrefab.cs" />
     <Compile Include="Content\Prefabs\LiftedDoorPrefab.cs" />

@@ -14,7 +14,7 @@ namespace VertexArmy.Content.Materials
 
 			mat.Effect = robofx;
 
-			mat.AddParameter( "ColorMap", Platform.Instance.Content.Load<Texture2D>( "images/" + "background_DIFF" ) );
+			mat.AddParameter( "ColorMap", Platform.Instance.Content.Load<Texture2D>( "images/" + "background_COLOR" ) );
 			mat.AddParameter( "NormalMap", Platform.Instance.Content.Load<Texture2D>( "images/" + "background_NRM" ) );
 			mat.AddParameter( "SpecularMap", Platform.Instance.Content.Load<Texture2D>( "images/" + "background_SPEC" ) );
 			mat.AddParameter( "AOMap", Platform.Instance.Content.Load<Texture2D>( "images/" + "background_OCC" ) );
@@ -23,7 +23,7 @@ namespace VertexArmy.Content.Materials
 			mat.AddParameter( "matWorld", Matrix.Identity );
 			mat.AddParameter( "eyePosition", Vector3.Zero );
 			mat.AddParameter( "lightPosition", Vector3.Zero );
-			mat.AddParameter( "uvScale", Vector2.One / 10);
+			mat.AddParameter( "uvScale", Vector2.One / 7 );
 
 			return mat;
 		}

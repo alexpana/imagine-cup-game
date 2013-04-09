@@ -226,13 +226,38 @@ namespace VertexArmy.Global.Managers
 
 		public void Render( float dt )
 		{
-			RenderWithoutPostProcessing( dt );
+			RenderWithoutPostProcessing(dt);
 
 			//RenderBlurred(dt);
+
+			RenderDepth( dt );
 			HintManager.Instance.Render( dt );
 		}
 
-		public void RenderColorRenderTarget( float dt )
+		private void RenderDepth( float dt )
+		{
+			Platform.Instance.Device.Clear( ClearOptions.Target | ClearOptions.DepthBuffer, Color.DarkSlateBlue, 1.0f, 0 );
+
+			RenderDepthRenderTarget( dt );
+			RenderColorRenderTarget( dt );
+
+			Platform.Instance.Device.BlendState = new BlendState( );
+			Platform.Instance.Device.RasterizerState = RasterizerState.CullCounterClockwise;
+
+
+			Quad scquad = GetScreenQuad( );
+			Material dof = Renderer.Instance.GetDepthOfFieldMaterial( );
+
+
+			dof.SetParameter( "matWorldViewProj", Matrix.Identity );
+			dof.SetParameter( "ColorMap", _color );
+			dof.SetParameter( "DepthMap", _depth );
+			scquad.Draw( dof );
+
+			Renderer.Instance.LastFrame = Renderer.Instance.CurrentFrame;
+		}
+
+		public void RenderColorRenderTarget(float dt)
 		{
 			RenderTarget2D colorRenderTarget = GetColorRt();
 			Platform.Instance.Device.SetRenderTarget( colorRenderTarget );

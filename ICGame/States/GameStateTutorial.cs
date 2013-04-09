@@ -33,7 +33,7 @@ namespace VertexArmy.States
 		private bool _actionToggleDebugView;
 		private bool _debugViewState;
 
-		private bool _hint1, _hint2, _hint3, _hint4;
+		private bool _hint1, _hint2, _hint3, _hint4, _endOfGameHintShown;
 
 		public GameStateTutorial( ContentManager content )
 		{
@@ -140,17 +140,24 @@ namespace VertexArmy.States
 			}
 
 			//first floor part
+			/*
 			for ( int i = 0; i < 20; i++ )
 			{
 				GameWorldManager.Instance.SpawnEntity( "Floor", "floor" + floorCount++, new Vector3( -300f + 60f * i, 0f, 0f ), 1f );
 			}
+			 */
+			GameWorldManager.Instance.SpawnEntity( "Floor", "floor" + floorCount++, new Vector3( -300f + 60f * 10, 0f, 0f ), new Vector3( 20f, 1f, 1f ) );
 
-			Vector2 rotationPoint = new Vector2( -300f + 60f * 19, -10f );
+			/*
 			for ( int i = 20; i < 25; i++ )
 			{
 				GameWorldManager.Instance.SpawnEntity( "Floor", "floor" + floorCount++, new Vector3( -300f + 60f * i, -9f, 0f ) );
 				TransformUtility.RotateTransformableAroundPoint2D( GameWorldManager.Instance.GetEntity( "floor" + i ), rotationPoint, 0.3f );
 			}
+			 */
+			Vector2 rotationPoint = new Vector2( -300f + 60f * 19, -10f );
+			GameWorldManager.Instance.SpawnEntity( "Floor", "floor" + floorCount++, new Vector3( -300f + 60f * 2.5f, -9f, 0f ) );
+			TransformUtility.RotateTransformableAroundPoint2D( GameWorldManager.Instance.GetEntity( "floor" + ( floorCount - 1 ) ), rotationPoint, 0.3f );
 
 			//first floor part background
 			GameWorldManager.Instance.SpawnEntity( "Floor", "floor" + floorCount++, new Vector3( -300f + 60f * 10, 0f, -300f ), new Vector3( 20f, 1f, 1f ), Category.Cat2 );
@@ -277,10 +284,12 @@ namespace VertexArmy.States
 
 
 			//upgrade cube platform
+			/*
 			GameWorldManager.Instance.SpawnEntity( "Floor", "floor" + floorCount++, new Vector3( 500f + 60f, 10f, 0f ) );
 			GameWorldManager.Instance.SpawnEntity( "Floor", "floor" + floorCount++, new Vector3( 500f + 60f * 2, 10f, 0f ) );
 			GameWorldManager.Instance.SpawnEntity( "Floor", "floor" + floorCount++, new Vector3( 500f + 60f * 3, 10f, 0f ) );
-
+			 */
+			GameWorldManager.Instance.SpawnEntity( "UpgradePlatform", "upgrade_platform", new Vector3( 620f, 10f, 0f ) );
 		}
 
 		public void LoadSemiStatics()
@@ -355,7 +364,7 @@ namespace VertexArmy.States
 			GameWorldManager.Instance.SpawnEntity( "Trigger", "endGame", new Vector3( 3500, 30f, 0f ) );
 			GameWorldManager.Instance.GetEntity( "endGame" ).RegisterComponent(
 					"trigger",
-					new BodyTriggerAreaComponent( new Vector2( 10f, 10f ), Robot.MainBody, EndGameCallback )
+					new BodyTriggerAreaComponent( new Vector2( 10f, 10f ), Robot.MainBody, EndOfGameHint )
 				);
 
 			GameWorldManager.Instance.SpawnEntity( "Trigger", "hint1", new Vector3( -150, 60f, 0f ) );
@@ -385,18 +394,14 @@ namespace VertexArmy.States
 
 		public void LoadLevel()
 		{
-
 			LoadStatics();
 			LoadSemiStatics();
 			LoadDynamics();
 			LoadTriggers();
-
-
 		}
 
 		public override void OnEnter()
 		{
-
 			LoadLevel();
 			GameWorldManager.Instance.SaveState();
 			Platform.Instance.PhysicsWorld.Gravity = Vector2.UnitY * Platform.Instance.PhysicsWorld.Gravity.Length();
@@ -453,6 +458,14 @@ namespace VertexArmy.States
 			GameWorldManager.Instance.LoadLastState();
 		}
 
+		private void EndOfGameHint()
+		{
+			if ( _endOfGameHintShown ) { return; }
+
+			_endOfGameHintShown = true;
+			HintManager.Instance.SpawnHint( "This concludes the tutorial.\nGood luck in your future endeavours.", new Vector2( 100, 100 ), 4000, 1, EndGameCallback );
+		}
+
 		public void EndGameCallback()
 		{
 			StateManager.Instance.PopState();
@@ -463,8 +476,7 @@ namespace VertexArmy.States
 		{
 			if ( !_hint1 )
 			{
-
-				string Text = "Crates can be pushed around,\ntry pushing that crate towards the wall button.";
+				string Text = "Crates can be pushed around.\nTry pushing that crate towards the wall button.";
 				HintManager.Instance.SpawnHint( Text, new Vector2( 100, 100 ), 4000, 1 );
 				_hint1 = true;
 			}

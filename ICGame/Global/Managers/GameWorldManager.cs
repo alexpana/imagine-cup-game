@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using FarseerPhysics.Dynamics;
 using Microsoft.Xna.Framework;
 using VertexArmy.GameWorld;
@@ -10,11 +11,15 @@ namespace VertexArmy.Global.Managers
 	public class GameWorldManager
 	{
 		private readonly Dictionary<string, GameEntity> _entities;
-		private List<EntityState> _savedState;
+		public List<EntityState> _savedState;
 
 		public GameEntity GetEntity( string name )
 		{
-			return _entities[name];
+			if ( _entities.ContainsKey( name ) )
+			{
+				return _entities[name];
+			}
+			return null;
 		}
 
 		public void SpawnEntity( string prefabName, string entityName, Vector3 position, float scale = 1f, Category layer = Category.Cat1,
@@ -114,7 +119,7 @@ namespace VertexArmy.Global.Managers
 				state.Position = ent.GetPosition();
 				state.Rotation = ent.GetRotation();
 				state.ExternalRotation = ent.GetExternalRotation();
-				state.Prefab = ent.Prefab;
+				state.Prefab = ent.Prefab.Name;
 				state.PhysicsEnabled = ent.PhysicsEntity.Enabled;
 
 				state.CollisionCategory = ent.PhysicsEntity.GetCollisionLayer();
@@ -227,29 +232,44 @@ namespace VertexArmy.Global.Managers
 		}
 	}
 
+	[DataContract]
 	public class EntityState
 	{
+		[DataMember]
 		public string Name;
+		[DataMember]
 		public Vector3 Position;
+		[DataMember]
 		public Quaternion Rotation;
+		[DataMember]
 		public Quaternion ExternalRotation;
-		public PrefabEntity Prefab;
+		[DataMember]
+		public string Prefab;
+		[DataMember]
 		public bool PhysicsEnabled;
+		[DataMember]
 		public Vector3 Scale;
+		[DataMember]
 		public Category CollisionCategory;
 
+		[DataMember]
 		public Dictionary<string, Vector2> BodyPositions;
+		[DataMember]
 		public Dictionary<string, float> BodyRotations;
+		[DataMember]
 		public Dictionary<string, Vector2> BodyLinearVelocities;
+		[DataMember]
 		public Dictionary<string, float> BodyAngularVelocities;
 
+		[DataMember]
 		public Dictionary<string, List<Vector2>> PathBodyPositions;
+		[DataMember]
 		public Dictionary<string, List<float>> PathBodyRotations;
+		[DataMember]
 		public Dictionary<string, List<Vector2>> PathBodyLinearVelocities;
+		[DataMember]
 		public Dictionary<string, List<float>> PathBodyAngularVelocities;
 
 	}
-
-
 
 }

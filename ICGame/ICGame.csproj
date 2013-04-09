@@ -110,6 +110,7 @@
     <Compile Include="Content\Materials\WallMaterial.cs" />
     <Compile Include="Content\Prefabs\ButtonPrefab.cs" />
     <Compile Include="Content\Prefabs\FloorBridgePrefab.cs" />
+    <Compile Include="Content\Prefabs\LevelPrefab.cs" />
     <Compile Include="Content\Prefabs\TriggerPrefab.cs" />
     <Compile Include="Content\Prefabs\SafPrefab.cs" />
     <Compile Include="Content\Prefabs\UpgradePlatformPrefab.cs" />

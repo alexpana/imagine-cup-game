@@ -241,7 +241,7 @@ namespace VertexArmy.GameWorld
 
 		public Vector3 GetScale()
 		{
-			return Vector3.One * Scale;
+			return Scale;
 		}
 
 		public void Remove()

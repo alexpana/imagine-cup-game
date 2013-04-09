@@ -55,7 +55,10 @@ namespace VertexArmy.Global.Controllers.Components
 			_oldPosition = Vector2.Zero;
 			_distanceSim = UnitsConverter.ToSimUnits( Distance );
 
-			GameWorldManager.Instance.SpawnEntity( "Saf", "saf1", new Vector3( 0, 0, 0 ), 15 );
+			if ( GameWorldManager.Instance.GetEntity( "saf1" ) == null )
+			{
+				GameWorldManager.Instance.SpawnEntity( "Saf", "saf1", new Vector3( 0, 0, 0 ), 15 );
+			}
 			ConeEntity = GameWorldManager.Instance.GetEntity( "saf1" );
 		}
 

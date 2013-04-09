@@ -166,28 +166,70 @@ namespace VertexArmy.Global.Managers
 			return _audioListener;
 		}
 
-		public  void Render ( float dt )
+
+		private void RenderBlurred (float dt)
 		{
-			DrawScene( dt );
 
 			Platform.Instance.Device.Clear( ClearOptions.Target | ClearOptions.DepthBuffer, Color.DarkSlateBlue, 1.0f, 0 );
-		
-			RenderColorRenderTarget(dt);
-			//RenderDepthRenderTarget(dt);
+
+			RenderDepthRenderTarget( dt );
+			RenderColorRenderTarget( dt );
 
 
-			
+
+			Platform.Instance.Device.BlendState = new BlendState();
+			Platform.Instance.Device.RasterizerState = RasterizerState.CullCounterClockwise;
+
 
 			Quad scquad = GetScreenQuad();
 			Material blur = Renderer.Instance.GetBlurMaterial();
 
-			
+
 			blur.SetParameter( "matWorldViewProj", Matrix.Identity );
 			blur.SetParameter( "ColorMap", _color );
-			scquad.Draw(blur);
+			blur.SetParameter( "blurDistance", 0.01f );
+
+			scquad.Draw( blur );
 
 			Renderer.Instance.LastFrame = Renderer.Instance.CurrentFrame;
+		}
 
+		private void RenderWithDof( float dt )
+		{
+			Platform.Instance.Device.Clear( ClearOptions.Target | ClearOptions.DepthBuffer, Color.DarkSlateBlue, 1.0f, 0 );
+
+			RenderDepthRenderTarget( dt );
+			RenderColorRenderTarget( dt );
+
+
+
+			Platform.Instance.Device.BlendState = new BlendState();
+			Platform.Instance.Device.RasterizerState = RasterizerState.CullCounterClockwise;
+
+
+			Quad scquad = GetScreenQuad();
+			Material dof = Renderer.Instance.GetDepthOfFieldMaterial();
+
+
+			dof.SetParameter( "matWorldViewProj", Matrix.Identity );
+			dof.SetParameter( "ColorMap", _color );
+			dof.SetParameter( "DepthMap", _depth );
+			scquad.Draw( dof );
+
+			Renderer.Instance.LastFrame = Renderer.Instance.CurrentFrame;
+		}
+
+		private void RenderWithoutPostProcessing(float dt)
+		{
+			DrawScene( dt );
+		}
+
+		public  void Render ( float dt )
+		{
+			RenderWithoutPostProcessing(dt);
+
+			//RenderBlurred(dt);
+			HintManager.Instance.Render( dt );
 		}
 
 		public void RenderColorRenderTarget(float dt)
@@ -281,7 +323,7 @@ namespace VertexArmy.Global.Managers
 					}
 				}
 			}
-			HintManager.Instance.Render(dt);
+			
 		}
 
 		public void Update(GameTime dt)

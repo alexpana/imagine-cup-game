@@ -30,12 +30,23 @@ namespace VertexArmy.Graphics
 
 
 		private Material _depthBuffer;
+		private Material _blurMaterial;
+		private Material _dofMaterial;
 
 		public Material GetDepthBufferMaterial()
 		{
 			return _depthBuffer ?? (_depthBuffer = DepthBufferMaterial.CreateMaterial());
 		}
 
+		public Material GetBlurMaterial()
+		{
+			return _blurMaterial ?? ( _blurMaterial = BlurMaterial.CreateMaterial() );
+		}
+
+		public Material GetDepthOfFieldMaterial()
+		{
+			return _dofMaterial ?? ( _dofMaterial = DepthOfFieldMaterial.CreateMaterial() );
+		}
 
 		public void AddParameter( string name, object data )
 		{

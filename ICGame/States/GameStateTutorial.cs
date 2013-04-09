@@ -303,7 +303,7 @@ namespace VertexArmy.States
 		public void LoadDynamics()
 		{
 			GameWorldManager.Instance.SpawnEntity( "Camera", "camera1", new Vector3( 0, -200, 800 ) );
-			GameWorldManager.Instance.SpawnEntity( "Robot", "robotPlayer", new Vector3( -150f, 100f, 0f ), new Vector3( 1f, 1f, 1f ) );
+			GameWorldManager.Instance.SpawnEntity( "Robot", "robotPlayer", new Vector3( -150f, 100f, 0f ), Vector3.One * 1.5f );
 			GameWorldManager.Instance.SpawnEntity( "WallBackground", "wallBackground1",
 				new Vector3( 0f, 0f, -800f ), Quaternion.CreateFromAxisAngle( Vector3.UnitX, -0.3f ), 150 );
 

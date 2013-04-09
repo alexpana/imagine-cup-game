@@ -26,6 +26,12 @@ namespace VertexArmy.Global.Managers
 		private RenderTarget2D _color;
 		private RenderTarget2D _depth;
 
+		private Quad _screenQuad;
+
+		private Quad GetScreenQuad()
+		{
+			return _screenQuad ?? (_screenQuad = new Quad());
+		}
 
 		private RenderTarget2D GetColorRt()
 		{
@@ -164,8 +170,25 @@ namespace VertexArmy.Global.Managers
 		{
 			DrawScene( dt );
 
+			/*
+			Platform.Instance.Device.Clear( ClearOptions.Target | ClearOptions.DepthBuffer, Color.DarkSlateBlue, 1.0f, 0 );
+		
 			//RenderColorRenderTarget(dt);
-			//RenderDepthRenderTarget(dt);
+			RenderDepthRenderTarget(dt);
+
+
+			
+
+			Quad scquad = GetScreenQuad();
+			Material blur = Renderer.Instance.GetBlurMaterial();
+
+			
+			blur.SetParameter( "matWorldViewProj", Matrix.Identity );
+			blur.SetParameter( "ColorMap", Renderer.Instance.Depth );
+			scquad.Draw(blur);
+
+			Renderer.Instance.LastFrame = Renderer.Instance.CurrentFrame;
+			 */
 		}
 
 		public void RenderColorRenderTarget(float dt)
@@ -178,25 +201,8 @@ namespace VertexArmy.Global.Managers
 			DrawScene( dt );
 
 			Renderer.Instance.CurrentFrame = colorRenderTarget;
-
-
+			
 			Platform.Instance.Device.SetRenderTarget( null );
-
-
-			// Render the depth texture
-			Rectangle rect = new Rectangle(
-				Platform.Instance.Device.Viewport.X,
-				Platform.Instance.Device.Viewport.Y,
-				Platform.Instance.Device.Viewport.Width, Platform.Instance.Device.Viewport.Height );
-
-
-			Platform.Instance.Device.Clear( ClearOptions.Target | ClearOptions.DepthBuffer, Color.DarkSlateBlue, 1.0f, 0 );
-			using ( SpriteBatch sprite = new SpriteBatch( Platform.Instance.Device ) )
-			{
-				sprite.Begin( SpriteSortMode.Immediate, BlendState.Opaque, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullCounterClockwise, null );
-				sprite.Draw( Renderer.Instance.CurrentFrame, new Vector2( 0, 0 ), null, Color.White, 0, new Vector2( 0, 0 ), 1.0f, SpriteEffects.None, 1 );
-				sprite.End();
-			}
 		}
 
 		public void RenderDepthRenderTarget( float dt )
@@ -204,7 +210,6 @@ namespace VertexArmy.Global.Managers
 
 			RenderTarget2D depthRenderTarget = GetDepthRt();
 
-			//	Platform.Instance.Device.SetRenderTarget( colorRenderTarget );
 			Platform.Instance.Device.SetRenderTarget( depthRenderTarget );
 
 
@@ -214,22 +219,6 @@ namespace VertexArmy.Global.Managers
 
 			Renderer.Instance.Depth = depthRenderTarget;
 			Platform.Instance.Device.SetRenderTarget( null );
-
-
-			// Render the depth texture
-			Rectangle rect = new Rectangle(
-				Platform.Instance.Device.Viewport.X,
-				Platform.Instance.Device.Viewport.Y,
-				Platform.Instance.Device.Viewport.Width, Platform.Instance.Device.Viewport.Height );
-
-
-			Platform.Instance.Device.Clear( ClearOptions.Target | ClearOptions.DepthBuffer, Color.DarkSlateBlue, 1.0f, 0 );
-			using ( SpriteBatch sprite = new SpriteBatch( Platform.Instance.Device ) )
-			{
-				sprite.Begin( SpriteSortMode.Immediate, BlendState.Opaque, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullCounterClockwise, null );
-				sprite.Draw( Renderer.Instance.Depth, new Vector2( 0, 0 ), null, Color.White, 0, new Vector2( 0, 0 ), 1.0f, SpriteEffects.None, 1 );
-				sprite.End();
-			}
 		}
 
 		private void DrawDepth (float dt )

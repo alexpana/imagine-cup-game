@@ -474,7 +474,7 @@ namespace VertexArmy.States
 			if ( !_hint1 )
 			{
 
-				string Text = "Crates can be pushed around,\ntry pushing that crate towards the wall button.";
+				string Text = "Crates can be pushed around.\nTry pushing that crate towards the wall button.";
 				HintManager.Instance.SpawnHint( Text, new Vector2( 100, 100 ), 4000, 1 );
 				_hint1 = true;
 			}

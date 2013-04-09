@@ -66,7 +66,7 @@ namespace VertexArmy.States.Menu
 				_activeCube.Update( gameTime );
 			}
 
-			_lightPos.Z = ( float ) ( 20000f + 25000.0 * Math.Sin( gameTime.TotalGameTime.TotalMilliseconds / 1000.0 ) );
+			_lightPos.Z = ( float ) ( 10000f + 25000.0 * Math.Sin( gameTime.TotalGameTime.TotalMilliseconds / 1000.0 ) );
 			SceneManager.Instance.SetLightPosition( _lightPos );
 
 			base.OnUpdate( gameTime );

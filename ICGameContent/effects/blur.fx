@@ -22,8 +22,8 @@ sampler2D ColorMapSampler = sampler_state
 	MinFilter = linear;
 	MagFilter = linear;
 	MipFilter = linear;
-	AddressU = Wrap;
-	AddressV = Wrap;
+	AddressU = Clamp;
+	AddressV = Clamp;
 };
 
 

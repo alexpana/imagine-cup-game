@@ -318,6 +318,8 @@ namespace VertexArmy.States
 			Platform.Instance.PhysicsWorld.Clear();
 			SceneManager.Instance.Clear();
 
+			FrameUpdateManager.Instance.Register( SceneManager.Instance );
+
 			_contentManager.Unload();
 		}
 	}

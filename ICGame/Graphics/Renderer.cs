@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using VertexArmy.Content.Materials;
 
 
 namespace VertexArmy.Graphics
@@ -20,6 +22,19 @@ namespace VertexArmy.Graphics
 		
 		private readonly dynamic _parameter = new List<object>( );
 		private readonly Dictionary<String, int> _bindings = new Dictionary<string, int>( );
+
+
+		public Texture2D CurrentFrame;
+		public Texture2D LastFrame;
+		public Texture2D Depth;
+
+
+		private Material _depthBuffer;
+
+		public Material GetDepthBufferMaterial()
+		{
+			return _depthBuffer ?? (_depthBuffer = DepthBufferMaterial.CreateMaterial());
+		}
 
 
 		public void AddParameter( string name, object data )

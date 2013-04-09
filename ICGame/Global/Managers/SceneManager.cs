@@ -170,11 +170,10 @@ namespace VertexArmy.Global.Managers
 		{
 			DrawScene( dt );
 
-			/*
 			Platform.Instance.Device.Clear( ClearOptions.Target | ClearOptions.DepthBuffer, Color.DarkSlateBlue, 1.0f, 0 );
 		
-			//RenderColorRenderTarget(dt);
-			RenderDepthRenderTarget(dt);
+			RenderColorRenderTarget(dt);
+			//RenderDepthRenderTarget(dt);
 
 
 			
@@ -184,11 +183,11 @@ namespace VertexArmy.Global.Managers
 
 			
 			blur.SetParameter( "matWorldViewProj", Matrix.Identity );
-			blur.SetParameter( "ColorMap", Renderer.Instance.Depth );
+			blur.SetParameter( "ColorMap", _color );
 			scquad.Draw(blur);
 
 			Renderer.Instance.LastFrame = Renderer.Instance.CurrentFrame;
-			 */
+
 		}
 
 		public void RenderColorRenderTarget(float dt)

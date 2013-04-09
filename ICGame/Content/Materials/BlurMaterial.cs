@@ -10,11 +10,11 @@ namespace VertexArmy.Content.Materials
 		public static Material CreateMaterial()
 		{
 			Material mat = new Material();
-			Effect effect = Platform.Instance.Content.Load<Effect>( "effects/" + "depth" );
+			Effect effect = Platform.Instance.Content.Load<Effect>( "effects/" + "blur" );
 			mat.Effect = effect;
 			mat.AddParameter( "matWorldViewProj", Matrix.Identity );
 			mat.AddParameter( "blurDistance", 0.01f);
-			mat.AddParameter( "ColorMap", Platform.Instance.Content.Load<Texture2D>( "images/" + "tile-d" ) );
+			mat.AddParameter( "ColorMap", null );
 			return mat;
 		}
 	}

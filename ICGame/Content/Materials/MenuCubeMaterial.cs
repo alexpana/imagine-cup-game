@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using VertexArmy.Global;
 using VertexArmy.Graphics;
-using VertexArmy.Utilities;
 
 namespace VertexArmy.Content.Materials
 {
@@ -12,7 +11,7 @@ namespace VertexArmy.Content.Materials
 		public static Material CreateMaterial( IDictionary<string, object> args )
 		{
 			Material mat = new Material( );
-			Effect robofx = Platform.Instance.Content.Load<Effect>( "effects/" + "wall" );
+			Effect robofx = Platform.Instance.Content.Load<Effect>( "effects/" + "snmap" );
 
 			mat.Effect = robofx;
 
@@ -25,6 +24,7 @@ namespace VertexArmy.Content.Materials
 			mat.AddParameter( "matWorld", Matrix.Identity );
 			mat.AddParameter( "eyePosition", Vector3.Zero );
 			mat.AddParameter( "lightPosition", Vector3.Zero );
+			mat.AddParameter( "uvScale", Vector2.One );
 
 			return mat;
 		}

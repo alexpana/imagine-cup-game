@@ -112,7 +112,7 @@ namespace VertexArmy.States.Menu
 					new MenuItem { Title = "Exit", Activated = args => _platform.Game.Exit() }
 				}
 			};
-			_mainMenuCube.SetBackgroundImage( "main" );
+			_mainMenuCube.SetTextImage( "main_cube_text" );
 
 			_optionsMenuCube = new MenuCube( ContentManager )
 			{
@@ -128,18 +128,18 @@ namespace VertexArmy.States.Menu
 						Activated = args =>
 						{
 							_platform.Settings.IsMusicEnabled = (bool)args;
-							SetSwitchMenuItemBackgroundImage(_optionsMenuCube, (bool)args);
+							UpdateMenuItemBackgroundImage(_optionsMenuCube, (bool)args);
 							_platform.Settings.Save();
 						}
 					}
 				}
 			};
-			SetSwitchMenuItemBackgroundImage( _optionsMenuCube, _platform.Settings.IsMusicEnabled );
+			UpdateMenuItemBackgroundImage( _optionsMenuCube, _platform.Settings.IsMusicEnabled );
 		}
 
-		private void SetSwitchMenuItemBackgroundImage( MenuCube menuCube, bool isSoundEnabled )
+		private void UpdateMenuItemBackgroundImage( MenuCube menuCube, bool isSoundEnabled )
 		{
-			menuCube.SetBackgroundImage( CreateImagePath( "options", new Dictionary<string, string>
+			menuCube.SetTextImage( CreateImagePath( "options_cube", new Dictionary<string, string>
 			{
 				{ "sounds", isSoundEnabled ? "on" : "off" }
 			} ) );

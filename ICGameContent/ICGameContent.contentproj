@@ -249,16 +249,6 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="images\menu\options_sounds-off.tga">
-      <Name>options_sounds-off</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="images\menu\options_sounds-on.tga">
-      <Name>options_sounds-on</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
     <Compile Include="images\menu\level_blocked.tga">
       <Name>level_blocked</Name>
       <Importer>TextureImporter</Importer>
@@ -590,8 +580,29 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="images\menu\menu_cube_text.png">
-      <Name>menu_cube_text</Name>
+    <Compile Include="images\menu\main_cube_text.png">
+      <Name>main_cube_text</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="images\menu\options_cube_sounds-off.png">
+      <Name>options_cube_sounds-off</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="images\menu\options_cube_sounds-on.png">
+      <Name>options_cube_sounds-on</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="images\menu\menu_cube_no_text.png">
+      <Name>menu_cube_no_text</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

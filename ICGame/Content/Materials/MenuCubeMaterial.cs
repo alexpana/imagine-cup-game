@@ -6,14 +6,14 @@ using VertexArmy.Graphics;
 
 namespace VertexArmy.Content.Materials
 {
-	class MenuCubeMaterial
+	public class MenuCubeMaterial
 	{
-		public const string MenuImageName = "MenuImageName";
+		public const string MenuTextImage = "TextMap";
 
 		public static Material CreateMaterial( IDictionary<string, object> args )
 		{
 			args = args ?? new Dictionary<string, object>();
-			//string menuImage = args[MenuImageName].ToString();
+			string menuTextImage = args.ContainsKey( MenuTextImage ) ? args[MenuTextImage].ToString() : "menu_cube_no_text";
 
 			Material mat = new Material();
 			Effect robofx = Platform.Instance.Content.Load<Effect>( "effects/" + "snmap_menu" );
@@ -21,7 +21,7 @@ namespace VertexArmy.Content.Materials
 			mat.Effect = robofx;
 
 			mat.AddParameter( "ColorMap", Platform.Instance.Content.Load<Texture2D>( "images/menu/" + "menu_cube_DIFF" ) );
-			mat.AddParameter( "TextMap", Platform.Instance.Content.Load<Texture2D>( "images/menu/" + "menu_cube_text" ) );
+			mat.AddParameter( MenuTextImage, Platform.Instance.Content.Load<Texture2D>( "images/menu/" + menuTextImage ) );
 			mat.AddParameter( "NormalMap", Platform.Instance.Content.Load<Texture2D>( "images/menu/" + "menu_cube_NORM_NRM" ) );
 			mat.AddParameter( "SpecularMap", Platform.Instance.Content.Load<Texture2D>( "images/menu/" + "menu_cube_SPEC" ) );
 			mat.AddParameter( "AOMap", Platform.Instance.Content.Load<Texture2D>( "images/menu/" + "menu_cube_OCC" ) );

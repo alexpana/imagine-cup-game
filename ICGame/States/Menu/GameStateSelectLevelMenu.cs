@@ -133,7 +133,7 @@ namespace VertexArmy.States.Menu
 		{
 			MenuCube menuCube = new MenuCube( ContentManager );
 
-			menuCube.SetBackgroundImage( backgroundImage );
+			menuCube.SetTextImage( backgroundImage );
 
 			return menuCube;
 		}

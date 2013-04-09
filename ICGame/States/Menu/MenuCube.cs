@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using VertexArmy.Content.Materials;
 using VertexArmy.Content.Prefabs;
 using VertexArmy.GameWorld;
 using VertexArmy.Global;
@@ -34,7 +35,7 @@ namespace VertexArmy.States.Menu
 		private const int InitialRotationMin = -5;
 		private const int InitialRotationMax = 5;
 
-		private string _backgroundTexture;
+		private string _textImage;
 		private bool _requestedRotation;
 		private bool _isRotating;
 		private float _currentRotationTime;
@@ -53,9 +54,9 @@ namespace VertexArmy.States.Menu
 
 		public void Spawn( float spawnX )
 		{
-			if ( _backgroundTexture == null )
+			if ( _textImage == null )
 			{
-				throw new InvalidOperationException( "No background texture specified!" );
+				throw new InvalidOperationException( "No text image specified!" );
 			}
 
 			_isSpawned = true;
@@ -63,7 +64,7 @@ namespace VertexArmy.States.Menu
 			{
 				SceneNodeParameters = new Dictionary<string, object>
 				{
-					{ Material.ColorMap, _backgroundTexture }
+					{ MenuCubeMaterial.MenuTextImage, _textImage }
 				}
 			};
 
@@ -98,9 +99,9 @@ namespace VertexArmy.States.Menu
 			}
 		}
 
-		public void SetBackgroundImage( string backgroundImage )
+		public void SetTextImage( string backgroundImage )
 		{
-			_backgroundTexture = backgroundImage;
+			_textImage = backgroundImage;
 
 			if ( _isSpawned )
 			{
@@ -109,7 +110,7 @@ namespace VertexArmy.States.Menu
 				if ( material != null )
 				{
 					var texture = _contentManager.Load<Texture2D>( "images/menu/" + backgroundImage );
-					material.SetParameter( Material.ColorMap, texture );
+					material.SetParameter( MenuCubeMaterial.MenuTextImage, texture );
 				}
 			}
 		}

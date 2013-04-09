@@ -95,7 +95,7 @@ namespace VertexArmy.Global.Managers
 	{
 		public Hint()
 		{
-			Color = new Color( 212.0f / 255.0f, 131.0f / 255.0f, 87.0f / 255.0f );
+			Color = new Color( 32.0f / 255.0f, 40.0f / 255.0f, 50.0f / 255.0f );
 			Layer = 0;
 		}
 		public string Text;

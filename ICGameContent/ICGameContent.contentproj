@@ -244,13 +244,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="images\menu\main.tga">
-      <Name>main</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="models\door_inner.FBX">
       <Name>door_inner</Name>
       <Importer>FbxImporter</Importer>

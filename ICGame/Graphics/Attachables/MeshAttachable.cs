@@ -25,6 +25,28 @@ namespace VertexArmy.Graphics
 			Material = mat;
 		}
 
+		public override void RenderDepth( float dt )
+		{
+			Material Depth = Renderer.Instance.GetDepthBufferMaterial();
+			Renderer.Instance.SetGlobalMaterialParameters( Depth );
+
+			Depth.Apply();
+			foreach ( ModelMesh m in Model.Meshes )
+			{
+				foreach ( ModelMeshPart part in m.MeshParts )
+				{
+					part.Effect = Depth.Effect;
+				}
+				
+				m.Draw();
+
+				foreach ( ModelMeshPart part in m.MeshParts )
+				{
+					part.Effect = Material.Effect;
+				}
+			}
+		}
+
 		public override void Render( float dt )
 		{
 			Renderer.Instance.SetGlobalMaterialParameters( Material );

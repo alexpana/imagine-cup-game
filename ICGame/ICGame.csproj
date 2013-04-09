@@ -98,6 +98,9 @@
     <Reference Include="System.Net" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Content\Materials\BlurMaterial.cs" />
+    <Compile Include="Content\Materials\DepthOfFieldMaterial.cs" />
+    <Compile Include="Content\Materials\DepthBufferMaterial.cs" />
     <Compile Include="Content\Materials\WallMenuMaterial2.cs" />
     <Compile Include="Content\Materials\WallMenuMaterial.cs" />
     <Compile Include="Content\Materials\MenuCubeMaterial.cs" />
@@ -166,6 +169,15 @@
     <Compile Include="Graphics\Attachables\Attachable.cs" />
     <Compile Include="Graphics\Attachables\CameraAttachable.cs" />
     <Compile Include="Graphics\Attachables\SafAttachable.cs" />
+    <Compile Include="Graphics\ParticleSystem\LinearValueGenerator.cs" />
+    <Compile Include="Graphics\ParticleSystem\Particle.cs" />
+    <Compile Include="Graphics\ParticleSystem\ParticleCache.cs" />
+    <Compile Include="Graphics\ParticleSystem\ParticleEmitter.cs" />
+    <Compile Include="Graphics\ParticleSystem\ParticleRenderer.cs" />
+    <Compile Include="Graphics\ParticleSystem\ParticleSystem.cs" />
+    <Compile Include="Graphics\ParticleSystem\Range.cs" />
+    <Compile Include="Graphics\ParticleSystem\IValueGenerator.cs" />
+    <Compile Include="Graphics\Quad.cs" />
     <Compile Include="Graphics\Renderer.cs" />
     <Compile Include="Graphics\Attachables\LightAttachable.cs" />
     <Compile Include="Graphics\Material.cs" />

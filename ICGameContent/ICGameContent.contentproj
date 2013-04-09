@@ -249,17 +249,6 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="images\menu\level_blocked.tga">
-      <Name>level_blocked</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Compile>
-    <Compile Include="images\menu\level_tutorial.tga">
-      <Name>level_tutorial</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="models\door_inner.FBX">
@@ -603,6 +592,18 @@
   <ItemGroup>
     <Compile Include="images\menu\menu_cube_no_text.png">
       <Name>menu_cube_no_text</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="images\menu\level_cube_locked_text.png">
+      <Name>level_cube_locked_text</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="images\menu\level_cube_tutorial_text.png">
+      <Name>level_cube_tutorial_text</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

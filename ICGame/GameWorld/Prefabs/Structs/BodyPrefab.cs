@@ -18,7 +18,7 @@ namespace VertexArmy.GameWorld.Prefabs.Structs
 
 		public List<ShapePrefab> Shapes;
 
-		public Body GetPhysicsBody( float scale )
+		public Body GetPhysicsBody( Vector2 scale )
 		{
 			Body pBody = new Body( Platform.Instance.PhysicsWorld );
 

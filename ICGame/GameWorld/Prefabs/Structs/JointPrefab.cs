@@ -29,8 +29,9 @@ namespace VertexArmy.GameWorld.Prefabs.Structs
 		public float MotorSpeed;
 
 
-		public Joint GetPhysicsJoint( float scale )
+		public Joint GetPhysicsJoint( Vector2 scale )
 		{
+			float scaleD = ( scale.X + scale.Y ) / 2f;
 			Body body1, body2;
 			string[] bodyNames = PrefabUtils.GetEntityAndComponentName( Body1 );
 			if ( bodyNames[0] == null )
@@ -79,7 +80,7 @@ namespace VertexArmy.GameWorld.Prefabs.Structs
 					return joint3;
 
 				case JointType.Slider:
-					SliderJoint joint4 = new SliderJoint( body1, body2, UnitsConverter.ToSimUnits( Anchor ) * scale, UnitsConverter.ToSimUnits( Anchor2 ) * scale, UnitsConverter.ToSimUnits( MinLength ) * scale, UnitsConverter.ToSimUnits( MaxLength ) * scale );
+					SliderJoint joint4 = new SliderJoint( body1, body2, UnitsConverter.ToSimUnits( Anchor ) * scale, UnitsConverter.ToSimUnits( Anchor2 ) * scale, UnitsConverter.ToSimUnits( MinLength ) * scaleD, UnitsConverter.ToSimUnits( MaxLength ) * scaleD );
 					joint4.DampingRatio = DampingRatio;
 					joint4.CollideConnected = CollideConnected;
 					Platform.Instance.PhysicsWorld.AddJoint( joint4 );
@@ -89,18 +90,18 @@ namespace VertexArmy.GameWorld.Prefabs.Structs
 					joint5.Frequency = Frequency;
 					joint5.DampingRatio = DampingRatio;
 					joint5.CollideConnected = CollideConnected;
-					joint5.Length = UnitsConverter.ToSimUnits( Length ) * scale;
+					joint5.Length = UnitsConverter.ToSimUnits( Length ) * scaleD;
 					Platform.Instance.PhysicsWorld.AddJoint( joint5 );
 					return joint5;
 				case JointType.Prismatic:
 					PrismaticJoint joint6 = new PrismaticJoint( body1, body2, UnitsConverter.ToSimUnits( Anchor ) * scale, UnitsConverter.ToSimUnits( Anchor2 ) * scale, Axis );
 					joint6.CollideConnected = CollideConnected;
-					joint6.UpperLimit = UnitsConverter.ToSimUnits( UpperLimit ) * scale;
-					joint6.LowerLimit = UnitsConverter.ToSimUnits( LowerLimit ) * scale;
+					joint6.UpperLimit = UnitsConverter.ToSimUnits( UpperLimit ) * scaleD;
+					joint6.LowerLimit = UnitsConverter.ToSimUnits( LowerLimit ) * scaleD;
 					joint6.LimitEnabled = LimitEnabled;
 					joint6.MotorEnabled = MotorEnabled;
-					joint6.MaxMotorForce = MaxMotorForce * scale;
-					joint6.MotorSpeed = MotorSpeed * scale;
+					joint6.MaxMotorForce = MaxMotorForce * scaleD;
+					joint6.MotorSpeed = MotorSpeed * scaleD;
 
 					Platform.Instance.PhysicsWorld.AddJoint( joint6 );
 					return joint6;

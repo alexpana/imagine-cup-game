@@ -30,7 +30,7 @@ namespace VertexArmy.GameWorld
 
 		private Quaternion _externalRotation = Quaternion.Identity;
 
-		public float Scale;
+		public Vector3 Scale;
 
 		public void Init()
 		{

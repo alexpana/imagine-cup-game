@@ -78,6 +78,8 @@ namespace VertexArmy.States.Menu
 			Platform.Instance.PhysicsWorld.Clear();
 			SceneManager.Instance.Clear();
 
+			FrameUpdateManager.Instance.Register( SceneManager.Instance );
+
 			ContentManager.Unload();
 		}
 

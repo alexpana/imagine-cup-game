@@ -4,11 +4,12 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using VertexArmy.Global.Behaviours;
 using VertexArmy.Graphics;
 
 namespace VertexArmy.Global.Managers
 {
-	public class SceneManager
+	public class SceneManager : IUpdatable
 	{
 		private static volatile SceneManager _instance;
 		private static readonly object _syncRoot = new Object();
@@ -21,6 +22,31 @@ namespace VertexArmy.Global.Managers
 		private AudioListener _audioListener;
 
 		private Vector3 _lightPosition = new Vector3(0, 40000, 20000);
+
+		private RenderTarget2D _color;
+		private RenderTarget2D _depth;
+
+
+		private RenderTarget2D GetColorRt()
+		{
+			if ( _color == null )
+			{
+				PresentationParameters pp = Platform.Instance.Device.PresentationParameters;
+				_color = new RenderTarget2D( Platform.Instance.Device, pp.BackBufferWidth, pp.BackBufferHeight, false, Platform.Instance.Device.DisplayMode.Format, DepthFormat.Depth24 );
+			}
+			return _color;
+		}
+
+		private RenderTarget2D GetDepthRt()
+		{
+			if ( _depth == null )
+			{
+				PresentationParameters pp = Platform.Instance.Device.PresentationParameters;
+				_depth = new RenderTarget2D( Platform.Instance.Device, pp.BackBufferWidth, pp.BackBufferHeight, false, SurfaceFormat.Single, DepthFormat.Depth24 );
+			}
+			return _depth;
+		}
+
 
 		public static SceneManager Instance
 		{
@@ -41,6 +67,9 @@ namespace VertexArmy.Global.Managers
 		public SceneManager()
 		{
 			_audioListener = new AudioListener();
+
+
+
 		}
 
 		public void Clear()
@@ -131,7 +160,79 @@ namespace VertexArmy.Global.Managers
 			return _audioListener;
 		}
 
-		public void Render( float dt )
+		public  void Render ( float dt )
+		{
+			DrawScene( dt );
+
+			//RenderColorRenderTarget(dt);
+			//RenderDepthRenderTarget(dt);
+		}
+
+		public void RenderColorRenderTarget(float dt)
+		{
+			RenderTarget2D colorRenderTarget = GetColorRt();
+			Platform.Instance.Device.SetRenderTarget( colorRenderTarget );
+
+			Platform.Instance.Device.Clear( ClearOptions.Target | ClearOptions.DepthBuffer, Color.DarkSlateBlue, 1.0f, 0 );
+
+			DrawScene( dt );
+
+			Renderer.Instance.CurrentFrame = colorRenderTarget;
+
+
+			Platform.Instance.Device.SetRenderTarget( null );
+
+
+			// Render the depth texture
+			Rectangle rect = new Rectangle(
+				Platform.Instance.Device.Viewport.X,
+				Platform.Instance.Device.Viewport.Y,
+				Platform.Instance.Device.Viewport.Width, Platform.Instance.Device.Viewport.Height );
+
+
+			Platform.Instance.Device.Clear( ClearOptions.Target | ClearOptions.DepthBuffer, Color.DarkSlateBlue, 1.0f, 0 );
+			using ( SpriteBatch sprite = new SpriteBatch( Platform.Instance.Device ) )
+			{
+				sprite.Begin( SpriteSortMode.Immediate, BlendState.Opaque, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullCounterClockwise, null );
+				sprite.Draw( Renderer.Instance.CurrentFrame, new Vector2( 0, 0 ), null, Color.White, 0, new Vector2( 0, 0 ), 1.0f, SpriteEffects.None, 1 );
+				sprite.End();
+			}
+		}
+
+		public void RenderDepthRenderTarget( float dt )
+		{
+
+			RenderTarget2D depthRenderTarget = GetDepthRt();
+
+			//	Platform.Instance.Device.SetRenderTarget( colorRenderTarget );
+			Platform.Instance.Device.SetRenderTarget( depthRenderTarget );
+
+
+			Platform.Instance.Device.Clear( ClearOptions.Target | ClearOptions.DepthBuffer, Color.DarkSlateBlue, 1.0f, 0 );
+
+			DrawDepth( dt );
+
+			Renderer.Instance.Depth = depthRenderTarget;
+			Platform.Instance.Device.SetRenderTarget( null );
+
+
+			// Render the depth texture
+			Rectangle rect = new Rectangle(
+				Platform.Instance.Device.Viewport.X,
+				Platform.Instance.Device.Viewport.Y,
+				Platform.Instance.Device.Viewport.Width, Platform.Instance.Device.Viewport.Height );
+
+
+			Platform.Instance.Device.Clear( ClearOptions.Target | ClearOptions.DepthBuffer, Color.DarkSlateBlue, 1.0f, 0 );
+			using ( SpriteBatch sprite = new SpriteBatch( Platform.Instance.Device ) )
+			{
+				sprite.Begin( SpriteSortMode.Immediate, BlendState.Opaque, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullCounterClockwise, null );
+				sprite.Draw( Renderer.Instance.Depth, new Vector2( 0, 0 ), null, Color.White, 0, new Vector2( 0, 0 ), 1.0f, SpriteEffects.None, 1 );
+				sprite.End();
+			}
+		}
+
+		private void DrawDepth (float dt )
 		{
 			if ( _sceneCameras.Count == 0 )
 				return;
@@ -141,26 +242,38 @@ namespace VertexArmy.Global.Managers
 
 			CameraAttachable currentCam = _sceneCameras[0];
 
-			Matrix view = currentCam.GetViewMatrix();
-			Matrix projection = currentCam.GetPerspectiveMatrix();
+			Renderer.Instance.LoadMatrix( EMatrix.Projection, currentCam.GetPerspectiveMatrix() );
+			Renderer.Instance.LoadMatrix( EMatrix.View, currentCam.GetViewMatrix() );
 
-			Renderer.Instance.LoadMatrix( EMatrix.Projection, projection );
-			Renderer.Instance.LoadMatrix( EMatrix.View, view );
+			foreach ( var registeredNode in _registeredNodes )
+			{
+				Renderer.Instance.LoadMatrix( EMatrix.World, registeredNode.GetAbsoluteTransformation() );
+				Renderer.Instance.SetParameter( "matWorldViewProj", Renderer.Instance.MatWorldViewProjection );
 
-			MouseState mouseState = Mouse.GetState();
-			int mouseX = mouseState.X;
-			int mouseY = mouseState.Y;
 
-			Matrix vp = view * projection;
+				foreach ( var attachable in registeredNode.Attachable )
+				{
+					if ( !attachable.Parent.Invisible )
+					{
+						attachable.RenderDepth( dt );
+					}
+				}
+			}
+		}
 
-			Vector4 zerov = Vector4.Transform( Vector3.Zero, ( vp ) );
+		private void DrawScene( float dt )
+		{
+			if ( _sceneCameras.Count == 0 )
+				return;
 
-			Vector3 boardpoint = new Vector3( ( float ) mouseX, ( float ) mouseY, zerov.Z / zerov.W );
+			Platform.Instance.Device.BlendState = new BlendState();
+			Platform.Instance.Device.RasterizerState = RasterizerState.CullCounterClockwise;
 
-			Vector3 boardpointW = Platform.Instance.Device.Viewport.Unproject( boardpoint, projection, view, Matrix.Identity );
+			CameraAttachable currentCam = _sceneCameras[0];
 
-			CursorManager.Instance.SceneNode.SetPosition( boardpointW );
-
+			Renderer.Instance.LoadMatrix( EMatrix.Projection, currentCam.GetPerspectiveMatrix() );
+			Renderer.Instance.LoadMatrix( EMatrix.View, currentCam.GetViewMatrix() );
+			
 			Renderer.Instance.SetParameter( "eyePosition", currentCam.Parent.GetPosition() );
 			Renderer.Instance.SetParameter( "lightPosition", _lightPosition );
 
@@ -181,6 +294,25 @@ namespace VertexArmy.Global.Managers
 				}
 			}
 			HintManager.Instance.Render(dt);
+		}
+
+		public void Update(GameTime dt)
+		{
+			Matrix view = Renderer.Instance.GetMatrix(EMatrix.View);
+			Matrix projection = Renderer.Instance.GetMatrix( EMatrix.Projection );
+			MouseState mouseState = Mouse.GetState();
+			int mouseX = mouseState.X;
+			int mouseY = mouseState.Y;
+
+			Matrix vp = view * projection;
+
+			Vector4 zerov = Vector4.Transform( Vector3.Zero, ( vp ) );
+
+			Vector3 boardpoint = new Vector3( mouseX, mouseY, zerov.Z / zerov.W );
+
+			Vector3 boardpointW = Platform.Instance.Device.Viewport.Unproject( boardpoint, projection, view, Matrix.Identity );
+
+			CursorManager.Instance.SceneNode.SetPosition( boardpointW );
 		}
 	}
 }

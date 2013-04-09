@@ -430,8 +430,9 @@ namespace VertexArmy.States
 			FrameUpdateManager.Instance.Clear();
 			Platform.Instance.PhysicsWorld.Clear();
 			SceneManager.Instance.Clear();
-
 			Platform.Instance.SoundManager.StopMusic();
+
+			FrameUpdateManager.Instance.Register( SceneManager.Instance );
 
 			_contentManager.Unload();
 		}

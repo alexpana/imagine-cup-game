@@ -14,5 +14,10 @@ namespace VertexArmy.Graphics
 		{
 			
 		}
+
+		public virtual void RenderDepth (float dt)
+		{
+			
+		}
 	}
 }

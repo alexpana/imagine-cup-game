@@ -98,6 +98,8 @@
     <Reference Include="System.Net" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Content\Materials\DepthOfFieldMaterial.cs" />
+    <Compile Include="Content\Materials\DepthBufferMaterial.cs" />
     <Compile Include="Content\Materials\WallMenuMaterial2.cs" />
     <Compile Include="Content\Materials\WallMenuMaterial.cs" />
     <Compile Include="Content\Materials\MenuCubeMaterial.cs" />

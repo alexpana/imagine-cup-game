@@ -16,7 +16,7 @@ VertexShaderOutput main_VS(VertexShaderInput input)
 {
 	VertexShaderOutput output = (VertexShaderOutput)0;
 	output.ScreenPosition = mul(input.Position, matWorldViewProj);	
-	output.Distance = 1 - output.ScreenPosition.z / output.ScreenPosition.w;
+	output.Distance = output.ScreenPosition.z / output.ScreenPosition.w;
 	return output;
 }
 

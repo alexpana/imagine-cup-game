@@ -3,6 +3,7 @@ float distance;
 float range;
 float near;
 float far;
+float blurDistance;
 // This is the texture that SpriteBatch will try to set before drawing 
 // Our sampler for the texture, which is just going to be pretty simple
 
@@ -29,19 +30,6 @@ sampler2D ColorMapSampler = sampler_state
     AddressV = Clamp;
 };
 
-
-texture2D BlurredColorMap;
-sampler2D BlurredColorMapSampler = sampler_state
-{
-	Texture = <BlurredColorMap>;
-	MinFilter = linear;
-	MagFilter = linear;
-	MipFilter = linear;
-	AddressU = Clamp;
-    AddressV = Clamp;
-};
-
-
 texture DepthMap;
 sampler DepthMapSampler = sampler_state
 {
@@ -64,8 +52,16 @@ VertexShaderOutput main_VS(VertexShaderInput input)
 
 float4 main_PS(VertexShaderOutput input) : COLOR
 {
+	float4 blurColor;
+
+	blurColor  = tex2D( ColorMapSampler, float2(input.Texcoord.x + blurDistance, input.Texcoord.y + blurDistance));
+	blurColor += tex2D( ColorMapSampler, float2(input.Texcoord.x - blurDistance, input.Texcoord.y - blurDistance));
+	blurColor += tex2D( ColorMapSampler, float2(input.Texcoord.x + blurDistance, input.Texcoord.y - blurDistance));
+	blurColor += tex2D( ColorMapSampler, float2(input.Texcoord.x - blurDistance, input.Texcoord.y + blurDistance));
+	blurColor = blurColor / 4; 
+
+
 	float4 color = tex2D(ColorMapSampler, input.Texcoord);
-	float4 blurColor = tex2D(BlurredColorMapSampler, input.Texcoord);		
 	float depth = 1 - tex2D(DepthMapSampler, input.Texcoord).r;
 
 	float linearZ = ( -near * far ) / ( depth - far ); //linearize the depth	

@@ -23,6 +23,7 @@ namespace VertexArmy.Content.Materials
 			mat.AddParameter( "matWorld", Matrix.Identity );
 			mat.AddParameter( "eyePosition", Vector3.Zero );
 			mat.AddParameter( "lightPosition", Vector3.Zero );
+			mat.AddParameter( "uvScale", Vector2.One / 10 );
 
 			return mat;
 		}

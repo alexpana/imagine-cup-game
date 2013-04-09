@@ -421,6 +421,7 @@ namespace VertexArmy.States
 
 			Song song = _contentManager.Load<Song>( "music/Beluga_-_Lost_In_Outer_Space" );
 			Platform.Instance.SoundManager.PlayMusic( song );
+			FrameUpdateManager.Instance.Register( SceneManager.Instance );
 		}
 
 		public override void OnClose()
@@ -432,8 +433,6 @@ namespace VertexArmy.States
 			Platform.Instance.PhysicsWorld.Clear();
 			SceneManager.Instance.Clear();
 			Platform.Instance.SoundManager.StopMusic();
-
-			FrameUpdateManager.Instance.Register( SceneManager.Instance );
 
 			_contentManager.Unload();
 		}

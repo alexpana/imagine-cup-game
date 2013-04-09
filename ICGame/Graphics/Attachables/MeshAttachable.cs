@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace VertexArmy.Graphics
 {
-	class MeshAttachable : Attachable
+	public class MeshAttachable : Attachable
 	{
 		public Model Model { get; private set; }
 		public Material Material { get; private set; }
@@ -37,7 +37,7 @@ namespace VertexArmy.Graphics
 				{
 					part.Effect = Depth.Effect;
 				}
-				
+
 				m.Draw();
 
 				foreach ( ModelMeshPart part in m.MeshParts )

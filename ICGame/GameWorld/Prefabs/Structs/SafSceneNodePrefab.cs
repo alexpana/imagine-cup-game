@@ -22,7 +22,7 @@ namespace VertexArmy.GameWorld.Prefabs.Structs
 			return MaterialRepository.Instance.GetMaterial( Material );
 		}
 
-		public SceneNode GetSceneNode( IDictionary<string, object> parameters )
+		public SceneNode GetSceneNode( IDictionary<string, object> parameters, GameEntity entity )
 		{
 			var materialFunc = GetMaterialFunc();
 			SceneNode scn = new SceneNode();

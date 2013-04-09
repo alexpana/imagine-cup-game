@@ -40,7 +40,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\x86\Debug</OutputPath>
-    <DefineConstants>TRACE;DEBUG;WINDOWS;USE_GEARSET;ALLOW_HACKS</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;WINDOWS;USE_GEARSET;ALLOW_HACKS;EDITOR</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoStdLib>true</NoStdLib>
@@ -150,6 +150,8 @@
     <Compile Include="Global\Controllers\Components\BodyTriggerAreaComponent.cs" />
     <Compile Include="Global\Controllers\Components\DoorComponent.cs" />
     <Compile Include="Global\Controllers\Components\SentientForceComponent.cs" />
+    <Compile Include="Global\Controllers\EditorToolsController.cs" />
+    <Compile Include="Global\Controllers\FreeCameraController.cs" />
     <Compile Include="Global\Controllers\GravityController.cs" />
     <Compile Include="Global\Controllers\LineJointController.cs" />
     <Compile Include="Global\Controllers\RelativeController.cs" />
@@ -197,6 +199,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="MainGame.cs" />
     <Compile Include="Serialization\ISerializableObject.cs" />
+    <Compile Include="States\GameStateEditor.cs" />
     <Compile Include="States\GameStateTutorial.cs" />
     <Compile Include="States\GameStatePhysicsRobot.cs" />
     <Compile Include="States\GameState.cs" />

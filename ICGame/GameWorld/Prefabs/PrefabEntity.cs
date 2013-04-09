@@ -144,7 +144,7 @@ namespace VertexArmy.GameWorld.Prefabs
 			/* rest of nodes */
 			foreach ( MeshSceneNodePrefab scnp in _sceneNodesPrefab.Values )
 			{
-				SceneNode scn = scnp.GetSceneNode( parameters );
+				SceneNode scn = scnp.GetSceneNode( parameters, entity );
 				entity.SceneNodes.Add( scnp.Name, scn );
 				mainNode.AddChild( scn );
 				scn.SetScale( scn.GetScale() * scale );
@@ -152,7 +152,7 @@ namespace VertexArmy.GameWorld.Prefabs
 
 			foreach ( SafSceneNodePrefab parameter in _safSceneNodesPrefab.Values )
 			{
-				SceneNode scn = parameter.GetSceneNode( parameters );
+				SceneNode scn = parameter.GetSceneNode( parameters, entity );
 				entity.SceneNodes.Add( parameter.Name, scn );
 				mainNode.AddChild( scn );
 				scn.SetScale( scale );
@@ -162,7 +162,7 @@ namespace VertexArmy.GameWorld.Prefabs
 			{
 				for ( int i = ascnp.StartIndex; i <= ascnp.EndIndex; i++ )
 				{
-					SceneNode scn = ascnp.GetSceneNode( parameters );
+					SceneNode scn = ascnp.GetSceneNode( parameters, entity );
 					mainNode.AddChild( scn );
 					scn.SetScale( scale );
 

@@ -38,6 +38,7 @@ namespace VertexArmy.Global.Managers
 		private readonly SpriteBatch _tempSpriteBatch;
 		private static CursorManager _instance;
 		private ITransformable _cursorNode;
+		public Ray CursorRay;
 		private bool _isVisible = true;
 		private bool _hideOnLeave = true;
 
@@ -51,13 +52,22 @@ namespace VertexArmy.Global.Managers
 
 		public ITransformable SceneNode
 		{
+
 			get { return _cursorNode; }
 		}
 
+		public void SetCursorRay( Vector3 position, Vector3 direction )
+		{
+			Vector3 dir = direction - position;
+			dir.Normalize();
+			CursorRay = new Ray( position, dir );
+			HintManager.Instance.SpawnHint( CursorRay.Direction + " " + CursorRay.Position, new Vector2( 100f, 500f ), 500, 1 );
+		}
 		private CursorManager()
 		{
 			Initialize();
 			_cursorNode = new SceneNode();
+			CursorRay = new Ray( Vector3.Zero, Vector3.Zero );
 			_tempSpriteBatch = new SpriteBatch( Platform.Instance.Device );
 		}
 

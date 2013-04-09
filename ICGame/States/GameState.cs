@@ -11,6 +11,7 @@
 		ModelView,
 		LevelLoading,
 		PhysicsPresentationRobot,
-		TutorialLevel
+		TutorialLevel,
+		Editor
 	};
 }

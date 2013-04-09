@@ -21,11 +21,13 @@ namespace VertexArmy.GameWorld.Prefabs.Structs
 			return MaterialRepository.Instance.GetMaterial( Material );
 		}
 
-		public SceneNode GetSceneNode( IDictionary<string, object> parameters )
+		public SceneNode GetSceneNode( IDictionary<string, object> parameters, GameEntity entity )
 		{
 			var materialFunc = GetMaterialFunc();
 			SceneNode scn = new SceneNode();
-			scn.AddAttachable( new MeshAttachable( Platform.Instance.Content.Load<Model>( Mesh ), materialFunc( parameters ) ) );
+			MeshAttachable mesh = new MeshAttachable( Platform.Instance.Content.Load<Model>( Mesh ), materialFunc( parameters ) );
+			GameWorldManager.Instance.RegisterMesh( mesh, entity );
+			scn.AddAttachable( mesh );
 
 			return scn;
 		}

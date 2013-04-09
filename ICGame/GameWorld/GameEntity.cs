@@ -63,7 +63,7 @@ namespace VertexArmy.GameWorld
 				SetPosition( actualPosition );
 				PhysicsEntity.SetRotation( MainBody, TransformUtility.GetAngleRollFromQuaternion( actualRotation ) );
 			}
-			else if ( !value && PhysicsEntity.Enabled )
+			else if ( !value && PhysicsEntity.Enabled && MainBody != null )
 			{
 				Vector3 actualPosition = GetPosition();
 				Quaternion actualRotation = GetRotation();

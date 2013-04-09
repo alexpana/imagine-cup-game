@@ -5,13 +5,18 @@ using FarseerPhysics.Dynamics;
 using Microsoft.Xna.Framework;
 using VertexArmy.GameWorld;
 using VertexArmy.GameWorld.Prefabs;
+using VertexArmy.Graphics;
 
 namespace VertexArmy.Global.Managers
 {
 	public class GameWorldManager
 	{
 		private readonly Dictionary<string, GameEntity> _entities;
-		public List<EntityState> _savedState;
+		private List<EntityState> _savedState;
+		private Dictionary<MeshAttachable, GameEntity> _meshes;
+		private Dictionary<GameEntity, List<MeshAttachable>> _entitiesMapToMeshes;
+
+		private bool _frozen;
 
 		public GameEntity GetEntity( string name )
 		{
@@ -79,6 +84,18 @@ namespace VertexArmy.Global.Managers
 		{
 			if ( _entities.ContainsKey( entityName ) )
 			{
+				GameEntity ent = _entities[entityName];
+
+				if ( _entitiesMapToMeshes.ContainsKey( ent ) )
+				{
+					foreach ( MeshAttachable m in _entitiesMapToMeshes[ent] )
+					{
+						_meshes.Remove( m );
+					}
+
+					_entitiesMapToMeshes.Remove( ent );
+				}
+
 				_entities[entityName].Remove();
 				_entities.Remove( entityName );
 			}
@@ -89,10 +106,39 @@ namespace VertexArmy.Global.Managers
 			get { return GameWorldManagerInstanceHolder.Instance; }
 		}
 
+		public void RegisterMesh( MeshAttachable mesh, GameEntity entity )
+		{
+			_meshes.Add( mesh, entity );
+
+			if ( !_entitiesMapToMeshes.ContainsKey( entity ) )
+			{
+				_entitiesMapToMeshes.Add( entity, new List<MeshAttachable>() );
+			}
+
+			_entitiesMapToMeshes[entity].Add( mesh );
+		}
+
+		public ICollection<MeshAttachable> Meshes
+		{
+			get { return _meshes.Keys; }
+		}
+
+		public GameEntity GetEntityByMesh( MeshAttachable mesh )
+		{
+			if ( _meshes.ContainsKey( mesh ) )
+			{
+				return _meshes[mesh];
+			}
+
+			return null;
+		}
 
 		public GameWorldManager()
 		{
 			_entities = new Dictionary<string, GameEntity>();
+			_entitiesMapToMeshes = new Dictionary<GameEntity, List<MeshAttachable>>();
+			_meshes = new Dictionary<MeshAttachable, GameEntity>();
+			_frozen = false;
 		}
 
 		public void Clear()
@@ -100,6 +146,17 @@ namespace VertexArmy.Global.Managers
 			while ( _entities.Count > 0 )
 			{
 				RemoveEntity( _entities.Keys.First() );
+			}
+		}
+
+		public void Freeze()
+		{
+			if ( !_frozen )
+			{
+				foreach ( GameEntity ent in _entities.Values )
+				{
+					ent.SetPhysicsEnabled( false );
+				}
 			}
 		}
 
@@ -222,6 +279,11 @@ namespace VertexArmy.Global.Managers
 				}
 
 			}
+		}
+
+		public void SetState( List<EntityState> state )
+		{
+			_savedState = state;
 		}
 
 		private static class GameWorldManagerInstanceHolder

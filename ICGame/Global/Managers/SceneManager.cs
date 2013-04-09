@@ -21,7 +21,7 @@ namespace VertexArmy.Global.Managers
 
 		private AudioListener _audioListener;
 
-		private Vector3 _lightPosition = new Vector3(0, 40000, 20000);
+		private Vector3 _lightPosition = new Vector3( 0, 40000, 20000 );
 
 		private RenderTarget2D _color;
 		private RenderTarget2D _depth;
@@ -30,7 +30,7 @@ namespace VertexArmy.Global.Managers
 
 		private Quad GetScreenQuad()
 		{
-			return _screenQuad ?? (_screenQuad = new Quad());
+			return _screenQuad ?? ( _screenQuad = new Quad() );
 		}
 
 		private RenderTarget2D GetColorRt()
@@ -85,7 +85,7 @@ namespace VertexArmy.Global.Managers
 			_sceneLights.Clear();
 		}
 
-		public void SetLightPosition (Vector3 newposition)
+		public void SetLightPosition( Vector3 newposition )
 		{
 			_lightPosition = newposition;
 		}
@@ -167,7 +167,7 @@ namespace VertexArmy.Global.Managers
 		}
 
 
-		private void RenderBlurred (float dt)
+		private void RenderBlurred( float dt )
 		{
 
 			Platform.Instance.Device.Clear( ClearOptions.Target | ClearOptions.DepthBuffer, Color.DarkSlateBlue, 1.0f, 0 );
@@ -219,20 +219,20 @@ namespace VertexArmy.Global.Managers
 			Renderer.Instance.LastFrame = Renderer.Instance.CurrentFrame;
 		}
 
-		private void RenderWithoutPostProcessing(float dt)
+		private void RenderWithoutPostProcessing( float dt )
 		{
 			DrawScene( dt );
 		}
 
-		public  void Render ( float dt )
+		public void Render( float dt )
 		{
-			RenderWithoutPostProcessing(dt);
+			RenderWithoutPostProcessing( dt );
 
 			//RenderBlurred(dt);
 			HintManager.Instance.Render( dt );
 		}
 
-		public void RenderColorRenderTarget(float dt)
+		public void RenderColorRenderTarget( float dt )
 		{
 			RenderTarget2D colorRenderTarget = GetColorRt();
 			Platform.Instance.Device.SetRenderTarget( colorRenderTarget );
@@ -242,7 +242,7 @@ namespace VertexArmy.Global.Managers
 			DrawScene( dt );
 
 			Renderer.Instance.CurrentFrame = colorRenderTarget;
-			
+
 			Platform.Instance.Device.SetRenderTarget( null );
 		}
 
@@ -262,7 +262,7 @@ namespace VertexArmy.Global.Managers
 			Platform.Instance.Device.SetRenderTarget( null );
 		}
 
-		private void DrawDepth (float dt )
+		private void DrawDepth( float dt )
 		{
 			if ( _sceneCameras.Count == 0 )
 				return;
@@ -303,7 +303,7 @@ namespace VertexArmy.Global.Managers
 
 			Renderer.Instance.LoadMatrix( EMatrix.Projection, currentCam.GetPerspectiveMatrix() );
 			Renderer.Instance.LoadMatrix( EMatrix.View, currentCam.GetViewMatrix() );
-			
+
 			Renderer.Instance.SetParameter( "eyePosition", currentCam.Parent.GetPosition() );
 			Renderer.Instance.SetParameter( "lightPosition", _lightPosition );
 
@@ -323,12 +323,12 @@ namespace VertexArmy.Global.Managers
 					}
 				}
 			}
-			
+
 		}
 
-		public void Update(GameTime dt)
+		public void Update( GameTime dt )
 		{
-			Matrix view = Renderer.Instance.GetMatrix(EMatrix.View);
+			Matrix view = Renderer.Instance.GetMatrix( EMatrix.View );
 			Matrix projection = Renderer.Instance.GetMatrix( EMatrix.Projection );
 			MouseState mouseState = Mouse.GetState();
 			int mouseX = mouseState.X;
@@ -343,6 +343,7 @@ namespace VertexArmy.Global.Managers
 			Vector3 boardpointW = Platform.Instance.Device.Viewport.Unproject( boardpoint, projection, view, Matrix.Identity );
 
 			CursorManager.Instance.SceneNode.SetPosition( boardpointW );
+			CursorManager.Instance.SetCursorRay( GetCurrentCamera().Parent.GetPosition(), boardpointW );
 		}
 	}
 }

@@ -485,6 +485,13 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="images\background_DIFF.png">
+      <Name>background_DIFF</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="movies\PurpleStarFlight.wmv">
       <Name>PurpleStarFlight</Name>
       <Importer>WmvImporter</Importer>
@@ -492,29 +499,23 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="images\menu_cube_DIFF.png">
-      <Name>menu_cube_DIFF</Name>
+    <Compile Include="images\background_NRM.jpg">
+      <Name>background_NRM</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="images\menu_cube_SPEC.jpg">
-      <Name>menu_cube_SPEC</Name>
+    <Compile Include="images\background_OCC.jpg">
+      <Name>background_OCC</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="images\menu_cube_NORM.tga">
-      <Name>menu_cube_NORM</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="images\menu_cube_OCC.tga">
-      <Name>menu_cube_OCC</Name>
+    <Compile Include="images\background_SPEC.jpg">
+      <Name>background_SPEC</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
+
   <ItemGroup>
     <Compile Include="images\menu_cube_NORM_NRM.jpg">
       <Name>menu_cube_NORM_NRM</Name>
@@ -561,36 +562,82 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="models\upgrade_platform.FBX">
-      <Name>upgrade_platform</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-      <ProcessorParameters_RotationX>-90</ProcessorParameters_RotationX>
-      <ProcessorParameters_GenerateTangentFrames>True</ProcessorParameters_GenerateTangentFrames>
+    <Compile Include="images\menu\menu_cube_DIFF.png">
+      <Name>menu_cube_DIFF</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="images\menu\menu_cube_NORM_NRM.jpg">
+      <Name>menu_cube_NORM_NRM</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="images\menu\menu_cube_SPEC.jpg">
+      <Name>menu_cube_SPEC</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="images\background_COLOR.jpg">
-      <Name>background_COLOR</Name>
+    <Compile Include="images\menu\menu_cube_NORM.tga">
+      <Name>menu_cube_NORM</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="images\background_NRM.jpg">
-      <Name>background_NRM</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="images\background_OCC.jpg">
-      <Name>background_OCC</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="images\background_SPEC.jpg">
-      <Name>background_SPEC</Name>
+    <Compile Include="images\menu\menu_cube_OCC.tga">
+      <Name>menu_cube_OCC</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
+  <ItemGroup>
+    <Compile Include="effects\snmap_menu.fx">
+      <Name>snmap_menu</Name>
+      <Importer>EffectImporter</Importer>
+      <Processor>EffectProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="images\menu\main_cube_text.png">
+      <Name>main_cube_text</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="images\menu\options_cube_sounds-off.png">
+      <Name>options_cube_sounds-off</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="images\menu\options_cube_sounds-on.png">
+      <Name>options_cube_sounds-on</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="images\menu\menu_cube_no_text.png">
+      <Name>menu_cube_no_text</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="images\menu\level_cube_locked_text.png">
+      <Name>level_cube_locked_text</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="images\menu\level_cube_tutorial_text.png">
+      <Name>level_cube_tutorial_text</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
   <!--  To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

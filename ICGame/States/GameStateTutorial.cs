@@ -33,7 +33,7 @@ namespace VertexArmy.States
 		private bool _actionToggleDebugView;
 		private bool _debugViewState;
 
-		private bool _hint1, _hint2, _hint3, _hint4;
+		private bool _hint1, _hint2, _hint3, _hint4, _endOfGameHintShown;
 
 		public GameStateTutorial( ContentManager content )
 		{
@@ -364,7 +364,7 @@ namespace VertexArmy.States
 			GameWorldManager.Instance.SpawnEntity( "Trigger", "endGame", new Vector3( 3500, 30f, 0f ) );
 			GameWorldManager.Instance.GetEntity( "endGame" ).RegisterComponent(
 					"trigger",
-					new BodyTriggerAreaComponent( new Vector2( 10f, 10f ), Robot.MainBody, EndGameCallback )
+					new BodyTriggerAreaComponent( new Vector2( 10f, 10f ), Robot.MainBody, EndOfGameHint )
 				);
 
 			GameWorldManager.Instance.SpawnEntity( "Trigger", "hint1", new Vector3( -150, 60f, 0f ) );
@@ -394,18 +394,14 @@ namespace VertexArmy.States
 
 		public void LoadLevel()
 		{
-
 			LoadStatics();
 			LoadSemiStatics();
 			LoadDynamics();
 			LoadTriggers();
-
-
 		}
 
 		public override void OnEnter()
 		{
-
 			LoadLevel();
 			GameWorldManager.Instance.SaveState();
 			Platform.Instance.PhysicsWorld.Gravity = Vector2.UnitY * Platform.Instance.PhysicsWorld.Gravity.Length();
@@ -463,6 +459,14 @@ namespace VertexArmy.States
 			GameWorldManager.Instance.LoadLastState();
 		}
 
+		private void EndOfGameHint()
+		{
+			if ( _endOfGameHintShown ) { return; }
+
+			_endOfGameHintShown = true;
+			HintManager.Instance.SpawnHint( "This concludes the tutorial.\nGood luck in your future endeavours.", new Vector2( 100, 100 ), 4000, 1, EndGameCallback );
+		}
+
 		public void EndGameCallback()
 		{
 			StateManager.Instance.PopState();
@@ -473,7 +477,6 @@ namespace VertexArmy.States
 		{
 			if ( !_hint1 )
 			{
-
 				string Text = "Crates can be pushed around.\nTry pushing that crate towards the wall button.";
 				HintManager.Instance.SpawnHint( Text, new Vector2( 100, 100 ), 4000, 1 );
 				_hint1 = true;

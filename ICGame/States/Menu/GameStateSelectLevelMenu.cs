@@ -106,7 +106,7 @@ namespace VertexArmy.States.Menu
 
 		private void CreateLevelsCubes()
 		{
-			var tutorialCube = CreateLevelMenuCube( "level_tutorial" );
+			var tutorialCube = CreateLevelMenuCube( "level_cube_tutorial_text" );
 			tutorialCube.Items = new List<MenuItem>
 			{
 				new MenuItem
@@ -116,10 +116,10 @@ namespace VertexArmy.States.Menu
 			};
 			tutorialCube.Spawn( -50f );
 
-			var lockedLevel1Cube = CreateLevelMenuCube( "level_blocked" );
+			var lockedLevel1Cube = CreateLevelMenuCube( "level_cube_locked_text" );
 			lockedLevel1Cube.Spawn( 0f );
 
-			var lockedLevel2Cube = CreateLevelMenuCube( "level_blocked" );
+			var lockedLevel2Cube = CreateLevelMenuCube( "level_cube_locked_text" );
 			lockedLevel2Cube.Spawn( 50f );
 
 			_levelCubes.Add( tutorialCube );
@@ -129,11 +129,11 @@ namespace VertexArmy.States.Menu
 			_activeCube = tutorialCube;
 		}
 
-		private MenuCube CreateLevelMenuCube( string backgroundImage )
+		private MenuCube CreateLevelMenuCube( string textImage )
 		{
 			MenuCube menuCube = new MenuCube( ContentManager );
 
-			menuCube.SetBackgroundImage( backgroundImage );
+			menuCube.SetTextImage( textImage );
 
 			return menuCube;
 		}

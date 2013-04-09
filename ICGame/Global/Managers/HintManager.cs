@@ -1,4 +1,5 @@
 ﻿
+using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -24,7 +25,7 @@ namespace VertexArmy.Global.Managers
 			_font = Platform.Instance.Content.Load<SpriteFont>( "fonts/Impact" );
 		}
 
-		public void SpawnHint( string text, Vector2 position, float msTime, int layer = 0 )
+		public void SpawnHint( string text, Vector2 position, float msTime, int layer = 0, Action dismissedCallback = null )
 		{
 			if ( layer != 0 )
 			{
@@ -42,7 +43,8 @@ namespace VertexArmy.Global.Managers
 				Position = position,
 				// total time contains the fade in and fade out times (besides the normal msTime)
 				Time = msTime + FadeTime * 2,
-				Layer = layer
+				Layer = layer,
+				DismissedCallback = dismissedCallback
 			} );
 		}
 
@@ -78,6 +80,11 @@ namespace VertexArmy.Global.Managers
 
 				foreach ( var activeHint in hintsToRemove )
 				{
+					if ( activeHint.DismissedCallback != null )
+					{
+						activeHint.DismissedCallback();
+					}
+
 					_activeHints.Remove( activeHint );
 				}
 			}
@@ -123,6 +130,7 @@ namespace VertexArmy.Global.Managers
 
 		public string Text;
 		public Vector2 Position;
+
 		public float Time; // in miliseconds
 		public int Layer;
 
@@ -131,5 +139,7 @@ namespace VertexArmy.Global.Managers
 		public int FadeTime;
 		public int FadeOperation; // -1 fade In, 0, 1 fade out
 		public float Alpha;
+
+		public Action DismissedCallback;
 	}
 }

@@ -165,6 +165,14 @@
     <Compile Include="Graphics\Attachables\Attachable.cs" />
     <Compile Include="Graphics\Attachables\CameraAttachable.cs" />
     <Compile Include="Graphics\Attachables\SafAttachable.cs" />
+    <Compile Include="Graphics\ParticleSystem\LinearValueGenerator.cs" />
+    <Compile Include="Graphics\ParticleSystem\Particle.cs" />
+    <Compile Include="Graphics\ParticleSystem\ParticleCache.cs" />
+    <Compile Include="Graphics\ParticleSystem\ParticleEmitter.cs" />
+    <Compile Include="Graphics\ParticleSystem\ParticleRenderer.cs" />
+    <Compile Include="Graphics\ParticleSystem\ParticleSystem.cs" />
+    <Compile Include="Graphics\ParticleSystem\Range.cs" />
+    <Compile Include="Graphics\ParticleSystem\IValueGenerator.cs" />
     <Compile Include="Graphics\Renderer.cs" />
     <Compile Include="Graphics\Attachables\LightAttachable.cs" />
     <Compile Include="Graphics\Material.cs" />

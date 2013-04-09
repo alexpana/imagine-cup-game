@@ -7,7 +7,7 @@ namespace VertexArmy.Graphics.ParticleSystem
 		private ParticleSystem _parent;
 		private float _emissionRate;
 
-		private List<Particle> _aliveParticles;
+		private readonly List<Particle> _aliveParticles;
 
 		ParticleEmitter( ParticleSystem parent, float emissionRate )
 		{
@@ -20,7 +20,7 @@ namespace VertexArmy.Graphics.ParticleSystem
 
 		public void Render()
 		{
-			
+			// Call the renderer
 		}
 
 		public void Update()

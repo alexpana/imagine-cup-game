@@ -22,21 +22,22 @@ namespace VertexArmy.GameWorld.Prefabs.Structs
 
 		public float Width, Height;
 
-		public void AttachToBody( Body body, float scale )
+		public void AttachToBody( Body body, Vector2 scale )
 		{
+			float scaleD = ( scale.X + scale.Y ) / 2f;
 			switch ( Type )
 			{
 				case ShapeType.Circle:
-					FixtureFactory.AttachCircle( UnitsConverter.ToSimUnits( XRadius ) * scale, Density, body );
+					FixtureFactory.AttachCircle( UnitsConverter.ToSimUnits( XRadius ) * scaleD, Density, body );
 					break;
 				case ShapeType.Ellipse:
-					FixtureFactory.AttachEllipse( UnitsConverter.ToSimUnits( XRadius ) * scale, UnitsConverter.ToSimUnits( YRadius ) * scale, Edges, Density, body );
+					FixtureFactory.AttachEllipse( UnitsConverter.ToSimUnits( XRadius ) * scale.X, UnitsConverter.ToSimUnits( YRadius ) * scale.Y, Edges, Density, body );
 					break;
 				case ShapeType.Edge:
 					FixtureFactory.AttachEdge( UnitsConverter.ToSimUnits( Start ) * scale, UnitsConverter.ToSimUnits( End ) * scale, body );
 					break;
 				case ShapeType.Rectangle:
-					FixtureFactory.AttachRectangle( UnitsConverter.ToSimUnits( Width ) * scale, UnitsConverter.ToSimUnits( Height ) * scale, Density, UnitsConverter.ToSimUnits( Offset ) * scale, body );
+					FixtureFactory.AttachRectangle( UnitsConverter.ToSimUnits( Width ) * scale.X, UnitsConverter.ToSimUnits( Height ) * scale.Y, Density, UnitsConverter.ToSimUnits( Offset ) * scale, body );
 					break;
 				case ShapeType.Polygon:
 

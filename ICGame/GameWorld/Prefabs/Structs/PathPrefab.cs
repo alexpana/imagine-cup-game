@@ -25,8 +25,9 @@ namespace VertexArmy.GameWorld.Prefabs.Structs
 		public BodyPrefab Body { get; set; }
 		public int BodyCount;
 
-		public PathEntity GetPathEntity( float scale )
+		public PathEntity GetPathEntity( Vector2 scale )
 		{
+			float scaleD = ( scale.X + scale.Y ) / 2;
 			PathEntity pathEntity = new PathEntity();
 			List<Shape> shapes = new List<Shape>();
 			Body b = Body.GetPhysicsBody( scale );
@@ -82,8 +83,8 @@ namespace VertexArmy.GameWorld.Prefabs.Structs
 						UnitsConverter.ToSimUnits( Anchor2 ) * scale,
 						ConnectFirstAndLast,
 						CollideConnected,
-						UnitsConverter.ToSimUnits( MaxLength ) * scale,
-						UnitsConverter.ToSimUnits( MinLength ) * scale
+						UnitsConverter.ToSimUnits( MaxLength ) * scaleD,
+						UnitsConverter.ToSimUnits( MinLength ) * scaleD
 						) );
 
 					return pathEntity;

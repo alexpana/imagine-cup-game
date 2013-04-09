@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using FarseerPhysics.Dynamics;
+using Microsoft.Xna.Framework;
 using VertexArmy.GameWorld.Prefabs.Structs;
 using VertexArmy.Global.Controllers;
 using VertexArmy.Global.Managers;
@@ -86,15 +87,15 @@ namespace VertexArmy.GameWorld.Prefabs
 			_arrayMeshSceneNodesPrefab.Add( pscn.Name, pscn );
 		}
 
-		public GameEntity CreateGameEntity( GameWorldManager world, float scale, GameEntityParameters parameters )
+		public GameEntity CreateGameEntity( GameWorldManager world, Vector3 scale, GameEntityParameters parameters )
 		{
 			GameEntity obj = new GameEntity();
 
 			obj.Init();
 
 			obj.Flags = Flags;
-
-			GameEntityCreatePhysics( obj, scale );
+			Vector2 scale2D = new Vector2( scale.X, scale.Y );
+			GameEntityCreatePhysics( obj, scale2D );
 			GameEntityCreateSceneNodes( obj, scale, parameters != null ? parameters.SceneNodeParameters : null );
 			GameEntityCreateControllers( obj );
 
@@ -104,7 +105,7 @@ namespace VertexArmy.GameWorld.Prefabs
 			return obj;
 		}
 
-		private void GameEntityCreatePhysics( GameEntity entity, float scale )
+		private void GameEntityCreatePhysics( GameEntity entity, Vector2 scale )
 		{
 			foreach ( BodyPrefab b in _physicsPrefab.Bodies.Values )
 			{
@@ -135,7 +136,7 @@ namespace VertexArmy.GameWorld.Prefabs
 			}
 		}
 
-		private void GameEntityCreateSceneNodes( GameEntity entity, float scale, IDictionary<string, object> parameters )
+		private void GameEntityCreateSceneNodes( GameEntity entity, Vector3 scale, IDictionary<string, object> parameters )
 		{
 			/* create main node */
 			SceneNode mainNode = new SceneNode();
@@ -154,7 +155,7 @@ namespace VertexArmy.GameWorld.Prefabs
 				SceneNode scn = parameter.GetSceneNode( parameters );
 				entity.SceneNodes.Add( parameter.Name, scn );
 				mainNode.AddChild( scn );
-				scn.SetScale( scn.GetScale() * scale );
+				scn.SetScale( scale );
 			}
 
 			foreach ( ArrayMeshSceneNodePrefab ascnp in _arrayMeshSceneNodesPrefab.Values )
@@ -163,7 +164,7 @@ namespace VertexArmy.GameWorld.Prefabs
 				{
 					SceneNode scn = ascnp.GetSceneNode( parameters );
 					mainNode.AddChild( scn );
-					scn.SetScale( scn.GetScale() * scale );
+					scn.SetScale( scale );
 
 					if ( ascnp.Path != null && entity.PhysicsEntity.GetBodyFromPath( ascnp.Path, i ) != null )
 					{

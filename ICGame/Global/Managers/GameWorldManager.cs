@@ -20,15 +20,37 @@ namespace VertexArmy.Global.Managers
 		public void SpawnEntity( string prefabName, string entityName, Vector3 position, float scale = 1f, Category layer = Category.Cat1,
 			GameEntityParameters parameters = null )
 		{
-			SpawnEntity( PrefabRepository.Instance.GetPrefab( prefabName ), entityName, position, scale, layer, parameters );
+			SpawnEntity( PrefabRepository.Instance.GetPrefab( prefabName ), entityName, position, Vector3.One * scale, layer, parameters );
 		}
 
-		public void SpawnEntity( string prefab, string entityName, Vector3 position, Quaternion externalRotation, float scale = 1f, Category layer = Category.Cat1, GameEntityParameters parameters = null )
+		public void SpawnEntity( string prefabName, string entityName, Vector3 position, Quaternion externalRotation, float scale = 1f, Category layer = Category.Cat1, GameEntityParameters parameters = null )
 		{
-			SpawnEntity( PrefabRepository.Instance.GetPrefab( prefab ), entityName, position, externalRotation, scale, layer, parameters );
+			SpawnEntity( PrefabRepository.Instance.GetPrefab( prefabName ), entityName, position, externalRotation, Vector3.One * scale, layer, parameters );
+		}
+
+		public void SpawnEntity( string prefabName, string entityName, Vector3 position, Vector3 scale, Category layer = Category.Cat1,
+	GameEntityParameters parameters = null )
+		{
+			SpawnEntity( PrefabRepository.Instance.GetPrefab( prefabName ), entityName, position, Vector3.One * scale, layer, parameters );
+		}
+
+		public void SpawnEntity( string prefabName, string entityName, Vector3 position, Quaternion externalRotation, Vector3 scale, Category layer = Category.Cat1, GameEntityParameters parameters = null )
+		{
+			SpawnEntity( PrefabRepository.Instance.GetPrefab( prefabName ), entityName, position, externalRotation, Vector3.One * scale, layer, parameters );
 		}
 
 		public void SpawnEntity( PrefabEntity prefab, string entityName, Vector3 position, float scale = 1f, Category layer = Category.Cat1,
+	GameEntityParameters parameters = null )
+		{
+			SpawnEntity( prefab, entityName, position, Vector3.One * scale, layer, parameters );
+		}
+
+		public void SpawnEntity( PrefabEntity prefab, string entityName, Vector3 position, Quaternion externalRotation, float scale = 1f, Category layer = Category.Cat1, GameEntityParameters parameters = null )
+		{
+			SpawnEntity( prefab, entityName, position, externalRotation, Vector3.One * scale, layer, parameters );
+		}
+
+		public void SpawnEntity( PrefabEntity prefab, string entityName, Vector3 position, Vector3 scale, Category layer = Category.Cat1,
 			GameEntityParameters parameters = null )
 		{
 			GameEntity entity = prefab.CreateGameEntity( this, scale, parameters );
@@ -38,7 +60,7 @@ namespace VertexArmy.Global.Managers
 			entity.PhysicsEntity.SetCollisionLayer( layer );
 		}
 
-		public void SpawnEntity( PrefabEntity prefab, string entityName, Vector3 position, Quaternion externalRotation, float scale = 1f, Category layer = Category.Cat1, GameEntityParameters parameters = null )
+		public void SpawnEntity( PrefabEntity prefab, string entityName, Vector3 position, Quaternion externalRotation, Vector3 scale, Category layer = Category.Cat1, GameEntityParameters parameters = null )
 		{
 			GameEntity entity = prefab.CreateGameEntity( this, scale, parameters );
 			entity.Name = entityName;
@@ -213,7 +235,7 @@ namespace VertexArmy.Global.Managers
 		public Quaternion ExternalRotation;
 		public PrefabEntity Prefab;
 		public bool PhysicsEnabled;
-		public float Scale;
+		public Vector3 Scale;
 		public Category CollisionCategory;
 
 		public Dictionary<string, Vector2> BodyPositions;

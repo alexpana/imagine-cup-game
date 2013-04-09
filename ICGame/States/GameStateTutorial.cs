@@ -153,10 +153,7 @@ namespace VertexArmy.States
 			}
 
 			//first floor part background
-			for ( int i = 0; i < 20; i++ )
-			{
-				GameWorldManager.Instance.SpawnEntity( "Floor", "floor" + floorCount++, new Vector3( -300f + 60f * i, 0f, -300f ), 1f, Category.Cat2 );
-			}
+			GameWorldManager.Instance.SpawnEntity( "Floor", "floor" + floorCount++, new Vector3( -300f + 60f * 10, 0f, -300f ), new Vector3( 20f, 1f, 1f ), Category.Cat2 );
 
 			for ( int i = 0; i < 5; i++ )
 			{
@@ -306,7 +303,7 @@ namespace VertexArmy.States
 		public void LoadDynamics()
 		{
 			GameWorldManager.Instance.SpawnEntity( "Camera", "camera1", new Vector3( 0, -200, 800 ) );
-			GameWorldManager.Instance.SpawnEntity( "Robot", "robotPlayer", new Vector3( -150f, 100f, 0f ), 1.5f );
+			GameWorldManager.Instance.SpawnEntity( "Robot", "robotPlayer", new Vector3( -150f, 100f, 0f ), new Vector3( 1f, 1f, 1f ) );
 			GameWorldManager.Instance.SpawnEntity( "WallBackground", "wallBackground1",
 				new Vector3( 0f, 0f, -800f ), Quaternion.CreateFromAxisAngle( Vector3.UnitX, -0.3f ), 150 );
 

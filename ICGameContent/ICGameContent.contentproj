@@ -516,37 +516,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="images\menu_cube_DIFF.png">
-      <Name>menu_cube_DIFF</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="images\menu_cube_SPEC.jpg">
-      <Name>menu_cube_SPEC</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="images\menu_cube_NORM.tga">
-      <Name>menu_cube_NORM</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="images\menu_cube_OCC.tga">
-      <Name>menu_cube_OCC</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="images\menu_cube_NORM_NRM.jpg">
-      <Name>menu_cube_NORM_NRM</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="effects\blur.fx">
       <Name>blur</Name>
       <Importer>EffectImporter</Importer>
@@ -584,7 +553,35 @@
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
-
+  <ItemGroup>
+    <Compile Include="images\menu\menu_cube_DIFF.png">
+      <Name>menu_cube_DIFF</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="images\menu\menu_cube_NORM_NRM.jpg">
+      <Name>menu_cube_NORM_NRM</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="images\menu\menu_cube_SPEC.jpg">
+      <Name>menu_cube_SPEC</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="images\menu\menu_cube_NORM.tga">
+      <Name>menu_cube_NORM</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="images\menu\menu_cube_OCC.tga">
+      <Name>menu_cube_OCC</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
   <!--  To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

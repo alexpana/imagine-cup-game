@@ -353,15 +353,16 @@ namespace VertexArmy.Global.Controllers
 			if ( lst.Count == 0 )
 				return null;
 
-
 			SceneNode max = lst[0];
 			foreach (SceneNode sceneNode in lst)
 			{
 				if ( max.GetAbsolutePosition().Z < sceneNode.GetAbsolutePosition().Z )
 					max = sceneNode;
 			}
-			( ( MeshAttachable ) lst[0].Attachable[0] ).Highlighted = true;
-			return GameWorldManager.Instance.GetEntityByMesh((MeshAttachable)lst[0].Attachable[0]);
+			
+			( ( MeshAttachable ) max.Attachable[0] ).Highlighted = true;
+			( ( MeshAttachable ) max.Attachable[0] ).HighColor = Vector3.One;
+			return GameWorldManager.Instance.GetEntityByMesh( ( MeshAttachable ) max.Attachable[0] );
 		}
 
 

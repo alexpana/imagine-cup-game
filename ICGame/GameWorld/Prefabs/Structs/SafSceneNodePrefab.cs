@@ -27,7 +27,7 @@ namespace VertexArmy.GameWorld.Prefabs.Structs
 			var materialFunc = GetMaterialFunc();
 			SceneNode scn = new SceneNode();
 			scn.AddAttachable( new SafAttachable( Platform.Instance.Content.Load<Model>( Mesh ), materialFunc( parameters ) ) );
-
+			scn.Invisible = true;
 			scn.SetPosition( LocalPosition );
 			scn.SetRotation( LocalRotation );
 

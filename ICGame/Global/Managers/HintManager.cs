@@ -16,7 +16,7 @@ namespace VertexArmy.Global.Managers
 		private readonly Texture2D _backgroundDoubleLine = Platform.Instance.Content.Load<Texture2D>( "images/tooltip_double_line" );
 		private readonly Texture2D _backgroundSingleLine = Platform.Instance.Content.Load<Texture2D>( "images/tooltip_single_line" );
 
-		private const int FadeTime = 1000;
+		private const int DefaultHintFadeTime = 1000;
 
 		public HintManager()
 		{
@@ -25,7 +25,7 @@ namespace VertexArmy.Global.Managers
 			_font = Platform.Instance.Content.Load<SpriteFont>( "fonts/Impact" );
 		}
 
-		public void SpawnHint( string text, Vector2 position, float msTime, int layer = 0, Action dismissedCallback = null )
+		public void SpawnHint( string text, Vector2 position, float msTime, int layer = 0, Action dismissedCallback = null, int fadeTime = DefaultHintFadeTime )
 		{
 			if ( layer != 0 )
 			{
@@ -42,7 +42,8 @@ namespace VertexArmy.Global.Managers
 				Text = text,
 				Position = position,
 				// total time contains the fade in and fade out times (besides the normal msTime)
-				Time = msTime + FadeTime * 2,
+				Time = msTime + fadeTime * 2,
+				FadeTime = fadeTime,
 				Layer = layer,
 				DismissedCallback = dismissedCallback
 			} );
@@ -57,20 +58,27 @@ namespace VertexArmy.Global.Managers
 				foreach ( var activeHint in _activeHints )
 				{
 					activeHint.Time -= dt.ElapsedGameTime.Milliseconds;
-					activeHint.FadeTime += activeHint.FadeOperation * dt.ElapsedGameTime.Milliseconds;
-
-					// fade time is done, stop the fading op
-					if ( activeHint.FadeTime >= FadeTime )
+					if ( activeHint.FadeTime > 0 )
 					{
-						activeHint.FadeOperation = 0;
-					}
-					// last fadetime of the hint's life, fade out
-					if ( activeHint.Time <= FadeTime )
-					{
-						activeHint.FadeOperation = -1;
-					}
+						activeHint.CurrentFadeTime += activeHint.CurrentFadeOperation * dt.ElapsedGameTime.Milliseconds;
 
-					activeHint.Alpha = MathHelper.Lerp( 0, 1.0f, ( float ) activeHint.FadeTime / FadeTime );
+						// fade time is done, stop the fading op
+						if ( activeHint.CurrentFadeTime >= activeHint.FadeTime )
+						{
+							activeHint.CurrentFadeOperation = 0;
+						}
+						// last fadetime of the hint's life, fade out
+						if ( activeHint.Time <= activeHint.FadeTime )
+						{
+							activeHint.CurrentFadeOperation = -1;
+						}
+
+						activeHint.Alpha = MathHelper.Lerp( 0, 1.0f, ( float ) activeHint.CurrentFadeTime / activeHint.FadeTime );
+					}
+					else
+					{
+						activeHint.Alpha = 1.0f;
+					}
 
 					if ( activeHint.Time < 0 )
 					{
@@ -124,7 +132,7 @@ namespace VertexArmy.Global.Managers
 		public Hint()
 		{
 			Color = new Color( 32.0f / 255.0f, 40.0f / 255.0f, 50.0f / 255.0f );
-			FadeOperation = 1;
+			CurrentFadeOperation = 1;
 			Layer = 0;
 		}
 
@@ -137,7 +145,8 @@ namespace VertexArmy.Global.Managers
 		public Color Color;
 
 		public int FadeTime;
-		public int FadeOperation; // -1 fade In, 0, 1 fade out
+		public int CurrentFadeTime;
+		public int CurrentFadeOperation; // -1 fade In, 0, 1 fade out
 		public float Alpha;
 
 		public Action DismissedCallback;

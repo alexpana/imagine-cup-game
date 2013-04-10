@@ -227,6 +227,7 @@ namespace VertexArmy.Global.Managers
 		}
 
 		public bool UseDof = false;
+		public bool UsePostDraw = false;
 
 		
 		public  void Render ( float dt )
@@ -304,11 +305,6 @@ namespace VertexArmy.Global.Managers
 			depthState.DepthBufferEnable = true; /* Enable the depth buffer */
 			depthState.DepthBufferWriteEnable = true; /* When drawing to the screen, write to the depth buffer */
 			depthState.DepthBufferFunction = CompareFunction.Less;
-			
-
-			
-
-
 
 
 			Platform.Instance.Device.BlendState = BlendState.Opaque;
@@ -369,6 +365,8 @@ namespace VertexArmy.Global.Managers
 					}
 				}
 			}
+			if ( !UsePostDraw )
+				return;
 			//post render
 			foreach ( var registeredNode in _registeredNodes )
 			{

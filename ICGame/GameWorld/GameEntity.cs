@@ -203,6 +203,7 @@ namespace VertexArmy.GameWorld
 
 		public void SetScale( Vector3 newScale )
 		{
+			Scale = newScale;
 			foreach ( BodyController c in BodyControllers )
 			{
 				c.Transformable.SetScale( newScale );

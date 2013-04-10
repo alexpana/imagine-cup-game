@@ -31,7 +31,8 @@ namespace VertexArmy.Global.Managers
 
 		public void Update( GameTime dTime )
 		{
-			foreach ( IUpdatable updatable in _updatables )
+			var list = _updatables.ToArray();
+			foreach ( IUpdatable updatable in list )
 			{
 				Debug.Assert( updatable != null, "updatable != null" );
 				updatable.Update( dTime );

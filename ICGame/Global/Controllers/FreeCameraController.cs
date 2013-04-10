@@ -12,6 +12,7 @@ namespace VertexArmy.Global.Controllers
 		private Vector3 _delta = Vector3.Zero;
 		private Vector3 _screen;
 		private Vector2 _error, _error2;
+		private float _lastScrollValue;
 		public FreeCameraController( CameraAttachable camera )
 		{
 			Data = new List<object> { camera };
@@ -19,6 +20,7 @@ namespace VertexArmy.Global.Controllers
 			_screen /= 2;
 			_error = new Vector2( _screen.X * 0.85f, _screen.Y * 0.85f );
 			_error2 = new Vector2( _screen.X, _screen.Y );
+			_lastScrollValue = Mouse.GetState().ScrollWheelValue;
 		}
 
 		public void Update( GameTime dt )
@@ -33,6 +35,13 @@ namespace VertexArmy.Global.Controllers
 			{
 				return;
 			}
+
+			if ( Mouse.GetState().ScrollWheelValue != _lastScrollValue )
+			{
+				camera.Parent.SetPosition( camera.Parent.GetPosition() - ( Mouse.GetState().ScrollWheelValue - _lastScrollValue ) * Vector3.UnitZ );
+				_lastScrollValue = Mouse.GetState().ScrollWheelValue;
+			}
+
 			Vector3 direction = new Vector3( Mouse.GetState().X, Mouse.GetState().Y, 0f );
 			direction -= _screen;
 
@@ -48,7 +57,6 @@ namespace VertexArmy.Global.Controllers
 
 			direction *= new Vector3( 1f, -1f, 0f );
 			direction *= ( float ) dt.ElapsedGameTime.TotalSeconds;
-
 
 			Vector3 lookingPosition = camera.Parent.GetPosition() + direction;
 			camera.Parent.SetPosition( lookingPosition );

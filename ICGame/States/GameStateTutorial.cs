@@ -58,7 +58,7 @@ namespace VertexArmy.States
 					{
 						Robot.PhysicsEntity.SetCollisionLayer( Category.Cat2 );
 						Vector3 position = Robot.GetPosition();
-						Robot.SetPosition( new Vector3( position.X, position.Y, -300f ) );
+						Robot.SetPosition( new Vector3( position.X, position.Y, -800f ) );
 					}
 				}
 				if ( Keyboard.GetState( PlayerIndex.One ).IsKeyDown( Keys.Down ) )
@@ -160,7 +160,7 @@ namespace VertexArmy.States
 			TransformUtility.RotateTransformableAroundPoint2D( GameWorldManager.Instance.GetEntity( "floor" + ( floorCount - 1 ) ), rotationPoint, 0.3f );
 
 			//first floor part background
-			GameWorldManager.Instance.SpawnEntity( "Floor", "floor" + floorCount++, new Vector3( -300f + 60f * 10, 0f, -300f ), new Vector3( 20f, 1f, 1f ), Category.Cat2 );
+			GameWorldManager.Instance.SpawnEntity( "Floor", "floor" + floorCount++, new Vector3( -300f + 60f * 10, 0f, -800f ), new Vector3( 20f, 1f, 1f ), Category.Cat2 );
 
 			for ( int i = 0; i < 5; i++ )
 			{
@@ -314,7 +314,7 @@ namespace VertexArmy.States
 			GameWorldManager.Instance.SpawnEntity( "Camera", "camera1", new Vector3( 0, -200, 800 ) );
 			GameWorldManager.Instance.SpawnEntity( "Robot", "robotPlayer", new Vector3( -150f, 100f, 0f ), new Vector3( 1.5f, 1.5f, 2.5f ) );
 			GameWorldManager.Instance.SpawnEntity( "WallBackground", "wallBackground1",
-				new Vector3( 0f, 0f, -800f ), Quaternion.CreateFromAxisAngle( Vector3.UnitX, -0.3f ), 150 );
+				new Vector3( 0f, 0f, -1200f ), Quaternion.CreateFromAxisAngle( Vector3.UnitX, -0.3f ), 150 );
 
 			Robot = GameWorldManager.Instance.GetEntity( "robotPlayer" );
 
@@ -328,9 +328,9 @@ namespace VertexArmy.States
 			GameWorldManager.Instance.SpawnEntity( "Crate", "crate3", new Vector3( 2200, 360f, 0f ), 5f );
 			GameWorldManager.Instance.SpawnEntity( "Crate", "crate4", new Vector3( 2450, -90f, 0f ), 4f );
 
-			GameWorldManager.Instance.SpawnEntity( "Crate", "crate5", new Vector3( -80, 100f, -300f ), 4f, Category.Cat2 );
-			GameWorldManager.Instance.SpawnEntity( "Crate", "crate6", new Vector3( 0, 100f, -300f ), 4f, Category.Cat2 );
-			GameWorldManager.Instance.SpawnEntity( "Crate", "crate7", new Vector3( -50, 150f, -300f ), 3f, Category.Cat2 );
+			GameWorldManager.Instance.SpawnEntity( "Crate", "crate5", new Vector3( -80, 100f, -800f ), 4f, Category.Cat2 );
+			GameWorldManager.Instance.SpawnEntity( "Crate", "crate6", new Vector3( 0, 100f, -800f ), 4f, Category.Cat2 );
+			GameWorldManager.Instance.SpawnEntity( "Crate", "crate7", new Vector3( -50, 150f, -800f ), 3f, Category.Cat2 );
 
 			CameraController camControl = new CameraController( Robot, SceneManager.Instance.GetCurrentCamera() );
 			ControllerRepository.Instance.RegisterController( "camcontrol", camControl );

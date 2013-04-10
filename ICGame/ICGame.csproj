@@ -110,6 +110,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Content\Materials\BlurMaterial.cs" />
+    <Compile Include="Content\Materials\CrateMaterial.cs" />
     <Compile Include="Content\Materials\DepthOfFieldMaterial.cs" />
     <Compile Include="Content\Materials\DepthBufferMaterial.cs" />
     <Compile Include="Content\Materials\WallMenuMaterial2.cs" />

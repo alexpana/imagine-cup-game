@@ -14,8 +14,8 @@ namespace VertexArmy.Content.Materials
 
 			robotMat.Effect = robofx;
 
-			robotMat.AddParameter( "ColorMap", Platform.Instance.Content.Load<Texture2D>( "images/" + "tile-d" ) );
-			robotMat.AddParameter( "NormalMap", Platform.Instance.Content.Load<Texture2D>( "images/" + "tile-n" ) );
+			robotMat.AddParameter( "ColorMap", Platform.Instance.Content.Load<Texture2D>( "images/" + "robo_COLOR" ) );
+			robotMat.AddParameter( "NormalMap", Platform.Instance.Content.Load<Texture2D>( "images/" + "flat_nrm" ) );
 			robotMat.AddParameter( "SpecularMap", Platform.Instance.Content.Load<Texture2D>( "images/" + "no_spec" ) );
 			robotMat.AddParameter( "AOMap", Platform.Instance.Content.Load<Texture2D>( "images/" + "white" ) );
 			robotMat.AddParameter( "matWorldViewProj", Matrix.Identity );

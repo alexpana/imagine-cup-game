@@ -28,8 +28,8 @@ texture2D ColorMap;
 sampler2D ColorMapSampler = sampler_state
 {
 	Texture = <ColorMap>;
-	MinFilter = linear;
-	MagFilter = linear;
+	MinFilter = Anisotropic;
+	MagFilter = Anisotropic;
 	MipFilter = linear;
 	AddressU = Wrap;
     AddressV = Wrap;
@@ -39,8 +39,8 @@ texture2D NormalMap;
 sampler2D NormalMapSampler = sampler_state
 {
 	Texture = <NormalMap>;
-	MinFilter = linear;
-	MagFilter = linear;
+	MinFilter = Anisotropic;
+	MagFilter = Anisotropic;
 	MipFilter = linear;
 	AddressU = Wrap;
     AddressV = Wrap;
@@ -50,8 +50,8 @@ texture2D SpecularMap;
 sampler2D SpecularMapSampler = sampler_state
 {
 	Texture = <SpecularMap>;
-	MinFilter = linear;
-	MagFilter = linear;
+	MinFilter = Anisotropic;
+	MagFilter = Anisotropic;
 	MipFilter = linear;
 	AddressU = Wrap;
     AddressV = Wrap;

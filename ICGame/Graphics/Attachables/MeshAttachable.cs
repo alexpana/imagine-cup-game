@@ -1,5 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using VertexArmy.Content.Materials;
+using VertexArmy.Global;
+using VertexArmy.Global.Managers;
 
 namespace VertexArmy.Graphics.Attachables
 {
@@ -9,7 +12,7 @@ namespace VertexArmy.Graphics.Attachables
 		public Model Model { get; private set; }
 		public Material Material { get; private set; }
 
-		private BoundingBox _boundBox;
+		private Material _highlightMaterial;
 
 		public BoundingSphere BoundingSphere
 		{
@@ -23,7 +26,8 @@ namespace VertexArmy.Graphics.Attachables
 		public MeshAttachable( Model mod, Material mat )
 		{
 			_boundSphere = new BoundingSphere();
-			_boundBox = new BoundingBox();
+			Highlighted = false;
+			_highlightMaterial = MaterialRepository.Instance.GetMaterial("HighlightMaterial")(null);
 			foreach ( ModelMesh mesh in mod.Meshes )
 			{
 				_boundSphere = BoundingSphere.CreateMerged( _boundSphere, mesh.BoundingSphere );
@@ -76,6 +80,50 @@ namespace VertexArmy.Graphics.Attachables
 			{
 				m.Draw();
 			}
+
+
+			if(Highlighted)
+			{
+				Renderer.Instance.SetGlobalMaterialParameters( _highlightMaterial );
+				_highlightMaterial.Apply();
+
+				foreach ( ModelMesh m in Model.Meshes )
+				{
+					foreach ( ModelMeshPart part in m.MeshParts )
+					{
+						part.Effect = _highlightMaterial.Effect;
+					}
+				}
+
+				BlendState _safBlend = new BlendState()
+				{
+					AlphaSourceBlend = Blend.SourceAlpha,
+					AlphaDestinationBlend = Blend.InverseSourceAlpha,
+					ColorSourceBlend = Blend.SourceAlpha,
+					ColorDestinationBlend = Blend.InverseSourceAlpha,
+					AlphaBlendFunction = BlendFunction.Add,
+				};
+
+				BlendState _defaultBlend = new BlendState();
+				Platform.Instance.Device.BlendState = _safBlend;
+
+				foreach ( ModelMesh m in Model.Meshes )
+				{
+					m.Draw();
+				}
+
+				foreach ( ModelMesh m in Model.Meshes )
+				{
+					foreach ( ModelMeshPart part in m.MeshParts )
+					{
+						part.Effect = Material.Effect;
+					}
+				}
+
+				Platform.Instance.Device.BlendState = _defaultBlend;
+				Highlighted = false;
+			}
+
 		}
 
 
@@ -92,6 +140,8 @@ namespace VertexArmy.Graphics.Attachables
 			}
 			return _localSpaceAABB;
 		}
+
+		public bool Highlighted { get; set; }
 
 		public BoundingBox GetTransformedAABB()
 		{

@@ -329,7 +329,10 @@ namespace VertexArmy.Global.Controllers
 			lst.Sort( ( x, y ) => ( int ) ( y.GetAbsolutePosition().Z - x.GetAbsolutePosition().Z ) );
 
 			if ( lst.Count > 0 )
-				return GameWorldManager.Instance.GetEntityByMesh( ( MeshAttachable ) lst[0].Attachable[0] );
+			{
+				( ( MeshAttachable ) lst[0].Attachable[0] ).Highlighted = true;
+				return GameWorldManager.Instance.GetEntityByMesh((MeshAttachable)lst[0].Attachable[0]);
+			}
 
 			return null;
 		}

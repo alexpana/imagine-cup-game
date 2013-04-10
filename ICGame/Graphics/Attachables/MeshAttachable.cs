@@ -12,8 +12,7 @@ namespace VertexArmy.Graphics.Attachables
 		{
 			get
 			{
-				_boundSphere.Transform( Parent.GetAbsoluteTransformation() );
-				return _boundSphere;
+				return _boundSphere.Transform( Parent.GetAbsoluteTransformation() );
 			}
 			internal set { _boundSphere = value; }
 		}

@@ -2,6 +2,7 @@
 using System.Runtime.Serialization;
 using Microsoft.Xna.Framework;
 using VertexArmy.Global.Behaviours;
+using VertexArmy.Graphics.Attachables;
 using VertexArmy.Utilities;
 
 namespace VertexArmy.Graphics
@@ -31,6 +32,48 @@ namespace VertexArmy.Graphics
 
 		[DataMember]
 		private List<Attachable> _attachables;
+
+		[DataMember]
+		private BoundingSphere _bSphere = new BoundingSphere(Vector3.Zero, 1.0f);
+
+		[DataMember]
+		private bool _hasBSphere;
+
+
+		public Vector3 GetAbsolutePosition()
+		{
+			return GetAbsoluteTransformation().Translation;
+		}
+
+		public BoundingSphere GetBoundingSphere()
+		{
+			if ( !_hasBSphere )
+			{
+				foreach (Attachable at in _attachables)
+				{
+					MeshAttachable myMesh = (MeshAttachable)at;
+
+					if (myMesh != null)
+					{
+						if (!_hasBSphere)
+						{
+							_bSphere = myMesh.BoundingSphere;
+							_hasBSphere = true;
+						}
+						else
+						{
+							_bSphere = BoundingSphere.CreateMerged(_bSphere, myMesh.BoundingSphere);
+						}
+					}
+				}
+			}
+			return _bSphere;
+		}
+
+		public BoundingSphere GetTransformedBoundingSphere()
+		{
+			return GetBoundingSphere().Transform(GetAbsoluteTransformation());
+		}
 
 		private bool _recomputeAbsoluteTransformation;
 		private bool _recomputeRelativeTransformation;

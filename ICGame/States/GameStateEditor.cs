@@ -32,6 +32,7 @@ namespace VertexArmy.States
 		public override void OnUpdate( GameTime gameTime )
 		{
 			base.OnUpdate( gameTime );
+			_pausePhysics = true;
 
 			if ( Keyboard.GetState( PlayerIndex.One ).IsKeyDown( Keys.D ) )
 			{
@@ -81,7 +82,7 @@ namespace VertexArmy.States
 		{
 			GameWorldManager.Instance.SetState( PrefabRepository.Instance.GetLevelPrefab( @"Content\Levels\level1.eql" )._savedState );
 			GameWorldManager.Instance.LoadLastState();
-			GameWorldManager.Instance.Freeze();
+
 			LoadLevel();
 			Platform.Instance.PhysicsWorld.Gravity = Vector2.UnitY * Platform.Instance.PhysicsWorld.Gravity.Length();
 

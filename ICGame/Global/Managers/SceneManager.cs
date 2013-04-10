@@ -390,5 +390,44 @@ namespace VertexArmy.Global.Managers
 			CursorManager.Instance.SceneNode.SetPosition( boardpointW );
 			CursorManager.Instance.SetCursorRay( GetCurrentCamera().Parent.GetPosition(), boardpointW );
 		}
+
+		public List<SceneNode> IntersectRayWithSceneNodes( int screenX, int screenY )
+		{
+			Vector3 nearPoint = new Vector3( screenX, screenY, 0.0f );
+			Vector3 farPoint = new Vector3( screenX, screenY, 1.0f );
+
+			Matrix view = Renderer.Instance.GetMatrix( EMatrix.View );
+			Matrix projection = Renderer.Instance.GetMatrix( EMatrix.Projection );
+
+			Vector3 nearPointW = Platform.Instance.Device.Viewport.Unproject( nearPoint, projection, view, Matrix.Identity );
+			Vector3 farPointW = Platform.Instance.Device.Viewport.Unproject( farPoint, projection, view, Matrix.Identity );
+
+
+			Ray ray = new Ray( nearPointW, Vector3.Normalize(farPointW - nearPointW) );
+
+
+			List<SceneNode> nodes = new List<SceneNode>();
+
+			foreach (SceneNode registeredNode in _registeredNodes)
+			{
+				bool isMesh = false;
+
+				foreach (Attachable attachable in registeredNode.Attachable)
+				{
+					if ((attachable as MeshAttachable) != null)
+					{
+						isMesh = true;
+					}
+				}
+
+				if (isMesh)
+				{
+					BoundingSphere tSphere = registeredNode.GetTransformedBoundingSphere();
+					if ( ray.Intersects( tSphere ) != null )
+						nodes.Add(registeredNode);
+				}
+			}
+			return nodes;
+		}
 	}
 }

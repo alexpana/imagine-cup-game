@@ -43,8 +43,8 @@ namespace VertexArmy.Global.Controllers
 		{
 			GameEntity location = TrySelectEntity();
 
-			if(location != null)
-				HintManager.Instance.SpawnHint( location.Name, new Vector2( 100f, 500f ), 500, 6, null, 1 );
+			//if(location != null)
+				//HintManager.Instance.SpawnHint( location.Name, new Vector2( 100f, 500f ), 500, 6, null, 1 );
 
 			if ( Mouse.GetState().LeftButton.Equals( ButtonState.Pressed ) && !_leftClick )
 			{
@@ -296,13 +296,13 @@ namespace VertexArmy.Global.Controllers
 						_state = EditorState.Selected;
 						break;
 					case EditorState.Selected:
-						HintManager.Instance.SpawnHint( "Selected entity:" + _selectedEntity.Name + "\nPosition: " + _selectedEntity.GetPosition(), new Vector2( 1f, 1f ), 50, 5, null, 1 );
+					//	HintManager.Instance.SpawnHint( "Selected entity:" + _selectedEntity.Name + "\nPosition: " + _selectedEntity.GetPosition(), new Vector2( 1f, 1f ), 50, 5, null, 1 );
 						break;
 					case EditorState.Rotating:
-						HintManager.Instance.SpawnHint( "Rotating entity:" + _selectedEntity.Name + "\nRotation: " + _selectedEntity.GetRotationRadians(), new Vector2( 1f, 1f ), 50, 5, null, 1 );
+					//	HintManager.Instance.SpawnHint( "Rotating entity:" + _selectedEntity.Name + "\nRotation: " + _selectedEntity.GetRotationRadians(), new Vector2( 1f, 1f ), 50, 5, null, 1 );
 						break;
 					case EditorState.Scaling:
-						HintManager.Instance.SpawnHint( "Scaling entity:" + _selectedEntity.Name + "\nRotation: " + _selectedEntity.GetScale(), new Vector2( 1f, 1f ), 50, 5, null, 1 );
+					//	HintManager.Instance.SpawnHint( "Scaling entity:" + _selectedEntity.Name + "\nRotation: " + _selectedEntity.GetScale(), new Vector2( 1f, 1f ), 50, 5, null, 1 );
 						break;
 				}
 

@@ -41,6 +41,11 @@ namespace VertexArmy.Global.Controllers
 
 		private void SelectProcess( GameTime dt )
 		{
+			GameEntity cursorLocation = TrySelectEntity();
+
+			if(cursorLocation != null)
+				HintManager.Instance.SpawnHint( cursorLocation.Name, new Vector2( 100f, 500f ), 500, 6, null, 1 );
+
 			if ( Mouse.GetState().LeftButton.Equals( ButtonState.Pressed ) && !_leftClick )
 			{
 				_leftClick = true;
@@ -278,7 +283,9 @@ namespace VertexArmy.Global.Controllers
 		public void Update( GameTime dt )
 		{
 			cursorLocation = TrySelectEntity();
-			HintManager.Instance.SpawnHint( cursorLocation.Name, new Vector2( 100f, 500f ), 100, 6, null, 1 );
+
+			if(cursorLocation != null)
+				HintManager.Instance.SpawnHint( cursorLocation.Name, new Vector2( 100f, 500f ), 100, 6, null, 1 );
 
 			SelectProcess( dt );
 			MoveProcess( dt );

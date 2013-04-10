@@ -61,7 +61,9 @@ namespace VertexArmy.Global.Managers
 			Vector3 dir = direction - position;
 			dir.Normalize();
 			CursorRay = new Ray( position, dir );
+#if EDITOR
 			HintManager.Instance.SpawnHint( CursorRay.Direction + " " + CursorRay.Position, new Vector2( 100f, 500f ), 500, 1, null, 0 );
+#endif
 		}
 		private CursorManager()
 		{

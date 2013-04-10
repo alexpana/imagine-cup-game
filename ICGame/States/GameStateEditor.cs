@@ -1,5 +1,7 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Input;
 using VertexArmy.GameWorld;
 using VertexArmy.Global;
@@ -24,6 +26,8 @@ namespace VertexArmy.States
 		private bool _actionToggleDebugView;
 		private bool _debugViewState;
 
+		private bool _levelLoaded;
+
 		public GameStateEditor( ContentManager content )
 		{
 			_contentManager = content;
@@ -31,7 +35,13 @@ namespace VertexArmy.States
 
 		public override void OnUpdate( GameTime gameTime )
 		{
+			if ( !_levelLoaded )
+			{
+				return;
+			}
+
 			base.OnUpdate( gameTime );
+
 			_pausePhysics = true;
 
 			if ( Keyboard.GetState( PlayerIndex.One ).IsKeyDown( Keys.D ) )
@@ -47,11 +57,15 @@ namespace VertexArmy.States
 			{
 				_actionToggleDebugView = false;
 			}
-
 		}
 
 		public override void OnRender( GameTime gameTime )
 		{
+			if ( !_levelLoaded )
+			{
+				return;
+			}
+
 			base.OnRender( gameTime );
 
 			if ( _debugViewState )
@@ -81,13 +95,24 @@ namespace VertexArmy.States
 
 		public override void OnEnter()
 		{
-			GameWorldManager.Instance.SetState( PrefabRepository.Instance.GetLevelPrefab( @"Content\Levels\level1.eql" )._savedState );
+			Guide.BeginShowKeyboardInput( PlayerIndex.One, "Select level", "Specify the name of the level", "level1", LevelNameInputCallback, null );
+		}
+
+		private void LevelNameInputCallback( IAsyncResult ar )
+		{
+			string levelName = Guide.EndShowKeyboardInput( ar );
+
+			// nothing to do yet
+			if ( !ar.IsCompleted )
+			{
+				return;
+			}
+
+			GameWorldManager.Instance.SetState( PrefabRepository.Instance.GetLevelPrefab( @"Content\Levels\" + levelName + ".eql" )._savedState );
 			GameWorldManager.Instance.LoadLastState();
 
 			LoadLevel();
 			Platform.Instance.PhysicsWorld.Gravity = Vector2.UnitY * Platform.Instance.PhysicsWorld.Gravity.Length();
-
-			FrameUpdateManager.Instance.Register( HintManager.Instance );
 
 			_debugViewState = false;
 			_actionToggleDebugView = false;
@@ -105,8 +130,10 @@ namespace VertexArmy.States
 			//Song song = _contentManager.Load<Song>( "music/Beluga_-_Lost_In_Outer_Space" );
 			//Platform.Instance.SoundManager.PlayMusic( song );
 
-
+			FrameUpdateManager.Instance.Register( HintManager.Instance );
 			FrameUpdateManager.Instance.Register( SceneManager.Instance );
+
+			_levelLoaded = true;
 		}
 
 		public override void OnClose()

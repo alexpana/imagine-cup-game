@@ -1,11 +1,11 @@
-﻿using System;
+﻿//#define PLAY_VIDEO
+using System;
 using System.Collections.Generic;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Media;
 using VertexArmy.Content.Prefabs;
 using VertexArmy.Global;
 using VertexArmy.Global.Managers;
@@ -21,11 +21,13 @@ namespace VertexArmy.States.Menu
 
 		private readonly Platform _platform;
 
+		private SpriteBatch _spriteBatch;
+#if PLAY_VIDEO
 		private Video _video;
 		private VideoPlayer _videoPlayer;
-		private SpriteBatch _spriteBatch;
 		private Texture2D _lastVideoTexture;
 		private Rectangle _videoTargetRectangle;
+#endif
 
 		Vector3 _lightPos = new Vector3( 0, 40000, 20000 );
 
@@ -37,11 +39,14 @@ namespace VertexArmy.States.Menu
 
 		public override void OnRender( GameTime gameTime )
 		{
+#if PLAY_VIDEO
 			RenderBackgroundVideo();
+#endif
 
 			base.OnRender( gameTime );
 		}
 
+#if PLAY_VIDEO
 		private void RenderBackgroundVideo()
 		{
 			if ( _videoPlayer.State == MediaState.Playing )
@@ -56,6 +61,7 @@ namespace VertexArmy.States.Menu
 				_spriteBatch.End();
 			}
 		}
+#endif
 
 		public override void OnUpdate( GameTime gameTime )
 		{
@@ -180,15 +186,17 @@ namespace VertexArmy.States.Menu
 
 			GameWorldManager.Instance.SpawnEntity( CameraPrefab.PrefabName, "menu_camera", new Vector3( 0, 0, 100 ) );
 
-			//GameWorldManager.Instance.SpawnEntity( "WallMenu", "wallMenu1",
-			//				new Vector3( 0f, 0f, -1800f ), Quaternion.CreateFromAxisAngle( Vector3.UnitX, -0.3f ), 150 );
+			GameWorldManager.Instance.SpawnEntity( "WallMenu", "wallMenu1",
+							new Vector3( 0f, 0f, -1800f ), Quaternion.CreateFromAxisAngle( Vector3.UnitX, -0.3f ), 150 );
 
 			_spriteBatch = new SpriteBatch( _platform.Device );
+#if PLAY_VIDEO
 			_video = ContentManager.Load<Video>( "movies/PurpleStarFlight" );
 			_videoPlayer = new VideoPlayer { IsLooped = true };
 			_videoTargetRectangle = new Rectangle( 0, 0, _platform.Device.Viewport.Width, _platform.Device.Viewport.Height );
 
 			_videoPlayer.Play( _video );
+#endif
 		}
 
 		public override void OnClose()

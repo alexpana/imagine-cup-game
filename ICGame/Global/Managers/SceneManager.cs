@@ -39,7 +39,8 @@ namespace VertexArmy.Global.Managers
 			if ( _color == null )
 			{
 				PresentationParameters pp = Platform.Instance.Device.PresentationParameters;
-				_color = new RenderTarget2D( Platform.Instance.Device, pp.BackBufferWidth, pp.BackBufferHeight, false, Platform.Instance.Device.DisplayMode.Format, DepthFormat.Depth24 );
+				_color = new RenderTarget2D( Platform.Instance.Device, pp.BackBufferWidth, pp.BackBufferHeight, false, Platform.Instance.Device.DisplayMode.Format, DepthFormat.Depth24,
+					Platform.Instance.Device.PresentationParameters.MultiSampleCount, RenderTargetUsage.PreserveContents );
 			}
 			return _color;
 		}
@@ -422,8 +423,8 @@ namespace VertexArmy.Global.Managers
 
 				if (isMesh)
 				{
-					BoundingSphere tSphere = registeredNode.GetTransformedBoundingSphere();
-					if ( ray.Intersects( tSphere ) != null )
+					BoundingBox tBox = registeredNode.GetTransformedBoundingBox();
+					if ( ray.Intersects( tBox ) != null )
 						nodes.Add(registeredNode);
 				}
 			}

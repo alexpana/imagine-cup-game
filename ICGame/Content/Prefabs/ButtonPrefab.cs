@@ -56,7 +56,7 @@ namespace VertexArmy.Content.Prefabs
 			BodyPrefab buttonBody = new BodyPrefab
 			{
 				Friction = 1f,
-				LocalPosition = new Vector2( 0f, 4f ),
+				LocalPosition = new Vector2( 0f, 0f ),
 				Name = "Button",
 				Shapes = new List<ShapePrefab> { buttonShape },
 				Restitution = 0.1f,
@@ -89,14 +89,14 @@ namespace VertexArmy.Content.Prefabs
 			{
 				Name = "CaseNode",
 				Mesh = "models/button_body",
-				Material = "CelShadingMaterial",
+				Material = "ButtonMaterial",
 			};
 
 			MeshSceneNodePrefab buttonNode = new MeshSceneNodePrefab
 			{
 				Name = "ButtonNode",
 				Mesh = "models/button_head",
-				Material = "CelShadingMaterial",
+				Material = "ButtonMaterial",
 			};
 
 			button.RegisterMeshSceneNode( caseNode );

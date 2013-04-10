@@ -73,6 +73,7 @@ namespace VertexArmy
 			PrefabRepository.Instance.RegisterPrefab( "WallMenu2", SimpleMeshPrefab.CreatePrefab( "models/quad", "WallMenuMaterial2", "wall-node-3" ) );
 
 			MaterialRepository.Instance.RegisterMaterial( "DefaultMaterial", args => CelShading.CreateMaterial() );
+			MaterialRepository.Instance.RegisterMaterial( "ButtonMaterial", args => ButtonMaterial.CreateMaterial( ) );
 			MaterialRepository.Instance.RegisterMaterial( "RobotMaterial", args => RobotMaterial.CreateMaterial() );
 			MaterialRepository.Instance.RegisterMaterial( "CelShadingMaterial", args => CelShading.CreateMaterial() );
 			MaterialRepository.Instance.RegisterMaterial( "MenuCubeMaterial", args => MenuCubeMaterial.CreateMaterial( args ) );

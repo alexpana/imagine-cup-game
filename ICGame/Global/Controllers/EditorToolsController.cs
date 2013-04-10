@@ -4,7 +4,6 @@ using Microsoft.Xna.Framework.Input;
 using VertexArmy.GameWorld;
 using VertexArmy.Global.Behaviours;
 using VertexArmy.Global.Managers;
-using VertexArmy.Graphics;
 using VertexArmy.Graphics.Attachables;
 
 namespace VertexArmy.Global.Controllers
@@ -57,7 +56,7 @@ namespace VertexArmy.Global.Controllers
 
 				if ( selected != null )
 				{
-					HintManager.Instance.SpawnHint( selected.Name, new Vector2( 100, 100 ), 500f, 1 );
+					HintManager.Instance.SpawnHint( selected.Name, new Vector2( 100, 100 ), 500f, 2 );
 				}
 			}
 		}

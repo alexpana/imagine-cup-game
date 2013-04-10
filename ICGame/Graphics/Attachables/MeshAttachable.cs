@@ -5,16 +5,25 @@ namespace VertexArmy.Graphics.Attachables
 {
 	public class MeshAttachable : Attachable
 	{
+		private BoundingSphere _boundSphere;
 		public Model Model { get; private set; }
 		public Material Material { get; private set; }
-		public BoundingSphere BoundingSphere { get; internal set; }
+		public BoundingSphere BoundingSphere
+		{
+			get
+			{
+				_boundSphere.Transform( Parent.GetAbsoluteTransformation() );
+				return _boundSphere;
+			}
+			internal set { _boundSphere = value; }
+		}
 
 		public MeshAttachable( Model mod, Material mat )
 		{
-			BoundingSphere = new BoundingSphere();
+			_boundSphere = new BoundingSphere();
 			foreach ( ModelMesh mesh in mod.Meshes )
 			{
-				BoundingSphere = BoundingSphere.CreateMerged( BoundingSphere, mesh.BoundingSphere );
+				_boundSphere = BoundingSphere.CreateMerged( _boundSphere, mesh.BoundingSphere );
 				foreach ( ModelMeshPart part in mesh.MeshParts )
 				{
 					part.Effect = mat.Effect;
@@ -30,29 +39,29 @@ namespace VertexArmy.Graphics.Attachables
 			Material Depth = Renderer.Instance.GetDepthBufferMaterial();
 			Renderer.Instance.SetGlobalMaterialParameters( Depth );
 
-			
+
 			foreach ( ModelMesh m in Model.Meshes )
 			{
-				foreach (ModelMeshPart part in m.MeshParts)
+				foreach ( ModelMeshPart part in m.MeshParts )
 				{
 					part.Effect = Depth.Effect;
 				}
 			}
 
 			Depth.Apply();
-			foreach (ModelMesh m in Model.Meshes)
+			foreach ( ModelMesh m in Model.Meshes )
 			{
-				m.Draw();	
+				m.Draw();
 			}
 
 			foreach ( ModelMesh m in Model.Meshes )
 			{
-				foreach (ModelMeshPart part in m.MeshParts)
+				foreach ( ModelMeshPart part in m.MeshParts )
 				{
 					part.Effect = Material.Effect;
 				}
 			}
-			
+
 		}
 
 		public override void Render( float dt )

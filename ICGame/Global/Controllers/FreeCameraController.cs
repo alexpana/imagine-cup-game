@@ -11,13 +11,14 @@ namespace VertexArmy.Global.Controllers
 	{
 		private Vector3 _delta = Vector3.Zero;
 		private Vector3 _screen;
-		private Vector2 _error;
+		private Vector2 _error, _error2;
 		public FreeCameraController( CameraAttachable camera )
 		{
 			Data = new List<object> { camera };
 			_screen = new Vector3( Platform.Instance.DeviceManager.PreferredBackBufferWidth, Platform.Instance.DeviceManager.PreferredBackBufferHeight, 0 );
 			_screen /= 2;
-			_error = new Vector2( _screen.X * 0.95f, _screen.Y * 0.95f );
+			_error = new Vector2( _screen.X * 0.85f, _screen.Y * 0.85f );
+			_error2 = new Vector2( _screen.X, _screen.Y );
 		}
 
 		public void Update( GameTime dt )
@@ -28,7 +29,10 @@ namespace VertexArmy.Global.Controllers
 
 			if ( !ok ) return;
 
-
+			if ( !Platform.Instance.Game.IsActive )
+			{
+				return;
+			}
 			Vector3 direction = new Vector3( Mouse.GetState().X, Mouse.GetState().Y, 0f );
 			direction -= _screen;
 
@@ -36,6 +40,11 @@ namespace VertexArmy.Global.Controllers
 			{
 				return;
 			}
+			if ( Math.Abs( direction.X ) > _error2.X || Math.Abs( direction.Y ) > _error2.Y )
+			{
+				return;
+			}
+
 
 			direction *= new Vector3( 1f, -1f, 0f );
 			direction *= ( float ) dt.ElapsedGameTime.TotalSeconds;

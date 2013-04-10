@@ -54,7 +54,6 @@ namespace VertexArmy.Global.Controllers
 				return;
 			}
 
-
 			direction *= new Vector3( 1f, -1f, 0f );
 			direction *= ( float ) dt.ElapsedGameTime.TotalSeconds;
 

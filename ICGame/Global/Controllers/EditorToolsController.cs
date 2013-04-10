@@ -26,6 +26,9 @@ namespace VertexArmy.Global.Controllers
 		private const double _scaleDelay = 500.0;
 		private bool _leftClick;
 
+		private bool _dragging;
+		private Vector3 _relative;
+
 		private GameEntity _selectedEntity;
 		private GameEntity _tryEntity;
 		private GameEntity cursorLocation;
@@ -33,6 +36,7 @@ namespace VertexArmy.Global.Controllers
 		public EditorToolsController()
 		{
 			_leftClick = false;
+			_dragging = false;
 			_state = EditorState.None;
 			_clicks = 0;
 			_moveTime = -1;
@@ -43,7 +47,7 @@ namespace VertexArmy.Global.Controllers
 		{
 			GameEntity cursorLocation = TrySelectEntity();
 
-			if(cursorLocation != null)
+			if ( cursorLocation != null )
 				HintManager.Instance.SpawnHint( cursorLocation.Name, new Vector2( 100f, 500f ), 500, 6, null, 1 );
 
 			if ( Mouse.GetState().LeftButton.Equals( ButtonState.Pressed ) && !_leftClick )
@@ -68,11 +72,19 @@ namespace VertexArmy.Global.Controllers
 					}
 				}
 
+				if ( _state.Equals( EditorState.Selected ) && cursorLocation.Equals( _selectedEntity ) )
+				{
+					_dragging = true;
+					_relative = new Vector3( CursorManager.Instance.SceneNode.GetPosition().X, CursorManager.Instance.SceneNode.GetPosition().Y, _selectedEntity.GetPosition().Z ) - _selectedEntity.GetPosition();
+				}
+
 			}
 			else if ( Mouse.GetState().LeftButton.Equals( ButtonState.Released ) && _leftClick )
 			{
 				_leftClick = false;
 				_clickTime = dt.TotalGameTime.TotalMilliseconds;
+
+				_dragging = false;
 			}
 			else if ( Mouse.GetState().LeftButton.Equals( ButtonState.Released ) && !_leftClick )
 			{
@@ -121,6 +133,11 @@ namespace VertexArmy.Global.Controllers
 
 		public void MoveProcess( GameTime dt )
 		{
+			if ( _dragging )
+			{
+				Vector3 newPosition = new Vector3( CursorManager.Instance.SceneNode.GetPosition().X, CursorManager.Instance.SceneNode.GetPosition().Y, 0f );
+				_selectedEntity.SetPosition( newPosition );
+			}
 			if ( _selectedEntity != null && _state.Equals( EditorState.Selected ) )
 			{
 				Vector3 move = Vector3.Zero;
@@ -284,7 +301,7 @@ namespace VertexArmy.Global.Controllers
 		{
 			cursorLocation = TrySelectEntity();
 
-			if(cursorLocation != null)
+			if ( cursorLocation != null )
 				HintManager.Instance.SpawnHint( cursorLocation.Name, new Vector2( 100f, 500f ), 100, 6, null, 1 );
 
 			SelectProcess( dt );

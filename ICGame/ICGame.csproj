@@ -279,7 +279,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="Content\Levels\level1.eql" />
+    <None Include="Content\Levels\level1.eql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Content\Levels\tutorial.level">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

@@ -77,5 +77,79 @@ namespace VertexArmy.Graphics.Attachables
 				m.Draw();
 			}
 		}
+
+
+		private BoundingBox _localSpaceAABB;
+		private bool _isMeshAABBcomputed;
+
+
+		public BoundingBox GetAABB()
+		{
+			if ( !_isMeshAABBcomputed )
+			{
+				ComputeAABB();
+				_isMeshAABBcomputed = true;
+			}
+			return _localSpaceAABB;
+		}
+
+		public BoundingBox GetTransformedAABB()
+		{
+			
+			Vector3 min = Vector3.Transform( GetAABB().Min, Parent.GetAbsoluteTransformation());
+			Vector3 max = Vector3.Transform( GetAABB().Max, Parent.GetAbsoluteTransformation() );
+
+			Vector3 trueMin = min;
+			Vector3 trueMax = max;
+
+			if ( min.X > max.X )
+			{
+				trueMin.X = max.X;
+				trueMax.X = min.X;
+			}
+
+			if ( min.Y > max.Y )
+			{
+				trueMin.Y = max.Y;
+				trueMax.Y = min.Y;
+			}
+
+			if ( min.Z > max.Z )
+			{
+				trueMin.Z = max.Z;
+				trueMax.Z = min.Z;
+			}
+			return new BoundingBox(trueMin, trueMax);
+		}
+
+		private void ComputeAABB()
+		{
+			Vector3 min = new Vector3(float.MaxValue, float.MaxValue, float.MaxValue);
+			Vector3 max = new Vector3(float.MinValue, float.MinValue, float.MinValue);
+
+
+			foreach (ModelMesh mesh in Model.Meshes)
+			{
+				foreach (ModelMeshPart meshPart in mesh.MeshParts)
+				{
+					// Vertex buffer parameters
+					int vertexStride = meshPart.VertexBuffer.VertexDeclaration.VertexStride;
+					int vertexBufferSize = meshPart.NumVertices * vertexStride;
+
+					float[] vertexData = new float[vertexBufferSize / sizeof( float )];
+					meshPart.VertexBuffer.GetData( vertexData );
+
+					// Iterate through vertexes (possibly) growing bounding box, all calculations are done in world space
+					for ( int i = 0; i < vertexBufferSize / sizeof( float ); i += vertexStride / sizeof( float ) )
+					{
+						Vector3 position = new Vector3(vertexData[i], vertexData[i + 1], vertexData[i + 2]);
+
+						min = Vector3.Min( min, position );
+						max = Vector3.Max( max, position );
+					}
+				}
+			}
+			_localSpaceAABB = new BoundingBox(min, max);
+		}
 	}
 }

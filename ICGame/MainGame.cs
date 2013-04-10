@@ -83,6 +83,7 @@ namespace VertexArmy
 			MaterialRepository.Instance.RegisterMaterial( "TileMaterial", args => TileMaterial.CreateMaterial() );
 			MaterialRepository.Instance.RegisterMaterial( "TechMaterial", args => TechMaterial.CreateMaterial() );
 			MaterialRepository.Instance.RegisterMaterial( "CrateMaterial", args => CrateMaterial.CreateMaterial() );
+			MaterialRepository.Instance.RegisterMaterial( "HighlightMaterial", args => HighlightMaterial.CreateMaterial() );
 		}
 
 		protected override void UnloadContent()

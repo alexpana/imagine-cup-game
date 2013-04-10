@@ -98,6 +98,7 @@ namespace VertexArmy.Graphics
 			AddParameter( "matWorld", Matrix.Identity );
 			AddParameter( "eyePosition", Vector3.Zero );
 			AddParameter( "lightPosition", Vector3.Zero );
+			AddParameter( "fTimeMs", 0.0f );
 		}
 
 		public static Renderer Instance

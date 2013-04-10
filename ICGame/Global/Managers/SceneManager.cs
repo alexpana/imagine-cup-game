@@ -369,6 +369,23 @@ namespace VertexArmy.Global.Managers
 					}
 				}
 			}
+			//post render
+			foreach ( var registeredNode in _registeredNodes )
+			{
+				Renderer.Instance.LoadMatrix( EMatrix.World, registeredNode.GetAbsoluteTransformation() );
+				Renderer.Instance.SetParameter( "matWorld", Renderer.Instance.MatWorld );
+				Renderer.Instance.SetParameter( "matWorldInverseTranspose", Renderer.Instance.MatWorldInverseTranspose );
+				Renderer.Instance.SetParameter( "matWorldViewProj", Renderer.Instance.MatWorldViewProjection );
+
+
+				foreach ( var attachable in registeredNode.Attachable )
+				{
+					if ( !attachable.Parent.Invisible )
+					{
+						attachable.PostRender(dt);
+					}
+				}
+			}
 		}
 		
 		public void Update( GameTime dt )

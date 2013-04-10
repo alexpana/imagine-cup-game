@@ -41,15 +41,15 @@ namespace VertexArmy.Global.Controllers
 
 		private void SelectProcess( GameTime dt )
 		{
-			GameEntity cursorLocation = TrySelectEntity();
+			GameEntity location = TrySelectEntity();
 
-			if(cursorLocation != null)
-				HintManager.Instance.SpawnHint( cursorLocation.Name, new Vector2( 100f, 500f ), 500, 6, null, 1 );
+			if(location != null)
+				HintManager.Instance.SpawnHint( location.Name, new Vector2( 100f, 500f ), 500, 6, null, 1 );
 
 			if ( Mouse.GetState().LeftButton.Equals( ButtonState.Pressed ) && !_leftClick )
 			{
 				_leftClick = true;
-				GameEntity select = cursorLocation;
+				GameEntity select = location;
 				if ( _tryEntity == null )
 				{
 					_tryEntity = select;
@@ -282,11 +282,6 @@ namespace VertexArmy.Global.Controllers
 
 		public void Update( GameTime dt )
 		{
-			cursorLocation = TrySelectEntity();
-
-			if(cursorLocation != null)
-				HintManager.Instance.SpawnHint( cursorLocation.Name, new Vector2( 100f, 500f ), 100, 6, null, 1 );
-
 			SelectProcess( dt );
 			MoveProcess( dt );
 			RotateProcess( dt );
@@ -316,6 +311,35 @@ namespace VertexArmy.Global.Controllers
 			{
 				_state = EditorState.None;
 			}
+
+			HighlightSelectedEntity();
+		}
+
+		private void HighlightSelectedEntity()
+		{
+			if(_selectedEntity != null )
+			{
+				if(_state == EditorState.Selected)
+				{
+
+					foreach (KeyValuePair<string, SceneNode> keyValuePair in _selectedEntity.SceneNodes)
+					{
+						SceneNode node = keyValuePair.Value;
+
+						foreach (Attachable attachable in node.Attachable)
+						{
+							MeshAttachable ma = attachable as MeshAttachable;
+
+							if(ma != null)
+							{
+								ma.Highlighted = true;
+								ma.HighColor = Vector3.UnitY;
+							}
+						}
+					}
+
+				}
+			}
 		}
 
 		private GameEntity TrySelectEntity()
@@ -326,15 +350,18 @@ namespace VertexArmy.Global.Controllers
 
 			List<SceneNode> lst = SceneManager.Instance.IntersectRayWithSceneNodes( mouseX, mouseY );
 
-			lst.Sort( ( x, y ) => ( int ) ( y.GetAbsolutePosition().Z - x.GetAbsolutePosition().Z ) );
+			if ( lst.Count == 0 )
+				return null;
 
-			if ( lst.Count > 0 )
+
+			SceneNode max = lst[0];
+			foreach (SceneNode sceneNode in lst)
 			{
-				( ( MeshAttachable ) lst[0].Attachable[0] ).Highlighted = true;
-				return GameWorldManager.Instance.GetEntityByMesh((MeshAttachable)lst[0].Attachable[0]);
+				if ( max.GetAbsolutePosition().Z < sceneNode.GetAbsolutePosition().Z )
+					max = sceneNode;
 			}
-
-			return null;
+			( ( MeshAttachable ) lst[0].Attachable[0] ).Highlighted = true;
+			return GameWorldManager.Instance.GetEntityByMesh((MeshAttachable)lst[0].Attachable[0]);
 		}
 
 

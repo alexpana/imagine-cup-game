@@ -13,6 +13,7 @@ namespace VertexArmy.Graphics.Attachables
 		public Material Material { get; private set; }
 
 		private Material _highlightMaterial;
+		public Vector3 HighColor;
 
 		public BoundingSphere BoundingSphere
 		{
@@ -27,6 +28,7 @@ namespace VertexArmy.Graphics.Attachables
 		{
 			_boundSphere = new BoundingSphere();
 			Highlighted = false;
+			HighColor = Vector3.One;
 			_highlightMaterial = MaterialRepository.Instance.GetMaterial("HighlightMaterial")(null);
 			foreach ( ModelMesh mesh in mod.Meshes )
 			{
@@ -72,18 +74,11 @@ namespace VertexArmy.Graphics.Attachables
 
 		}
 
-		public override void Render( float dt )
+		public override void PostRender ( float dt )
 		{
-			Renderer.Instance.SetGlobalMaterialParameters( Material );
-			Material.Apply();
-			foreach ( ModelMesh m in Model.Meshes )
+			if ( Highlighted )
 			{
-				m.Draw();
-			}
-
-
-			if(Highlighted)
-			{
+				_highlightMaterial.SetParameter( "f3Color", HighColor );
 				Renderer.Instance.SetGlobalMaterialParameters( _highlightMaterial );
 				_highlightMaterial.Apply();
 
@@ -94,6 +89,7 @@ namespace VertexArmy.Graphics.Attachables
 						part.Effect = _highlightMaterial.Effect;
 					}
 				}
+
 
 				BlendState _safBlend = new BlendState()
 				{
@@ -123,7 +119,16 @@ namespace VertexArmy.Graphics.Attachables
 				Platform.Instance.Device.BlendState = _defaultBlend;
 				Highlighted = false;
 			}
+		}
 
+		public override void Render( float dt )
+		{
+			Renderer.Instance.SetGlobalMaterialParameters( Material );
+			Material.Apply();
+			foreach ( ModelMesh m in Model.Meshes )
+			{
+				m.Draw();
+			}
 		}
 
 

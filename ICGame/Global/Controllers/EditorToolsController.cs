@@ -50,7 +50,7 @@ namespace VertexArmy.Global.Controllers
 
 		private void SelectProcess( GameTime dt )
 		{
-			GameEntity cursorLocation = TrySelectEntity();
+			cursorLocation = TrySelectEntity();
 
 			if ( cursorLocation != null )
 				HintManager.Instance.SpawnHint( cursorLocation.Name, new Vector2( 20f, 560f ), 500, 6, null, 1 );
@@ -349,13 +349,13 @@ namespace VertexArmy.Global.Controllers
 						_state = EditorState.Selected;
 						break;
 					case EditorState.Selected:
-						HintManager.Instance.SpawnHint( "Selected entity: " + _selectedEntity.Name + "\nPosition: " + _selectedEntity.GetPosition(), new Vector2( 1f, 1f ), 50, 5, null, 1 );
+						HintManager.Instance.SpawnHint( "Selected entity:" + _selectedEntity.Name + "\nPosition: " + _selectedEntity.GetPosition(), new Vector2( 1f, 1f ), 50, 5, null, 1 );
 						break;
 					case EditorState.Rotating:
-						HintManager.Instance.SpawnHint( "Rotating entity: " + _selectedEntity.Name + "\nRotation: " + _selectedEntity.GetRotationRadians(), new Vector2( 1f, 1f ), 50, 5, null, 1 );
+						HintManager.Instance.SpawnHint( "Rotating entity:" + _selectedEntity.Name + "\nRotation: " + _selectedEntity.GetRotationRadians(), new Vector2( 1f, 1f ), 50, 5, null, 1 );
 						break;
 					case EditorState.Scaling:
-						HintManager.Instance.SpawnHint( "Scaling entity: " + _selectedEntity.Name + "\nRotation: " + _selectedEntity.GetScale(), new Vector2( 1f, 1f ), 50, 5, null, 1 );
+						HintManager.Instance.SpawnHint( "Scaling entity:" + _selectedEntity.Name + "\nRotation: " + _selectedEntity.GetScale(), new Vector2( 1f, 1f ), 50, 5, null, 1 );
 						break;
 				}
 
@@ -363,6 +363,35 @@ namespace VertexArmy.Global.Controllers
 			else
 			{
 				_state = EditorState.None;
+			}
+
+			HighlightSelectedEntity();
+		}
+
+		private void HighlightSelectedEntity()
+		{
+			if ( _selectedEntity != null )
+			{
+				if ( _state == EditorState.Selected )
+				{
+
+					foreach ( KeyValuePair<string, SceneNode> keyValuePair in _selectedEntity.SceneNodes )
+					{
+						SceneNode node = keyValuePair.Value;
+
+						foreach ( Attachable attachable in node.Attachable )
+						{
+							MeshAttachable ma = attachable as MeshAttachable;
+
+							if ( ma != null )
+							{
+								ma.Highlighted = true;
+								ma.HighColor = Vector3.UnitY;
+							}
+						}
+					}
+
+				}
 			}
 		}
 
@@ -374,15 +403,19 @@ namespace VertexArmy.Global.Controllers
 
 			List<SceneNode> lst = SceneManager.Instance.IntersectRayWithSceneNodes( mouseX, mouseY );
 
-			lst.Sort( ( x, y ) => ( int ) ( y.GetAbsolutePosition().Z - x.GetAbsolutePosition().Z ) );
+			if ( lst.Count == 0 )
+				return null;
 
-			if ( lst.Count > 0 )
+			SceneNode max = lst[0];
+			foreach ( SceneNode sceneNode in lst )
 			{
-				( ( MeshAttachable ) lst[0].Attachable[0] ).Highlighted = true;
-				return GameWorldManager.Instance.GetEntityByMesh( ( MeshAttachable ) lst[0].Attachable[0] );
+				if ( max.GetAbsolutePosition().Z < sceneNode.GetAbsolutePosition().Z )
+					max = sceneNode;
 			}
 
-			return null;
+			( ( MeshAttachable ) max.Attachable[0] ).Highlighted = true;
+			( ( MeshAttachable ) max.Attachable[0] ).HighColor = Vector3.One;
+			return GameWorldManager.Instance.GetEntityByMesh( ( MeshAttachable ) max.Attachable[0] );
 		}
 
 

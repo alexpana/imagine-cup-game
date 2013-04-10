@@ -95,6 +95,7 @@ namespace VertexArmy.States
 
 		public override void OnEnter()
 		{
+			SceneManager.Instance.UsePostDraw = true;
 			Guide.BeginShowKeyboardInput( PlayerIndex.One, "Select level", "Specify the name of the level", "level1", LevelNameInputCallback, null );
 		}
 
@@ -144,6 +145,7 @@ namespace VertexArmy.States
 			FrameUpdateManager.Instance.Clear();
 			Platform.Instance.PhysicsWorld.Clear();
 			SceneManager.Instance.Clear();
+			SceneManager.Instance.UsePostDraw = false;
 			Platform.Instance.SoundManager.StopMusic();
 
 			_contentManager.Unload();

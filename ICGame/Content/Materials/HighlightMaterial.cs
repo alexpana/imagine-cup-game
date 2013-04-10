@@ -14,6 +14,7 @@ namespace VertexArmy.Content.Materials
 			mat.Effect = effect;
 			mat.AddParameter( "matWorldViewProj", Matrix.Identity );
 			mat.AddParameter( "fTimeMs", 0.0f);
+			mat.AddParameter( "f3Color", Vector3.One );
 			return mat;
 		}
 	}

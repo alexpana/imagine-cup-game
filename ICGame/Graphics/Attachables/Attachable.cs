@@ -19,5 +19,10 @@ namespace VertexArmy.Graphics
 		{
 			
 		}
+
+		public virtual void PostRender(float dt)
+		{
+			
+		}
 	}
 }

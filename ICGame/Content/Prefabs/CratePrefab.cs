@@ -1,7 +1,12 @@
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using VertexArmy.Content.Materials;
 using VertexArmy.GameWorld.Prefabs;
 using VertexArmy.GameWorld.Prefabs.Structs;
+using VertexArmy.Global.Managers;
+using VertexArmy.Graphics.Attachables;
 
 namespace VertexArmy.Content.Prefabs
 {
@@ -34,14 +39,14 @@ namespace VertexArmy.Content.Prefabs
 			crate.RegisterBody( crateBody, true );
 
 			MeshSceneNodePrefab crateSceneNode = new MeshSceneNodePrefab
-												 {
-													 Material = "RobotMaterial",
-													 Mesh = "models/crate00",
-													 Name = "CrateNode"
-												 };
+			                                     {
+				                                     Material = "CrateMaterial",
+				                                     Mesh = "models/crate00",
+				                                     Name = "CrateNode"
+			                                     };
+
 
 			crate.RegisterMeshSceneNode( crateSceneNode );
-
 
 			ControllerPrefab crateController = new ControllerPrefab
 			{

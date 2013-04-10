@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using VertexArmy.Global.Behaviours;
 using VertexArmy.Graphics;
+using VertexArmy.Graphics.Attachables;
 
 namespace VertexArmy.Global.Controllers
 {

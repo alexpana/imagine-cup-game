@@ -5,6 +5,7 @@ using VertexArmy.GameWorld.Prefabs.Structs;
 using VertexArmy.Global.Controllers;
 using VertexArmy.Global.Managers;
 using VertexArmy.Graphics;
+using VertexArmy.Graphics.Attachables;
 
 namespace VertexArmy.GameWorld.Prefabs
 {

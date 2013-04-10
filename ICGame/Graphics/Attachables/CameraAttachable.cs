@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace VertexArmy.Graphics
+namespace VertexArmy.Graphics.Attachables
 {
 	public class CameraAttachable : Attachable
 	{

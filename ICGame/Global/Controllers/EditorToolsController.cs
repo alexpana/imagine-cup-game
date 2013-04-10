@@ -5,6 +5,7 @@ using VertexArmy.GameWorld;
 using VertexArmy.Global.Behaviours;
 using VertexArmy.Global.Managers;
 using VertexArmy.Graphics;
+using VertexArmy.Graphics.Attachables;
 
 namespace VertexArmy.Global.Controllers
 {

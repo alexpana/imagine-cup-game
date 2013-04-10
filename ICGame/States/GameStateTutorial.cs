@@ -402,6 +402,7 @@ namespace VertexArmy.States
 
 		public override void OnEnter()
 		{
+			SceneManager.Instance.UseDof = true;
 			LoadLevel();
 			GameWorldManager.Instance.SaveState();
 			Platform.Instance.PhysicsWorld.Gravity = Vector2.UnitY * Platform.Instance.PhysicsWorld.Gravity.Length();
@@ -440,6 +441,8 @@ namespace VertexArmy.States
 			Platform.Instance.SoundManager.StopMusic();
 
 			_contentManager.Unload();
+
+			SceneManager.Instance.UseDof = false;
 		}
 
 		public void UpgradeCube1Callback()

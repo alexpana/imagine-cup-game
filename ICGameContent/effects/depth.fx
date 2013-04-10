@@ -8,30 +8,37 @@ struct VertexShaderInput
 struct VertexShaderOutput
 {
 	float4 ScreenPosition : POSITION;
-	float Distance : TEXCOORD0;
+	float4 Distance		  : TEXCOORD0;
 };
 
 
 VertexShaderOutput main_VS(VertexShaderInput input)
 {
 	VertexShaderOutput output = (VertexShaderOutput)0;
-	output.ScreenPosition = mul(input.Position, matWorldViewProj);	
-	output.Distance = output.ScreenPosition.z / output.ScreenPosition.w;
+
+	float4 posS = mul(float4(input.Position.xyz, 1.0), matWorldViewProj);
+	output.ScreenPosition = posS;
+	output.Distance = posS;
 	return output;
 }
 
 float4 main_PS(VertexShaderOutput input) : COLOR
 {
-	return float4(input.Distance,0,0,1);
+
+	float d = input.Distance.z/input.Distance.w;
+	float near = 1;
+	float far = 10000;
+
+	float Zback = (- near * far) / ( (near - far) * d + far );
+	float Znorm = Zback / (-far - near);
+
+	return float4(Znorm,0,0,0);
 }
 
 technique Technique1
 {
 	pass Pass1
 	{
-		ZEnable = TRUE;
-		ZWriteEnable = TRUE;
-		AlphaBlendEnable = FALSE;
 		VertexShader = compile vs_2_0 main_VS();
 		PixelShader = compile ps_2_0 main_PS();
 	}

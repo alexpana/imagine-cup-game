@@ -109,6 +109,7 @@ namespace VertexArmy
 			}
 
 			CursorManager.Instance.Render();
+			
 		}
 	}
 }

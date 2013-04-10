@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework;
 using VertexArmy.GameWorld;
 using VertexArmy.GameWorld.Prefabs;
 using VertexArmy.Graphics;
+using VertexArmy.Graphics.Attachables;
 
 namespace VertexArmy.Global.Managers
 {

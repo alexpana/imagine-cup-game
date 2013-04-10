@@ -50,11 +50,19 @@ float4 main_PS(VertexShaderOutput input) : COLOR
 
 }
 
+float4 depth_PS(VertexShaderOutput input) : COLOR
+{
+	float d = tex2D(ColorMapSampler, input.Texcoord).x;
+
+	
+	return float4(d, d, d, 1);
+}
+
 technique Technique1
 {
 	pass Pass1
 	{
 		VertexShader = compile vs_2_0 main_VS();
-		PixelShader = compile ps_2_0 main_PS();
+		PixelShader = compile ps_2_0 depth_PS();
 	}
 }

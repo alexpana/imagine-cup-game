@@ -42,6 +42,8 @@ sampler2D NormalMapSampler = sampler_state
 	MinFilter = linear;
 	MagFilter = linear;
 	MipFilter = linear;
+	AddressU = Wrap;
+    AddressV = Wrap;
 };
 
 texture2D SpecularMap;
@@ -51,6 +53,8 @@ sampler2D SpecularMapSampler = sampler_state
 	MinFilter = linear;
 	MagFilter = linear;
 	MipFilter = linear;
+	AddressU = Wrap;
+    AddressV = Wrap;
 };
 
 

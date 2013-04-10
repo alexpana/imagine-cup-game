@@ -225,19 +225,34 @@ namespace VertexArmy.Global.Managers
 			DrawScene( dt );
 		}
 
+<<<<<<< HEAD
+		public void Render( float dt )
+=======
 		public bool UseDof = false;
 
 		
 		public  void Render ( float dt )
+>>>>>>> depth of field update
 		{
+			//RenderWithoutPostProcessing(dt);
+
+			//
+
+<<<<<<< HEAD
+			//RenderBlurred(dt);
+
+			RenderDepth( dt );
+=======
 			if ( UseDof )
 			{
+			//	RenderBlurred( dt );
 				RenderWithDof(dt);
 			}
 			else
 			{
 				RenderWithoutPostProcessing( dt );
 			}
+>>>>>>> depth of field update
 			HintManager.Instance.Render( dt );
 		}
 

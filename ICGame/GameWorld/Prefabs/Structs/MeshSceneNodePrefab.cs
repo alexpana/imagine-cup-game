@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 using VertexArmy.Global;
 using VertexArmy.Global.Managers;
 using VertexArmy.Graphics;
+using VertexArmy.Graphics.Attachables;
 
 namespace VertexArmy.GameWorld.Prefabs.Structs
 {

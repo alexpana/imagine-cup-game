@@ -18,10 +18,11 @@ namespace VertexArmy.Content.Materials
 			mat.AddParameter( "DepthMap", null );
 			mat.AddParameter( "matWorldViewProj", Matrix.Identity );
 			mat.AddParameter( "distance", 800 );
-			mat.AddParameter( "range", 400 );
+			mat.AddParameter( "no_dof_range", 300 );
+			mat.AddParameter( "dof_range", 550 );
 			mat.AddParameter( "near", 1f );
 			mat.AddParameter( "far", 10000f );
-			mat.AddParameter( "blurDistance", 0.001f );
+			mat.AddParameter( "blurDistance", 0.002f );
 
 			return mat;
 		}

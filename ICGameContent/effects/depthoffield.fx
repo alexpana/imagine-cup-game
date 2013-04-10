@@ -1,6 +1,7 @@
 float4x4 matWorldViewProj;
 float distance;
-float range;
+float dof_range;
+float no_dof_range;
 float near;
 float far;
 float blurDistance;
@@ -30,13 +31,13 @@ sampler2D ColorMapSampler = sampler_state
     AddressV = Clamp;
 };
 
-texture DepthMap;
-sampler DepthMapSampler = sampler_state
+texture2D DepthMap;
+sampler2D DepthMapSampler = sampler_state
 {
    Texture = <DepthMap>;
-   MinFilter = Linear;
-   MagFilter = Linear;
-   MipFilter = Linear;  
+   MinFilter = linear;
+   MagFilter = linear;
+   MipFilter = linear;  
    AddressU  = Clamp;
    AddressV  = Clamp;
 };
@@ -58,14 +59,21 @@ float4 main_PS(VertexShaderOutput input) : COLOR
 	blurColor += tex2D( ColorMapSampler, float2(input.Texcoord.x - blurDistance, input.Texcoord.y - blurDistance));
 	blurColor += tex2D( ColorMapSampler, float2(input.Texcoord.x + blurDistance, input.Texcoord.y - blurDistance));
 	blurColor += tex2D( ColorMapSampler, float2(input.Texcoord.x - blurDistance, input.Texcoord.y + blurDistance));
-	blurColor = blurColor / 4; 
+	blurColor += tex2D( ColorMapSampler, float2(input.Texcoord.x, input.Texcoord.y + blurDistance));
+	blurColor += tex2D( ColorMapSampler, float2(input.Texcoord.x, input.Texcoord.y - blurDistance));
+	blurColor += tex2D( ColorMapSampler, float2(input.Texcoord.x + blurDistance, input.Texcoord.y));
+	blurColor += tex2D( ColorMapSampler, float2(input.Texcoord.x - blurDistance, input.Texcoord.y));
+
+
+	blurColor = blurColor / 8; 
 
 
 	float4 color = tex2D(ColorMapSampler, input.Texcoord);
-	float depth = 1 - tex2D(DepthMapSampler, input.Texcoord).r;
+	float depth = tex2D(DepthMapSampler, input.Texcoord).x;
 
-	float linearZ = ( -near * far ) / ( depth - far ); //linearize the depth	
-	float blurFactor = saturate( abs ( linearZ - distance ) / range );
+	float dd = abs ( depth * ( far + near ) - distance );
+
+	float blurFactor = saturate(  ( dd - no_dof_range ) / dof_range );
 
 	return lerp(color, blurColor, blurFactor);
 }

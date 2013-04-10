@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace VertexArmy.Graphics
+namespace VertexArmy.Graphics.Attachables
 {
 	public class MeshAttachable : Attachable
 	{
@@ -30,21 +30,29 @@ namespace VertexArmy.Graphics
 			Material Depth = Renderer.Instance.GetDepthBufferMaterial();
 			Renderer.Instance.SetGlobalMaterialParameters( Depth );
 
-			Depth.Apply();
+			
 			foreach ( ModelMesh m in Model.Meshes )
 			{
-				foreach ( ModelMeshPart part in m.MeshParts )
+				foreach (ModelMeshPart part in m.MeshParts)
 				{
 					part.Effect = Depth.Effect;
 				}
+			}
 
-				m.Draw();
+			Depth.Apply();
+			foreach (ModelMesh m in Model.Meshes)
+			{
+				m.Draw();	
+			}
 
-				foreach ( ModelMeshPart part in m.MeshParts )
+			foreach ( ModelMesh m in Model.Meshes )
+			{
+				foreach (ModelMeshPart part in m.MeshParts)
 				{
 					part.Effect = Material.Effect;
 				}
 			}
+			
 		}
 
 		public override void Render( float dt )

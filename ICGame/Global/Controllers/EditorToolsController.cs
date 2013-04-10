@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using VertexArmy.GameWorld;
 using VertexArmy.Global.Behaviours;
 using VertexArmy.Global.Managers;
+using VertexArmy.Graphics;
 using VertexArmy.Graphics.Attachables;
 
 namespace VertexArmy.Global.Controllers
@@ -134,18 +136,24 @@ namespace VertexArmy.Global.Controllers
 			}
 		}
 
-		private GameEntity TrySelectEntity()
+	private GameEntity TrySelectEntity()
 		{
-			foreach ( MeshAttachable mesh in GameWorldManager.Instance.Meshes )
-			{
-				if ( CursorManager.Instance.CursorRay.Intersects( mesh.BoundingSphere ) != null )
-				{
-					return GameWorldManager.Instance.GetEntityByMesh( mesh );
-				}
-			}
+			MouseState mouseState = Mouse.GetState();
+			int mouseX = mouseState.X;
+			int mouseY = mouseState.Y;
+
+			List<SceneNode> lst = SceneManager.Instance.IntersectRayWithSceneNodes(mouseX, mouseY);
+
+
+			lst.Sort( ( x, y ) => (int)(y.GetAbsolutePosition().Z - x.GetAbsolutePosition().Z) );
+
+
+			if ( lst.Count > 0 )
+				return GameWorldManager.Instance.GetEntityByMesh((MeshAttachable)lst[0].Attachable[0]);
 
 			return null;
 		}
+
 
 		public List<object> Data { get; set; }
 

@@ -8,6 +8,9 @@ namespace VertexArmy.Graphics.Attachables
 		private BoundingSphere _boundSphere;
 		public Model Model { get; private set; }
 		public Material Material { get; private set; }
+
+		private BoundingBox _boundBox;
+
 		public BoundingSphere BoundingSphere
 		{
 			get
@@ -20,9 +23,11 @@ namespace VertexArmy.Graphics.Attachables
 		public MeshAttachable( Model mod, Material mat )
 		{
 			_boundSphere = new BoundingSphere();
+			_boundBox = new BoundingBox();
 			foreach ( ModelMesh mesh in mod.Meshes )
 			{
 				_boundSphere = BoundingSphere.CreateMerged( _boundSphere, mesh.BoundingSphere );
+				
 				foreach ( ModelMeshPart part in mesh.MeshParts )
 				{
 					part.Effect = mat.Effect;

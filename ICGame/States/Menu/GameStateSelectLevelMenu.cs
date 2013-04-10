@@ -29,7 +29,7 @@ namespace VertexArmy.States.Menu
 			base.OnUpdate( gameTime );
 
 
-			_lightPos.Z = ( float ) ( 20000f + 20000.0 * Math.Sin( gameTime.TotalGameTime.TotalMilliseconds / 1000.0 ) );
+			_lightPos.Z = ( float ) ( 50000f + 20000.0 * Math.Sin( gameTime.TotalGameTime.TotalMilliseconds / 1000.0 ) );
 			SceneManager.Instance.SetLightPosition( _lightPos );
 
 			foreach ( var levelCube in _levelCubes )

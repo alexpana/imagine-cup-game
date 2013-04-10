@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using FarseerPhysics.Dynamics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
@@ -28,6 +29,8 @@ namespace VertexArmy.Global.Controllers
 
 		private bool _dragging;
 		private Vector3 _relative;
+		private int _selectedPrefab;
+		private List<string> _prefabs;
 
 		private GameEntity _selectedEntity;
 		private GameEntity _tryEntity;
@@ -41,6 +44,8 @@ namespace VertexArmy.Global.Controllers
 			_clicks = 0;
 			_moveTime = -1;
 			_rotateTime = -1;
+			_prefabs = new List<string>( PrefabRepository.Instance.PrefabNames );
+			_selectedPrefab = 0;
 		}
 
 		private void SelectProcess( GameTime dt )
@@ -48,7 +53,7 @@ namespace VertexArmy.Global.Controllers
 			GameEntity cursorLocation = TrySelectEntity();
 
 			if ( cursorLocation != null )
-				HintManager.Instance.SpawnHint( cursorLocation.Name, new Vector2( 100f, 500f ), 500, 6, null, 1 );
+				HintManager.Instance.SpawnHint( cursorLocation.Name, new Vector2( 20f, 560f ), 500, 6, null, 1 );
 
 			if ( Mouse.GetState().LeftButton.Equals( ButtonState.Pressed ) && !_leftClick )
 			{
@@ -72,7 +77,7 @@ namespace VertexArmy.Global.Controllers
 					}
 				}
 
-				if ( _state.Equals( EditorState.Selected ) && cursorLocation.Equals( _selectedEntity ) )
+				if ( _state.Equals( EditorState.Selected ) && cursorLocation != null && cursorLocation.Equals( _selectedEntity ) )
 				{
 					_dragging = true;
 					_relative = new Vector3( CursorManager.Instance.SceneNode.GetPosition().X, CursorManager.Instance.SceneNode.GetPosition().Y, _selectedEntity.GetPosition().Z ) - _selectedEntity.GetPosition();
@@ -135,7 +140,7 @@ namespace VertexArmy.Global.Controllers
 		{
 			if ( _dragging )
 			{
-				Vector3 newPosition = new Vector3( CursorManager.Instance.SceneNode.GetPosition().X, CursorManager.Instance.SceneNode.GetPosition().Y, 0f );
+				Vector3 newPosition = new Vector3( CursorManager.Instance.SceneNode.GetPosition().X, CursorManager.Instance.SceneNode.GetPosition().Y, _selectedEntity.GetPosition().Z ) - _relative;
 				_selectedEntity.SetPosition( newPosition );
 			}
 			if ( _selectedEntity != null && _state.Equals( EditorState.Selected ) )
@@ -172,7 +177,6 @@ namespace VertexArmy.Global.Controllers
 					}
 					else if ( dt.TotalGameTime.TotalMilliseconds - _moveTime > _moveDelay || Keyboard.GetState().IsKeyDown( Keys.Q ) )
 					{
-
 						_selectedEntity.SetPosition( _selectedEntity.GetPosition() + move );
 					}
 				}
@@ -247,7 +251,6 @@ namespace VertexArmy.Global.Controllers
 
 				if ( !scale.Equals( Vector3.Zero ) )
 				{
-
 					if ( Keyboard.GetState().IsKeyDown( Keys.Q ) )
 					{
 						scale *= 5;
@@ -297,6 +300,26 @@ namespace VertexArmy.Global.Controllers
 			Platform.Instance.PhysicsWorld.Step( 0f );
 		}
 
+		public void SpawnProcess( GameTime dt )
+		{
+			if ( _state.Equals( EditorState.None ) && Keyboard.GetState().IsKeyDown( Keys.C ) )
+			{
+				_selectedPrefab = Math.Abs( Mouse.GetState().ScrollWheelValue % _prefabs.Count );
+
+
+				HintManager.Instance.SpawnHint( "Spawning entity:" + _prefabs[_selectedPrefab], new Vector2( 1f, 1f ), 50, 5, null, 1 );
+
+				if ( Mouse.GetState().LeftButton.Equals( ButtonState.Pressed ) )
+				{
+					GameWorldManager.Instance.SpawnEntity( _prefabs[_selectedPrefab], "robotcc", CursorManager.Instance.SceneNode.GetPosition(), 1f );
+					_state = EditorState.Selected;
+					_selectedEntity = GameWorldManager.Instance.GetEntity( "robotcc" );
+				}
+
+
+			}
+		}
+
 		public void Update( GameTime dt )
 		{
 			cursorLocation = TrySelectEntity();
@@ -308,6 +331,14 @@ namespace VertexArmy.Global.Controllers
 			MoveProcess( dt );
 			RotateProcess( dt );
 			ScaleProcess( dt );
+			SpawnProcess( dt );
+
+			if ( _state.Equals( EditorState.Selected ) && Keyboard.GetState().IsKeyDown( Keys.Delete ) )
+			{
+				GameWorldManager.Instance.RemoveEntity( _selectedEntity.Name );
+				_state = EditorState.None;
+				_selectedEntity = null;
+			}
 
 			if ( _selectedEntity != null )
 			{
@@ -318,13 +349,13 @@ namespace VertexArmy.Global.Controllers
 						_state = EditorState.Selected;
 						break;
 					case EditorState.Selected:
-						HintManager.Instance.SpawnHint( "Selected entity:" + _selectedEntity.Name + "\nPosition: " + _selectedEntity.GetPosition(), new Vector2( 1f, 1f ), 50, 5, null, 1 );
+						HintManager.Instance.SpawnHint( "Selected entity: " + _selectedEntity.Name + "\nPosition: " + _selectedEntity.GetPosition(), new Vector2( 1f, 1f ), 50, 5, null, 1 );
 						break;
 					case EditorState.Rotating:
-						HintManager.Instance.SpawnHint( "Rotating entity:" + _selectedEntity.Name + "\nRotation: " + _selectedEntity.GetRotationRadians(), new Vector2( 1f, 1f ), 50, 5, null, 1 );
+						HintManager.Instance.SpawnHint( "Rotating entity: " + _selectedEntity.Name + "\nRotation: " + _selectedEntity.GetRotationRadians(), new Vector2( 1f, 1f ), 50, 5, null, 1 );
 						break;
 					case EditorState.Scaling:
-						HintManager.Instance.SpawnHint( "Scaling entity:" + _selectedEntity.Name + "\nRotation: " + _selectedEntity.GetScale(), new Vector2( 1f, 1f ), 50, 5, null, 1 );
+						HintManager.Instance.SpawnHint( "Scaling entity: " + _selectedEntity.Name + "\nRotation: " + _selectedEntity.GetScale(), new Vector2( 1f, 1f ), 50, 5, null, 1 );
 						break;
 				}
 
@@ -348,7 +379,7 @@ namespace VertexArmy.Global.Controllers
 			if ( lst.Count > 0 )
 			{
 				( ( MeshAttachable ) lst[0].Attachable[0] ).Highlighted = true;
-				return GameWorldManager.Instance.GetEntityByMesh((MeshAttachable)lst[0].Attachable[0]);
+				return GameWorldManager.Instance.GetEntityByMesh( ( MeshAttachable ) lst[0].Attachable[0] );
 			}
 
 			return null;

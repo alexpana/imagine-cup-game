@@ -70,6 +70,20 @@ namespace VertexArmy.Graphics
 			return _bSphere;
 		}
 
+		public BoundingBox GetTransformedBoundingBox()
+		{
+			foreach ( Attachable at in _attachables )
+			{
+				MeshAttachable myMesh = at as MeshAttachable;
+
+				if ( myMesh != null )
+				{
+					return myMesh.GetTransformedAABB();
+				}
+			}
+			return new BoundingBox();
+		}
+
 		public BoundingSphere GetTransformedBoundingSphere()
 		{
 			return GetBoundingSphere().Transform(GetAbsoluteTransformation());

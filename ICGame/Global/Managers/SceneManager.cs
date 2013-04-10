@@ -369,11 +369,12 @@ namespace VertexArmy.Global.Managers
 					}
 				}
 			}
-
 		}
-
+		
 		public void Update( GameTime dt )
 		{
+			Renderer.Instance.SetParameter( "fTimeMs", (float)dt.TotalGameTime.TotalMilliseconds );
+
 			Matrix view = Renderer.Instance.GetMatrix( EMatrix.View );
 			Matrix projection = Renderer.Instance.GetMatrix( EMatrix.Projection );
 			MouseState mouseState = Mouse.GetState();
@@ -389,7 +390,6 @@ namespace VertexArmy.Global.Managers
 			Vector3 boardpointW = Platform.Instance.Device.Viewport.Unproject( boardpoint, projection, view, Matrix.Identity );
 
 			CursorManager.Instance.SceneNode.SetPosition( boardpointW );
-			CursorManager.Instance.SetCursorRay( GetCurrentCamera().Parent.GetPosition(), boardpointW );
 		}
 
 		public List<SceneNode> IntersectRayWithSceneNodes( int screenX, int screenY )

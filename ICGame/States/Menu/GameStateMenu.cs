@@ -118,7 +118,7 @@ namespace VertexArmy.States.Menu
 					new MenuItem { Title = "Exit", Activated = args => _platform.Game.Exit() }
 				}
 			};
-			_mainMenuCube.SetTextImage( "main_cube_text" );
+			_mainMenuCube.SetTextImage( "main_cube_text_flat" );
 
 			_optionsMenuCube = new MenuCube( ContentManager )
 			{

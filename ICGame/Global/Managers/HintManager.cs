@@ -37,6 +37,7 @@ namespace VertexArmy.Global.Managers
 					}
 				}
 			}
+
 			_activeHints.Add( new Hint
 			{
 				Text = text,
@@ -45,40 +46,21 @@ namespace VertexArmy.Global.Managers
 				Time = msTime + fadeTime * 2,
 				FadeTime = fadeTime,
 				Layer = layer,
-				DismissedCallback = dismissedCallback
+				DismissedCallback = dismissedCallback,
+				BackgroundTexture = text.Contains( "\n" ) ? _backgroundDoubleLine : _backgroundSingleLine,
+				Font = _font
 			} );
 		}
 
 
-		public void Update( GameTime dt )
+		public void Update( GameTime gameTime )
 		{
 			lock ( _activeHints )
 			{
 				List<Hint> hintsToRemove = new List<Hint>();
 				foreach ( var activeHint in _activeHints )
 				{
-					activeHint.Time -= dt.ElapsedGameTime.Milliseconds;
-					if ( activeHint.FadeTime > 0 )
-					{
-						activeHint.CurrentFadeTime += activeHint.CurrentFadeOperation * dt.ElapsedGameTime.Milliseconds;
-
-						// fade time is done, stop the fading op
-						if ( activeHint.CurrentFadeTime >= activeHint.FadeTime )
-						{
-							activeHint.CurrentFadeOperation = 0;
-						}
-						// last fadetime of the hint's life, fade out
-						if ( activeHint.Time <= activeHint.FadeTime )
-						{
-							activeHint.CurrentFadeOperation = -1;
-						}
-
-						activeHint.Alpha = MathHelper.Lerp( 0, 1.0f, ( float ) activeHint.CurrentFadeTime / activeHint.FadeTime );
-					}
-					else
-					{
-						activeHint.Alpha = 1.0f;
-					}
+					activeHint.Update( gameTime );
 
 					if ( activeHint.Time < 0 )
 					{
@@ -100,19 +82,11 @@ namespace VertexArmy.Global.Managers
 
 		public void Render( float dt )
 		{
-
 			_spriteBatch.Begin( SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullCounterClockwise, null );
-
 
 			foreach ( var activeHint in _activeHints )
 			{
-				Texture2D background = activeHint.Text.Contains( "\n" ) ? _backgroundDoubleLine : _backgroundSingleLine;
-
-				_spriteBatch.Draw( background, activeHint.Position - new Vector2( 20, 16 ),
-					Color.White * activeHint.Alpha );
-
-				_spriteBatch.DrawString( _font, activeHint.Text, activeHint.Position,
-					activeHint.Color * activeHint.Alpha );
+				activeHint.Render( _spriteBatch );
 			}
 
 			_spriteBatch.End();
@@ -143,6 +117,8 @@ namespace VertexArmy.Global.Managers
 		public int Layer;
 
 		public Color Color;
+		public Texture2D BackgroundTexture;
+		public SpriteFont Font;
 
 		public int FadeTime;
 		public int CurrentFadeTime;
@@ -150,5 +126,41 @@ namespace VertexArmy.Global.Managers
 		public float Alpha;
 
 		public Action DismissedCallback;
+
+		public void Render( SpriteBatch spriteBatch )
+		{
+			spriteBatch.Draw( BackgroundTexture, Position - new Vector2( 20, 16 ),
+				Color.White * Alpha );
+
+			spriteBatch.DrawString( Font, Text, Position,
+				Color * Alpha );
+		}
+
+		public void Update( GameTime gameTime )
+		{
+			Time -= gameTime.ElapsedGameTime.Milliseconds;
+			if ( FadeTime > 0 )
+			{
+				CurrentFadeTime += CurrentFadeOperation * gameTime.ElapsedGameTime.Milliseconds;
+
+				// fade time is done, stop the fading op
+				if ( CurrentFadeTime >= FadeTime )
+				{
+					CurrentFadeOperation = 0;
+				}
+				// last fadetime of the hint's life, fade out
+				if ( Time <= FadeTime )
+				{
+					CurrentFadeOperation = -1;
+				}
+
+				Alpha = MathHelper.Lerp( 0, 1.0f, ( float ) CurrentFadeTime / FadeTime );
+			}
+			else
+			{
+				Alpha = 1.0f;
+			}
+
+		}
 	}
 }

@@ -18,6 +18,11 @@ namespace VertexArmy.Global.Managers
 			prefab.Name = name;
 		}
 
+		public ICollection<string> PrefabNames
+		{
+			get { return _prefabs.Keys; }
+		}
+
 		public void UnregisterPrefab( string name )
 		{
 			if ( _prefabs.ContainsKey( name ) )

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using FarseerPhysics.Dynamics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
@@ -26,6 +27,11 @@ namespace VertexArmy.Global.Controllers
 		private const double _scaleDelay = 500.0;
 		private bool _leftClick;
 
+		private bool _dragging;
+		private Vector3 _relative;
+		private int _selectedPrefab;
+		private List<string> _prefabs;
+
 		private GameEntity _selectedEntity;
 		private GameEntity _tryEntity;
 		private GameEntity cursorLocation;
@@ -33,18 +39,21 @@ namespace VertexArmy.Global.Controllers
 		public EditorToolsController()
 		{
 			_leftClick = false;
+			_dragging = false;
 			_state = EditorState.None;
 			_clicks = 0;
 			_moveTime = -1;
 			_rotateTime = -1;
+			_prefabs = new List<string>( PrefabRepository.Instance.PrefabNames );
+			_selectedPrefab = 0;
 		}
 
 		private void SelectProcess( GameTime dt )
 		{
-			GameEntity cursorLocation = TrySelectEntity();
+			cursorLocation = TrySelectEntity();
 
-			if(cursorLocation != null)
-				HintManager.Instance.SpawnHint( cursorLocation.Name, new Vector2( 100f, 500f ), 500, 6, null, 1 );
+			if ( cursorLocation != null )
+				HintManager.Instance.SpawnHint( cursorLocation.Name, new Vector2( 20f, 560f ), 500, 6, null, 1 );
 
 			if ( Mouse.GetState().LeftButton.Equals( ButtonState.Pressed ) && !_leftClick )
 			{
@@ -68,11 +77,19 @@ namespace VertexArmy.Global.Controllers
 					}
 				}
 
+				if ( _state.Equals( EditorState.Selected ) && cursorLocation != null && cursorLocation.Equals( _selectedEntity ) )
+				{
+					_dragging = true;
+					_relative = new Vector3( CursorManager.Instance.SceneNode.GetPosition().X, CursorManager.Instance.SceneNode.GetPosition().Y, _selectedEntity.GetPosition().Z ) - _selectedEntity.GetPosition();
+				}
+
 			}
 			else if ( Mouse.GetState().LeftButton.Equals( ButtonState.Released ) && _leftClick )
 			{
 				_leftClick = false;
 				_clickTime = dt.TotalGameTime.TotalMilliseconds;
+
+				_dragging = false;
 			}
 			else if ( Mouse.GetState().LeftButton.Equals( ButtonState.Released ) && !_leftClick )
 			{
@@ -121,6 +138,11 @@ namespace VertexArmy.Global.Controllers
 
 		public void MoveProcess( GameTime dt )
 		{
+			if ( _dragging )
+			{
+				Vector3 newPosition = new Vector3( CursorManager.Instance.SceneNode.GetPosition().X, CursorManager.Instance.SceneNode.GetPosition().Y, _selectedEntity.GetPosition().Z ) - _relative;
+				_selectedEntity.SetPosition( newPosition );
+			}
 			if ( _selectedEntity != null && _state.Equals( EditorState.Selected ) )
 			{
 				Vector3 move = Vector3.Zero;
@@ -155,7 +177,6 @@ namespace VertexArmy.Global.Controllers
 					}
 					else if ( dt.TotalGameTime.TotalMilliseconds - _moveTime > _moveDelay || Keyboard.GetState().IsKeyDown( Keys.Q ) )
 					{
-
 						_selectedEntity.SetPosition( _selectedEntity.GetPosition() + move );
 					}
 				}
@@ -230,7 +251,6 @@ namespace VertexArmy.Global.Controllers
 
 				if ( !scale.Equals( Vector3.Zero ) )
 				{
-
 					if ( Keyboard.GetState().IsKeyDown( Keys.Q ) )
 					{
 						scale *= 5;
@@ -280,17 +300,45 @@ namespace VertexArmy.Global.Controllers
 			Platform.Instance.PhysicsWorld.Step( 0f );
 		}
 
+		public void SpawnProcess( GameTime dt )
+		{
+			if ( _state.Equals( EditorState.None ) && Keyboard.GetState().IsKeyDown( Keys.C ) )
+			{
+				_selectedPrefab = Math.Abs( Mouse.GetState().ScrollWheelValue % _prefabs.Count );
+
+
+				HintManager.Instance.SpawnHint( "Spawning entity:" + _prefabs[_selectedPrefab], new Vector2( 1f, 1f ), 50, 5, null, 1 );
+
+				if ( Mouse.GetState().LeftButton.Equals( ButtonState.Pressed ) )
+				{
+					GameWorldManager.Instance.SpawnEntity( _prefabs[_selectedPrefab], "robotcc", CursorManager.Instance.SceneNode.GetPosition(), 1f );
+					_state = EditorState.Selected;
+					_selectedEntity = GameWorldManager.Instance.GetEntity( "robotcc" );
+				}
+
+
+			}
+		}
+
 		public void Update( GameTime dt )
 		{
 			cursorLocation = TrySelectEntity();
 
-			if(cursorLocation != null)
+			if ( cursorLocation != null )
 				HintManager.Instance.SpawnHint( cursorLocation.Name, new Vector2( 100f, 500f ), 100, 6, null, 1 );
 
 			SelectProcess( dt );
 			MoveProcess( dt );
 			RotateProcess( dt );
 			ScaleProcess( dt );
+			SpawnProcess( dt );
+
+			if ( _state.Equals( EditorState.Selected ) && Keyboard.GetState().IsKeyDown( Keys.Delete ) )
+			{
+				GameWorldManager.Instance.RemoveEntity( _selectedEntity.Name );
+				_state = EditorState.None;
+				_selectedEntity = null;
+			}
 
 			if ( _selectedEntity != null )
 			{
@@ -316,6 +364,35 @@ namespace VertexArmy.Global.Controllers
 			{
 				_state = EditorState.None;
 			}
+
+			HighlightSelectedEntity();
+		}
+
+		private void HighlightSelectedEntity()
+		{
+			if ( _selectedEntity != null )
+			{
+				if ( _state == EditorState.Selected )
+				{
+
+					foreach ( KeyValuePair<string, SceneNode> keyValuePair in _selectedEntity.SceneNodes )
+					{
+						SceneNode node = keyValuePair.Value;
+
+						foreach ( Attachable attachable in node.Attachable )
+						{
+							MeshAttachable ma = attachable as MeshAttachable;
+
+							if ( ma != null )
+							{
+								ma.Highlighted = true;
+								ma.HighColor = Vector3.UnitY;
+							}
+						}
+					}
+
+				}
+			}
 		}
 
 		private GameEntity TrySelectEntity()
@@ -326,15 +403,19 @@ namespace VertexArmy.Global.Controllers
 
 			List<SceneNode> lst = SceneManager.Instance.IntersectRayWithSceneNodes( mouseX, mouseY );
 
-			lst.Sort( ( x, y ) => ( int ) ( y.GetAbsolutePosition().Z - x.GetAbsolutePosition().Z ) );
+			if ( lst.Count == 0 )
+				return null;
 
-			if ( lst.Count > 0 )
+			SceneNode max = lst[0];
+			foreach ( SceneNode sceneNode in lst )
 			{
-				( ( MeshAttachable ) lst[0].Attachable[0] ).Highlighted = true;
-				return GameWorldManager.Instance.GetEntityByMesh((MeshAttachable)lst[0].Attachable[0]);
+				if ( max.GetAbsolutePosition().Z < sceneNode.GetAbsolutePosition().Z )
+					max = sceneNode;
 			}
 
-			return null;
+			( ( MeshAttachable ) max.Attachable[0] ).Highlighted = true;
+			( ( MeshAttachable ) max.Attachable[0] ).HighColor = Vector3.One;
+			return GameWorldManager.Instance.GetEntityByMesh( ( MeshAttachable ) max.Attachable[0] );
 		}
 
 

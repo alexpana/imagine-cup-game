@@ -230,6 +230,7 @@ namespace VertexArmy.Global.Managers
 		}
 
 		public bool UseDof = false;
+		public bool UsePostDraw = false;
 
 		
 		public  void Render ( float dt )
@@ -317,11 +318,6 @@ namespace VertexArmy.Global.Managers
 			depthState.DepthBufferEnable = true; /* Enable the depth buffer */
 			depthState.DepthBufferWriteEnable = true; /* When drawing to the screen, write to the depth buffer */
 			depthState.DepthBufferFunction = CompareFunction.Less;
-			
-
-			
-
-
 
 
 			Platform.Instance.Device.BlendState = BlendState.Opaque;
@@ -379,6 +375,25 @@ namespace VertexArmy.Global.Managers
 					if ( !attachable.Parent.Invisible )
 					{
 						attachable.Render( dt );
+					}
+				}
+			}
+			if ( !UsePostDraw )
+				return;
+			//post render
+			foreach ( var registeredNode in _registeredNodes )
+			{
+				Renderer.Instance.LoadMatrix( EMatrix.World, registeredNode.GetAbsoluteTransformation() );
+				Renderer.Instance.SetParameter( "matWorld", Renderer.Instance.MatWorld );
+				Renderer.Instance.SetParameter( "matWorldInverseTranspose", Renderer.Instance.MatWorldInverseTranspose );
+				Renderer.Instance.SetParameter( "matWorldViewProj", Renderer.Instance.MatWorldViewProjection );
+
+
+				foreach ( var attachable in registeredNode.Attachable )
+				{
+					if ( !attachable.Parent.Invisible )
+					{
+						attachable.PostRender(dt);
 					}
 				}
 			}

@@ -1,5 +1,6 @@
 float4x4 matWorldViewProj;
 float fTimeMs;
+float3 f3Color;
 
 struct VertexShaderInput
 {
@@ -15,14 +16,14 @@ VertexShaderOutput main_VS(VertexShaderInput input)
 {
 	VertexShaderOutput output;
 
-	float3 vertexScaled = (1.4 + 0.3 * sin(fTimeMs / 1000)) * input.Position.xyz;
+	float3 vertexScaled = (1.25 + 0.12 * sin(fTimeMs / 200)) * input.Position.xyz + float3(1, 1, 1);
 	output.ScreenPosition = mul( float4(vertexScaled, 1), matWorldViewProj );
 	return output;
 }
 
 float4 main_PS(VertexShaderOutput input) : COLOR
 {
-	return float4( 1.0, 0.0, 1.0, 0.3 );
+	return float4( f3Color, 0.2 );
 }
 
 technique Technique1

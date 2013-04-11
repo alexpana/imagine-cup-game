@@ -38,7 +38,10 @@ namespace VertexArmy.Global.Controllers
 
 			if ( Mouse.GetState().ScrollWheelValue != _lastScrollValue )
 			{
-				camera.Parent.SetPosition( camera.Parent.GetPosition() - ( Mouse.GetState().ScrollWheelValue - _lastScrollValue ) * Vector3.UnitZ );
+				if ( Keyboard.GetState().IsKeyUp( Keys.C ) )
+				{
+					camera.Parent.SetPosition( camera.Parent.GetPosition() - ( Mouse.GetState().ScrollWheelValue - _lastScrollValue ) * Vector3.UnitZ );
+				}
 				_lastScrollValue = Mouse.GetState().ScrollWheelValue;
 			}
 

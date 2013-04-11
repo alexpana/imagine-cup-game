@@ -65,11 +65,22 @@ float4 main_PS(VertexShaderOutput input) : COLOR
 	blurColor += tex2D( ColorMapSampler, float2(input.Texcoord.x - blurDistance, input.Texcoord.y));
 
 
+
 	blurColor = blurColor / 8; 
 
 
 	float4 color = tex2D(ColorMapSampler, input.Texcoord);
 	float depth = tex2D(DepthMapSampler, input.Texcoord).x;
+
+	depth  = min(depth, tex2D( DepthMapSampler, float2(input.Texcoord.x + blurDistance, input.Texcoord.y + blurDistance)));
+	depth  = min(depth, tex2D( DepthMapSampler, float2(input.Texcoord.x + blurDistance, input.Texcoord.y - blurDistance)));
+	depth  = min(depth, tex2D( DepthMapSampler, float2(input.Texcoord.x - blurDistance, input.Texcoord.y + blurDistance)));
+	depth  = min(depth, tex2D( DepthMapSampler, float2(input.Texcoord.x - blurDistance, input.Texcoord.y - blurDistance)));
+	depth  = min(depth, tex2D( DepthMapSampler, float2(input.Texcoord.x + blurDistance, input.Texcoord.y)));
+	depth  = min(depth, tex2D( DepthMapSampler, float2(input.Texcoord.x, input.Texcoord.y + blurDistance)));
+	depth  = min(depth, tex2D( DepthMapSampler, float2(input.Texcoord.x - blurDistance, input.Texcoord.y)));
+	depth  = min(depth, tex2D( DepthMapSampler, float2(input.Texcoord.x, input.Texcoord.y - blurDistance)));
+
 
 	float dd = abs ( depth * ( far + near ) - distance );
 

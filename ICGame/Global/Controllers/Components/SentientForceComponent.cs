@@ -16,7 +16,7 @@ namespace VertexArmy.Global.Controllers.Components
 {
 	public class SentientForceComponent : BaseComponent
 	{
-		public const float Distance = 500f;
+		public const float Distance = 350f;
 		public const float Angle = 0.8f;
 		public const float AttractionForce = 10f;
 		public const float RepulsiveForce = 8f;

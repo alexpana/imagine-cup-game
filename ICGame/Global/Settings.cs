@@ -58,6 +58,11 @@ namespace VertexArmy.Global
 
 		public void Load( string fileName = "Settings.txt" )
 		{
+			if ( !File.Exists( fileName ) )
+			{
+				Save( fileName );
+			}
+
 			try
 			{
 				using ( StreamReader sr = new StreamReader( fileName ) )

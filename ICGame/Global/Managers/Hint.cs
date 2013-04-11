@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace VertexArmy.Global.Managers
 {
-	internal class Hint
+	public class Hint
 	{
 		private const int ThinkingSpeed = 1000;
 		private const int ThinkingBubbleInterval = 1000;
@@ -21,24 +21,20 @@ namespace VertexArmy.Global.Managers
 
 		public float Time { get; set; } // in miliseconds
 		public int Layer { get; set; }
-		public Texture2D BackgroundTopTexture { get; set; }
-		public Texture2D BackgroundMiddleTexture { get; set; }
-		public Texture2D BackgroundBottomTexture { get; set; }
-		public SpriteFont Font { get; set; }
 
 		private readonly List<Vector2> _thinkingBubbles;
 		private int _lastBubbleTime;
 
 		private HintState _state;
 
-		private Vector2 _currentPosition;
+		public Vector2 CurrentPosition { get; private set; }
 		private readonly Vector2 _finalPosition;
 		private readonly Vector2 _startPosition;
 
-		private readonly Color _color;
+		public Color Color { get; private set; }
 
-		private readonly int _linesCount;
-		private string _text;
+		public int LinesCount { get; private set; }
+		public string Text { get; private set; }
 
 		#region Thinking
 		public Texture2D ThinkingBubbleTexture { get; set; }
@@ -49,7 +45,7 @@ namespace VertexArmy.Global.Managers
 		private readonly uint _fadeTime;
 		private int _currentFadeTime;
 		private int _currentFadeOperation; // -1 fade In, 0, 1 fade Out
-		private float _alpha;
+		public float Alpha { get; private set; }
 		#endregion
 
 		public Action DismissedCallback;
@@ -58,22 +54,22 @@ namespace VertexArmy.Global.Managers
 		{
 			_thinkingBubbles = new List<Vector2>();
 
-			_text = text;
+			Text = text;
 			//TODO: rework this
-			_linesCount = text.Split( '\n' ).Length;
+			LinesCount = text.Split( '\n' ).Length;
 
-			_color = new Color( 32.0f / 255.0f, 40.0f / 255.0f, 50.0f / 255.0f );
+			Color = new Color( 32.0f / 255.0f, 40.0f / 255.0f, 50.0f / 255.0f );
 			_currentFadeOperation = 1;
 			Layer = 0;
 			_startPosition = startPosition;
 			_finalPosition = endPosition;
-			_currentPosition = startPosition;
+			CurrentPosition = startPosition;
 
 			_fadeTime = fadeTime;
 
 			if ( _fadeTime <= 0 )
 			{
-				_alpha = 1.0f;
+				Alpha = 1.0f;
 			}
 
 			// total time contains the fade in and fade out times (besides the normal msTime)
@@ -88,25 +84,6 @@ namespace VertexArmy.Global.Managers
 			_state = HintState.FadeIn;
 		}
 
-		private void RenderHintBackground( SpriteBatch spriteBatch, Vector2 position, int linecount, float alpha )
-		{
-			// Delta position should be 20, 16
-			spriteBatch.Draw( BackgroundTopTexture, position, Color.White * alpha );
-			position.Y += BackgroundTopTexture.Height;
-			for ( int i = 0; i < linecount - 1; ++i )
-			{
-				spriteBatch.Draw( BackgroundMiddleTexture, position, Color.White * alpha );
-				position.Y += BackgroundMiddleTexture.Height;
-			}
-			spriteBatch.Draw( BackgroundBottomTexture, position, Color.White * alpha );
-		}
-		public void Render( SpriteBatch spriteBatch )
-		{
-			Vector2 offset = new Vector2( 20, 16 );
-			RenderHintBackground( spriteBatch, _currentPosition - offset, _linesCount, _alpha );
-
-			spriteBatch.DrawString( Font, _text, _currentPosition, _color * _alpha );
-		}
 
 		public void Update( GameTime gameTime )
 		{
@@ -116,7 +93,7 @@ namespace VertexArmy.Global.Managers
 				_thinkTime += gameTime.ElapsedGameTime.Milliseconds;
 
 				float amount = ( float ) _thinkTime / ThinkingSpeed;
-				_currentPosition = Vector2.Lerp( _startPosition, _finalPosition, amount );
+				CurrentPosition = Vector2.Lerp( _startPosition, _finalPosition, amount );
 
 				// finished yet?
 				if ( amount >= 1 )
@@ -127,7 +104,7 @@ namespace VertexArmy.Global.Managers
 				{
 					if ( _thinkTime - _lastBubbleTime > ThinkingBubbleInterval )
 					{
-						_thinkingBubbles.Add( _currentPosition );
+						_thinkingBubbles.Add( CurrentPosition );
 						_lastBubbleTime = _thinkTime;
 					}
 				}
@@ -151,7 +128,7 @@ namespace VertexArmy.Global.Managers
 						_currentFadeOperation = -1;
 					}
 
-					_alpha = MathHelper.Lerp( 0, 1.0f, ( float ) _currentFadeTime / _fadeTime );
+					Alpha = MathHelper.Lerp( 0, 1.0f, ( float ) _currentFadeTime / _fadeTime );
 				}
 			}
 		}

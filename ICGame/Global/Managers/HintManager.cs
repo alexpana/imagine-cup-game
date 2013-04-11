@@ -51,10 +51,6 @@ namespace VertexArmy.Global.Managers
 			hint.Layer = layer;
 			hint.DismissedCallback = dismissedCallback;
 			hint.ThinkingBubbleTexture = _thinkingBubbleTexture;
-			hint.BackgroundTopTexture = _tooltipBackgroundTop;
-			hint.BackgroundMiddleTexture = _tooltipBackgroundMiddle;
-			hint.BackgroundBottomTexture = _tooltipBackgroundBottom;
-			hint.Font = _font;
 		}
 
 		public void SpawnHint( string text, Vector2 position, float msTime, int layer = 0,
@@ -96,10 +92,31 @@ namespace VertexArmy.Global.Managers
 
 			foreach ( var activeHint in _activeHints )
 			{
-				activeHint.Render( _spriteBatch );
+				Render( activeHint );
 			}
 
 			_spriteBatch.End();
+		}
+
+		private void RenderHintBackground( Vector2 position, int linecount, float alpha )
+		{
+			// Delta position should be 20, 16
+			_spriteBatch.Draw( _tooltipBackgroundTop, position, Color.White * alpha );
+			position.Y += _tooltipBackgroundTop.Height;
+			for ( int i = 0; i < linecount - 1; ++i )
+			{
+				_spriteBatch.Draw( _tooltipBackgroundMiddle, position, Color.White * alpha );
+				position.Y += _tooltipBackgroundMiddle.Height;
+			}
+			_spriteBatch.Draw( _tooltipBackgroundBottom, position, Color.White * alpha );
+		}
+
+		public void Render( Hint hint )
+		{
+			Vector2 offset = new Vector2( 20, 16 );
+			RenderHintBackground( hint.CurrentPosition - offset, hint.LinesCount, hint.Alpha );
+
+			_spriteBatch.DrawString( _font, hint.Text, hint.CurrentPosition, hint.Color * hint.Alpha );
 		}
 
 		// ReSharper disable InconsistentNaming

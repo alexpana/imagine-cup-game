@@ -24,5 +24,10 @@ namespace VertexArmy.Graphics
 		{
 			
 		}
+
+		public virtual int GetLayer()
+		{
+			return 1;
+		}
 	}
 }

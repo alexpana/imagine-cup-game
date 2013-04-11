@@ -129,6 +129,7 @@ namespace VertexArmy.Global.Managers
 						_sceneCameras.Add( cameraAttachable );
 				}
 			}
+			SortByLayer();
 		}
 
 		public void UnregisterSceneTree( SceneNode node )
@@ -397,6 +398,15 @@ namespace VertexArmy.Global.Managers
 					}
 				}
 			}
+		}
+
+		public void SortByLayer ()
+		{
+			//hack to fix SAF node transparency
+
+
+			_registeredNodes.Sort( ( a, b ) => ( a.GetLayer() - b.GetLayer()) );
+
 		}
 
 		

@@ -39,6 +39,11 @@ namespace VertexArmy.Graphics.Attachables
 			_defaultBlend = new BlendState();
 		}
 
+		public override int GetLayer()
+		{
+			return 2;
+		}
+
 		private float _fTime = 0f;
 
 		public override void Render( float dt )

@@ -271,6 +271,8 @@ namespace VertexArmy.States
 			Song song = _contentManager.Load<Song>( "music/Beluga_-_Lost_In_Outer_Space" );
 			Platform.Instance.SoundManager.PlayMusic( song );
 			FrameUpdateManager.Instance.Register( SceneManager.Instance );
+
+			SceneManager.Instance.SortByLayer();
 		}
 
 		public override void OnClose()
@@ -323,7 +325,8 @@ namespace VertexArmy.States
 			if ( !_hint1 )
 			{
 				string Text = "Crates can be pushed around.\nTry pushing that crate towards the wall button.";
-				HintManager.Instance.SpawnHint( Text, new Vector2( 100, 100 ), 4000, 1 );
+				HintManager.Instance.SpawnHint( Text, new Vector2( 400, 300 ), new Vector2( 100, 100 ), 4000 );
+				//HintManager.Instance.SpawnHint( Text, new Vector2( 100, 100 ), 4000, 1 );
 				_hint1 = true;
 			}
 		}

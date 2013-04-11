@@ -71,7 +71,6 @@ namespace VertexArmy.Graphics.Attachables
 					part.Effect = Material.Effect;
 				}
 			}
-
 		}
 
 		public override void PostRender ( float dt )
@@ -100,7 +99,7 @@ namespace VertexArmy.Graphics.Attachables
 					AlphaBlendFunction = BlendFunction.Add,
 				};
 
-				BlendState _defaultBlend = new BlendState();
+				BlendState defaultBlend = new BlendState();
 				Platform.Instance.Device.BlendState = _safBlend;
 
 				foreach ( ModelMesh m in Model.Meshes )
@@ -116,7 +115,7 @@ namespace VertexArmy.Graphics.Attachables
 					}
 				}
 
-				Platform.Instance.Device.BlendState = _defaultBlend;
+				Platform.Instance.Device.BlendState = defaultBlend;
 				Highlighted = false;
 			}
 		}

@@ -170,6 +170,14 @@ namespace VertexArmy.Graphics
 			return _relativeTransformation;
 		}
 
+		public int GetLayer()
+		{
+			if(Attachable.Count > 0)
+			{
+				return Attachable[0].GetLayer();
+			}
+			return 0;
+		}
 
 		public void SetPosition( Vector3 newPos )
 		{

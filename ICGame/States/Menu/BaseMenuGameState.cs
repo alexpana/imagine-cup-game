@@ -7,6 +7,7 @@ using FarseerPhysics.Factories;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Media;
 using VertexArmy.Global;
 using VertexArmy.Global.Managers;
@@ -24,6 +25,9 @@ namespace VertexArmy.States.Menu
 		private DebugViewXNA _debugView;
 		private Matrix _projection;
 		private Matrix _view;
+
+		protected SpriteBatch SpriteBatch;
+		protected Texture2D MenuBackgroundTexture;
 
 		private Body _menuGround;
 
@@ -55,6 +59,12 @@ namespace VertexArmy.States.Menu
 
 		public virtual void OnRender( GameTime gameTime )
 		{
+			SpriteBatch.Begin();
+
+			SpriteBatch.Draw( MenuBackgroundTexture, Vector2.Zero, Color.White );
+
+			SpriteBatch.End();
+
 			//_debugView.RenderDebugData( ref _projection, ref _view );
 			SceneManager.Instance.Render( gameTime.ElapsedGameTime.Milliseconds );
 		}
@@ -67,6 +77,9 @@ namespace VertexArmy.States.Menu
 
 			CreateDebugView( ContentManager );
 			CreateCubesGround();
+
+			SpriteBatch = new SpriteBatch( Platform.Instance.Device );
+			MenuBackgroundTexture = ContentManager.Load<Texture2D>( "images/menu/metro/background" );
 		}
 
 		public virtual void OnClose()

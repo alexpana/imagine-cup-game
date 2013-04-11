@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using VertexArmy.Content.Prefabs;
 using VertexArmy.Global;
@@ -21,7 +20,6 @@ namespace VertexArmy.States.Menu
 
 		private readonly Platform _platform;
 
-		private SpriteBatch _spriteBatch;
 #if PLAY_VIDEO
 		private Video _video;
 		private VideoPlayer _videoPlayer;
@@ -42,7 +40,6 @@ namespace VertexArmy.States.Menu
 #if PLAY_VIDEO
 			RenderBackgroundVideo();
 #endif
-
 			base.OnRender( gameTime );
 		}
 
@@ -56,9 +53,9 @@ namespace VertexArmy.States.Menu
 
 			if ( _lastVideoTexture != null )
 			{
-				_spriteBatch.Begin();
-				_spriteBatch.Draw( _lastVideoTexture, _videoTargetRectangle, Color.White );
-				_spriteBatch.End();
+				SpriteBatch.Begin();
+				SpriteBatch.Draw( _lastVideoTexture, _videoTargetRectangle, Color.White );
+				SpriteBatch.End();
 			}
 		}
 #endif
@@ -154,7 +151,7 @@ namespace VertexArmy.States.Menu
 		private void ActivateMenuCube( MenuCube cube )
 		{
 			_activeCube = cube;
-			_activeCube.Spawn( -25f );
+			_activeCube.Spawn( 25f );
 		}
 
 		private string CreateImagePath( string prefix, Dictionary<string, string> options )
@@ -186,10 +183,9 @@ namespace VertexArmy.States.Menu
 
 			GameWorldManager.Instance.SpawnEntity( CameraPrefab.PrefabName, "menu_camera", new Vector3( 0, 0, 100 ) );
 
-			GameWorldManager.Instance.SpawnEntity( "WallMenu", "wallMenu1",
-							new Vector3( 0f, 0f, -1800f ), Quaternion.CreateFromAxisAngle( Vector3.UnitX, -0.3f ), 150 );
+			//GameWorldManager.Instance.SpawnEntity( "WallMenu", "wallMenu1",
+			//new Vector3( 0f, 0f, -1800f ), Quaternion.CreateFromAxisAngle( Vector3.UnitX, -0.3f ), 150 );
 
-			_spriteBatch = new SpriteBatch( _platform.Device );
 #if PLAY_VIDEO
 			_video = ContentManager.Load<Video>( "movies/PurpleStarFlight" );
 			_videoPlayer = new VideoPlayer { IsLooped = true };

@@ -125,8 +125,6 @@
     <Compile Include="Content\Materials\DepthOfFieldMaterial.cs" />
     <Compile Include="Content\Materials\DepthBufferMaterial.cs" />
     <Compile Include="Content\Materials\TexturedMaterial.cs" />
-    <Compile Include="Content\Materials\WallMenuMaterial2.cs" />
-    <Compile Include="Content\Materials\WallMenuMaterial.cs" />
     <Compile Include="Content\Materials\MenuCubeMaterial.cs" />
     <Compile Include="Content\Materials\SafMaterial.cs" />
     <Compile Include="Content\Prefabs\ButtonPrefab.cs" />
@@ -179,6 +177,7 @@
     <Compile Include="Global\Behaviours\IController.cs" />
     <Compile Include="Global\Controllers\BodyController.cs" />
     <Compile Include="Global\Managers\HintManager.cs" />
+    <Compile Include="Global\Managers\InGameMenuManager.cs" />
     <Compile Include="Global\Managers\SoundManager.cs" />
     <Compile Include="Global\Managers\FrameUpdateManager.cs" />
     <Compile Include="Global\Managers\PhysicsContactManager.cs" />

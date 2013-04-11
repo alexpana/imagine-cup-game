@@ -496,6 +496,7 @@ namespace VertexArmy.Global.Controllers
 						break;
 				}
 
+
 			}
 			else
 			{

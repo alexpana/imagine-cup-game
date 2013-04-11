@@ -286,6 +286,11 @@ namespace VertexArmy.Global.Managers
 			_savedState = state;
 		}
 
+		public List<EntityState> GetState()
+		{
+			return _savedState;
+		}
+
 		private static class GameWorldManagerInstanceHolder
 		{
 			// ReSharper disable MemberHidesStaticFromOuterClass

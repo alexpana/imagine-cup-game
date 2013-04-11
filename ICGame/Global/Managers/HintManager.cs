@@ -50,7 +50,6 @@ namespace VertexArmy.Global.Managers
 
 			hint.Layer = layer;
 			hint.DismissedCallback = dismissedCallback;
-			hint.ThinkingBubbleTexture = _thinkingBubbleTexture;
 		}
 
 		public void SpawnHint( string text, Vector2 position, float msTime, int layer = 0,
@@ -115,6 +114,11 @@ namespace VertexArmy.Global.Managers
 		{
 			Vector2 offset = new Vector2( 20, 16 );
 			RenderHintBackground( hint.CurrentPosition - offset, hint.LinesCount, hint.Alpha );
+
+			foreach ( var thinkingBubble in hint.ThinkingBubbles )
+			{
+				_spriteBatch.Draw( _thinkingBubbleTexture, thinkingBubble, Color.White );
+			}
 
 			_spriteBatch.DrawString( _font, hint.Text, hint.CurrentPosition, hint.Color * hint.Alpha );
 		}

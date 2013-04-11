@@ -1,13 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace VertexArmy.Global.Managers
 {
+	public class HintBubble
+	{
+		public const int TimeToLive = 2000;
+
+		public Vector2 Position { get; set; }
+		public float Alpha { get; set; }
+
+		public float Scale { get; set; }
+		public int Time { get; set; }
+	}
+
 	public class Hint
 	{
-		private const int ThinkingSpeed = 1000;
+		private const int ThinkingSpeed = 5000;
 		private const int ThinkingBubbleInterval = 1000;
 
 		internal enum HintState
@@ -22,7 +32,7 @@ namespace VertexArmy.Global.Managers
 		public float Time { get; set; } // in miliseconds
 		public int Layer { get; set; }
 
-		private readonly List<Vector2> _thinkingBubbles;
+		public List<Vector2> ThinkingBubbles { get; private set; }
 		private int _lastBubbleTime;
 
 		private HintState _state;
@@ -37,7 +47,6 @@ namespace VertexArmy.Global.Managers
 		public string Text { get; private set; }
 
 		#region Thinking
-		public Texture2D ThinkingBubbleTexture { get; set; }
 		private int _thinkTime;
 		#endregion
 
@@ -52,7 +61,7 @@ namespace VertexArmy.Global.Managers
 
 		public Hint( string text, Vector2 startPosition, Vector2 endPosition, float msTime, uint fadeTime )
 		{
-			_thinkingBubbles = new List<Vector2>();
+			ThinkingBubbles = new List<Vector2>();
 
 			Text = text;
 			//TODO: rework this
@@ -84,7 +93,6 @@ namespace VertexArmy.Global.Managers
 			_state = HintState.FadeIn;
 		}
 
-
 		public void Update( GameTime gameTime )
 		{
 			Time -= gameTime.ElapsedGameTime.Milliseconds;
@@ -102,9 +110,14 @@ namespace VertexArmy.Global.Managers
 				}
 				else
 				{
+					foreach ( var thinkingBubble in ThinkingBubbles )
+					{
+						//thinkingBubble
+					}
+
 					if ( _thinkTime - _lastBubbleTime > ThinkingBubbleInterval )
 					{
-						_thinkingBubbles.Add( CurrentPosition );
+						ThinkingBubbles.Add( CurrentPosition );
 						_lastBubbleTime = _thinkTime;
 					}
 				}

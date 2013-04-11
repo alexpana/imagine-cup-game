@@ -16,6 +16,8 @@ namespace VertexArmy.Global.Managers
 		private readonly Texture2D _backgroundDoubleLine = Platform.Instance.Content.Load<Texture2D>( "images/tooltip_double_line" );
 		private readonly Texture2D _backgroundSingleLine = Platform.Instance.Content.Load<Texture2D>( "images/tooltip_single_line" );
 
+		private readonly Texture2D _thinkingBubbleTexture = Platform.Instance.Content.Load<Texture2D>( "images/white" );
+
 		private const int DefaultHintFadeTime = 1000;
 
 		public HintManager()
@@ -25,7 +27,8 @@ namespace VertexArmy.Global.Managers
 			_font = Platform.Instance.Content.Load<SpriteFont>( "fonts/Impact" );
 		}
 
-		public void SpawnHint( string text, Vector2 position, float msTime, int layer = 0, Action dismissedCallback = null, int fadeTime = DefaultHintFadeTime )
+		public void SpawnHint( string text, Vector2 startPosition, Vector2? endPosition, float msTime, int layer = 0,
+							  Action dismissedCallback = null, uint fadeTime = DefaultHintFadeTime )
 		{
 			if ( layer != 0 )
 			{
@@ -38,20 +41,25 @@ namespace VertexArmy.Global.Managers
 				}
 			}
 
-			_activeHints.Add( new Hint
-			{
-				Text = text,
-				Position = position,
-				// total time contains the fade in and fade out times (besides the normal msTime)
-				Time = msTime + fadeTime * 2,
-				FadeTime = fadeTime,
-				Layer = layer,
-				DismissedCallback = dismissedCallback,
-				BackgroundTexture = text.Contains( "\n" ) ? _backgroundDoubleLine : _backgroundSingleLine,
-				Font = _font
-			} );
+			var hint = endPosition.HasValue
+				? new Hint( startPosition, endPosition.Value, msTime, fadeTime )
+				: new Hint( startPosition, msTime, fadeTime );
+
+			_activeHints.Add( hint );
+
+			hint.Text = text;
+			hint.Layer = layer;
+			hint.DismissedCallback = dismissedCallback;
+			hint.ThinkingBubbleTexture = _thinkingBubbleTexture;
+			hint.BackgroundTexture = text.Contains( "\n" ) ? _backgroundDoubleLine : _backgroundSingleLine;
+			hint.Font = _font;
 		}
 
+		public void SpawnHint( string text, Vector2 position, float msTime, int layer = 0,
+							  Action dismissedCallback = null, uint fadeTime = DefaultHintFadeTime )
+		{
+			SpawnHint( text, position, null, msTime, layer, dismissedCallback, fadeTime );
+		}
 
 		public void Update( GameTime gameTime )
 		{
@@ -98,69 +106,6 @@ namespace VertexArmy.Global.Managers
 		public static HintManager Instance
 		{
 			get { return _instance; }
-		}
-	}
-
-	public class Hint
-	{
-		public Hint()
-		{
-			Color = new Color( 32.0f / 255.0f, 40.0f / 255.0f, 50.0f / 255.0f );
-			CurrentFadeOperation = 1;
-			Layer = 0;
-		}
-
-		public string Text;
-		public Vector2 Position;
-
-		public float Time; // in miliseconds
-		public int Layer;
-
-		public Color Color;
-		public Texture2D BackgroundTexture;
-		public SpriteFont Font;
-
-		public int FadeTime;
-		public int CurrentFadeTime;
-		public int CurrentFadeOperation; // -1 fade In, 0, 1 fade out
-		public float Alpha;
-
-		public Action DismissedCallback;
-
-		public void Render( SpriteBatch spriteBatch )
-		{
-			spriteBatch.Draw( BackgroundTexture, Position - new Vector2( 20, 16 ),
-				Color.White * Alpha );
-
-			spriteBatch.DrawString( Font, Text, Position,
-				Color * Alpha );
-		}
-
-		public void Update( GameTime gameTime )
-		{
-			Time -= gameTime.ElapsedGameTime.Milliseconds;
-			if ( FadeTime > 0 )
-			{
-				CurrentFadeTime += CurrentFadeOperation * gameTime.ElapsedGameTime.Milliseconds;
-
-				// fade time is done, stop the fading op
-				if ( CurrentFadeTime >= FadeTime )
-				{
-					CurrentFadeOperation = 0;
-				}
-				// last fadetime of the hint's life, fade out
-				if ( Time <= FadeTime )
-				{
-					CurrentFadeOperation = -1;
-				}
-
-				Alpha = MathHelper.Lerp( 0, 1.0f, ( float ) CurrentFadeTime / FadeTime );
-			}
-			else
-			{
-				Alpha = 1.0f;
-			}
-
 		}
 	}
 }

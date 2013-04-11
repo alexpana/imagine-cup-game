@@ -21,6 +21,26 @@ namespace VertexArmy.Content.Prefabs
 				ISerializer<LevelPrefab> serializer = SerializerFactory.CreateSerializer<LevelPrefab>();
 				serializer.WriteObject( this, streamWriter.BaseStream );
 			}
+#if DEBUG
+			using ( StreamWriter streamWriter = new StreamWriter( @"..\..\..\" + filepath ) )
+			{
+				ISerializer<LevelPrefab> serializer = SerializerFactory.CreateSerializer<LevelPrefab>();
+				serializer.WriteObject( this, streamWriter.BaseStream );
+			}
+#endif
+		}
+
+		public void SetState( List<EntityState> state )
+		{
+			var copy = state.ToArray();
+			foreach ( var s in copy )
+			{
+				if ( s.Prefab.Equals( "Camera" ) || s.Prefab.Equals( "Trigger" ) )
+				{
+					state.Remove( s );
+				}
+			}
+			_savedState = state;
 		}
 	}
 }

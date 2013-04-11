@@ -53,8 +53,8 @@ namespace VertexArmy.Global.Managers
 			if ( _depth == null )
 			{
 				PresentationParameters pp = Platform.Instance.Device.PresentationParameters;
-				_depth = new RenderTarget2D( Platform.Instance.Device, pp.BackBufferWidth, pp.BackBufferHeight, false, SurfaceFormat.Single, Platform.Instance.Device.PresentationParameters.DepthStencilFormat, 
-					Platform.Instance.Device.PresentationParameters.MultiSampleCount, RenderTargetUsage.PreserveContents);
+				_depth = new RenderTarget2D( Platform.Instance.Device, pp.BackBufferWidth, pp.BackBufferHeight, false, SurfaceFormat.Single, Platform.Instance.Device.PresentationParameters.DepthStencilFormat,
+					Platform.Instance.Device.PresentationParameters.MultiSampleCount, RenderTargetUsage.PreserveContents );
 			}
 			return _depth;
 		}
@@ -232,12 +232,12 @@ namespace VertexArmy.Global.Managers
 		public bool UseDof = false;
 		public bool UsePostDraw = false;
 
-		
-		public  void Render ( float dt )
+
+		public void Render( float dt )
 		{
 			if ( UseDof )
 			{
-				RenderWithDof(dt);
+				RenderWithDof( dt );
 			}
 			else
 			{
@@ -253,12 +253,12 @@ namespace VertexArmy.Global.Managers
 			RenderDepthRenderTarget( dt );
 			RenderColorRenderTarget( dt );
 
-			Platform.Instance.Device.BlendState = new BlendState( );
+			Platform.Instance.Device.BlendState = new BlendState();
 			Platform.Instance.Device.RasterizerState = RasterizerState.CullCounterClockwise;
 
 
-			Quad scquad = GetScreenQuad( );
-			Material dof = Renderer.Instance.GetDepthOfFieldMaterial( );
+			Quad scquad = GetScreenQuad();
+			Material dof = Renderer.Instance.GetDepthOfFieldMaterial();
 
 
 			dof.SetParameter( "matWorldViewProj", Matrix.Identity );
@@ -273,10 +273,10 @@ namespace VertexArmy.Global.Managers
 		{
 			_spriteBatch.Begin( SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullCounterClockwise, null );
 			_spriteBatch.Draw( _backgroundSprite, new Rectangle( ( int ) 0, 0, 800, 600 ), Color.White );
-			_spriteBatch.End( );
+			_spriteBatch.End();
 		}
 
-		public void RenderColorRenderTarget(float dt)
+		public void RenderColorRenderTarget( float dt )
 		{
 			RenderTarget2D colorRenderTarget = GetColorRt();
 			Platform.Instance.Device.SetRenderTarget( colorRenderTarget );
@@ -393,15 +393,15 @@ namespace VertexArmy.Global.Managers
 				{
 					if ( !attachable.Parent.Invisible )
 					{
-						attachable.PostRender(dt);
+						attachable.PostRender( dt );
 					}
 				}
 			}
 		}
-		
+
 		public void Update( GameTime dt )
 		{
-			Renderer.Instance.SetParameter( "fTimeMs", (float)dt.TotalGameTime.TotalMilliseconds );
+			Renderer.Instance.SetParameter( "fTimeMs", ( float ) dt.TotalGameTime.TotalMilliseconds );
 
 			Matrix view = Renderer.Instance.GetMatrix( EMatrix.View );
 			Matrix projection = Renderer.Instance.GetMatrix( EMatrix.Projection );
@@ -432,28 +432,28 @@ namespace VertexArmy.Global.Managers
 			Vector3 farPointW = Platform.Instance.Device.Viewport.Unproject( farPoint, projection, view, Matrix.Identity );
 
 
-			Ray ray = new Ray( nearPointW, Vector3.Normalize(farPointW - nearPointW) );
+			Ray ray = new Ray( nearPointW, Vector3.Normalize( farPointW - nearPointW ) );
 
 
 			List<SceneNode> nodes = new List<SceneNode>();
 
-			foreach (SceneNode registeredNode in _registeredNodes)
+			foreach ( SceneNode registeredNode in _registeredNodes )
 			{
 				bool isMesh = false;
 
-				foreach (Attachable attachable in registeredNode.Attachable)
+				foreach ( Attachable attachable in registeredNode.Attachable )
 				{
-					if ((attachable as MeshAttachable) != null)
+					if ( ( attachable as MeshAttachable ) != null )
 					{
 						isMesh = true;
 					}
 				}
 
-				if (isMesh)
+				if ( isMesh )
 				{
 					BoundingBox tBox = registeredNode.GetTransformedBoundingBox();
 					if ( ray.Intersects( tBox ) != null )
-						nodes.Add(registeredNode);
+						nodes.Add( registeredNode );
 				}
 			}
 			return nodes;

@@ -13,8 +13,9 @@ namespace VertexArmy.Global.Managers
 		private readonly SpriteBatch _spriteBatch;
 		private readonly SpriteFont _font;
 
-		private readonly Texture2D _backgroundDoubleLine = Platform.Instance.Content.Load<Texture2D>( "images/tooltip_double_line" );
-		private readonly Texture2D _backgroundSingleLine = Platform.Instance.Content.Load<Texture2D>( "images/tooltip_single_line" );
+		private readonly Texture2D _tooltipBackgroundTop = Platform.Instance.Content.Load<Texture2D>( "menu/metro/tooltip_top" );
+		private readonly Texture2D _tooltipBackgroundMiddle = Platform.Instance.Content.Load<Texture2D>( "menu/metro/tooltip_middle" );
+		private readonly Texture2D _tooltipBackgroundBottom = Platform.Instance.Content.Load<Texture2D>( "menu/metro/tooltip_bottom" );
 
 		private const int DefaultHintFadeTime = 1000;
 
@@ -80,10 +81,24 @@ namespace VertexArmy.Global.Managers
 			}
 		}
 
+		private void RenderHintBackground( Vector2 position, int linecount, float alpha )
+		{
+			// Delta position should be 20, 16
+			spriteBatch.Draw( _tooltipBackgroundTop, position, Color.White * Alpha );
+			position.Y += _tooltipBackgroundTop.Height;
+			for ( int i = 0; i < linecount - 1; ++i )
+			{
+				spriteBatch.Draw( _tooltipBackgroundMiddle, position, Color.White * Alpha );
+				position += _tooltipBackgroundMiddle.Height;
+			}
+			_spriteBatch.Draw( _tooltipBackgroundTop, position, Color.White * Alpha );
+		}
+
 		public void Render( float dt )
 		{
 			_spriteBatch.Begin( SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullCounterClockwise, null );
 
+			Vector2 offset = new Vector2( 20, 16 );
 			foreach ( var activeHint in _activeHints )
 			{
 				activeHint.Render( _spriteBatch );
@@ -129,9 +144,6 @@ namespace VertexArmy.Global.Managers
 
 		public void Render( SpriteBatch spriteBatch )
 		{
-			spriteBatch.Draw( BackgroundTexture, Position - new Vector2( 20, 16 ),
-				Color.White * Alpha );
-
 			spriteBatch.DrawString( Font, Text, Position,
 				Color * Alpha );
 		}

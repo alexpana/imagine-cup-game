@@ -1,5 +1,4 @@
 ﻿//#define ALLOW_HACKS
-using System;
 using System.Collections.Generic;
 using FarseerPhysics.Dynamics;
 using FarseerPhysics.Dynamics.Joints;
@@ -129,141 +128,6 @@ namespace VertexArmy.States
 
 		public void LoadStatics()
 		{
-			int floorCount = 0;
-			int wallCount = 0;
-			int roofCount = 0;
-
-			// roof part
-			for ( int i = 0; i < 80; i++ )
-			{
-				GameWorldManager.Instance.SpawnEntity( "Floor", "roof" + roofCount++, new Vector3( -300f + 60f * i, 500f, 0f ) );
-			}
-
-			//first floor part
-			/*
-			for ( int i = 0; i < 20; i++ )
-			{
-				GameWorldManager.Instance.SpawnEntity( "Floor", "floor" + floorCount++, new Vector3( -300f + 60f * i, 0f, 0f ), 1f );
-			}
-			 */
-			GameWorldManager.Instance.SpawnEntity( "Floor", "floor" + floorCount++, new Vector3( -300f + 60f * 10, 0f, 0f ), new Vector3( 20f, 1f, 1f ) );
-
-			/*
-			for ( int i = 20; i < 25; i++ )
-			{
-				GameWorldManager.Instance.SpawnEntity( "Floor", "floor" + floorCount++, new Vector3( -300f + 60f * i, -9f, 0f ) );
-				TransformUtility.RotateTransformableAroundPoint2D( GameWorldManager.Instance.GetEntity( "floor" + i ), rotationPoint, 0.3f );
-			}
-			 */
-			Vector2 rotationPoint = new Vector2( -300f + 60f * 19, -10f );
-			GameWorldManager.Instance.SpawnEntity( "Floor", "floor" + floorCount++, new Vector3( -300f + 60f * 2.5f, -9f, 0f ) );
-			TransformUtility.RotateTransformableAroundPoint2D( GameWorldManager.Instance.GetEntity( "floor" + ( floorCount - 1 ) ), rotationPoint, 0.3f );
-
-			//first floor part background
-			GameWorldManager.Instance.SpawnEntity( "Floor", "floor" + floorCount++, new Vector3( -300f + 60f * 10, 0f, -800f ), new Vector3( 20f, 1f, 1f ), Category.Cat2 );
-
-			for ( int i = 0; i < 5; i++ )
-			{
-				GameWorldManager.Instance.SpawnEntity( "Floor", "floor" + floorCount++, new Vector3( 1183f + 60f * i, 87.5f, 0f ) );
-			}
-
-			for ( int i = 5; i < 7; i++ )
-			{
-				GameWorldManager.Instance.SpawnEntity( "Floor", "floor" + floorCount++, new Vector3( 1183f + 60f * i, 10f, 0f ) );
-			}
-
-			for ( int i = 7; i < 15; i++ )
-			{
-				GameWorldManager.Instance.SpawnEntity( "Floor", "floor" + floorCount++, new Vector3( 1183f + 60f * i, 87.5f, 0f ) );
-			}
-
-			//left wall (first)
-			for ( int i = 0; i < 10; i++ )
-			{
-				GameWorldManager.Instance.SpawnEntity( "Wall", "wall" + wallCount++, new Vector3( -335f, 0f + 60f * i, 0f ) );
-			}
-
-			// door walls
-			for ( int i = 0; i < 5; i++ )
-			{
-				GameWorldManager.Instance.SpawnEntity( "Wall", "wall" + wallCount++, new Vector3( 15f, 240f + 60f * i, 0f ) );
-			}
-			for ( int i = 0; i < 5; i++ )
-			{
-				GameWorldManager.Instance.SpawnEntity( "Wall", "wall" + wallCount++, new Vector3( 85f, 240f + 60f * i, 0f ) );
-			}
-
-			//wall 1
-			for ( int i = 0; i < 2; i++ )
-			{
-				GameWorldManager.Instance.SpawnEntity( "Wall", "wall" + wallCount++, new Vector3( 2048f, 52f - 60f * i, 0f ) );
-			}
-
-			//wall air
-			for ( int i = 0; i < 3; i++ )
-			{
-				GameWorldManager.Instance.SpawnEntity( "Wall", "wall" + wallCount++, new Vector3( 2370f, 344f + 60f * i, 0f ) );
-			}
-
-			//floor air
-			for ( int i = 0; i < 3; i++ )
-			{
-				GameWorldManager.Instance.SpawnEntity( "Floor", "floor" + floorCount++, new Vector3( 2215f + 60f * i, 320f, 0f ) );
-			}
-
-			//floor
-			for ( int i = 0; i < 6; i++ )
-			{
-				GameWorldManager.Instance.SpawnEntity( "Floor", "floor" + floorCount++, new Vector3( 2070f + 60f * i, -43f, 0f ) );
-			}
-
-			//floor
-			for ( int i = 8; i < 16; i++ )
-			{
-				GameWorldManager.Instance.SpawnEntity( "Floor", "floor" + floorCount++, new Vector3( 2070f + 60f * i, -43f, 0f ) );
-			}
-
-			//wall 2
-			for ( int i = 0; i < 3; i++ )
-			{
-				GameWorldManager.Instance.SpawnEntity( "Wall", "wall" + wallCount++, new Vector3( 2395f, -78 - 60f * i, 0f ) );
-			}
-
-			//floor
-			for ( int i = 6; i < 12; i++ )
-			{
-				GameWorldManager.Instance.SpawnEntity( "Floor", "floor" + floorCount++, new Vector3( 2070f + 60f * i, -180f, 0f ) );
-			}
-
-			//floor
-			for ( int i = 14; i < 22; i++ )
-			{
-				GameWorldManager.Instance.SpawnEntity( "Floor", "floor" + floorCount++, new Vector3( 2070f + 60f * i, -180f, 0f ) );
-			}
-
-			//floor
-			for ( int i = 12; i < 14; i++ )
-			{
-				GameWorldManager.Instance.SpawnEntity( "Floor", "floor" + floorCount++, new Vector3( 2070f + 60f * i, -250f, 0f ) );
-			}
-
-			//floor
-			for ( int i = 20; i < 30; i++ )
-			{
-				GameWorldManager.Instance.SpawnEntity( "Floor", "floor" + floorCount++, new Vector3( 2080f + 60f * i, -43f, 0f ) );
-			}
-
-			//wall 2
-			for ( int i = 0; i < 3; i++ )
-			{
-				GameWorldManager.Instance.SpawnEntity( "Wall", "wall" + wallCount++, new Vector3( 2080f + 60f * 20, -78 - 60f * i, 0f ) );
-			}
-
-			GameWorldManager.Instance.SpawnEntity( "Floor", "floor" + floorCount, new Vector3( 2050f + 60f * 20, -170, 0f ) );
-			GameWorldManager.Instance.GetEntity( "floor" + floorCount ).SetRotation( -0.3f );
-			floorCount++;
-
-			GameWorldManager.Instance.SpawnEntity( "FloorBridge", "bridge", new Vector3( 2040f + 60f * 18, -43f, 0f ) );
 			JointFactory.CreateFixedRevoluteJoint(
 				Platform.Instance.PhysicsWorld,
 				GameWorldManager.Instance.GetEntity( "bridge" ).PhysicsEntity.GetBody( "FloorBody" ),
@@ -281,22 +145,15 @@ namespace VertexArmy.States
 			dj.Frequency = 2f;
 			dj.DampingRatio = 0.4f;
 
-			//GameWorldManager.Instance.SpawnEntity( "UpgradePlatform", "upgrade_platform", new Vector3( 620f, 10f, 0f ) );
-
-			GameWorldManager.Instance.SpawnEntity( "FloorBridge", "bridge2", new Vector3( 620f, 100f, 0f ) );
 		}
 
 		public void LoadSemiStatics()
 		{
-			GameWorldManager.Instance.SpawnEntity( "Button", "button1", new Vector3( -330f, 46f, 0f ), 5f );
 			GameWorldManager.Instance.GetEntity( "button1" ).RegisterComponent(
 				"active",
 				new ButtonComponent( "ButtonJoint1" )
 				);
 
-			GameWorldManager.Instance.GetEntity( "button1" ).SetRotation( ( float ) Math.PI / 2f );
-
-			GameWorldManager.Instance.SpawnEntity( "LiftedDoor", "door", new Vector3( 50, 330f, 0f ), 1f );
 			GameWorldManager.Instance.GetEntity( "door" ).RegisterComponent(
 				"doorHandle",
 				new LiftedDoorComponent( GameWorldManager.Instance.GetEntity( "button1" ).GetComponent( "active" ), "DoorJoint1" )
@@ -306,9 +163,6 @@ namespace VertexArmy.States
 		public void LoadDynamics()
 		{
 			GameWorldManager.Instance.SpawnEntity( "Camera", "camera1", new Vector3( 0, -200, 800 ) );
-			GameWorldManager.Instance.SpawnEntity( "Robot", "robotPlayer", new Vector3( -150f, 100f, 0f ), new Vector3( 1.5f, 1.5f, 2.5f ) );
-			//GameWorldManager.Instance.SpawnEntity( "WallBackground", "wallBackground1",
-			//	new Vector3( 0f, 0f, -1200f ), Quaternion.CreateFromAxisAngle( Vector3.UnitX, -0.3f ), 150 );
 
 			Robot = GameWorldManager.Instance.GetEntity( "robotPlayer" );
 
@@ -317,14 +171,6 @@ namespace VertexArmy.States
 				new CarControlComponent( new List<string> { "GearJoint1", "GearJoint2", "GearJoint3" }, new List<float>() { 7f, 7f, 7f } )
 				);
 
-			GameWorldManager.Instance.SpawnEntity( "Crate", "crate1", new Vector3( -250, 100f, 0f ), 3f );
-			GameWorldManager.Instance.SpawnEntity( "Crate", "crate2", new Vector3( 1700, 130f, 0f ), 4f );
-			GameWorldManager.Instance.SpawnEntity( "Crate", "crate3", new Vector3( 2200, 360f, 0f ), 5f );
-			GameWorldManager.Instance.SpawnEntity( "Crate", "crate4", new Vector3( 2450, -90f, 0f ), 4f );
-
-			GameWorldManager.Instance.SpawnEntity( "Crate", "crate5", new Vector3( -80, 100f, -800f ), 4f, Category.Cat2 );
-			GameWorldManager.Instance.SpawnEntity( "Crate", "crate6", new Vector3( 0, 100f, -800f ), 4f, Category.Cat2 );
-			GameWorldManager.Instance.SpawnEntity( "Crate", "crate7", new Vector3( -50, 150f, -800f ), 3f, Category.Cat2 );
 
 			CameraController camControl = new CameraController( Robot, SceneManager.Instance.GetCurrentCamera() );
 			ControllerRepository.Instance.RegisterController( "camcontrol", camControl );
@@ -388,6 +234,9 @@ namespace VertexArmy.States
 
 		public void LoadLevel()
 		{
+			string _levelName = "level1";
+			GameWorldManager.Instance.SetState( PrefabRepository.Instance.GetLevelPrefab( @"Content\Levels\" + _levelName + ".eql" )._savedState );
+			GameWorldManager.Instance.LoadLastState();
 			LoadStatics();
 			LoadSemiStatics();
 			LoadDynamics();

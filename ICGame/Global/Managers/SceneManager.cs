@@ -398,29 +398,31 @@ namespace VertexArmy.Global.Managers
 				}
 			}
 		}
+
 		
 		public void Update( GameTime dt )
 		{
 			Renderer.Instance.SetParameter( "fTimeMs", (float)dt.TotalGameTime.TotalMilliseconds );
-
-			Matrix view = Renderer.Instance.GetMatrix( EMatrix.View );
-			Matrix projection = Renderer.Instance.GetMatrix( EMatrix.Projection );
-			MouseState mouseState = Mouse.GetState();
-			int mouseX = mouseState.X;
-			int mouseY = mouseState.Y;
-
-			Matrix vp = view * projection;
-
-			Vector4 zerov = Vector4.Transform( Vector3.Zero, ( vp ) );
-
-			Vector3 boardpoint = new Vector3( mouseX, mouseY, zerov.Z / zerov.W );
-
-			Vector3 boardpointW = Platform.Instance.Device.Viewport.Unproject( boardpoint, projection, view, Matrix.Identity );
-
-			CursorManager.Instance.SceneNode.SetPosition( boardpointW );
 		}
 
-		public List<SceneNode> IntersectRayWithSceneNodes( int screenX, int screenY )
+		public Vector3 IntersectScreenRayWithPlane ( float zPlane )
+		{
+			MouseState state = Mouse.GetState();
+			return IntersectScreenRayWithPlane(zPlane, state.X, state.Y);
+		}
+
+		public Vector3 IntersectScreenRayWithPlane( float zPlane, int screenX, int screenY )
+		{
+			Vector4 zerov = Vector4.Transform( new Vector4(0, 0, zPlane, 1.0f), Renderer.Instance.MatViewProjection );
+
+			Vector3 boardpoint = new Vector3( screenX, screenY, zerov.Z / zerov.W );
+
+			Vector3 boardpointW = Platform.Instance.Device.Viewport.Unproject( boardpoint, Renderer.Instance.MatProjection, Renderer.Instance.MatView, Matrix.Identity );
+
+			return boardpointW;
+		}
+
+		public List<SceneNode> IntersectScreenRayWithSceneNodes( int screenX, int screenY )
 		{
 			Vector3 nearPoint = new Vector3( screenX, screenY, 0.0f );
 			Vector3 farPoint = new Vector3( screenX, screenY, 1.0f );

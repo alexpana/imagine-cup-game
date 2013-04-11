@@ -136,7 +136,7 @@ namespace VertexArmy.States
 					{
 						GameWorldManager.Instance.SpawnEntity( "robot", "robotSecond", new Vector3( 0f, -1000f, 0f ) );
 						Robot = GameWorldManager.Instance.GetEntity( "robotSecond" );
-						Robot.RegisterComponent( "force", new SentientForceComponent( CursorManager.Instance.SceneNode ) );
+						Robot.RegisterComponent( "force", new SentientForceComponent() );
 					}
 					else
 					{
@@ -278,7 +278,7 @@ namespace VertexArmy.States
 			//Robot.SetRotation( rotation );
 			Robot.PhysicsEntity.Enabled = true;
 
-			Robot.RegisterComponent( "force", new SentientForceComponent( CursorManager.Instance.SceneNode ) );
+			Robot.RegisterComponent( "force", new SentientForceComponent() );
 			Robot.RegisterComponent(
 				"control",
 				new CarControlComponent( new List<string> { "GearJoint1", "GearJoint2", "GearJoint3" }, new List<float>() { 5f, 5f, 5f } )

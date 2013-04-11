@@ -27,10 +27,13 @@ namespace VertexArmy.States
 		private bool _debugViewState;
 
 		private bool _levelLoaded;
+		private bool _saveAction;
+		private string _levelName;
 
 		public GameStateEditor( ContentManager content )
 		{
 			_contentManager = content;
+			_saveAction = false;
 		}
 
 		public override void OnUpdate( GameTime gameTime )
@@ -41,8 +44,22 @@ namespace VertexArmy.States
 			}
 
 			base.OnUpdate( gameTime );
-
 			_pausePhysics = true;
+
+
+
+			if ( Keyboard.GetState().IsKeyDown( Keys.LeftControl ) && Keyboard.GetState().IsKeyDown( Keys.S ) && !_saveAction )
+			{
+				_saveAction = true;
+				GameWorldManager.Instance.SaveState();
+				PrefabRepository.Instance.GetLevelPrefab( @"Content\Levels\" + _levelName + ".eql" ).SetState( GameWorldManager.Instance.GetState() );
+				PrefabRepository.Instance.GetLevelPrefab( @"Content\Levels\" + _levelName + ".eql" ).SerializeLevel();
+				HintManager.Instance.SpawnHint( "Saved " + _levelName, new Vector2( 200, 200 ), 5000, 13 );
+			}
+			else if ( Keyboard.GetState().IsKeyUp( Keys.S ) || Keyboard.GetState().IsKeyUp( Keys.LeftControl ) )
+			{
+				_saveAction = false;
+			}
 
 			if ( Keyboard.GetState( PlayerIndex.One ).IsKeyDown( Keys.D ) )
 			{
@@ -86,7 +103,7 @@ namespace VertexArmy.States
 
 		public void LoadLevel()
 		{
-			GameWorldManager.Instance.SpawnEntity( "Camera", "cameraEditor", new Vector3( 0, -200, 800 ) );
+			GameWorldManager.Instance.SpawnEntity( "Camera", "cameraEditor", new Vector3( 0, 0, 800 ) );
 			FreeCameraController camControl = new FreeCameraController( SceneManager.Instance.GetCurrentCamera() );
 			ControllerRepository.Instance.RegisterController( "camcontrol", camControl );
 			FrameUpdateManager.Instance.Register( camControl );
@@ -101,7 +118,7 @@ namespace VertexArmy.States
 
 		private void LevelNameInputCallback( IAsyncResult ar )
 		{
-			string levelName = Guide.EndShowKeyboardInput( ar );
+			_levelName = Guide.EndShowKeyboardInput( ar );
 
 			// nothing to do yet
 			if ( !ar.IsCompleted )
@@ -109,7 +126,7 @@ namespace VertexArmy.States
 				return;
 			}
 
-			GameWorldManager.Instance.SetState( PrefabRepository.Instance.GetLevelPrefab( @"Content\Levels\" + levelName + ".eql" )._savedState );
+			GameWorldManager.Instance.SetState( PrefabRepository.Instance.GetLevelPrefab( @"Content\Levels\" + _levelName + ".eql" )._savedState );
 			GameWorldManager.Instance.LoadLastState();
 
 			LoadLevel();

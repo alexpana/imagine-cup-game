@@ -112,6 +112,7 @@ namespace VertexArmy.States.Menu
 				{
 					new MenuItem { Title = "Play!", Activated = args => StateManager.Instance.ChangeState(GameState.SelectLevelMenu) },
 					new MenuItem { Title = "Options", Activated = args => ActivateMenuCube(_optionsMenuCube) },
+					new MenuItem { Title = "Editor", Activated = args => StateManager.Instance.ChangeState(GameState.Editor) },
 					new MenuItem { Title = "Exit", Activated = args => _platform.Game.Exit() }
 				}
 			};

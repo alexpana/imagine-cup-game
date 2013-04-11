@@ -28,7 +28,6 @@ namespace VertexArmy.States.Menu
 		{
 			base.OnUpdate( gameTime );
 
-
 			_lightPos.Z = ( float ) ( 50000f + 20000.0 * Math.Sin( gameTime.TotalGameTime.TotalMilliseconds / 1000.0 ) );
 			SceneManager.Instance.SetLightPosition( _lightPos );
 
@@ -98,10 +97,10 @@ namespace VertexArmy.States.Menu
 
 			CreateLevelsCubes();
 
-			GameWorldManager.Instance.SpawnEntity( CameraPrefab.PrefabName, "levelmenu_camera", new Vector3( 0, 0, 200 ) );
+			GameWorldManager.Instance.SpawnEntity( CameraPrefab.PrefabName, "levelmenu_camera", new Vector3( 0, 10, 200 ) );
 
-			GameWorldManager.Instance.SpawnEntity( "WallMenu2", "wallMenu1",
-				new Vector3( 0f, 0f, -1800f ), Quaternion.CreateFromAxisAngle( Vector3.UnitX, -0.3f ), 150 );
+			//GameWorldManager.Instance.SpawnEntity( "WallMenu2", "wallMenu1",
+			//	new Vector3( 0f, 0f, -1800f ), Quaternion.CreateFromAxisAngle( Vector3.UnitX, -0.3f ), 150 );
 		}
 
 		private void CreateLevelsCubes()

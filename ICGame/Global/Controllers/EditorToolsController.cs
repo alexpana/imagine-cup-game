@@ -16,7 +16,7 @@ namespace VertexArmy.Global.Controllers
 		private EditorState _state;
 		public EditorState State { get { return _state; } }
 		private double _clickTime;
-		private double _moveTime, _rotateTime, _scaleTime;
+		private double _moveTime, _rotateTime, _scaleTime, _externalRotateTime;
 
 
 		private int _clicks;
@@ -24,6 +24,7 @@ namespace VertexArmy.Global.Controllers
 		private const double _clickInterval = 500.0;
 		private const double _moveDelay = 500.0;
 		private const double _rotateDelay = 500.0;
+		private const double _externalRotateDelay = 500.0;
 		private const double _scaleDelay = 500.0;
 		private bool _leftClick;
 
@@ -31,10 +32,14 @@ namespace VertexArmy.Global.Controllers
 		private Vector3 _relative;
 		private int _selectedPrefab;
 		private List<string> _prefabs;
+		private float _lastScrollValue;
 
 		private GameEntity _selectedEntity;
 		private GameEntity _tryEntity;
 		private GameEntity cursorLocation;
+		private Category _lastLayerSelected;
+		private float _lastSelectedZ;
+		private float _specialRotation;
 
 		public EditorToolsController()
 		{
@@ -44,8 +49,13 @@ namespace VertexArmy.Global.Controllers
 			_clicks = 0;
 			_moveTime = -1;
 			_rotateTime = -1;
+			_externalRotateTime = -1;
 			_prefabs = new List<string>( PrefabRepository.Instance.PrefabNames );
 			_selectedPrefab = 0;
+			_lastScrollValue = Mouse.GetState().ScrollWheelValue;
+			_lastLayerSelected = Category.Cat1;
+			_lastSelectedZ = 0f;
+			_specialRotation = ( float ) ( Math.PI / 6f );
 		}
 
 		private void SelectProcess( GameTime dt )
@@ -53,7 +63,9 @@ namespace VertexArmy.Global.Controllers
 			cursorLocation = TrySelectEntity();
 
 			if ( cursorLocation != null )
+			{
 				HintManager.Instance.SpawnHint( cursorLocation.Name, new Vector2( 20f, 560f ), 500, 6, null, 1 );
+			}
 
 			if ( Mouse.GetState().LeftButton.Equals( ButtonState.Pressed ) && !_leftClick )
 			{
@@ -164,6 +176,15 @@ namespace VertexArmy.Global.Controllers
 					move += Vector3.UnitX;
 				}
 
+				if ( Keyboard.GetState().IsKeyDown( Keys.OemMinus ) )
+				{
+					move -= Vector3.UnitZ;
+				}
+				else if ( Keyboard.GetState().IsKeyDown( Keys.OemPlus ) )
+				{
+					move += Vector3.UnitZ;
+				}
+
 				if ( !move.Equals( Vector3.Zero ) )
 				{
 					if ( Keyboard.GetState().IsKeyDown( Keys.Q ) )
@@ -174,10 +195,12 @@ namespace VertexArmy.Global.Controllers
 					{
 						_moveTime = dt.TotalGameTime.TotalMilliseconds;
 						_selectedEntity.SetPosition( _selectedEntity.GetPosition() + move );
+						_lastSelectedZ = _selectedEntity.GetPosition().Z;
 					}
 					else if ( dt.TotalGameTime.TotalMilliseconds - _moveTime > _moveDelay || Keyboard.GetState().IsKeyDown( Keys.Q ) )
 					{
 						_selectedEntity.SetPosition( _selectedEntity.GetPosition() + move );
+						_lastSelectedZ = _selectedEntity.GetPosition().Z;
 					}
 				}
 				else
@@ -192,6 +215,7 @@ namespace VertexArmy.Global.Controllers
 			if ( _selectedEntity != null && _state.Equals( EditorState.Rotating ) )
 			{
 				float rotate = 0f;
+				Quaternion externalRotation = Quaternion.Identity;
 
 				if ( Keyboard.GetState().IsKeyDown( Keys.Left ) )
 				{
@@ -202,6 +226,15 @@ namespace VertexArmy.Global.Controllers
 					rotate += ( float ) dt.ElapsedGameTime.TotalSeconds / 4f; ;
 				}
 
+				if ( Keyboard.GetState().IsKeyDown( Keys.I ) )
+				{
+					externalRotation = Quaternion.Slerp( _selectedEntity.GetExternalRotation(), Quaternion.CreateFromAxisAngle( Vector3.UnitY, 0f ), ( float ) ( dt.ElapsedGameTime.TotalMilliseconds / 120f ) );
+				}
+				else if ( Keyboard.GetState().IsKeyDown( Keys.O ) )
+				{
+					externalRotation = Quaternion.Slerp( _selectedEntity.GetExternalRotation(), Quaternion.CreateFromAxisAngle( Vector3.UnitY, 84.78f ), ( float ) ( dt.ElapsedGameTime.TotalMilliseconds / 120f ) );
+				}
+
 				if ( rotate != 0 )
 				{
 					if ( Keyboard.GetState().IsKeyDown( Keys.Q ) )
@@ -210,18 +243,50 @@ namespace VertexArmy.Global.Controllers
 					}
 					if ( _rotateTime < 0 )
 					{
+						float lastRotation = _selectedEntity.GetRotationRadians();
+						float newRotation = lastRotation + rotate;
+
+						/*
+						float remLast = lastRotation % _specialRotation;
+						float remNew = newRotation % _specialRotation;
+
+						if ( rotate > 0 )
+						{
+							if ()
+						}
+						 * */
+
+						//HintManager.Instance.SpawnHint( "" + ( lastRotation % _specialRotation ), new Vector2( 400f, 300f ), 500, 1, null, 9 );
+
 						_rotateTime = dt.TotalGameTime.TotalMilliseconds;
-						_selectedEntity.SetRotation( _selectedEntity.GetRotationRadians() + rotate );
+						_selectedEntity.SetRotation( newRotation );
 					}
 					else if ( dt.TotalGameTime.TotalMilliseconds - _rotateTime > _rotateDelay || Keyboard.GetState().IsKeyDown( Keys.Q ) )
 					{
-
 						_selectedEntity.SetRotation( _selectedEntity.GetRotationRadians() + rotate );
 					}
 				}
 				else
 				{
 					_rotateTime = -1;
+				}
+
+				if ( !externalRotation.Equals( Quaternion.Identity ) )
+				{
+					externalRotation.Normalize();
+					if ( _externalRotateTime < 0 )
+					{
+						_externalRotateTime = dt.TotalGameTime.TotalMilliseconds;
+						_selectedEntity.SetExternalRotation( externalRotation );
+					}
+					else if ( dt.TotalGameTime.TotalMilliseconds - _externalRotateTime > _externalRotateDelay || Keyboard.GetState().IsKeyDown( Keys.Q ) )
+					{
+						_selectedEntity.SetExternalRotation( externalRotation );
+					}
+				}
+				else
+				{
+					_externalRotateTime = -1;
 				}
 			}
 		}
@@ -249,19 +314,25 @@ namespace VertexArmy.Global.Controllers
 					scale += Vector3.UnitX;
 				}
 
+				if ( Keyboard.GetState().IsKeyDown( Keys.OemMinus ) )
+				{
+					scale -= Vector3.UnitZ;
+				}
+				else if ( Keyboard.GetState().IsKeyDown( Keys.OemPlus ) )
+				{
+					scale += Vector3.UnitZ;
+				}
+
+
 				if ( !scale.Equals( Vector3.Zero ) )
 				{
-					if ( Keyboard.GetState().IsKeyDown( Keys.Q ) )
-					{
-						scale *= 5;
-					}
 					if ( _scaleTime < 0 )
 					{
 						_scaleTime = dt.TotalGameTime.TotalMilliseconds;
 						SetScale( _selectedEntity.GetScale() + scale );
 
 					}
-					else if ( dt.TotalGameTime.TotalMilliseconds - _scaleTime > _scaleDelay || Keyboard.GetState().IsKeyDown( Keys.Q ) )
+					else if ( dt.TotalGameTime.TotalMilliseconds - _scaleTime > _scaleDelay )
 					{
 						SetScale( _selectedEntity.GetScale() + scale );
 					}
@@ -291,11 +362,13 @@ namespace VertexArmy.Global.Controllers
 			Vector3 position = _selectedEntity.GetPosition();
 			Quaternion rotation = _selectedEntity.GetRotation();
 			Category category = _selectedEntity.PhysicsEntity.GetCollisionLayer();
+			Quaternion externalRotation = _selectedEntity.GetExternalRotation();
 
 			GameWorldManager.Instance.RemoveEntity( _selectedEntity.Name );
 			GameWorldManager.Instance.SpawnEntity( _selectedEntity.Prefab, _selectedEntity.Name, position, newScale, category );
 			_selectedEntity = GameWorldManager.Instance.GetEntity( _selectedEntity.Name );
 			_selectedEntity.SetRotation( rotation );
+			_selectedEntity.SetExternalRotation( externalRotation );
 
 			Platform.Instance.PhysicsWorld.Step( 0f );
 		}
@@ -304,19 +377,77 @@ namespace VertexArmy.Global.Controllers
 		{
 			if ( _state.Equals( EditorState.None ) && Keyboard.GetState().IsKeyDown( Keys.C ) )
 			{
-				_selectedPrefab = Math.Abs( Mouse.GetState().ScrollWheelValue % _prefabs.Count );
+				if ( Mouse.GetState().ScrollWheelValue != _lastScrollValue )
+				{
+					double scrollDirection = ( Mouse.GetState().ScrollWheelValue - _lastScrollValue ) / 120;
+					int direction;
+					if ( scrollDirection < 0 )
+					{
+						direction = ( int ) Math.Floor( scrollDirection );
+					}
+					else
+					{
+						direction = ( int ) Math.Ceiling( scrollDirection );
+					}
+					_lastScrollValue = Mouse.GetState().ScrollWheelValue;
+
+					_selectedPrefab += direction;
+					while ( _selectedPrefab < 0 )
+					{
+						_selectedPrefab += _prefabs.Count;
+					}
+					_selectedPrefab = _selectedPrefab % _prefabs.Count;
+				}
 
 
 				HintManager.Instance.SpawnHint( "Spawning entity:" + _prefabs[_selectedPrefab], new Vector2( 1f, 1f ), 50, 5, null, 1 );
 
 				if ( Mouse.GetState().LeftButton.Equals( ButtonState.Pressed ) )
 				{
-					GameWorldManager.Instance.SpawnEntity( _prefabs[_selectedPrefab], "robotcc", CursorManager.Instance.SceneNode.GetPosition(), 1f );
+					string generatedName = GenerateEntityName( _prefabs[_selectedPrefab] );
+					Vector3 position = new Vector3( CursorManager.Instance.SceneNode.GetPosition().X, CursorManager.Instance.SceneNode.GetPosition().Y, _lastSelectedZ );
+					GameWorldManager.Instance.SpawnEntity( _prefabs[_selectedPrefab], generatedName, position, 1f, _lastLayerSelected );
 					_state = EditorState.Selected;
-					_selectedEntity = GameWorldManager.Instance.GetEntity( "robotcc" );
+					_selectedEntity = GameWorldManager.Instance.GetEntity( generatedName );
+					Platform.Instance.PhysicsWorld.Step( 0f );
+
+				}
+			}
+		}
+
+		public void SetCategoryProcess( GameTime dt )
+		{
+			if ( _state.Equals( EditorState.Selected ) && _selectedEntity != null )
+			{
+				if ( Keyboard.GetState().IsKeyDown( Keys.D1 ) )
+				{
+					_lastLayerSelected = Category.Cat1;
+					_selectedEntity.PhysicsEntity.SetCollisionLayer( Category.Cat1 );
 				}
 
+				if ( Keyboard.GetState().IsKeyDown( Keys.D2 ) )
+				{
+					_lastLayerSelected = Category.Cat2;
+					_selectedEntity.PhysicsEntity.SetCollisionLayer( Category.Cat2 );
+				}
 
+				if ( Keyboard.GetState().IsKeyDown( Keys.D3 ) )
+				{
+					_lastLayerSelected = Category.Cat3;
+					_selectedEntity.PhysicsEntity.SetCollisionLayer( Category.Cat3 );
+				}
+
+				if ( Keyboard.GetState().IsKeyDown( Keys.D4 ) )
+				{
+					_lastLayerSelected = Category.Cat4;
+					_selectedEntity.PhysicsEntity.SetCollisionLayer( Category.Cat4 );
+				}
+
+				if ( Keyboard.GetState().IsKeyDown( Keys.D5 ) )
+				{
+					_lastLayerSelected = Category.Cat5;
+					_selectedEntity.PhysicsEntity.SetCollisionLayer( Category.Cat5 );
+				}
 			}
 		}
 
@@ -332,12 +463,14 @@ namespace VertexArmy.Global.Controllers
 			RotateProcess( dt );
 			ScaleProcess( dt );
 			SpawnProcess( dt );
+			SetCategoryProcess( dt );
 
 			if ( _state.Equals( EditorState.Selected ) && Keyboard.GetState().IsKeyDown( Keys.Delete ) )
 			{
 				GameWorldManager.Instance.RemoveEntity( _selectedEntity.Name );
 				_state = EditorState.None;
 				_selectedEntity = null;
+				Platform.Instance.PhysicsWorld.Step( 0f );
 			}
 
 			if ( _selectedEntity != null )
@@ -349,10 +482,10 @@ namespace VertexArmy.Global.Controllers
 						_state = EditorState.Selected;
 						break;
 					case EditorState.Selected:
-						HintManager.Instance.SpawnHint( "Selected entity:" + _selectedEntity.Name + "\nPosition: " + _selectedEntity.GetPosition(), new Vector2( 1f, 1f ), 50, 5, null, 1 );
+						HintManager.Instance.SpawnHint( "Selected entity:" + _selectedEntity.Name + "\nPosition: " + _selectedEntity.GetPosition() + "\nCollision Layer: " + _selectedEntity.PhysicsEntity.GetCollisionLayer(), new Vector2( 1f, 1f ), 50, 5, null, 1 );
 						break;
 					case EditorState.Rotating:
-						HintManager.Instance.SpawnHint( "Rotating entity:" + _selectedEntity.Name + "\nRotation: " + _selectedEntity.GetRotationRadians(), new Vector2( 1f, 1f ), 50, 5, null, 1 );
+						HintManager.Instance.SpawnHint( "Rotating entity:" + _selectedEntity.Name + "\nRotation: " + _selectedEntity.GetRotationRadians() + " Ext: " + _selectedEntity.GetExternalRotation(), new Vector2( 1f, 1f ), 50, 5, null, 1 );
 						break;
 					case EditorState.Scaling:
 						HintManager.Instance.SpawnHint( "Scaling entity:" + _selectedEntity.Name + "\nRotation: " + _selectedEntity.GetScale(), new Vector2( 1f, 1f ), 50, 5, null, 1 );
@@ -372,7 +505,7 @@ namespace VertexArmy.Global.Controllers
 		{
 			if ( _selectedEntity != null )
 			{
-				if ( _state == EditorState.Selected )
+				if ( !_state.Equals( EditorState.None ) )
 				{
 
 					foreach ( KeyValuePair<string, SceneNode> keyValuePair in _selectedEntity.SceneNodes )
@@ -416,6 +549,18 @@ namespace VertexArmy.Global.Controllers
 			( ( MeshAttachable ) max.Attachable[0] ).Highlighted = true;
 			( ( MeshAttachable ) max.Attachable[0] ).HighColor = Vector3.One;
 			return GameWorldManager.Instance.GetEntityByMesh( ( MeshAttachable ) max.Attachable[0] );
+		}
+
+		private string GenerateEntityName( string prefab )
+		{
+			int i = 0;
+			string entityName = prefab.ToLower();
+			while ( GameWorldManager.Instance.GetEntity( entityName + i ) != null )
+			{
+				i++;
+			}
+
+			return entityName + i;
 		}
 
 

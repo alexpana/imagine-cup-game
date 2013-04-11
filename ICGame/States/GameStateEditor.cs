@@ -86,7 +86,7 @@ namespace VertexArmy.States
 
 		public void LoadLevel()
 		{
-			//GameWorldManager.Instance.SpawnEntity( "Camera", "camera1", new Vector3( 0, -200, 800 ) );
+			GameWorldManager.Instance.SpawnEntity( "Camera", "cameraEditor", new Vector3( 0, -200, 800 ) );
 			FreeCameraController camControl = new FreeCameraController( SceneManager.Instance.GetCurrentCamera() );
 			ControllerRepository.Instance.RegisterController( "camcontrol", camControl );
 			FrameUpdateManager.Instance.Register( camControl );

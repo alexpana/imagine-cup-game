@@ -11,7 +11,6 @@ using VertexArmy.Content.Prefabs;
 using VertexArmy.GameWorld;
 using VertexArmy.Global;
 using VertexArmy.Global.Managers;
-using VertexArmy.Graphics;
 using VertexArmy.Graphics.Attachables;
 
 namespace VertexArmy.States.Menu
@@ -118,12 +117,13 @@ namespace VertexArmy.States.Menu
 
 		public void SelectPreviousItem()
 		{
-			if ( _isRotating || Items.Count == 1 || SelectedItem == 0 )
+			if ( _isRotating || Items.Count == 1 ||
+				( SelectedItem == 0 && Items.Count < 4 ) )
 			{
 				return;
 			}
 
-			SelectedItem--;
+			SelectedItem = SelectedItem == 0 ? Items.Count - 1 : SelectedItem - 1;
 			StartRotation( RotationStep );
 
 			if ( SelectionSound != null )
@@ -134,12 +134,13 @@ namespace VertexArmy.States.Menu
 
 		public void SelectNextItem()
 		{
-			if ( _isRotating || Items.Count == 1 || SelectedItem >= Items.Count - 1 )
+			if ( _isRotating || Items.Count == 1 ||
+				( SelectedItem >= Items.Count - 1 && Items.Count < 4 ) )
 			{
 				return;
 			}
 
-			SelectedItem++;
+			SelectedItem = ( SelectedItem + 1 ) % Items.Count;
 			StartRotation( -RotationStep );
 
 			if ( SelectionSound != null )

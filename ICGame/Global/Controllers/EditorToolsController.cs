@@ -91,7 +91,7 @@ namespace VertexArmy.Global.Controllers
 
 				if ( _state.Equals( EditorState.Selected ) && cursorLocation != null && cursorLocation.Equals( _selectedEntity ) )
 				{
-					Vector3 m3D = SceneManager.Instance.IntersectScreenRayWithPlane(_selectedEntity.GetPosition().Z);
+					Vector3 m3D = SceneManager.Instance.IntersectScreenRayWithPlane( _selectedEntity.GetPosition().Z );
 					_dragging = true;
 					_relative = new Vector3( m3D.X, m3D.Y, _selectedEntity.GetPosition().Z ) - _selectedEntity.GetPosition();
 				}
@@ -151,7 +151,7 @@ namespace VertexArmy.Global.Controllers
 
 		public void MoveProcess( GameTime dt )
 		{
-			if ( _dragging )
+			if ( _selectedEntity != null && _dragging )
 			{
 				Vector3 m3D = SceneManager.Instance.IntersectScreenRayWithPlane( _selectedEntity.GetPosition().Z );
 				Vector3 newPosition = new Vector3( m3D.X, m3D.Y, _selectedEntity.GetPosition().Z ) - _relative;
@@ -408,7 +408,7 @@ namespace VertexArmy.Global.Controllers
 				{
 					string generatedName = GenerateEntityName( _prefabs[_selectedPrefab] );
 
-					Vector3 m3D = SceneManager.Instance.IntersectScreenRayWithPlane(_lastSelectedZ);
+					Vector3 m3D = SceneManager.Instance.IntersectScreenRayWithPlane( _lastSelectedZ );
 					Vector3 position = new Vector3( m3D.X, m3D.Y, _lastSelectedZ );
 					GameWorldManager.Instance.SpawnEntity( _prefabs[_selectedPrefab], generatedName, position, 1f, _lastLayerSelected );
 					_state = EditorState.Selected;

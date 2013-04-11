@@ -47,6 +47,8 @@ namespace VertexArmy
 			StateManager.Instance.ChangeState( GameState.ModelView );
 #elif EDITOR
 			StateManager.Instance.ChangeState( GameState.Editor );
+#elif TUTORIAL
+			StateManager.Instance.ChangeState( GameState.TutorialLevel );
 #else
 			StateManager.Instance.ChangeState( GameState.Menu );
 #endif

@@ -78,21 +78,20 @@ namespace VertexArmy
 			MaterialRepository.Instance.RegisterMaterial( "SafMaterial", args => SafMaterial.CreateMaterial() );
 			MaterialRepository.Instance.RegisterMaterial( "WallMenuMaterial", args => WallMenuMaterial.CreateMaterial() );
 			MaterialRepository.Instance.RegisterMaterial( "WallMenuMaterial2", args => WallMenuMaterial2.CreateMaterial() );
-			MaterialRepository.Instance.RegisterMaterial( "TechMaterial", args => TechMaterial.CreateMaterial() );
 			MaterialRepository.Instance.RegisterMaterial( "HighlightMaterial", args => HighlightMaterial.CreateMaterial() );
 
 			// Unlit materials for style2.0
-			MaterialRepository.Instance.RegisterMaterial( "ButtonMaterial", args => UnlitMaterial.CreateMaterial( "button_COLOR" ) );
-			MaterialRepository.Instance.RegisterMaterial( "RobotMaterial", args => UnlitMaterial.CreateMaterial( "robo_COLOR" ) );
-			MaterialRepository.Instance.RegisterMaterial( "UPlatformMaterial", args => UnlitMaterial.CreateMaterial( "uplatform_COLOR" ) );
-			MaterialRepository.Instance.RegisterMaterial( "CrateMaterial", args => UnlitMaterial.CreateMaterial( "crate_COLOR" ) );
-			MaterialRepository.Instance.RegisterMaterial( "CelShadingMaterial", args => UnlitMaterial.CreateMaterial( "crate_COLOR" ) );
-			MaterialRepository.Instance.RegisterMaterial( "InnerDoorMaterial", args => UnlitMaterial.CreateMaterial( "door_inner_COLOR" ) );
-			MaterialRepository.Instance.RegisterMaterial( "OuterDoorMaterial", args => UnlitMaterial.CreateMaterial( "door_outer_COLOR" ) );
-			MaterialRepository.Instance.RegisterMaterial( "WallMaterial", args => UnlitMaterial.CreateMaterial( "flat_gray" ) );
-			MaterialRepository.Instance.RegisterMaterial( "TileMaterial", args => UnlitMaterial.CreateMaterial( "flat_dark_gray" ) );
-			MaterialRepository.Instance.RegisterMaterial( "FloorBridgeMaterial", args => UnlitMaterial.CreateMaterial( "bridge_COLOR" ) );
-			MaterialRepository.Instance.RegisterMaterial( "PipeMaterial", args => UnlitMaterial.CreateMaterial( "pipe_COLOR" ) );
+			MaterialRepository.Instance.RegisterMaterial( "ButtonMaterial", args => TexturedMaterial.CreateMaterial( "color_button" ) );
+			MaterialRepository.Instance.RegisterMaterial( "RobotMaterial", args => TexturedMaterial.CreateMaterial( "color_robo" ) );
+			MaterialRepository.Instance.RegisterMaterial( "UPlatformMaterial", args => TexturedMaterial.CreateMaterial( "color_uplatform" ) );
+			MaterialRepository.Instance.RegisterMaterial( "CrateMaterial", args => TexturedMaterial.CreateMaterial( "color_crate" ) );
+			MaterialRepository.Instance.RegisterMaterial( "CelShadingMaterial", args => TexturedMaterial.CreateMaterial( "color_crate" ) );
+			MaterialRepository.Instance.RegisterMaterial( "InnerDoorMaterial", args => TexturedMaterial.CreateMaterial( "color_door_inner" ) );
+			MaterialRepository.Instance.RegisterMaterial( "OuterDoorMaterial", args => TexturedMaterial.CreateMaterial( "color_door_outer" ) );
+			MaterialRepository.Instance.RegisterMaterial( "WallMaterial", args => TexturedMaterial.CreateMaterial( "empty_gray" ) );
+			MaterialRepository.Instance.RegisterMaterial( "TileMaterial", args => TexturedMaterial.CreateMaterial( "empty_dark_gray" ) );
+			MaterialRepository.Instance.RegisterMaterial( "FloorBridgeMaterial", args => TexturedMaterial.CreateMaterial( "color_bridge" ) );
+			MaterialRepository.Instance.RegisterMaterial( "PipeMaterial", args => TexturedMaterial.CreateMaterial( "color_pipe" ) );
 		}
 
 		protected override void UnloadContent()

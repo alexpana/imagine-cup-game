@@ -322,7 +322,7 @@ namespace VertexArmy.Global.Managers
 
 			Platform.Instance.Device.BlendState = BlendState.Opaque;
 			Platform.Instance.Device.DepthStencilState = depthState;
-			Platform.Instance.Device.RasterizerState = RasterizerState.CullNone;
+			Platform.Instance.Device.RasterizerState = RasterizerState.CullCounterClockwise;
 
 			CameraAttachable currentCam = _sceneCameras[0];
 

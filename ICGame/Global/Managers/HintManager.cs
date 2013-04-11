@@ -13,10 +13,11 @@ namespace VertexArmy.Global.Managers
 		private readonly SpriteBatch _spriteBatch;
 		private readonly SpriteFont _font;
 
-		private readonly Texture2D _backgroundDoubleLine = Platform.Instance.Content.Load<Texture2D>( "images/tooltip_double_line" );
-		private readonly Texture2D _backgroundSingleLine = Platform.Instance.Content.Load<Texture2D>( "images/tooltip_single_line" );
+		private readonly Texture2D _tooltipBackgroundTop = Platform.Instance.Content.Load<Texture2D>( "images/menu/metro/tooltip_top" );
+		private readonly Texture2D _tooltipBackgroundMiddle = Platform.Instance.Content.Load<Texture2D>( "images/menu/metro/tooltip_middle" );
+		private readonly Texture2D _tooltipBackgroundBottom = Platform.Instance.Content.Load<Texture2D>( "images/menu/metro/tooltip_bottom" );
 
-		private readonly Texture2D _thinkingBubbleTexture = Platform.Instance.Content.Load<Texture2D>( "images/white" );
+		private readonly Texture2D _thinkingBubbleTexture = Platform.Instance.Content.Load<Texture2D>( "images/empty_white" );
 
 		private const int DefaultHintFadeTime = 1000;
 
@@ -42,16 +43,17 @@ namespace VertexArmy.Global.Managers
 			}
 
 			var hint = endPosition.HasValue
-				? new Hint( startPosition, endPosition.Value, msTime, fadeTime )
-				: new Hint( startPosition, msTime, fadeTime );
+				? new Hint( text, startPosition, endPosition.Value, msTime, fadeTime )
+				: new Hint( text, startPosition, msTime, fadeTime );
 
 			_activeHints.Add( hint );
 
-			hint.Text = text;
 			hint.Layer = layer;
 			hint.DismissedCallback = dismissedCallback;
 			hint.ThinkingBubbleTexture = _thinkingBubbleTexture;
-			hint.BackgroundTexture = text.Contains( "\n" ) ? _backgroundDoubleLine : _backgroundSingleLine;
+			hint.BackgroundTopTexture = _tooltipBackgroundTop;
+			hint.BackgroundMiddleTexture = _tooltipBackgroundMiddle;
+			hint.BackgroundBottomTexture = _tooltipBackgroundBottom;
 			hint.Font = _font;
 		}
 

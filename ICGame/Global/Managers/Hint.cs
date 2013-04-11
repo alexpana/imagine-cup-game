@@ -19,10 +19,11 @@ namespace VertexArmy.Global.Managers
 			FadeOut
 		}
 
-		public string Text { get; set; }
 		public float Time { get; set; } // in miliseconds
 		public int Layer { get; set; }
-		public Texture2D BackgroundTexture { get; set; }
+		public Texture2D BackgroundTopTexture { get; set; }
+		public Texture2D BackgroundMiddleTexture { get; set; }
+		public Texture2D BackgroundBottomTexture { get; set; }
 		public SpriteFont Font { get; set; }
 
 		private readonly List<Vector2> _thinkingBubbles;
@@ -35,6 +36,9 @@ namespace VertexArmy.Global.Managers
 		private readonly Vector2 _startPosition;
 
 		private readonly Color _color;
+
+		private readonly int _linesCount;
+		private string _text;
 
 		#region Thinking
 		public Texture2D ThinkingBubbleTexture { get; set; }
@@ -50,9 +54,13 @@ namespace VertexArmy.Global.Managers
 
 		public Action DismissedCallback;
 
-		public Hint( Vector2 startPosition, Vector2 endPosition, float msTime, uint fadeTime )
+		public Hint( string text, Vector2 startPosition, Vector2 endPosition, float msTime, uint fadeTime )
 		{
 			_thinkingBubbles = new List<Vector2>();
+
+			_text = text;
+			//TODO: rework this
+			_linesCount = text.Split( '\n' ).Length;
 
 			_color = new Color( 32.0f / 255.0f, 40.0f / 255.0f, 50.0f / 255.0f );
 			_currentFadeOperation = 1;
@@ -74,17 +82,30 @@ namespace VertexArmy.Global.Managers
 			_state = HintState.Thinking;
 		}
 
-		public Hint( Vector2 finalPosition, float msTime, uint fadeTime )
-			: this( finalPosition, finalPosition, msTime, fadeTime )
+		public Hint( string text, Vector2 finalPosition, float msTime, uint fadeTime )
+			: this( text, finalPosition, finalPosition, msTime, fadeTime )
 		{
 			_state = HintState.FadeIn;
 		}
 
+		private void RenderHintBackground( SpriteBatch spriteBatch, Vector2 position, int linecount, float alpha )
+		{
+			// Delta position should be 20, 16
+			spriteBatch.Draw( BackgroundTopTexture, position, Color.White * alpha );
+			position.Y += BackgroundTopTexture.Height;
+			for ( int i = 0; i < linecount - 1; ++i )
+			{
+				spriteBatch.Draw( BackgroundMiddleTexture, position, Color.White * alpha );
+				position.Y += BackgroundMiddleTexture.Height;
+			}
+			spriteBatch.Draw( BackgroundBottomTexture, position, Color.White * alpha );
+		}
 		public void Render( SpriteBatch spriteBatch )
 		{
-			spriteBatch.Draw( BackgroundTexture, _currentPosition - new Vector2( 20, 16 ), Color.White * _alpha );
+			Vector2 offset = new Vector2( 20, 16 );
+			RenderHintBackground( spriteBatch, _currentPosition - offset, _linesCount, _alpha );
 
-			spriteBatch.DrawString( Font, Text, _currentPosition, _color * _alpha );
+			spriteBatch.DrawString( Font, _text, _currentPosition, _color * _alpha );
 		}
 
 		public void Update( GameTime gameTime )

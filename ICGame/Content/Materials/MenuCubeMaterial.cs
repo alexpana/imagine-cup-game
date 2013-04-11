@@ -20,11 +20,12 @@ namespace VertexArmy.Content.Materials
 
 			mat.Effect = robofx;
 
-			mat.AddParameter( "ColorMap", Platform.Instance.Content.Load<Texture2D>( "images/menu/" + "menu_cube_flat_DIFF" ) );
+			mat.AddParameter( "ColorMap", Platform.Instance.Content.Load<Texture2D>( "images/empty_dark_blue" ) );
 			mat.AddParameter( MenuTextImage, Platform.Instance.Content.Load<Texture2D>( "images/menu/" + menuTextImage ) );
-			mat.AddParameter( "NormalMap", Platform.Instance.Content.Load<Texture2D>( "images/" + "flat_nrm" ) );
-			mat.AddParameter( "SpecularMap", Platform.Instance.Content.Load<Texture2D>( "images/" + "no_spec" ) );
-			mat.AddParameter( "AOMap", Platform.Instance.Content.Load<Texture2D>( "images/" + "white" ) );
+			mat.AddParameter( "NormalMap", Platform.Instance.Content.Load<Texture2D>( "images/" + "empty_normals" ) );
+			mat.AddParameter( "SpecularMap", Platform.Instance.Content.Load<Texture2D>( "images/" + "empty_specular" ) );
+			mat.AddParameter( "AOMap", Platform.Instance.Content.Load<Texture2D>( "images/" + "empty_white" ) );
+
 			mat.AddParameter( "matWorldViewProj", Matrix.Identity );
 			mat.AddParameter( "matWorldInverseTranspose", Matrix.Identity );
 			mat.AddParameter( "matWorld", Matrix.Identity );

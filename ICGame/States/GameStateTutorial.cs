@@ -271,6 +271,8 @@ namespace VertexArmy.States
 			Song song = _contentManager.Load<Song>( "music/Beluga_-_Lost_In_Outer_Space" );
 			Platform.Instance.SoundManager.PlayMusic( song );
 			FrameUpdateManager.Instance.Register( SceneManager.Instance );
+
+			SceneManager.Instance.SortByLayer();
 		}
 
 		public override void OnClose()

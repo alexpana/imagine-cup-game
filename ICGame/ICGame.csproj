@@ -124,14 +124,11 @@
     <Compile Include="Content\Materials\HighlightMaterial.cs" />
     <Compile Include="Content\Materials\DepthOfFieldMaterial.cs" />
     <Compile Include="Content\Materials\DepthBufferMaterial.cs" />
-    <Compile Include="Content\Materials\UnlitMaterial.cs" />
+    <Compile Include="Content\Materials\TexturedMaterial.cs" />
     <Compile Include="Content\Materials\WallMenuMaterial2.cs" />
     <Compile Include="Content\Materials\WallMenuMaterial.cs" />
     <Compile Include="Content\Materials\MenuCubeMaterial.cs" />
     <Compile Include="Content\Materials\SafMaterial.cs" />
-    <Compile Include="Content\Materials\TechMaterial.cs" />
-    <Compile Include="Content\Materials\TileMaterial.cs" />
-    <Compile Include="Content\Materials\WallMaterial.cs" />
     <Compile Include="Content\Prefabs\ButtonPrefab.cs" />
     <Compile Include="Content\Prefabs\FloorBridgePrefab.cs" />
     <Compile Include="Content\Prefabs\LevelPrefab.cs" />

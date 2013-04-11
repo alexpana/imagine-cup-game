@@ -49,12 +49,6 @@ namespace VertexArmy.Global.Managers
 			get { return _instance ?? ( _instance = new CursorManager() ); }
 		}
 
-		public ITransformable SceneNode
-		{
-
-			get { return _cursorNode; }
-		}
-
 		private CursorManager()
 		{
 			Initialize();

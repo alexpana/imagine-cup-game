@@ -28,9 +28,9 @@ namespace VertexArmy.Global.Controllers.Components
 		public Body Cone;
 		public GameEntity ConeEntity;
 
-		public SentientForceComponent( ITransformable pointingDirection )
+		public SentientForceComponent()
 		{
-			Data = new List<object> { pointingDirection };
+			Data = new List<object>();
 
 			_type = ComponentType.SentientForce;
 
@@ -83,18 +83,15 @@ namespace VertexArmy.Global.Controllers.Components
 					Cone.CollisionCategories = Entity.PhysicsEntity.GetCollisionLayer();
 					_collisionCategory = Entity.PhysicsEntity.GetCollisionLayer();
 				}
-				ITransformable followTransformable = Data[0] as ITransformable;
 				_oldPosition = Cone.Position;
 				Vector3 newPosition3D = UnitsConverter.ToSimUnits( Entity.GetPosition() );
 				Cone.Position = new Vector2( newPosition3D.X, newPosition3D.Y );
 
-				bool applyFollow = followTransformable != null;
-
-				if ( applyFollow )
+				if ( true )
 				{
 					//double dTime = ( data[1] as ParameterGameTime ).Value.ElapsedGameTime.TotalSeconds;
 
-					Vector3 followPosition3D = UnitsConverter.ToSimUnits( followTransformable.GetPosition() );
+					Vector3 followPosition3D = UnitsConverter.ToSimUnits( SceneManager.Instance.IntersectScreenRayWithPlane( Entity.GetPosition().Z ) );
 					Vector2 followPosition = new Vector2( followPosition3D.X, followPosition3D.Y );
 
 					Vector2 direction = followPosition - Cone.Position;

@@ -281,9 +281,9 @@ namespace VertexArmy.States
 			dj.Frequency = 2f;
 			dj.DampingRatio = 0.4f;
 
-			//GameWorldManager.Instance.SpawnEntity( "UpgradePlatform", "upgrade_platform", new Vector3( 620f, 10f, 0f ) );
+			GameWorldManager.Instance.SpawnEntity( "UpgradePlatform", "upgrade_platform", new Vector3( 620f, 10f, 0f ) );
 
-			GameWorldManager.Instance.SpawnEntity( "FloorBridge", "bridge2", new Vector3( 620f, 100f, 0f ) );
+			//GameWorldManager.Instance.SpawnEntity( "FloorBridge", "bridge2", new Vector3( 620f, 100f, 0f ) );
 		}
 
 		public void LoadSemiStatics()
@@ -307,8 +307,8 @@ namespace VertexArmy.States
 		{
 			GameWorldManager.Instance.SpawnEntity( "Camera", "camera1", new Vector3( 0, -200, 800 ) );
 			GameWorldManager.Instance.SpawnEntity( "Robot", "robotPlayer", new Vector3( -150f, 100f, 0f ), new Vector3( 1.5f, 1.5f, 2.5f ) );
-			//GameWorldManager.Instance.SpawnEntity( "WallBackground", "wallBackground1",
-			//	new Vector3( 0f, 0f, -1200f ), Quaternion.CreateFromAxisAngle( Vector3.UnitX, -0.3f ), 150 );
+			GameWorldManager.Instance.SpawnEntity( "WallBackground", "wallBackground1",
+				new Vector3( 0f, 0f, -1200f ), Quaternion.CreateFromAxisAngle( Vector3.UnitX, -0.3f ), 150 );
 
 			Robot = GameWorldManager.Instance.GetEntity( "robotPlayer" );
 
@@ -443,7 +443,7 @@ namespace VertexArmy.States
 		{
 			if ( Robot.GetComponent( "force" ) == null )
 			{
-				Robot.RegisterComponent( "force", new SentientForceComponent( CursorManager.Instance.SceneNode ) );
+				Robot.RegisterComponent( "force", new SentientForceComponent() );
 				GameWorldManager.Instance.SaveState();
 				string Text = "Press Mouse1 to pull objects towards the robot. \nPress Mouse2 to push away objects from the robot.";
 				HintManager.Instance.SpawnHint( Text, new Vector2( 100, 100 ), 7000, 1 );

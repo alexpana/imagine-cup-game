@@ -292,7 +292,7 @@ namespace VertexArmy.States
 		{
 			if ( Robot.GetComponent( "force" ) == null )
 			{
-				Robot.RegisterComponent( "force", new SentientForceComponent( CursorManager.Instance.SceneNode ) );
+				Robot.RegisterComponent( "force", new SentientForceComponent() );
 				GameWorldManager.Instance.SaveState();
 				string Text = "Press Mouse1 to pull objects towards the robot. \nPress Mouse2 to push away objects from the robot.";
 				HintManager.Instance.SpawnHint( Text, new Vector2( 100, 100 ), 7000, 1 );

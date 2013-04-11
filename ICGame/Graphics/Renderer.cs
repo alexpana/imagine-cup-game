@@ -88,10 +88,16 @@ namespace VertexArmy.Graphics
 			_matWorld = Matrix.Identity;
 			_matWorldInverseTranspose = Matrix.Identity;
 			_matWorldViewProjection = Matrix.Identity;
+			_matViewProjection = Matrix.Identity;
+			_matView = Matrix.Identity;
+			_matProjection = Matrix.Identity;
 
 			_matWorldF = false;
 			_matWorldInverseTransposeF = false;
 			_matWorldViewProjectionF = false;
+			_matViewProjectionF = false;
+			_matViewF = false;
+			_matProjectionF = false;
 
 			AddParameter( "matWorldViewProj", Matrix.Identity );
 			AddParameter( "matWorldInverseTranspose", Matrix.Identity );
@@ -114,6 +120,46 @@ namespace VertexArmy.Graphics
 					}
 				}
 				return _instance;
+			}
+		}
+
+		public Matrix MatView
+		{
+			get
+			{
+				if ( _matViewF )
+				{
+					_matView = _stacks[(int)EMatrix.View][_si[(int)EMatrix.View]];
+					_matViewF = false;
+				}
+				return _matView;
+			}
+		}
+
+		public Matrix MatProjection
+		{
+			get
+			{
+				if ( _matProjectionF )
+				{
+					_matProjection = _stacks[( int ) EMatrix.Projection][_si[( int ) EMatrix.Projection]];
+					_matProjectionF = false;
+				}
+				return _matProjection;
+			}
+		}
+
+		public Matrix MatViewProjection
+		{
+			get
+			{
+				if(_matViewProjectionF)
+				{
+					_matViewProjection = _stacks[( int ) EMatrix.View][_si[( int ) EMatrix.View]] *
+										 _stacks[( int ) EMatrix.Projection][_si[( int ) EMatrix.Projection]];
+					_matViewProjectionF = false;
+				}
+				return _matViewProjection;
 			}
 		}
 
@@ -166,10 +212,17 @@ namespace VertexArmy.Graphics
 		private Matrix _matWorld;
 		private Matrix _matWorldInverseTranspose;
 		private Matrix _matWorldViewProjection;
+		private Matrix _matViewProjection;
+		private Matrix _matView;
+		private Matrix _matProjection;
 
 		private bool _matWorldF;
 		private bool _matWorldInverseTransposeF;
 		private bool _matWorldViewProjectionF;
+		private bool _matViewProjectionF;
+		private bool _matViewF;
+		private bool _matProjectionF;
+		
 
 		public void PushMatrix ( EMatrix matrix )
 		{
@@ -201,9 +254,13 @@ namespace VertexArmy.Graphics
 					break;
 				case EMatrix.View:
 					_matWorldViewProjectionF = true;
+					_matViewProjectionF = true;
+					_matViewF = true;
 					break;
 				case EMatrix.Projection:
 					_matWorldViewProjectionF = true;
+					_matViewProjectionF = true;
+					_matProjectionF = true;
 					break;
 			}
 		}

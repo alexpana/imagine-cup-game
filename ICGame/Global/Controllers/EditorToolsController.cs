@@ -91,8 +91,9 @@ namespace VertexArmy.Global.Controllers
 
 				if ( _state.Equals( EditorState.Selected ) && cursorLocation != null && cursorLocation.Equals( _selectedEntity ) )
 				{
+					Vector3 m3D = SceneManager.Instance.IntersectScreenRayWithPlane(_selectedEntity.GetPosition().Z);
 					_dragging = true;
-					_relative = new Vector3( CursorManager.Instance.SceneNode.GetPosition().X, CursorManager.Instance.SceneNode.GetPosition().Y, _selectedEntity.GetPosition().Z ) - _selectedEntity.GetPosition();
+					_relative = new Vector3( m3D.X, m3D.Y, _selectedEntity.GetPosition().Z ) - _selectedEntity.GetPosition();
 				}
 
 			}
@@ -152,7 +153,8 @@ namespace VertexArmy.Global.Controllers
 		{
 			if ( _dragging )
 			{
-				Vector3 newPosition = new Vector3( CursorManager.Instance.SceneNode.GetPosition().X, CursorManager.Instance.SceneNode.GetPosition().Y, _selectedEntity.GetPosition().Z ) - _relative;
+				Vector3 m3D = SceneManager.Instance.IntersectScreenRayWithPlane( _selectedEntity.GetPosition().Z );
+				Vector3 newPosition = new Vector3( m3D.X, m3D.Y, _selectedEntity.GetPosition().Z ) - _relative;
 				_selectedEntity.SetPosition( newPosition );
 			}
 			if ( _selectedEntity != null && _state.Equals( EditorState.Selected ) )
@@ -405,7 +407,9 @@ namespace VertexArmy.Global.Controllers
 				if ( Mouse.GetState().LeftButton.Equals( ButtonState.Pressed ) )
 				{
 					string generatedName = GenerateEntityName( _prefabs[_selectedPrefab] );
-					Vector3 position = new Vector3( CursorManager.Instance.SceneNode.GetPosition().X, CursorManager.Instance.SceneNode.GetPosition().Y, _lastSelectedZ );
+
+					Vector3 m3D = SceneManager.Instance.IntersectScreenRayWithPlane(_lastSelectedZ);
+					Vector3 position = new Vector3( m3D.X, m3D.Y, _lastSelectedZ );
 					GameWorldManager.Instance.SpawnEntity( _prefabs[_selectedPrefab], generatedName, position, 1f, _lastLayerSelected );
 					_state = EditorState.Selected;
 					_selectedEntity = GameWorldManager.Instance.GetEntity( generatedName );
@@ -535,7 +539,7 @@ namespace VertexArmy.Global.Controllers
 			int mouseX = mouseState.X;
 			int mouseY = mouseState.Y;
 
-			List<SceneNode> lst = SceneManager.Instance.IntersectRayWithSceneNodes( mouseX, mouseY );
+			List<SceneNode> lst = SceneManager.Instance.IntersectScreenRayWithSceneNodes( mouseX, mouseY );
 
 			if ( lst.Count == 0 )
 				return null;

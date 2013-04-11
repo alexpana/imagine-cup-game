@@ -37,7 +37,7 @@ namespace VertexArmy.Content.Prefabs
 			{
 				Name = "FloorMesh",
 				Mesh = "models/floor_tile_1",
-				Material = "CelShadingMaterial",
+				Material = "BridgeMaterial",
 			};
 
 			floor.RegisterMeshSceneNode( mesh );

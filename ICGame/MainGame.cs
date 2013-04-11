@@ -72,19 +72,23 @@ namespace VertexArmy
 			PrefabRepository.Instance.RegisterPrefab( "WallMenu", SimpleMeshPrefab.CreatePrefab( "models/quad", "WallMenuMaterial", "wall-node-2" ) );
 			PrefabRepository.Instance.RegisterPrefab( "WallMenu2", SimpleMeshPrefab.CreatePrefab( "models/quad", "WallMenuMaterial2", "wall-node-3" ) );
 
-			MaterialRepository.Instance.RegisterMaterial( "DefaultMaterial", args => CelShading.CreateMaterial() );
-			MaterialRepository.Instance.RegisterMaterial( "ButtonMaterial", args => ButtonMaterial.CreateMaterial( ) );
-			MaterialRepository.Instance.RegisterMaterial( "RobotMaterial", args => RobotMaterial.CreateMaterial() );
-			MaterialRepository.Instance.RegisterMaterial( "CelShadingMaterial", args => CelShading.CreateMaterial() );
 			MaterialRepository.Instance.RegisterMaterial( "MenuCubeMaterial", args => MenuCubeMaterial.CreateMaterial( args ) );
 			MaterialRepository.Instance.RegisterMaterial( "SafMaterial", args => SafMaterial.CreateMaterial() );
-			MaterialRepository.Instance.RegisterMaterial( "WallMaterial", args => WallMaterial.CreateMaterial() );
 			MaterialRepository.Instance.RegisterMaterial( "WallMenuMaterial", args => WallMenuMaterial.CreateMaterial() );
 			MaterialRepository.Instance.RegisterMaterial( "WallMenuMaterial2", args => WallMenuMaterial2.CreateMaterial() );
-			MaterialRepository.Instance.RegisterMaterial( "TileMaterial", args => TileMaterial.CreateMaterial() );
 			MaterialRepository.Instance.RegisterMaterial( "TechMaterial", args => TechMaterial.CreateMaterial() );
-			MaterialRepository.Instance.RegisterMaterial( "CrateMaterial", args => CrateMaterial.CreateMaterial() );
 			MaterialRepository.Instance.RegisterMaterial( "HighlightMaterial", args => HighlightMaterial.CreateMaterial() );
+
+			// Unlit materials for style2.0
+			MaterialRepository.Instance.RegisterMaterial( "ButtonMaterial", args => UnlitMaterial.CreateMaterial( "button_COLOR" ) );
+			MaterialRepository.Instance.RegisterMaterial( "RobotMaterial", args => UnlitMaterial.CreateMaterial( "robo_COLOR" ) );
+			MaterialRepository.Instance.RegisterMaterial( "UPlatformMaterial", args => UnlitMaterial.CreateMaterial( "uplatform_COLOR" ) );
+			MaterialRepository.Instance.RegisterMaterial( "CrateMaterial", args => UnlitMaterial.CreateMaterial( "crate_COLOR" ) );
+			MaterialRepository.Instance.RegisterMaterial( "CelShadingMaterial", args => UnlitMaterial.CreateMaterial( "crate_COLOR" ) );
+			MaterialRepository.Instance.RegisterMaterial( "InnerDoorMaterial", args => UnlitMaterial.CreateMaterial( "door_inner_COLOR" ) );
+			MaterialRepository.Instance.RegisterMaterial( "OuterDoorMaterial", args => UnlitMaterial.CreateMaterial( "door_outer_COLOR" ) );
+			MaterialRepository.Instance.RegisterMaterial( "WallMaterial", args => UnlitMaterial.CreateMaterial( "flat_gray" ) );
+			MaterialRepository.Instance.RegisterMaterial( "TileMaterial", args => UnlitMaterial.CreateMaterial( "flat_dark_gray" ) );
 		}
 
 		protected override void UnloadContent()

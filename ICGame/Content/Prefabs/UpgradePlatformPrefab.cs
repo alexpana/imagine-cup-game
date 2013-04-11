@@ -37,7 +37,7 @@ namespace VertexArmy.Content.Prefabs
 			{
 				Name = "UpgradePlatformMesh",
 				Mesh = "models/upgrade_platform",
-				Material = "TileMaterial",
+				Material = "UPlatformMaterial",
 			};
 
 			entity.RegisterMeshSceneNode( mesh );

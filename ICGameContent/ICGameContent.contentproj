@@ -256,6 +256,7 @@
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
       <ProcessorParameters_GenerateTangentFrames>True</ProcessorParameters_GenerateTangentFrames>
+      <ProcessorParameters_RotationX>-90</ProcessorParameters_RotationX>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -287,6 +288,7 @@
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
       <ProcessorParameters_GenerateTangentFrames>True</ProcessorParameters_GenerateTangentFrames>
+      <ProcessorParameters_RotationX>-90</ProcessorParameters_RotationX>
     </Compile>
     <Compile Include="models\floor_tile.FBX">
       <Name>floor_tile</Name>
@@ -627,7 +629,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-      <Compile Include="images\white.png">
+    <Compile Include="images\white.png">
       <Name>white</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
@@ -693,11 +695,53 @@
       <Name>robo_COLOR</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
-	</Compile>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="images\button_COLOR.png">
       <Name>button_COLOR</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="images\uplatform_COLOR.png">
+      <Name>uplatform_COLOR</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="images\crate_color.png">
+      <Name>crate_color</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="images\door_inner_COLOR.png">
+      <Name>door_inner_COLOR</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="images\flat_gray.png">
+      <Name>flat_gray</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="images\door_outer_COLOR.png">
+      <Name>door_outer_COLOR</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="images\flat_dark_gray.png">
+      <Name>flat_dark_gray</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

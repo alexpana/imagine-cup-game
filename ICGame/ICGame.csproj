@@ -110,11 +110,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Content\Materials\BlurMaterial.cs" />
-    <Compile Include="Content\Materials\ButtonMaterial.cs" />
-    <Compile Include="Content\Materials\CrateMaterial.cs" />
     <Compile Include="Content\Materials\HighlightMaterial.cs" />
     <Compile Include="Content\Materials\DepthOfFieldMaterial.cs" />
     <Compile Include="Content\Materials\DepthBufferMaterial.cs" />
+    <Compile Include="Content\Materials\UnlitMaterial.cs" />
     <Compile Include="Content\Materials\WallMenuMaterial2.cs" />
     <Compile Include="Content\Materials\WallMenuMaterial.cs" />
     <Compile Include="Content\Materials\MenuCubeMaterial.cs" />
@@ -138,8 +137,6 @@
     <Compile Include="GameWorld\Prefabs\Structs\ControllerPrefab.cs" />
     <Compile Include="GameWorld\Prefabs\Structs\SafSceneNodePrefab.cs" />
     <Compile Include="Global\Behaviours\IUpdatable.cs" />
-    <Compile Include="Content\Materials\CelShading.cs" />
-    <Compile Include="Content\Materials\RobotMaterial.cs" />
     <Compile Include="Content\Prefabs\CameraPrefab.cs" />
     <Compile Include="Content\Prefabs\SimpleMeshPrefab.cs" />
     <Compile Include="Content\Prefabs\CratePrefab.cs" />

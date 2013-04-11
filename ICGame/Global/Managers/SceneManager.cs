@@ -29,6 +29,9 @@ namespace VertexArmy.Global.Managers
 
 		private Quad _screenQuad;
 
+		private SpriteBatch _spriteBatch;
+		private Texture2D _backgroundSprite;
+
 		private Quad GetScreenQuad()
 		{
 			return _screenQuad ?? ( _screenQuad = new Quad() );
@@ -76,8 +79,8 @@ namespace VertexArmy.Global.Managers
 		public SceneManager()
 		{
 			_audioListener = new AudioListener();
-
-
+			_spriteBatch = new SpriteBatch( Platform.Instance.Device );
+			_backgroundSprite = Platform.Instance.Content.Load<Texture2D>( @"images\background" );
 
 		}
 
@@ -265,12 +268,22 @@ namespace VertexArmy.Global.Managers
 			Renderer.Instance.LastFrame = Renderer.Instance.CurrentFrame;
 		}
 
+		private void DrawBackground()
+		{
+			_spriteBatch.Begin( SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullCounterClockwise, null );
+			_spriteBatch.Draw( _backgroundSprite, new Rectangle( ( int ) 0, 0, 800, 600 ), Color.White );
+			_spriteBatch.End( );
+		}
+
 		public void RenderColorRenderTarget(float dt)
 		{
 			RenderTarget2D colorRenderTarget = GetColorRt();
 			Platform.Instance.Device.SetRenderTarget( colorRenderTarget );
 
-			Platform.Instance.Device.Clear( ClearOptions.Target | ClearOptions.DepthBuffer, Color.DarkSlateBlue, 1.0f, 0 );
+			Platform.Instance.Device.Clear( ClearOptions.Target, Color.DarkSlateBlue, 1.0f, 0 );
+
+			DrawBackground();
+			Platform.Instance.Device.Clear( ClearOptions.DepthBuffer, Color.DarkSlateBlue, 1.0f, 0 );
 
 			DrawScene( dt );
 

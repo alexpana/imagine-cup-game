@@ -19,9 +19,9 @@ texture2D ColorMap;
 sampler2D ColorMapSampler = sampler_state
 {
 	Texture = <ColorMap>;
-	MinFilter = linear;
-	MagFilter = linear;
-	MipFilter = linear;
+	MinFilter = point;
+	MagFilter = point;
+	MipFilter = point;
 	AddressU = Clamp;
 	AddressV = Clamp;
 };
@@ -50,6 +50,16 @@ float4 main_PS(VertexShaderOutput input) : COLOR
 
 }
 
+float4 main_PS2(VertexShaderOutput input) : COLOR
+{
+
+	float4 color;
+
+	color  = tex2D( ColorMapSampler, float2(input.Texcoord.x, input.Texcoord.y ));
+	return color;
+
+}
+
 float4 depth_PS(VertexShaderOutput input) : COLOR
 {
 	float d = tex2D(ColorMapSampler, input.Texcoord).x;
@@ -63,6 +73,6 @@ technique Technique1
 	pass Pass1
 	{
 		VertexShader = compile vs_2_0 main_VS();
-		PixelShader = compile ps_2_0 depth_PS();
+		PixelShader = compile ps_2_0 main_PS2();
 	}
 }

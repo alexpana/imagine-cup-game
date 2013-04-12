@@ -137,7 +137,7 @@ namespace VertexArmy.Global.Controllers.Components
 				forceDirection.Normalize();
 				Vector2 force = forceDirection * ratio * AttractionForce;
 				c.FixtureA.Body.ApplyForce( force );
-				Entity.MainBody.ApplyForce( -force * 2 );
+				Entity.MainBody.ApplyForce( -force * 0.5f );
 			}
 			else if ( Mouse.GetState().RightButton.Equals( ButtonState.Pressed ) )
 			{
@@ -147,7 +147,7 @@ namespace VertexArmy.Global.Controllers.Components
 				forceDirection.Normalize();
 				Vector2 force = forceDirection * ratio * RepulsiveForce;
 				c.FixtureA.Body.ApplyForce( force );
-				Entity.MainBody.ApplyForce( -force * 2 );
+				Entity.MainBody.ApplyForce( -force * 0.5f );
 			}
 
 			return false;

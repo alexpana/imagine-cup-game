@@ -59,11 +59,13 @@ namespace VertexArmy.States.Menu
 
 		public virtual void OnRender( GameTime gameTime )
 		{
+			/*
 			SpriteBatch.Begin();
 
 			SpriteBatch.Draw( MenuBackgroundTexture, Vector2.Zero, Color.White );
 
 			SpriteBatch.End();
+			 * */
 
 			//_debugView.RenderDebugData( ref _projection, ref _view );
 			SceneManager.Instance.Render( gameTime.ElapsedGameTime.Milliseconds );
@@ -79,7 +81,7 @@ namespace VertexArmy.States.Menu
 			CreateCubesGround();
 
 			SpriteBatch = new SpriteBatch( Platform.Instance.Device );
-			MenuBackgroundTexture = ContentManager.Load<Texture2D>( "images/menu/metro/background" );
+			SceneManager.Instance.MenuBackgroundTexture = ContentManager.Load<Texture2D>( "images/menu/metro/background" );
 		}
 
 		public virtual void OnClose()

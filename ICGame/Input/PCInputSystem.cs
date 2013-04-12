@@ -10,6 +10,10 @@ namespace VertexArmy.Input
 	internal class PCInputSystem : IInputSystem
 	{
 		public bool IsLeftPointerPressed { get; private set; }
+		public bool IsRightPointerPressed { get; private set; }
+		public bool IsLeftPointerFirstTimePressed { get; private set; }
+		public bool IsRightPointerFirstTimePressed { get; private set; }
+
 		public Vector2 PointerPosition { get; private set; }
 		public Vector2 PointerDelta { get; private set; }
 
@@ -37,6 +41,10 @@ namespace VertexArmy.Input
 			_currentMouseState = Mouse.GetState();
 
 			IsLeftPointerPressed = ( _currentMouseState.LeftButton == ButtonState.Pressed );
+			IsRightPointerPressed = ( _currentMouseState.RightButton == ButtonState.Pressed );
+
+			IsLeftPointerFirstTimePressed = IsLeftPointerPressed && _previousMouseState.LeftButton == ButtonState.Released;
+			IsRightPointerFirstTimePressed = IsRightPointerPressed && _previousMouseState.RightButton == ButtonState.Released;
 
 			Vector2 currentPosition = new Vector2( _currentMouseState.X, _currentMouseState.Y );
 			PointerDelta = currentPosition - PointerPosition;

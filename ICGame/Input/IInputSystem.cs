@@ -8,6 +8,11 @@ namespace VertexArmy.Input
 		void Update( GameTime gameTime );
 
 		bool IsLeftPointerPressed { get; }
+		bool IsRightPointerPressed { get; }
+
+		bool IsLeftPointerFirstTimePressed { get; }
+		bool IsRightPointerFirstTimePressed { get; }
+
 		Vector2 PointerPosition { get; }
 		Vector2 PointerDelta { get; }
 

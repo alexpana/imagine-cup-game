@@ -45,6 +45,13 @@ namespace VertexArmy.States
 		public override void OnUpdate( GameTime gameTime )
 		{
 			base.OnUpdate( gameTime );
+#if ALLOW_HACKS
+			if ( Platform.Instance.Input.IsKeyPressed( Keys.H, false ) )
+			{
+				_hint1 = false;
+				Hint1();
+			}
+#endif
 
 			if ( Robot != null )
 			{

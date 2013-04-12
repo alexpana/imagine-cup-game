@@ -91,6 +91,7 @@ namespace VertexArmy
 			MaterialRepository.Instance.RegisterMaterial( "TileMaterial", args => TexturedMaterial.CreateMaterial( "empty_dark_gray" ) );
 			MaterialRepository.Instance.RegisterMaterial( "FloorBridgeMaterial", args => TexturedMaterial.CreateMaterial( "color_bridge" ) );
 			MaterialRepository.Instance.RegisterMaterial( "PipeMaterial", args => TexturedMaterial.CreateMaterial( "color_pipe" ) );
+			MaterialRepository.Instance.RegisterMaterial( "PowerupSphereMaterial", args => TexturedMaterial.CreateMaterial( "empty_dark_gray" ) );
 		}
 
 		protected override void UnloadContent()

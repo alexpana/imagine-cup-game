@@ -130,5 +130,10 @@ namespace VertexArmy.Global.Managers
 		{
 			get { return _instance; }
 		}
+
+		public void Clear( )
+		{
+			_activeHints.Clear( );
+		}
 	}
 }

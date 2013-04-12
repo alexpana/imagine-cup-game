@@ -171,6 +171,8 @@ namespace VertexArmy.States
 			Platform.Instance.SoundManager.StopMusic();
 
 			_contentManager.Unload();
+
+			HintManager.Instance.Clear( );
 		}
 
 		public void LoadLastSateCallback()

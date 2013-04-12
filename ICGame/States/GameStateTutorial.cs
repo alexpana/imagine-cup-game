@@ -305,6 +305,7 @@ namespace VertexArmy.States
 			_contentManager.Unload();
 
 			SceneManager.Instance.UseDof = false;
+			HintManager.Instance.Clear( );
 		}
 
 		public void UpgradeCube1Callback()

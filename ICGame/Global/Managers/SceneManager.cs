@@ -230,6 +230,11 @@ namespace VertexArmy.Global.Managers
 			DrawScene( dt );
 		}
 
+		private InGameMenuManager _menuManager = new InGameMenuManager(); 
+		private void RenderInGameMenu(){
+			_menuManager.Render();
+		}
+
 		public bool UseDof = false;
 		public bool UsePostDraw = false;
 
@@ -244,6 +249,9 @@ namespace VertexArmy.Global.Managers
 			{
 				RenderWithoutPostProcessing( dt );
 			}
+
+			RenderInGameMenu( );
+
 			HintManager.Instance.Render( dt );
 		}
 

@@ -3,6 +3,8 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using VertexArmy.Global;
+using VertexArmy.Graphics;
+using VertexArmy.Global.Managers;
 
 namespace VertexArmy.States
 {
@@ -12,39 +14,52 @@ namespace VertexArmy.States
 		private SpriteFont _font;
 		private SpriteBatch _spriteBatch;
 
+		private Texture2D _background;
+		private InGameMenuManager _manager;
+
 		public GameStatePaused( ContentManager content )
 		{
 			_contentManager = content;
+			_manager = new InGameMenuManager( OnContinueAction, OnExitAction );
 		}
 
 		public void OnUpdate( GameTime gameTime )
 		{
 			if ( Platform.Instance.Input.IsKeyPressed( Keys.Escape, false ) )
 			{
-				StateManager.Instance.PopState();
+				OnContinueAction( );
 			}
-			else if ( Platform.Instance.Input.IsKeyPressed( Keys.Enter, false ) )
-			{
-				StateManager.Instance.PopState();
-				StateManager.Instance.ChangeState( GameState.Menu );
-			}
+			_manager.Update( gameTime );
+		}
+
+		public void OnContinueAction()
+		{
+			StateManager.Instance.PopState( );
+		}
+
+		public void OnExitAction()
+		{
+			StateManager.Instance.PopState( );
+			StateManager.Instance.ChangeState( GameState.Menu );
 		}
 
 		public void OnRender( GameTime gameTime )
 		{
-			_spriteBatch.Begin();
+			_spriteBatch.Begin( SpriteSortMode.Immediate, BlendState.Opaque );
 
-			float x = Platform.Instance.Device.Viewport.Width / 2.0f - 100f;
+			// Draw game background
+			_spriteBatch.Draw( _background, new Rectangle( 0, 0, Platform.Instance.Device.Viewport.Width, Platform.Instance.Device.Viewport.Height ), Color.White );
+			_spriteBatch.End( );
 
-			_spriteBatch.DrawString( _font, "Paused. Press ESCAPE to resume.", new Vector2( x, Platform.Instance.Device.Viewport.Height / 2.0f ), Color.Black );
-			_spriteBatch.DrawString( _font, "        Press ENTER to exit to menu.", new Vector2( x, Platform.Instance.Device.Viewport.Height / 2.0f + 30f ), Color.Black );
-			_spriteBatch.End();
+			_manager.Render();
 		}
 
 		public void OnEnter()
 		{
 			_font = _contentManager.Load<SpriteFont>( "fonts/SpriteFont1" );
 			_spriteBatch = new SpriteBatch( Platform.Instance.Device );
+
+			_background = Renderer.Instance.LastFrame;
 		}
 
 		public void OnClose()

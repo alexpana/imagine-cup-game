@@ -22,8 +22,15 @@ namespace VertexArmy.Global.Managers
 			private Vector2 _offsetItemContinue = new Vector2( 0, 116 );
 			private Vector2 _offsetItemExit = new Vector2( 0, 164 );
 			private Vector2 _size = new Vector2( 342, 266 );
+			private Vector2 _offset = new Vector2( 274, 192 );
 
-			public Vector2 GetOffset( MenuItem item )
+			public MenuMetrics( )
+			{
+				_offset.X = ( Platform.Instance.Device.Viewport.Width - GetSize( ).X ) / 2;
+				_offset.Y = ( Platform.Instance.Device.Viewport.Height - GetSize( ).Y ) / 2;
+			}
+
+			public Vector2 GetItemOffset( MenuItem item )
 			{
 				switch ( item )
 				{
@@ -33,6 +40,11 @@ namespace VertexArmy.Global.Managers
 						return _offsetItemExit;
 				}
 				return Vector2.Zero;
+			}
+
+			public Vector2 GetMenuOffset()
+			{
+				return _offset;
 			}
 
 			public Vector2 GetSize( )
@@ -56,18 +68,19 @@ namespace VertexArmy.Global.Managers
 		private Texture2D _texItemContinue = null;
 		private Texture2D _texItemExit = null;
 
-		private Vector2 _offset = new Vector2( 274, 192 );
-
 		private SpriteBatch _spriteBatch;
 
 		private MenuItem _selectedItem = MenuItem.MI_CONTINUE;
+
+		private Action _callbackContinue;
+		private Action _callbackExit;
 
 		private Texture2D LoadTexture( String name )
 		{
 			return Platform.Instance.Content.Load<Texture2D>( _prefix + name );
 		}
 
-		public InGameMenuManager()
+		public InGameMenuManager( Action callbackContine, Action callbackExit )
 		{
 			_texBackground = LoadTexture( "ig_background" );
 			_texTitle = LoadTexture( "ig_title" );
@@ -76,15 +89,15 @@ namespace VertexArmy.Global.Managers
 			_texItemExit = LoadTexture( "ig_item_exit" );
 
 			_spriteBatch = new SpriteBatch( Platform.Instance.Device );
-			_offset.X = ( Platform.Instance.Device.Viewport.Width - _metrics.GetSize( ).X ) / 2;
-			_offset.Y = ( Platform.Instance.Device.Viewport.Height - _metrics.GetSize( ).Y ) / 2;
 
+			_callbackContinue = callbackContine;
+			_callbackExit = callbackExit;
 		}
 
 		private void RenderTexture( Texture2D texture, Vector2 position )
 		{
-			int x = ( int )( _offset.X + position.X);
-			int y = ( int )( _offset.Y + position.Y);
+			int x = ( int ) ( _metrics.GetMenuOffset( ).X + position.X );
+			int y = ( int ) ( _metrics.GetMenuOffset( ).Y + position.Y );
 			_spriteBatch.Draw( texture, new Rectangle( x, y, texture.Width, texture.Height ), Color.White );
 		}
 
@@ -98,16 +111,16 @@ namespace VertexArmy.Global.Managers
 			// Render the highlight
 			if ( _selectedItem != MenuItem.MI_NONE )
 			{
-				RenderTexture( _texHighlight, _metrics.GetOffset( _selectedItem ) );
+				RenderTexture( _texHighlight, _metrics.GetItemOffset( _selectedItem ) );
 			}
 
-			RenderTexture( _texItemContinue, _metrics.GetOffset( MenuItem.MI_CONTINUE ) );
-			RenderTexture( _texItemExit, _metrics.GetOffset( MenuItem.MI_EXIT ) );
+			RenderTexture( _texItemContinue, _metrics.GetItemOffset( MenuItem.MI_CONTINUE ) );
+			RenderTexture( _texItemExit, _metrics.GetItemOffset( MenuItem.MI_EXIT ) );
 
 			_spriteBatch.End();
 		}
 
-		private bool Vector2InRange( Vector2 v, int x, int y, int w, int h )
+		private bool Vector2InRange( Vector2 v, float x, float y, float w, float h )
 		{
 			return x <= v.X && v.X <= x + w && y <= v.Y && v.Y <= y + h;
 		}
@@ -119,12 +132,12 @@ namespace VertexArmy.Global.Managers
 
 		private bool PointIntersectsMenuItem( Vector2 point, MenuItem item )
 		{
-			return Vector2InRange( cursor, _metrics.GetOffset( item ), _metrics.GetItemSize( item );
+			return Vector2InRange( point, _metrics.GetItemOffset( item ), _metrics.GetItemSize() );
 		}
 
 		private void CheckSelectedItem()
 		{
-			Vector2 cursor = Platform.Instance.Input.PointerPosition;
+			Vector2 cursor = Platform.Instance.Input.PointerPosition - _metrics.GetMenuOffset();
 
 			_selectedItem = MenuItem.MI_NONE;
 
@@ -155,11 +168,12 @@ namespace VertexArmy.Global.Managers
 
 		private void CallbackContinue()
 		{
+			_callbackContinue( );
 		}
 
 		private void CallbackExit()
 		{
-		
+			_callbackExit( );
 		}
 	}
 }

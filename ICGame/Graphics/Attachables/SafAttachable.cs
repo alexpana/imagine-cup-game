@@ -43,20 +43,13 @@ namespace VertexArmy.Graphics.Attachables
 		{
 			return 2;
 		}
-
-		private float _fTime = 0f;
-
+		
 		public override void Render( float dt )
 		{
 			Renderer.Instance.SetGlobalMaterialParameters( Material );
 			Material.Apply();
 
-
 			Platform.Instance.Device.BlendState = _safBlend;
-
-
-			Material.SetParameter( "fTime", _fTime += dt );
-			Material.SetParameter( "fVel", new Vector2( 0.0000f, 0.0005f ) );
 
 			foreach ( ModelMesh m in Model.Meshes )
 			{

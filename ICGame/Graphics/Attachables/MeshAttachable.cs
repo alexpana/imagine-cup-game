@@ -124,12 +124,18 @@ namespace VertexArmy.Graphics.Attachables
 		{
 			Renderer.Instance.SetGlobalMaterialParameters( Material );
 			Material.Apply();
+			Platform.Instance.Device.BlendState = Material.State;
+
 			foreach ( ModelMesh m in Model.Meshes )
 			{
 				m.Draw();
 			}
 		}
 
+		public override int GetLayer()
+		{
+			return Material.Layer;
+		}
 
 		private BoundingBox _localSpaceAABB;
 		private bool _isMeshAABBcomputed;

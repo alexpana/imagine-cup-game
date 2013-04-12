@@ -7,7 +7,6 @@ using FarseerPhysics.Factories;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using VertexArmy.GameWorld;
-using VertexArmy.Global.Behaviours;
 using VertexArmy.Global.Managers;
 using VertexArmy.Graphics.Attachables;
 using VertexArmy.Utilities;
@@ -136,7 +135,9 @@ namespace VertexArmy.Global.Controllers.Components
 				//float ratio = 1 - ( forceDirection.Length() / _distanceSim );
 				float ratio = 1f;
 				forceDirection.Normalize();
-				c.FixtureA.Body.ApplyForce( forceDirection * ratio * AttractionForce );
+				Vector2 force = forceDirection * ratio * AttractionForce;
+				c.FixtureA.Body.ApplyForce( force );
+				Entity.MainBody.ApplyForce( -force * 2 );
 			}
 			else if ( Mouse.GetState().RightButton.Equals( ButtonState.Pressed ) )
 			{
@@ -144,7 +145,9 @@ namespace VertexArmy.Global.Controllers.Components
 				//float ratio = 1 - ( forceDirection.Length() / _distanceSim );
 				float ratio = 1f;
 				forceDirection.Normalize();
-				c.FixtureA.Body.ApplyForce( forceDirection * ratio * RepulsiveForce );
+				Vector2 force = forceDirection * ratio * RepulsiveForce;
+				c.FixtureA.Body.ApplyForce( force );
+				Entity.MainBody.ApplyForce( -force * 2 );
 			}
 
 			return false;

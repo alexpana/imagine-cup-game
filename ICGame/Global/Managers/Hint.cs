@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Xna.Framework;
 
 namespace VertexArmy.Global.Managers
 {
 	public class HintBubble
 	{
-		public const int TimeToLive = 2000;
+		public const int TimeToLive = 800;
 
 		public Vector2 Position { get; set; }
 		public float Alpha { get; set; }
@@ -17,8 +18,10 @@ namespace VertexArmy.Global.Managers
 
 	public class Hint
 	{
-		private const int ThinkingSpeed = 5000;
-		private const int ThinkingBubbleInterval = 1000;
+		private const int ThinkingSpeed = 1500;
+		private const int ThinkingBubbleInterval = 100;
+		private const float ThinkingBubbleInitialScale = 0.5f;
+		private const float ThinkingBubbleScaleIncrement = 0.05f;
 
 		internal enum HintState
 		{
@@ -32,7 +35,7 @@ namespace VertexArmy.Global.Managers
 		public float Time { get; set; } // in miliseconds
 		public int Layer { get; set; }
 
-		public List<Vector2> ThinkingBubbles { get; private set; }
+		public List<HintBubble> ThinkingBubbles { get; private set; }
 		private int _lastBubbleTime;
 
 		private HintState _state;
@@ -61,7 +64,7 @@ namespace VertexArmy.Global.Managers
 
 		public Hint( string text, Vector2 startPosition, Vector2 endPosition, float msTime, uint fadeTime )
 		{
-			ThinkingBubbles = new List<Vector2>();
+			ThinkingBubbles = new List<HintBubble>();
 
 			Text = text;
 			//TODO: rework this
@@ -96,6 +99,27 @@ namespace VertexArmy.Global.Managers
 		public void Update( GameTime gameTime )
 		{
 			Time -= gameTime.ElapsedGameTime.Milliseconds;
+			for ( int i = 0; i < ThinkingBubbles.Count; ++i )
+			{
+				var thinkingBubble = ThinkingBubbles[i];
+				thinkingBubble.Time -= gameTime.ElapsedGameTime.Milliseconds;
+
+				if ( thinkingBubble.Time <= HintBubble.TimeToLive / 2 )
+				{
+					thinkingBubble.Alpha = thinkingBubble.Time / ( HintBubble.TimeToLive / 2.0f );
+				}
+				else
+				{
+					thinkingBubble.Alpha = 1 - ( thinkingBubble.Time - ( HintBubble.TimeToLive / 2.0f ) ) / ( HintBubble.TimeToLive / 2.0f );
+				}
+
+				if ( thinkingBubble.Time <= 0 )
+				{
+					ThinkingBubbles.RemoveAt( i );
+					--i;
+				}
+			}
+
 			if ( _state == HintState.Thinking )
 			{
 				_thinkTime += gameTime.ElapsedGameTime.Milliseconds;
@@ -110,14 +134,14 @@ namespace VertexArmy.Global.Managers
 				}
 				else
 				{
-					foreach ( var thinkingBubble in ThinkingBubbles )
-					{
-						//thinkingBubble
-					}
-
 					if ( _thinkTime - _lastBubbleTime > ThinkingBubbleInterval )
 					{
-						ThinkingBubbles.Add( CurrentPosition );
+						ThinkingBubbles.Add( new HintBubble
+						{
+							Position = CurrentPosition,
+							Scale = ThinkingBubbles.Count > 0 ? ThinkingBubbles.Last().Scale + ThinkingBubbleScaleIncrement : ThinkingBubbleInitialScale,
+							Time = HintBubble.TimeToLive
+						} );
 						_lastBubbleTime = _thinkTime;
 					}
 				}

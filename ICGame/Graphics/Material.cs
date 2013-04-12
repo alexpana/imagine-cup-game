@@ -12,6 +12,9 @@ namespace VertexArmy.Graphics
 		private readonly dynamic _parameter = new List<object>();
 		private readonly Dictionary<String, int> _bindings = new Dictionary<string, int>();
 
+		public BlendState State = new BlendState();
+		public int Layer = 1;
+
 		public void Apply()
 		{
 			Effect.CurrentTechnique.Passes[0].Apply();

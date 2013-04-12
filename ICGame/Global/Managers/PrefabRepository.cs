@@ -10,7 +10,6 @@ namespace VertexArmy.Global.Managers
 	public class PrefabRepository
 	{
 		private Dictionary<string, PrefabEntity> _prefabs;
-		private Dictionary<string, LevelPrefab> _levelPrefabs;
 
 		public void RegisterPrefab( string name, PrefabEntity prefab )
 		{
@@ -36,44 +35,24 @@ namespace VertexArmy.Global.Managers
 			return _prefabs[name];
 		}
 
-		public void UnloadLevelPrefab( string filepath )
-		{
-			if ( _levelPrefabs.ContainsKey( filepath ) )
-			{
-				_levelPrefabs.Remove( filepath );
-			}
-		}
-
 		public LevelPrefab GetLevelPrefab( string filepath )
 		{
-			if ( !_levelPrefabs.ContainsKey( filepath ) )
+			if ( File.Exists( filepath ) )
 			{
-				if ( File.Exists( filepath ) )
-				{
-					Stream stream = TitleContainer.OpenStream( filepath );
+				Stream stream = TitleContainer.OpenStream( filepath );
 
-					ISerializer<LevelPrefab> serializer = SerializerFactory.CreateSerializer<LevelPrefab>();
-					LevelPrefab level = serializer.ReadObject( stream );
-					stream.Close();
-					_levelPrefabs.Add( filepath, level );
-				}
-				else
-				{
-					_levelPrefabs.Add( filepath, new LevelPrefab() { filepath = filepath } );
-				}
+				ISerializer<LevelPrefab> serializer = SerializerFactory.CreateSerializer<LevelPrefab>();
+				LevelPrefab level = serializer.ReadObject( stream );
+				stream.Close();
+
+				return level;
 			}
-
-			return _levelPrefabs[filepath];
-		}
-
-
-		public void SaveLevelPrefab( string filepath )
-		{
-			if ( _levelPrefabs.ContainsKey( filepath ) )
+			else
 			{
-				_levelPrefabs[filepath].SerializeLevel();
+				return new LevelPrefab() { filepath = filepath };
 			}
 		}
+
 
 		public static PrefabRepository Instance
 		{
@@ -83,7 +62,6 @@ namespace VertexArmy.Global.Managers
 		public PrefabRepository()
 		{
 			_prefabs = new Dictionary<string, PrefabEntity>();
-			_levelPrefabs = new Dictionary<string, LevelPrefab>();
 		}
 
 		private static class PrefabRepositoryInstanceHolder

@@ -1,6 +1,6 @@
 float4x4 matWorldViewProj;
 float3 eyePosition;
-float fTime;
+float fTimeMs;
 float fAlpha;
 float2 fVel;
 
@@ -51,7 +51,7 @@ VertexShaderOutput main_VS(VertexShaderInput input)
 
 float4 main_PS(VertexShaderOutput input) : COLOR
 {
-	float2 texcoord = input.Texcoord.xy + float2(fTime * fVel.x, fTime * fVel.y);
+	float2 texcoord = input.Texcoord.xy + float2(fTimeMs * fVel.x, fTimeMs * fVel.y);
 
 
 	float4 color = tex2D(ColorMapSampler, texcoord);

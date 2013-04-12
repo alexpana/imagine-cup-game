@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using VertexArmy.Content.Prefabs;
 using VertexArmy.GameWorld;
 using VertexArmy.Global;
 using VertexArmy.Global.Controllers;
@@ -27,6 +28,8 @@ namespace VertexArmy.States
 
 		public GameEntity Robot;
 		public GameEntity Camera;
+
+		private LevelPrefab _level;
 
 		private bool _actionReset;
 		private bool _actionToggleDebugView;
@@ -235,7 +238,8 @@ namespace VertexArmy.States
 		public void LoadLevel()
 		{
 			string _levelName = "level1";
-			GameWorldManager.Instance.SetState( PrefabRepository.Instance.GetLevelPrefab( @"Content\Levels\" + _levelName + ".eql" )._savedState );
+			_level = PrefabRepository.Instance.GetLevelPrefab( @"Content\Levels\" + _levelName + ".eql" );
+			GameWorldManager.Instance.SetState( _level._savedState );
 			GameWorldManager.Instance.LoadLastState();
 			LoadStatics();
 			LoadSemiStatics();

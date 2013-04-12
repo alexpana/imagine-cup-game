@@ -7,7 +7,7 @@ namespace VertexArmy.Global.Managers
 {
 	public class HintBubble
 	{
-		public const int TimeToLive = 800;
+		public const int TimeToLive = 1600;
 
 		public Vector2 Position { get; set; }
 		public float Alpha { get; set; }
@@ -18,10 +18,10 @@ namespace VertexArmy.Global.Managers
 
 	public class Hint
 	{
-		private const int ThinkingSpeed = 1500;
-		private const int ThinkingBubbleInterval = 100;
+		private const int ThinkingSpeed = 500;
+		private const int ThinkingBubbleInterval = (int)(500.0 / 4.7);
 		private const float ThinkingBubbleInitialScale = 0.5f;
-		private const float ThinkingBubbleScaleIncrement = 0.05f;
+		private const float ThinkingBubbleScaleIncrement = 0.2f;
 
 		internal enum HintState
 		{
@@ -138,7 +138,7 @@ namespace VertexArmy.Global.Managers
 					{
 						ThinkingBubbles.Add( new HintBubble
 						{
-							Position = CurrentPosition,
+							Position = CurrentPosition + new Vector2( 10, 50 ),
 							Scale = ThinkingBubbles.Count > 0 ? ThinkingBubbles.Last().Scale + ThinkingBubbleScaleIncrement : ThinkingBubbleInitialScale,
 							Time = HintBubble.TimeToLive
 						} );

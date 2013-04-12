@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Input;
+using VertexArmy.Content.Prefabs;
 using VertexArmy.GameWorld;
 using VertexArmy.Global;
 using VertexArmy.Global.Controllers;
@@ -22,6 +23,8 @@ namespace VertexArmy.States
 
 		public GameEntity Robot;
 		public GameEntity Camera;
+
+		private LevelPrefab _level;
 
 		private bool _actionToggleDebugView;
 		private bool _debugViewState;
@@ -52,8 +55,9 @@ namespace VertexArmy.States
 			{
 				_saveAction = true;
 				GameWorldManager.Instance.SaveState();
-				PrefabRepository.Instance.GetLevelPrefab( @"Content\Levels\" + _levelName + ".eql" ).SetState( GameWorldManager.Instance.GetState() );
-				PrefabRepository.Instance.GetLevelPrefab( @"Content\Levels\" + _levelName + ".eql" ).SerializeLevel();
+				_level = PrefabRepository.Instance.GetLevelPrefab( @"Content\Levels\" + _levelName + ".eql" );
+				_level.SetState( GameWorldManager.Instance.GetState() );
+				_level.SerializeLevel();
 				HintManager.Instance.SpawnHint( "Saved " + _levelName, new Vector2( 200, 200 ), 5000, 13 );
 			}
 			else if ( Keyboard.GetState().IsKeyUp( Keys.S ) || Keyboard.GetState().IsKeyUp( Keys.LeftControl ) )
@@ -126,7 +130,8 @@ namespace VertexArmy.States
 				return;
 			}
 
-			GameWorldManager.Instance.SetState( PrefabRepository.Instance.GetLevelPrefab( @"Content\Levels\" + _levelName + ".eql" )._savedState );
+			_level = PrefabRepository.Instance.GetLevelPrefab( @"Content\Levels\" + _levelName + ".eql" );
+			GameWorldManager.Instance.SetState( _level._savedState );
 			GameWorldManager.Instance.LoadLastState();
 
 			LoadLevel();
@@ -166,6 +171,8 @@ namespace VertexArmy.States
 			Platform.Instance.SoundManager.StopMusic();
 
 			_contentManager.Unload();
+
+			HintManager.Instance.Clear( );
 		}
 
 		public void LoadLastSateCallback()

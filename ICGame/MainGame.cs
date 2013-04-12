@@ -57,6 +57,7 @@ namespace VertexArmy
 		protected override void LoadContent()
 		{
 			PrefabRepository.Instance.RegisterPrefab( "Robot", RobotPrefab.CreatePrefab() );
+			PrefabRepository.Instance.RegisterPrefab( "DamagedRobot1", DamagedRobot1Prefab.CreatePrefab() );
 			PrefabRepository.Instance.RegisterPrefab( "Crate", CratePrefab.CreatePrefab() );
 			PrefabRepository.Instance.RegisterPrefab( "Mesh", SimpleMeshPrefab.CreatePrefab() );
 			PrefabRepository.Instance.RegisterPrefab( "Camera", CameraPrefab.CreatePrefab() );
@@ -69,6 +70,8 @@ namespace VertexArmy
 			PrefabRepository.Instance.RegisterPrefab( "Saf", SafPrefab.CreatePrefab() );
 			PrefabRepository.Instance.RegisterPrefab( "FloorBridge", FloorBridgePrefab.CreatePrefab() );
 			PrefabRepository.Instance.RegisterPrefab( "UpgradePlatform", UpgradePlatformPrefab.CreatePrefab() );
+			PrefabRepository.Instance.RegisterPrefab( "Pipe", PipePrefab.CreatePrefab() );
+			PrefabRepository.Instance.RegisterPrefab( "SafCollectible", SafCollectiblePrefab.CreatePrefab() );
 
 			PrefabRepository.Instance.RegisterPrefab( "WallBackground", SimpleMeshPrefab.CreatePrefab( "models/quad", "WallMaterial", "wall-node" ) );
 			PrefabRepository.Instance.RegisterPrefab( "WallMenu", SimpleMeshPrefab.CreatePrefab( "models/quad", "WallMenuMaterial", "wall-node-2" ) );
@@ -76,8 +79,6 @@ namespace VertexArmy
 
 			MaterialRepository.Instance.RegisterMaterial( "MenuCubeMaterial", args => MenuCubeMaterial.CreateMaterial( args ) );
 			MaterialRepository.Instance.RegisterMaterial( "SafMaterial", args => SafMaterial.CreateMaterial() );
-			MaterialRepository.Instance.RegisterMaterial( "WallMenuMaterial", args => WallMenuMaterial.CreateMaterial() );
-			MaterialRepository.Instance.RegisterMaterial( "WallMenuMaterial2", args => WallMenuMaterial2.CreateMaterial() );
 			MaterialRepository.Instance.RegisterMaterial( "HighlightMaterial", args => HighlightMaterial.CreateMaterial() );
 
 			// Unlit materials for style2.0
@@ -92,6 +93,7 @@ namespace VertexArmy
 			MaterialRepository.Instance.RegisterMaterial( "TileMaterial", args => TexturedMaterial.CreateMaterial( "empty_dark_gray" ) );
 			MaterialRepository.Instance.RegisterMaterial( "FloorBridgeMaterial", args => TexturedMaterial.CreateMaterial( "color_bridge" ) );
 			MaterialRepository.Instance.RegisterMaterial( "PipeMaterial", args => TexturedMaterial.CreateMaterial( "color_pipe" ) );
+			MaterialRepository.Instance.RegisterMaterial( "PowerupSphereMaterial", args => TexturedMaterial.CreateMaterial( "empty_dark_gray" ) );
 		}
 
 		protected override void UnloadContent()

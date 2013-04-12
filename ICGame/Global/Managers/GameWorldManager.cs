@@ -143,10 +143,16 @@ namespace VertexArmy.Global.Managers
 
 		public void Clear()
 		{
-			while ( _entities.Count > 0 )
+			var entities = _entities.Keys.ToArray();
+			foreach (var name in entities)
 			{
-				RemoveEntity( _entities.Keys.First() );
+				RemoveEntity( name );
 			}
+			_entities.Clear();
+			_meshes.Clear();
+			_entitiesMapToMeshes.Clear();
+
+			_savedState = null;
 		}
 
 		public void Freeze()

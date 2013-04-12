@@ -84,7 +84,7 @@ namespace VertexArmy.Content.Prefabs
 				CollideConnected = false,
 
 				UpperLimit = 240f,
-				LowerLimit = 0f,
+				LowerLimit = 100f,
 				LimitEnabled = true,
 				MaxMotorForce = 10f,
 				MotorSpeed = 2f,

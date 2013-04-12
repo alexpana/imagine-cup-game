@@ -14,14 +14,25 @@ namespace VertexArmy.Content.Materials
 			Effect effect = Platform.Instance.Content.Load<Effect>( @"effects\saf" );
 			material.Effect = effect;
 
+			material.State = new BlendState()
+			{
+				AlphaSourceBlend = Blend.SourceAlpha,
+				AlphaDestinationBlend = Blend.InverseSourceAlpha,
+				ColorSourceBlend = Blend.SourceAlpha,
+				ColorDestinationBlend = Blend.InverseSourceAlpha,
+				AlphaBlendFunction = BlendFunction.Add,
+			};
+
+			material.Layer = 2;
+
 			material.AddParameter( Material.ColorMap, Platform.Instance.Content.Load<Texture2D>( "images/waves-noalpha" ) );
 			material.AddParameter( "AlphaMap", Platform.Instance.Content.Load<Texture2D>( "images/waves" ) );
 			
 				
 			material.AddParameter( "matWorldViewProj", Matrix.Identity );
-			material.AddParameter( "fTime", 0f );
+			material.AddParameter( "fTimeMs", 0f );
 			material.AddParameter( "fAlpha", 0.20f );
-			material.AddParameter( "fVel", new Vector2( 0.01f, 0.00f ) );
+			material.AddParameter( "fVel", new Vector2( 0.00f, 0.00025f ) );
 			
 			return material;
 		}

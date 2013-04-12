@@ -16,7 +16,7 @@ VertexShaderOutput main_VS(VertexShaderInput input)
 {
 	VertexShaderOutput output;
 
-	float3 vertexScaled = (1.25 + 0.12 * sin(fTimeMs / 200)) * input.Position.xyz + float3(1, 1, 1);
+	float3 vertexScaled = (1.25 + 0.12 * sin(fTimeMs / 200)) * input.Position.xyz;
 	output.ScreenPosition = mul( float4(vertexScaled, 1), matWorldViewProj );
 	return output;
 }

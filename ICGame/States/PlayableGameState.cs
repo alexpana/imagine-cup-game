@@ -8,6 +8,7 @@ namespace VertexArmy.States
 	internal abstract class PlayableGameState : PausableGameState
 	{
 		protected bool _pausePhysics = false;
+
 		public override void OnUpdate( GameTime gameTime )
 		{
 			base.OnUpdate( gameTime );
@@ -17,6 +18,7 @@ namespace VertexArmy.States
 			}
 			FrameUpdateManager.Instance.Update( gameTime );
 		}
+
 		public override void OnRender( GameTime gameTime )
 		{
 			SceneManager.Instance.Render( gameTime.ElapsedGameTime.Milliseconds );

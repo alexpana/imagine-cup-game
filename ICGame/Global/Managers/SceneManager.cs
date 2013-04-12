@@ -244,6 +244,7 @@ namespace VertexArmy.Global.Managers
 			{
 				RenderWithoutPostProcessing( dt );
 			}
+
 			HintManager.Instance.Render( dt );
 		}
 

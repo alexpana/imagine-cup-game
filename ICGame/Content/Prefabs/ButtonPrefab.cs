@@ -47,7 +47,7 @@ namespace VertexArmy.Content.Prefabs
 			ShapePrefab buttonShape = new ShapePrefab
 			{
 				Density = 0.3f,
-				Width = 16.5f,
+				Width = 16f,
 				Height = 2.4f,
 				Offset = Vector2.Zero,
 				Type = ShapeType.Rectangle

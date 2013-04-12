@@ -19,9 +19,9 @@ texture2D ColorMap;
 sampler2D ColorMapSampler = sampler_state
 {
 	Texture = <ColorMap>;
-	MinFilter = point;
-	MagFilter = point;
-	MipFilter = point;
+	MinFilter = linear;
+	MagFilter = linear;
+	MipFilter = linear;
 	AddressU = Clamp;
 	AddressV = Clamp;
 };

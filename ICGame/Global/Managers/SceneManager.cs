@@ -82,7 +82,7 @@ namespace VertexArmy.Global.Managers
 		{
 			_audioListener = new AudioListener();
 			_spriteBatch = new SpriteBatch( Platform.Instance.Device );
-			_backgroundSprite = Platform.Instance.Content.Load<Texture2D>( @"images\background" );
+			_backgroundSprite = Platform.Instance.Content.Load<Texture2D>( @"images/background" );
 
 		}
 
@@ -296,7 +296,7 @@ namespace VertexArmy.Global.Managers
 		private void DrawBackground()
 		{
 			_spriteBatch.Begin( SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullCounterClockwise, null );
-			_spriteBatch.Draw( _backgroundSprite, new Rectangle( ( int ) 0, 0, 800, 600 ), Color.White );
+			_spriteBatch.Draw( _backgroundSprite, new Rectangle( ( int ) 0, 0, _backgroundSprite.Width, _backgroundSprite.Height ), Color.White );
 			_spriteBatch.End( );
 		}
 

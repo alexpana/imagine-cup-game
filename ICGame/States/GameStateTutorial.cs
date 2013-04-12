@@ -67,7 +67,7 @@ namespace VertexArmy.States
 					{
 						Robot.PhysicsEntity.SetCollisionLayer( Category.Cat2 );
 						Vector3 position = Robot.GetPosition();
-						Robot.SetPosition( new Vector3( position.X, position.Y, -800f ) );
+						Robot.SetPosition( new Vector3( position.X, position.Y, -800 ) );
 					}
 				}
 				if ( Keyboard.GetState( PlayerIndex.One ).IsKeyDown( Keys.Down ) )

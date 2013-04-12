@@ -91,7 +91,7 @@ namespace VertexArmy.States
 
 			if ( _debugViewState )
 			{
-				float scale = ( SceneManager.Instance.GetCurrentCamera().Parent.GetPosition().Z / 800f );
+				float scale = ( SceneManager.Instance.GetCurrentCamera().Parent.GetPosition().Z / 800.0f );
 				_projection = Matrix.CreateOrthographicOffCenter(
 					UnitsConverter.ToSimUnits( SceneManager.Instance.GetCurrentCamera().Parent.GetPosition().X - Platform.Instance.Device.Viewport.Width / 2f * scale ),
 					UnitsConverter.ToSimUnits( SceneManager.Instance.GetCurrentCamera().Parent.GetPosition().X + Platform.Instance.Device.Viewport.Width / 2f * scale ),

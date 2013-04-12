@@ -199,6 +199,11 @@ namespace VertexArmy.States
 					new BodyTriggerAreaComponent( new Vector2( 10f, 10f ), Robot.MainBody, UpgradeCube1Callback )
 				);
 
+			GameWorldManager.Instance.SpawnEntity( "SafCollectible", "safCollectible1", new Vector3( 500f + 60f * 2, 70f, 0f ) );
+			ControllerRepository.Instance.RegisterController( "upgradeCube1Controller", new CollectibleController( GameWorldManager.Instance.GetEntity( "safCollectible1" ).MainNode ) );
+			FrameUpdateManager.Instance.Register( ControllerRepository.Instance.GetController( "upgradeCube1Controller" ) );
+
+
 			GameWorldManager.Instance.SpawnEntity( "Trigger", "death1", new Vector3( 1492, 60f, 0f ) );
 			GameWorldManager.Instance.GetEntity( "death1" ).RegisterComponent(
 					"trigger",
@@ -305,6 +310,10 @@ namespace VertexArmy.States
 		{
 			if ( Robot.GetComponent( "force" ) == null )
 			{
+				GameWorldManager.Instance.RemoveEntity("safCollectible1");
+				FrameUpdateManager.Instance.Unregister( ControllerRepository.Instance.GetController( "upgradeCube1Controller" ) );
+				ControllerRepository.Instance.UnregisterController("upgradeCube1Controller");
+
 				Robot.RegisterComponent( "force", new SentientForceComponent() );
 				GameWorldManager.Instance.SaveState();
 				string Text = "Press Mouse1 to pull objects towards the robot. \nPress Mouse2 to push away objects from the robot.";

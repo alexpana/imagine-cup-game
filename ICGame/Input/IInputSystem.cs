@@ -8,7 +8,9 @@ namespace VertexArmy.Input
 		void Update( GameTime gameTime );
 
 		bool IsLeftPointerPressed { get; }
+		bool WasLeftPointerPressed { get; }
 		bool IsRightPointerPressed { get; }
+		bool WasRightPointerPressed { get; }
 
 		bool IsLeftPointerFirstTimePressed { get; }
 		bool IsRightPointerFirstTimePressed { get; }

@@ -112,13 +112,13 @@ namespace VertexArmy.Global.Managers
 
 		public void Render( Hint hint )
 		{
-			Vector2 offset = new Vector2( 20, 16 );
-			RenderHintBackground( hint.CurrentPosition - offset, hint.LinesCount, hint.Alpha );
-
 			foreach ( var thinkingBubble in hint.ThinkingBubbles )
 			{
-				_spriteBatch.Draw( _thinkingBubbleTexture, thinkingBubble, Color.White );
+				_spriteBatch.Draw( _thinkingBubbleTexture, thinkingBubble.Position, null, Color.White * thinkingBubble.Alpha, 0, Vector2.Zero, thinkingBubble.Scale, SpriteEffects.None, 0 );
 			}
+
+			Vector2 offset = new Vector2( 20, 16 );
+			RenderHintBackground( hint.CurrentPosition - offset, hint.LinesCount, hint.Alpha );
 
 			_spriteBatch.DrawString( _font, hint.Text, hint.CurrentPosition, hint.Color * hint.Alpha );
 		}

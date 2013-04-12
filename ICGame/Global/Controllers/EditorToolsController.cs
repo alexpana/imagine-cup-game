@@ -300,29 +300,29 @@ namespace VertexArmy.Global.Controllers
 				Vector3 scale = Vector3.Zero;
 				if ( Keyboard.GetState().IsKeyDown( Keys.Up ) )
 				{
-					scale += Vector3.UnitY;
+					scale += Vector3.UnitY / 2;
 				}
 				else if ( Keyboard.GetState().IsKeyDown( Keys.Down ) )
 				{
-					scale -= Vector3.UnitY;
+					scale -= Vector3.UnitY / 2;
 				}
 
 				if ( Keyboard.GetState().IsKeyDown( Keys.Left ) )
 				{
-					scale -= Vector3.UnitX;
+					scale -= Vector3.UnitX / 2;
 				}
 				else if ( Keyboard.GetState().IsKeyDown( Keys.Right ) )
 				{
-					scale += Vector3.UnitX;
+					scale += Vector3.UnitX / 2;
 				}
 
 				if ( Keyboard.GetState().IsKeyDown( Keys.OemMinus ) )
 				{
-					scale -= Vector3.UnitZ;
+					scale -= Vector3.UnitZ / 2;
 				}
 				else if ( Keyboard.GetState().IsKeyDown( Keys.OemPlus ) )
 				{
-					scale += Vector3.UnitZ;
+					scale += Vector3.UnitZ / 2;
 				}
 
 

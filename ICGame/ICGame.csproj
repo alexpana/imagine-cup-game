@@ -223,6 +223,9 @@
     <Compile Include="Program.cs" />
     <Compile Include="MainGame.cs" />
     <Compile Include="Serialization\ISerializableObject.cs" />
+    <Compile Include="States\GameStateDemo2.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="States\GameStateEditor.cs" />
     <Compile Include="States\GameStateTutorial.cs" />
     <Compile Include="States\GameStatePhysicsRobot.cs" />
@@ -294,6 +297,7 @@
     <None Include="Content\Levels\level1.eql">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Content\Levels\level2.eql" />
     <None Include="Content\Levels\tutorial.level">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

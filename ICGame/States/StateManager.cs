@@ -78,6 +78,8 @@ namespace VertexArmy.States
 					return new GameStateTutorial( contentManager );
 				case GameState.SelectLevelMenu:
 					return new GameStateSelectLevelMenu( contentManager );
+				case GameState.Demo2:
+					return new GameStateDemo2( contentManager );
 				case GameState.Editor:
 					return new GameStateEditor( contentManager );
 			}

@@ -252,6 +252,7 @@ namespace VertexArmy.States
 			LoadSemiStatics();
 			LoadDynamics();
 			LoadTriggers();
+
 		}
 
 		public override void OnEnter()

@@ -88,7 +88,7 @@ namespace VertexArmy.States
 		public void OnEnter()
 		{
 			Platform.Instance.Game.Window.Title = "Room Preview";
-			Platform.Instance.DeviceManager.PreferredBackBufferWidth = 800;
+			Platform.Instance.DeviceManager.PreferredBackBufferWidth = 1024;
 			Platform.Instance.DeviceManager.PreferredBackBufferHeight = 600;
 			Platform.Instance.DeviceManager.ApplyChanges();
 

@@ -23,7 +23,7 @@ namespace VertexArmy.Graphics
 
 		public Quad()
 		{
-			Init(Vector3.Zero, Vector3.Backward, Vector3.Up, 2f, 2f);
+			Init(Vector3.UnitZ, Vector3.Backward, Vector3.Up, 2f, 2f);
 		}
 
 		public void Init(Vector3 origin, Vector3 normal, Vector3 up, float width, float height)

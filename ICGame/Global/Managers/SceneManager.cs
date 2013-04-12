@@ -7,6 +7,8 @@ using Microsoft.Xna.Framework.Input;
 using VertexArmy.Global.Behaviours;
 using VertexArmy.Graphics;
 using VertexArmy.Graphics.Attachables;
+using VertexArmy.States;
+using VertexArmy.States.Menu;
 
 namespace VertexArmy.Global.Managers
 {
@@ -201,6 +203,26 @@ namespace VertexArmy.Global.Managers
 			Renderer.Instance.LastFrame = Renderer.Instance.CurrentFrame;
 		}
 
+		private void RenderWithoutDof ( float dt )
+		{
+			RenderColorRenderTarget( dt );
+			Platform.Instance.Device.Clear( ClearOptions.Target | ClearOptions.DepthBuffer, Color.DarkSlateBlue, 1.0f, 0 );
+
+			//Platform.Instance.Device.BlendState = BlendState.Opaque;
+			Platform.Instance.Device.RasterizerState = RasterizerState.CullCounterClockwise;
+
+
+			Quad scquad = GetScreenQuad();
+			Material dof = Renderer.Instance.GetBlurMaterial();
+			dof.SetParameter( "ColorMap", _color );
+
+			scquad.Draw( dof );
+
+			Renderer.Instance.CurrentFrame = _color;
+
+			Renderer.Instance.LastFrame = Renderer.Instance.CurrentFrame;
+		}
+
 		private void RenderWithDof( float dt )
 		{
 			RenderDepthRenderTarget( dt );
@@ -242,7 +264,7 @@ namespace VertexArmy.Global.Managers
 			}
 			else
 			{
-				RenderWithoutPostProcessing( dt );
+				RenderWithoutDof( dt );
 			}
 
 			HintManager.Instance.Render( dt );
@@ -350,6 +372,19 @@ namespace VertexArmy.Global.Managers
 
 		private void DrawScene( float dt )
 		{
+			if ( ( StateManager.Instance.CurrentGameState as BaseMenuGameState ) != null )
+			{
+				Quad scquad = GetScreenQuad();
+				Material blur = Renderer.Instance.GetBlurMaterial();
+
+
+				blur.SetParameter( "matWorldViewProj", Matrix.Identity );
+				blur.SetParameter( "ColorMap", MenuBackgroundTexture );
+				blur.SetParameter( "blurDistance", 0.01f );
+
+				scquad.Draw( blur );
+			}
+
 			if ( _sceneCameras.Count == 0 )
 				return;
 
@@ -399,7 +434,12 @@ namespace VertexArmy.Global.Managers
 					}
 				}
 			}
+
+
+		
 		}
+
+		public Texture2D MenuBackgroundTexture;
 
 		public void SortByLayer ()
 		{

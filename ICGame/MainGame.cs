@@ -17,10 +17,10 @@ namespace VertexArmy
 		{
 			Platform.Instance.DeviceManager = new GraphicsDeviceManager( this )
 			{
-				PreferredBackBufferWidth = 800,
-				PreferredBackBufferHeight = 600
+				PreferredBackBufferWidth = 1024,
+				PreferredBackBufferHeight = 768,
+				IsFullScreen = true
 			};
-
 			Platform.Instance.PhysicsWorld = new World( new Vector2( 0f, 9.82f ) );
 
 			Platform.Instance.Settings = new Settings();

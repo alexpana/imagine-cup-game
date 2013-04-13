@@ -58,7 +58,7 @@ namespace VertexArmy.Global
 #if WINDOWS
 			using ( var stream = new FileStream( fileName, FileMode.OpenOrCreate ) )
 #else
-			using ( var stream = StreamExtensions.OpenStreamForWrite( fileName, CreationCollisionOption.ReplaceExisting ) )
+			using ( var stream = LocalStorageExtensions.OpenStreamForWrite( fileName, CreationCollisionOption.ReplaceExisting ) )
 #endif
 			{
 				using ( StreamWriter sw = new StreamWriter( stream ) )
@@ -81,7 +81,7 @@ namespace VertexArmy.Global
 #if WINDOWS
 				using ( var stream = new FileStream( fileName, FileMode.OpenOrCreate ) )
 #else
-				using ( var stream = StreamExtensions.OpenStreamForRead( fileName) )
+				using ( var stream = LocalStorageExtensions.OpenStreamForRead( fileName) )
 #endif
 				{
 					using ( StreamReader sr = new StreamReader( stream ) )

@@ -8,7 +8,7 @@ using VertexArmy.Input;
 #if NETFX_CORE
 using System.IO;
 using SharpDX.Text;
-using VertexArmy.Windows8;
+
 #endif
 
 namespace VertexArmy.Global
@@ -38,7 +38,7 @@ namespace VertexArmy.Global
 		public Effect LoadEffect( string path )
 		{
 #if NETFX_CORE
-			using ( var stream = StreamExtensions.OpenStreamForRead( "Content/effects/" + path + ".mgfxo" ) )
+			using ( var stream = TitleContainer.OpenStream( "Content/effects/" + path + ".mgfxo" ) )
 			{
 				using ( var sr = new StreamReader( stream ) )
 				{

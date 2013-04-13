@@ -21,7 +21,7 @@ namespace FarseerPhysics.Common
 #if WINDOWS
 			using ( FileStream fs = new FileStream( filename, FileMode.Create ) )
 #else
-			using ( var fs = StreamExtensions.OpenStreamForWrite( filename, CreationCollisionOption.ReplaceExisting ) )
+			using ( var fs = LocalStorageExtensions.OpenStreamForWrite( filename, CreationCollisionOption.ReplaceExisting ) )
 #endif
 			{
 				new WorldXmlSerializer().Serialize( world, fs );
@@ -33,7 +33,7 @@ namespace FarseerPhysics.Common
 #if WINDOWS
 			using ( FileStream fs = new FileStream( filename, FileMode.Open ) )
 #else
-			using ( var fs = StreamExtensions.OpenStreamForRead( filename ) )
+			using ( var fs = LocalStorageExtensions.OpenStreamForRead( filename ) )
 #endif
 			{
 				new WorldXmlDeserializer().Deserialize( world, fs );
@@ -45,7 +45,7 @@ namespace FarseerPhysics.Common
 #if WINDOWS
 			using ( FileStream fs = new FileStream( filename, FileMode.Open ) )
 #else
-			using ( var fs = StreamExtensions.OpenStreamForRead( filename ) )
+			using ( var fs = LocalStorageExtensions.OpenStreamForRead( filename ) )
 #endif
 			{
 				return new WorldXmlDeserializer().Deserialize( fs );
@@ -1244,7 +1244,7 @@ namespace FarseerPhysics.Common
 #if WINDOWS
 			using ( FileStream fs = new FileStream( fileName, FileMode.Open ) )
 #else
-			using ( var fs = StreamExtensions.OpenStreamForRead( fileName ) )
+			using ( var fs = LocalStorageExtensions.OpenStreamForRead( fileName ) )
 #endif
 				Load( fs );
 		}

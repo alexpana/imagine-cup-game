@@ -3,7 +3,7 @@ using Windows.Storage;
 
 namespace VertexArmy.Windows8
 {
-	public static class StreamExtensions
+	public static class LocalStorageExtensions
 	{
 		public static Stream OpenStreamForRead( string path )
 		{

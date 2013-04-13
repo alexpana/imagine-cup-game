@@ -10,7 +10,7 @@ namespace VertexArmy.Content.Materials
 		public static Material CreateMaterial()
 		{
 			Material mat = new Material();
-			Effect effect = Platform.Instance.Content.Load<Effect>( "effects/" + "depthoffield" );
+			Effect effect = Platform.Instance.LoadEffect( "depthoffield" );
 
 			mat.Effect = effect;
 

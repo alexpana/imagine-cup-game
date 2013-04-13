@@ -10,10 +10,10 @@ namespace VertexArmy.Content.Materials
 		public static Material CreateMaterial()
 		{
 			Material mat = new Material();
-			Effect effect = Platform.Instance.Content.Load<Effect>( "effects/" + "highlight" );
+			Effect effect = Platform.Instance.LoadEffect( "highlight" );
 			mat.Effect = effect;
 			mat.AddParameter( "matWorldViewProj", Matrix.Identity );
-			mat.AddParameter( "fTimeMs", 0.0f);
+			mat.AddParameter( "fTimeMs", 0.0f );
 			mat.AddParameter( "f3Color", Vector3.One );
 			return mat;
 		}

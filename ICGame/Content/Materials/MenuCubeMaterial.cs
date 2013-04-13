@@ -16,7 +16,7 @@ namespace VertexArmy.Content.Materials
 			string menuTextImage = args.ContainsKey( MenuTextImage ) ? args[MenuTextImage].ToString() : "menu_cube_no_text";
 
 			Material mat = new Material();
-			Effect robofx = Platform.Instance.Content.Load<Effect>( "effects/" + "snmap_menu_flat" );
+			Effect robofx = Platform.Instance.LoadEffect( "snmap_menu_flat" );
 
 			mat.Effect = robofx;
 

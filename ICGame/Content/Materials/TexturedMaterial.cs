@@ -9,8 +9,8 @@ namespace VertexArmy.Content.Materials
 	{
 		public static Material CreateMaterial( string colorMap )
 		{
-			Material robotMat = new Material( );
-			Effect robofx = Platform.Instance.Content.Load<Effect>( "effects/" + "robo" );
+			Material robotMat = new Material();
+			Effect robofx = Platform.Instance.LoadEffect( "robo" );
 
 			robotMat.Effect = robofx;
 

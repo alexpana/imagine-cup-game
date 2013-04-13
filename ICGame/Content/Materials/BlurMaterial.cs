@@ -10,7 +10,7 @@ namespace VertexArmy.Content.Materials
 		public static Material CreateMaterial()
 		{
 			Material mat = new Material();
-			Effect effect = Platform.Instance.Content.Load<Effect>( "effects/" + "blur" );
+			Effect effect = Platform.Instance.LoadEffect("blur" );
 			mat.Effect = effect;
 			mat.AddParameter( "matWorldViewProj", Matrix.Identity );
 			mat.AddParameter( "blurDistance", 0.001f);

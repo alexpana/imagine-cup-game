@@ -5,6 +5,11 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using VertexArmy.Global.Managers;
 using VertexArmy.Input;
+#if NETFX_CORE
+using System.IO;
+using SharpDX.Text;
+using VertexArmy.Windows8;
+#endif
 
 namespace VertexArmy.Global
 {
@@ -28,6 +33,23 @@ namespace VertexArmy.Global
 		{
 			get { return Game.Content; }
 		}
+
+		//TODO: create a custom Content Manager to handle the content loading in the game better
+		public Effect LoadEffect( string path )
+		{
+#if NETFX_CORE
+			using ( var stream = StreamExtensions.OpenStreamForRead( "Content/effects/" + path + ".mgfxo" ) )
+			{
+				using ( var sr = new StreamReader( stream ) )
+				{
+					return new Effect( Device, Encoding.ASCII.GetBytes( sr.ReadToEnd() ) );
+				}
+			}
+#else
+			return Content.Load<Effect>( "effects/" + path );
+#endif
+		}
+
 
 		public IInputSystem Input { get; set; }
 

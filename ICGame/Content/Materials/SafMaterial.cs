@@ -8,10 +8,10 @@ namespace VertexArmy.Content.Materials
 {
 	class SafMaterial
 	{
-		public static Material CreateMaterial ()
+		public static Material CreateMaterial()
 		{
 			Material material = new Material();
-			Effect effect = Platform.Instance.Content.Load<Effect>( @"effects\saf" );
+			Effect effect = Platform.Instance.LoadEffect( "saf" );
 			material.Effect = effect;
 
 			material.State = new BlendState()
@@ -27,13 +27,13 @@ namespace VertexArmy.Content.Materials
 
 			material.AddParameter( Material.ColorMap, Platform.Instance.Content.Load<Texture2D>( "images/waves-noalpha" ) );
 			material.AddParameter( "AlphaMap", Platform.Instance.Content.Load<Texture2D>( "images/waves" ) );
-			
-				
+
+
 			material.AddParameter( "matWorldViewProj", Matrix.Identity );
 			material.AddParameter( "fTimeMs", 0f );
 			material.AddParameter( "fAlpha", 0.20f );
 			material.AddParameter( "fVel", new Vector2( 0.00f, 0.00025f ) );
-			
+
 			return material;
 		}
 	}

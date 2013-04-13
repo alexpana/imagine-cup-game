@@ -21,7 +21,6 @@ namespace VertexArmy
 				PreferredBackBufferHeight = 768,
 				IsFullScreen = true
 			};
-
 			Platform.Instance.PhysicsWorld = new World( new Vector2( 0f, 9.82f ) );
 
 			Platform.Instance.Settings = new Settings();

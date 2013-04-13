@@ -8,7 +8,7 @@ using FarseerPhysics.Dynamics;
 using FarseerPhysics.Dynamics.Joints;
 using Microsoft.Xna.Framework;
 #if NETFX_CORE
-using FarseerPhysics.Windows8.Windows8;
+using VertexArmy.Windows8;
 using Windows.Storage;
 #endif
 

@@ -1,8 +1,7 @@
-﻿
-using System.IO;
+﻿using System.IO;
 using Windows.Storage;
 
-namespace FarseerPhysics.Windows8.Windows8
+namespace VertexArmy.Windows8
 {
 	public static class StreamExtensions
 	{

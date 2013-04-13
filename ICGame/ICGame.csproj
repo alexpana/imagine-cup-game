@@ -102,9 +102,6 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Gearset">
-      <HintPath>..\_external\Gearset\Gearset.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Xna.Framework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86" />
     <Reference Include="Microsoft.Xna.Framework.Game, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86" />
@@ -210,7 +207,6 @@
     <Compile Include="Global\Managers\SceneManager.cs" />
     <Compile Include="Graphics\SceneNode.cs" />
     <Compile Include="Graphics\Attachables\MeshAttachable.cs" />
-    <Compile Include="GS.cs" />
     <Compile Include="Input\IInputSystem.cs" />
     <Compile Include="Input\PCInputSystem.cs" />
     <Compile Include="Levels\Level.cs" />

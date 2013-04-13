@@ -34,7 +34,7 @@ namespace VertexArmy.Graphics
 		private List<Attachable> _attachables;
 
 		[DataMember]
-		private BoundingSphere _bSphere = new BoundingSphere(Vector3.Zero, 1.0f);
+		private BoundingSphere _bSphere = new BoundingSphere( Vector3.Zero, 1.0f );
 
 		[DataMember]
 		private bool _hasBSphere;
@@ -49,20 +49,20 @@ namespace VertexArmy.Graphics
 		{
 			if ( !_hasBSphere )
 			{
-				foreach (Attachable at in _attachables)
+				foreach ( Attachable at in _attachables )
 				{
-					MeshAttachable myMesh = (MeshAttachable)at;
+					MeshAttachable myMesh = ( MeshAttachable ) at;
 
-					if (myMesh != null)
+					if ( myMesh != null )
 					{
-						if (!_hasBSphere)
+						if ( !_hasBSphere )
 						{
 							_bSphere = myMesh.BoundingSphere;
 							_hasBSphere = true;
 						}
 						else
 						{
-							_bSphere = BoundingSphere.CreateMerged(_bSphere, myMesh.BoundingSphere);
+							_bSphere = BoundingSphere.CreateMerged( _bSphere, myMesh.BoundingSphere );
 						}
 					}
 				}
@@ -86,7 +86,7 @@ namespace VertexArmy.Graphics
 
 		public BoundingSphere GetTransformedBoundingSphere()
 		{
-			return GetBoundingSphere().Transform(GetAbsoluteTransformation());
+			return GetBoundingSphere().Transform( GetAbsoluteTransformation() );
 		}
 
 		private bool _recomputeAbsoluteTransformation;
@@ -162,7 +162,7 @@ namespace VertexArmy.Graphics
 			{
 				_relativeTransformation = Matrix.Identity;
 				_relativeTransformation *= Matrix.CreateScale( _scale );
-				_relativeTransformation = Matrix.Transform( _relativeTransformation, _rotation );
+				_relativeTransformation *= Matrix.CreateFromQuaternion( _rotation );
 				_relativeTransformation *= Matrix.CreateTranslation( _position );
 
 				_recomputeRelativeTransformation = false;
@@ -172,7 +172,7 @@ namespace VertexArmy.Graphics
 
 		public int GetLayer()
 		{
-			if(Attachable.Count > 0)
+			if ( Attachable.Count > 0 )
 			{
 				return Attachable[0].GetLayer();
 			}

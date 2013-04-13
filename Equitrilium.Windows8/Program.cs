@@ -1,7 +1,4 @@
-﻿
-using TestMono;
-
-namespace Equitrilium.Windows8
+﻿namespace VertexArmy
 {
 	/// <summary>
 	/// The main class.

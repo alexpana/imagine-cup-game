@@ -4,3 +4,4 @@ bin/
 obj/
 *.cachefile
 _ReSharper*
+ContentBuild/

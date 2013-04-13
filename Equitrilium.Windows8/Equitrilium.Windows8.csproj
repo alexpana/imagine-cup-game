@@ -491,62 +491,6 @@
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
-    <Content Include="..\ContentBuild\effects\blur.xnb">
-      <Link>Content\effects\blur.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\ContentBuild\effects\cel.xnb">
-      <Link>Content\effects\cel.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\ContentBuild\effects\CubeMaterial.xnb">
-      <Link>Content\effects\CubeMaterial.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\ContentBuild\effects\depth.xnb">
-      <Link>Content\effects\depth.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\ContentBuild\effects\depthoffield.xnb">
-      <Link>Content\effects\depthoffield.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\ContentBuild\effects\highlight.xnb">
-      <Link>Content\effects\highlight.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\ContentBuild\effects\robo.xnb">
-      <Link>Content\effects\robo.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\ContentBuild\effects\saf.xnb">
-      <Link>Content\effects\saf.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\ContentBuild\effects\sepia.xnb">
-      <Link>Content\effects\sepia.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\ContentBuild\effects\snmap.xnb">
-      <Link>Content\effects\snmap.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\ContentBuild\effects\snmap_menu.xnb">
-      <Link>Content\effects\snmap_menu.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\ContentBuild\effects\snmap_menu_flat.xnb">
-      <Link>Content\effects\snmap_menu_flat.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\ContentBuild\effects\textured.xnb">
-      <Link>Content\effects\textured.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\ContentBuild\effects\wall.xnb">
-      <Link>Content\effects\wall.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="..\ContentBuild\fonts\Impact.xnb">
       <Link>Content\fonts\Impact.xnb</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -863,6 +807,62 @@
       <Link>Content\sounds\metalhit2.xnb</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="..\ContentBuild\effects\blur.mgfxo">
+      <Link>Content\effects\blur.mgfxo</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\ContentBuild\effects\cel.mgfxo">
+      <Link>Content\effects\cel.mgfxo</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\ContentBuild\effects\CubeMaterial.mgfxo">
+      <Link>Content\effects\CubeMaterial.mgfxo</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\ContentBuild\effects\depth.mgfxo">
+      <Link>Content\effects\depth.mgfxo</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\ContentBuild\effects\depthoffield.mgfxo">
+      <Link>Content\effects\depthoffield.mgfxo</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\ContentBuild\effects\highlight.mgfxo">
+      <Link>Content\effects\highlight.mgfxo</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\ContentBuild\effects\robo.mgfxo">
+      <Link>Content\effects\robo.mgfxo</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\ContentBuild\effects\saf.mgfxo">
+      <Link>Content\effects\saf.mgfxo</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\ContentBuild\effects\sepia.mgfxo">
+      <Link>Content\effects\sepia.mgfxo</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\ContentBuild\effects\snmap.mgfxo">
+      <Link>Content\effects\snmap.mgfxo</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\ContentBuild\effects\snmap_menu.mgfxo">
+      <Link>Content\effects\snmap_menu.mgfxo</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\ContentBuild\effects\snmap_menu_flat.mgfxo">
+      <Link>Content\effects\snmap_menu_flat.mgfxo</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\ContentBuild\effects\textured.mgfxo">
+      <Link>Content\effects\textured.mgfxo</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\ContentBuild\effects\wall.mgfxo">
+      <Link>Content\effects\wall.mgfxo</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="..\ICGame\Content\Levels\level1.eql">
       <Link>Content\Levels\level1.eql</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -930,6 +930,7 @@
       <Name>FarseerPhysics.Windows8</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">
     <VisualStudioVersion>11.0</VisualStudioVersion>
   </PropertyGroup>

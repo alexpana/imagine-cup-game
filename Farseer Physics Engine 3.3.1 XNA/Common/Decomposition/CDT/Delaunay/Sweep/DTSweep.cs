@@ -619,7 +619,9 @@ namespace Poly2Tri.Triangulation.Delaunay.Sweep
 					if ( eq == tcx.EdgeEvent.ConstrainedEdge.Q
 						&& ep == tcx.EdgeEvent.ConstrainedEdge.P )
 					{
+#if WINDOWS
 						if ( tcx.IsDebugEnabled ) Console.WriteLine( "[FLIP] - constrained edge done" ); // TODO: remove
+#endif
 						t.MarkConstrainedEdge( ep, eq );
 						ot.MarkConstrainedEdge( ep, eq );
 						Legalize( tcx, t );
@@ -627,14 +629,18 @@ namespace Poly2Tri.Triangulation.Delaunay.Sweep
 					}
 					else
 					{
+#if WINDOWS
 						if ( tcx.IsDebugEnabled ) Console.WriteLine( "[FLIP] - subedge done" ); // TODO: remove
+#endif
 						// XXX: I think one of the triangles should be legalized here?
 					}
 				}
 				else
 				{
+#if WINDOWS
 					if ( tcx.IsDebugEnabled )
 						Console.WriteLine( "[FLIP] - flipping and continuing with triangle still crossing edge" );
+#endif
 					// TODO: remove
 					Orientation o = TriangulationUtil.Orient2d( eq, op, ep );
 					t = NextFlipTriangle( tcx, o, t, ot, p, op );

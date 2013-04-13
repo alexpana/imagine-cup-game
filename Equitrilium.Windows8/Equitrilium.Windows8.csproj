@@ -877,18 +877,6 @@
     <None Include="Equitrilium.Windows8_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="..\ContentBuild\images\menu\metro\tooltip_bottom.png">
-      <Link>Content\images\menu\metro\tooltip_bottom.png</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\ContentBuild\images\menu\metro\tooltip_middle.png">
-      <Link>Content\images\menu\metro\tooltip_middle.png</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\ContentBuild\images\menu\metro\tooltip_top.png">
-      <Link>Content\images\menu\metro\tooltip_top.png</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="..\ContentBuild\movies\PurpleStarFlight.wmv">
       <Link>Content\movies\PurpleStarFlight.wmv</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

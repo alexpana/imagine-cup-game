@@ -1,19 +1,22 @@
-﻿using System;
+﻿//#define ALLOW_HACKS
+using System.Collections.Generic;
+using FarseerPhysics.Dynamics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 using VertexArmy.Content.Prefabs;
 using VertexArmy.GameWorld;
 using VertexArmy.Global;
 using VertexArmy.Global.Controllers;
+using VertexArmy.Global.Controllers.Components;
 using VertexArmy.Global.Managers;
 using VertexArmy.Physics.DebugView;
 using VertexArmy.Utilities;
 
 namespace VertexArmy.States
 {
-	internal class GameStateEditor : PlayableGameState
+	internal class GameStateDemo2 : PlayableGameState
 	{
 		private ContentManager _contentManager;
 
@@ -26,45 +29,63 @@ namespace VertexArmy.States
 
 		private LevelPrefab _level;
 
+		private bool _actionReset;
 		private bool _actionToggleDebugView;
 		private bool _debugViewState;
 
-		private bool _levelLoaded;
-		private bool _saveAction;
-		private string _levelName;
 
-		public GameStateEditor( ContentManager content )
+		public GameStateDemo2( ContentManager content )
 		{
 			_contentManager = content;
-			_saveAction = false;
 		}
 
 		public override void OnUpdate( GameTime gameTime )
 		{
-			if ( !_levelLoaded )
-			{
-				return;
-			}
-
 			base.OnUpdate( gameTime );
-			_pausePhysics = true;
-
-
-
-			if ( Keyboard.GetState().IsKeyDown( Keys.LeftControl ) && Keyboard.GetState().IsKeyDown( Keys.S ) && !_saveAction )
+#if ALLOW_HACKS
+#endif
+			if ( Robot != null )
 			{
-				_saveAction = true;
-				GameWorldManager.Instance.SaveState();
-				_level = PrefabRepository.Instance.GetLevelPrefab( @"Content\Levels\" + _levelName + ".eql" );
-				_level.SetState( GameWorldManager.Instance.GetState() );
-				_level.SerializeLevel();
-				HintManager.Instance.SpawnHint( "Saved " + _levelName, new Vector2( 200, 200 ), 5000, 13 );
-			}
-			else if ( Keyboard.GetState().IsKeyUp( Keys.S ) || Keyboard.GetState().IsKeyUp( Keys.LeftControl ) )
-			{
-				_saveAction = false;
-			}
 
+				if ( Robot.GetPosition().Y < -2000 )
+				{
+					GameWorldManager.Instance.LoadLastState();
+				}
+
+				if ( Keyboard.GetState( PlayerIndex.One ).IsKeyDown( Keys.Up ) )
+				{
+					if ( Robot.PhysicsEntity.GetCollisionLayer().Equals( Category.Cat1 ) )
+					{
+						Robot.PhysicsEntity.SetCollisionLayer( Category.Cat2 );
+						Vector3 position = Robot.GetPosition();
+						Robot.SetPosition( new Vector3( position.X, position.Y, -800f ) );
+					}
+				}
+				if ( Keyboard.GetState( PlayerIndex.One ).IsKeyDown( Keys.Down ) )
+				{
+					if ( Robot.PhysicsEntity.GetCollisionLayer().Equals( Category.Cat2 ) )
+					{
+						Robot.PhysicsEntity.SetCollisionLayer( Category.Cat1 );
+						Vector3 position = Robot.GetPosition();
+						Robot.SetPosition( new Vector3( position.X, position.Y, 0f ) );
+					}
+				}
+
+				if ( Keyboard.GetState( PlayerIndex.One ).IsKeyDown( Keys.R ) )
+				{
+					if ( !_actionReset )
+					{
+						GameWorldManager.Instance.LoadLastState();
+						_actionReset = true;
+					}
+				}
+
+				if ( Keyboard.GetState( PlayerIndex.One ).IsKeyUp( Keys.R ) )
+				{
+					_actionReset = false;
+				}
+			}
+#if ALLOW_HACKS
 			if ( Keyboard.GetState( PlayerIndex.One ).IsKeyDown( Keys.D ) )
 			{
 				if ( !_actionToggleDebugView )
@@ -78,19 +99,17 @@ namespace VertexArmy.States
 			{
 				_actionToggleDebugView = false;
 			}
+#endif
+
 		}
 
 		public override void OnRender( GameTime gameTime )
 		{
-			if ( !_levelLoaded )
-			{
-				return;
-			}
-
 			base.OnRender( gameTime );
 
 			if ( _debugViewState )
 			{
+
 				float scale = ( SceneManager.Instance.GetCurrentCamera().Parent.GetPosition().Z / 1024.0f );
 				_projection = Matrix.CreateOrthographicOffCenter(
 					UnitsConverter.ToSimUnits( SceneManager.Instance.GetCurrentCamera().Parent.GetPosition().X - Platform.Instance.Device.Viewport.Width / 2f * scale ),
@@ -103,42 +122,82 @@ namespace VertexArmy.States
 
 				_debugView.RenderDebugData( ref _projection, ref _view );
 			}
+
+
+		}
+
+		public void LoadStatics()
+		{
+
+		}
+
+		public void LoadSemiStatics()
+		{
+			GameWorldManager.Instance.GetEntity( "button0" ).RegisterComponent(
+				"active",
+				new ButtonComponent( "ButtonJoint1", true, true )
+			);
+
+			GameWorldManager.Instance.GetEntity( "lifteddoor0" ).RegisterComponent(
+				"doorHandle",
+				new LiftedDoorComponent( GameWorldManager.Instance.GetEntity( "button0" ).GetComponent( "active" ), "DoorJoint1" )
+			);
+		}
+
+		public void LoadDynamics()
+		{
+			GameWorldManager.Instance.SpawnEntity( "Camera", "camera1", new Vector3( 0, -200, 800 ) );
+
+			Robot = GameWorldManager.Instance.GetEntity( "robot0" );
+			Robot.RegisterComponent( "force", new SentientForceComponent() );
+
+			Robot.RegisterComponent(
+				"control",
+				new CarControlComponent( new List<string> { "GearJoint1", "GearJoint2", "GearJoint3" }, new List<float>() { 7f, 7f, 7f } )
+				);
+
+
+			CameraController camControl = new CameraController( Robot, SceneManager.Instance.GetCurrentCamera() );
+			ControllerRepository.Instance.RegisterController( "camcontrol", camControl );
+			FrameUpdateManager.Instance.Register( camControl );
+
+			Camera = GameWorldManager.Instance.GetEntity( "camera1" );
+			Camera.SetRotation( 5f );
+			FrameUpdateManager.Instance.Register( new GravityController() );
+		}
+
+		public void LoadTriggers()
+		{
+
+
 		}
 
 		public void LoadLevel()
 		{
-			GameWorldManager.Instance.SpawnEntity( "Camera", "cameraEditor", new Vector3( 0, 0, 800 ) );
-			FreeCameraController camControl = new FreeCameraController( SceneManager.Instance.GetCurrentCamera() );
-			ControllerRepository.Instance.RegisterController( "camcontrol", camControl );
-			FrameUpdateManager.Instance.Register( camControl );
-			FrameUpdateManager.Instance.Register( new EditorToolsController() );
+			string _levelName = "level2";
+			_level = PrefabRepository.Instance.GetLevelPrefab( @"Content\Levels\" + _levelName + ".eql" );
+			GameWorldManager.Instance.SetState( _level._savedState );
+			GameWorldManager.Instance.LoadLastState();
+			LoadStatics();
+			LoadSemiStatics();
+			LoadDynamics();
+			LoadTriggers();
+
 		}
 
 		public override void OnEnter()
 		{
-			SceneManager.Instance.UsePostDraw = true;
-			Guide.BeginShowKeyboardInput( PlayerIndex.One, "Select level", "Specify the name of the level", "level1", LevelNameInputCallback, null );
-		}
-
-		private void LevelNameInputCallback( IAsyncResult ar )
-		{
-			_levelName = Guide.EndShowKeyboardInput( ar );
-
-			// nothing to do yet
-			if ( !ar.IsCompleted )
-			{
-				return;
-			}
-
-			_level = PrefabRepository.Instance.GetLevelPrefab( @"Content\Levels\" + _levelName + ".eql" );
-			GameWorldManager.Instance.SetState( _level._savedState );
-			GameWorldManager.Instance.LoadLastState();
-
+			SceneManager.Instance.UseDof = true;
 			LoadLevel();
+			GameWorldManager.Instance.SaveState();
 			Platform.Instance.PhysicsWorld.Gravity = Vector2.UnitY * Platform.Instance.PhysicsWorld.Gravity.Length();
 
+			FrameUpdateManager.Instance.Register( HintManager.Instance );
+
+			_actionReset = false;
 			_debugViewState = false;
 			_actionToggleDebugView = false;
+
 
 			_debugView = new DebugViewXNA( Platform.Instance.PhysicsWorld );
 
@@ -150,13 +209,11 @@ namespace VertexArmy.States
 
 			_view = Matrix.Identity;
 
-			//Song song = _contentManager.Load<Song>( "music/Beluga_-_Lost_In_Outer_Space" );
-			//Platform.Instance.SoundManager.PlayMusic( song );
-
-			FrameUpdateManager.Instance.Register( HintManager.Instance );
+			Song song = _contentManager.Load<Song>( "music/Beluga_-_Lost_In_Outer_Space" );
+			Platform.Instance.SoundManager.PlayMusic( song );
 			FrameUpdateManager.Instance.Register( SceneManager.Instance );
 
-			_levelLoaded = true;
+			SceneManager.Instance.SortByLayer();
 		}
 
 		public override void OnClose()
@@ -167,17 +224,19 @@ namespace VertexArmy.States
 			FrameUpdateManager.Instance.Clear();
 			Platform.Instance.PhysicsWorld.Clear();
 			SceneManager.Instance.Clear();
-			SceneManager.Instance.UsePostDraw = false;
 			Platform.Instance.SoundManager.StopMusic();
 
 			_contentManager.Unload();
 
+			SceneManager.Instance.UseDof = false;
 			HintManager.Instance.Clear();
 		}
+
 
 		public void LoadLastSateCallback()
 		{
 			GameWorldManager.Instance.LoadLastState();
 		}
+
 	}
 }

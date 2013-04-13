@@ -12,6 +12,7 @@
 		LevelLoading,
 		PhysicsPresentationRobot,
 		TutorialLevel,
+		Demo2,
 		Editor
 	};
 }

@@ -60,7 +60,7 @@ namespace VertexArmy.States
 				{
 					GameWorldManager.Instance.LoadLastState();
 				}
-
+#if ALLOW_HACKS
 				if ( Keyboard.GetState( PlayerIndex.One ).IsKeyDown( Keys.Up ) )
 				{
 					if ( Robot.PhysicsEntity.GetCollisionLayer().Equals( Category.Cat1 ) )
@@ -79,6 +79,7 @@ namespace VertexArmy.States
 						Robot.SetPosition( new Vector3( position.X, position.Y, 0f ) );
 					}
 				}
+#endif
 
 				if ( Keyboard.GetState( PlayerIndex.One ).IsKeyDown( Keys.R ) )
 				{
@@ -118,11 +119,12 @@ namespace VertexArmy.States
 
 			if ( _debugViewState )
 			{
+				float scale = ( SceneManager.Instance.GetCurrentCamera().Parent.GetPosition().Z / 1024.0f );
 				_projection = Matrix.CreateOrthographicOffCenter(
-					UnitsConverter.ToSimUnits( SceneManager.Instance.GetCurrentCamera().Parent.GetPosition().X - Platform.Instance.Device.Viewport.Width / 2f ),
-					UnitsConverter.ToSimUnits( SceneManager.Instance.GetCurrentCamera().Parent.GetPosition().X + Platform.Instance.Device.Viewport.Width / 2f ),
-					UnitsConverter.ToSimUnits( -SceneManager.Instance.GetCurrentCamera().Parent.GetPosition().Y + Platform.Instance.Device.Viewport.Height / 2f ),
-					UnitsConverter.ToSimUnits( -SceneManager.Instance.GetCurrentCamera().Parent.GetPosition().Y - Platform.Instance.Device.Viewport.Height / 2f ),
+					UnitsConverter.ToSimUnits( SceneManager.Instance.GetCurrentCamera().Parent.GetPosition().X - Platform.Instance.Device.Viewport.Width / 2f * scale ),
+					UnitsConverter.ToSimUnits( SceneManager.Instance.GetCurrentCamera().Parent.GetPosition().X + Platform.Instance.Device.Viewport.Width / 2f * scale ),
+					UnitsConverter.ToSimUnits( -SceneManager.Instance.GetCurrentCamera().Parent.GetPosition().Y + Platform.Instance.Device.Viewport.Height / 2f * scale ),
+					UnitsConverter.ToSimUnits( -SceneManager.Instance.GetCurrentCamera().Parent.GetPosition().Y - Platform.Instance.Device.Viewport.Height / 2f * scale ),
 					0f,
 					1f
 					);
@@ -305,16 +307,16 @@ namespace VertexArmy.States
 			_contentManager.Unload();
 
 			SceneManager.Instance.UseDof = false;
-			HintManager.Instance.Clear( );
+			HintManager.Instance.Clear();
 		}
 
 		public void UpgradeCube1Callback()
 		{
 			if ( Robot.GetComponent( "force" ) == null )
 			{
-				GameWorldManager.Instance.RemoveEntity("safCollectible1");
+				GameWorldManager.Instance.RemoveEntity( "safCollectible1" );
 				FrameUpdateManager.Instance.Unregister( ControllerRepository.Instance.GetController( "upgradeCube1Controller" ) );
-				ControllerRepository.Instance.UnregisterController("upgradeCube1Controller");
+				ControllerRepository.Instance.UnregisterController( "upgradeCube1Controller" );
 
 				Robot.RegisterComponent( "force", new SentientForceComponent() );
 				GameWorldManager.Instance.SaveState();

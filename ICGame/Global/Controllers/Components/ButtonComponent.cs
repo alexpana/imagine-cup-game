@@ -8,14 +8,20 @@ namespace VertexArmy.Global.Controllers.Components
 	public class ButtonComponent : BaseComponent
 	{
 		private readonly string _jointName;
+		private bool _inversed;
+		private bool _permanent;
+		private bool _activatedOnce;
 
 		public bool ButtonState { get; internal set; }
 
-		public ButtonComponent( string jointName )
+		public ButtonComponent( string jointName, bool inversed = false, bool permanent = false )
 		{
 			Data = new List<object>();
 			_jointName = jointName;
 			_type = ComponentType.ButtonComponent;
+			_inversed = inversed;
+			_permanent = permanent;
+			_activatedOnce = false;
 		}
 
 		public override void InitEntity()
@@ -28,11 +34,16 @@ namespace VertexArmy.Global.Controllers.Components
 		{
 			if ( Entity != null )
 			{
+				if ( _permanent && _activatedOnce )
+				{
+					return;
+				}
 				PrismaticJoint j = Entity.PhysicsEntity.GetJoint( _jointName ) as PrismaticJoint;
-				ButtonState = false;
+				ButtonState = _inversed;
 				if ( j.JointTranslation < ( j.UpperLimit - j.LowerLimit ) / 2f )
 				{
-					ButtonState = true;
+					_activatedOnce = true;
+					ButtonState = !_inversed;
 				}
 			}
 		}

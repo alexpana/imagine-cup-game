@@ -116,6 +116,13 @@ namespace VertexArmy.States.Menu
 			tutorialCube.Spawn( -50f );
 
 			var lockedLevel1Cube = CreateLevelMenuCube( "level_cube_locked_text" );
+			lockedLevel1Cube.Items = new List<MenuItem>
+			{
+				new MenuItem
+				{
+					Activated = obj => StateManager.Instance.ChangeState( GameState.Demo2 )
+				}
+			};
 			lockedLevel1Cube.Spawn( 0f );
 
 			var lockedLevel2Cube = CreateLevelMenuCube( "level_cube_locked_text" );

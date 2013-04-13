@@ -56,7 +56,7 @@ namespace VertexArmy.Content.Prefabs
 			BodyPrefab buttonBody = new BodyPrefab
 			{
 				Friction = 1f,
-				LocalPosition = new Vector2( 0f, 0f ),
+				LocalPosition = new Vector2( 0f, 2.5f ),
 				Name = "Button",
 				Shapes = new List<ShapePrefab> { buttonShape },
 				Restitution = 0.1f,

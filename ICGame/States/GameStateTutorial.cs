@@ -184,7 +184,7 @@ namespace VertexArmy.States
 				);
 
 
-			CameraController camControl = new CameraController( Robot, SceneManager.Instance.GetCurrentCamera() );
+			OrbitCameraController camControl = new OrbitCameraController( Robot, SceneManager.Instance.GetCurrentCamera( ) );
 			ControllerRepository.Instance.RegisterController( "camcontrol", camControl );
 			FrameUpdateManager.Instance.Register( camControl );
 

@@ -71,7 +71,12 @@ namespace VertexArmy.Global
 
 		public void Load( string fileName = "Settings.txt" )
 		{
+#if WINDOWS
+			if (File.Exists(fileName))
+#else
 			if ( !LocalStorageExtensions.FileExists( fileName ) )
+#endif
+
 			{
 				Save( fileName );
 			}

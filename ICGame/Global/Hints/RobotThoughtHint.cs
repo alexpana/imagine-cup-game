@@ -16,7 +16,7 @@ namespace VertexArmy.Global.Hints
 		public int Time { get; set; }
 	}
 
-	public class Hint
+	public class RobotThoughtHint
 	{
 		private const int ThinkingSpeed = 500;
 		private const int ThinkingBubbleInterval = (int)(500.0 / 4.7);
@@ -32,7 +32,7 @@ namespace VertexArmy.Global.Hints
 			FadeOut
 		}
 
-		public float Time { get; set; } // in miliseconds
+		public float Time { get; set; } // in milliseconds
 		public int Layer { get; set; }
 
 		public List<HintBubble> ThinkingBubbles { get; private set; }
@@ -62,7 +62,7 @@ namespace VertexArmy.Global.Hints
 
 		public Action DismissedCallback;
 
-		public Hint( string text, Vector2 startPosition, Vector2 endPosition, float msTime, uint fadeTime )
+		public RobotThoughtHint( string text, Vector2 startPosition, Vector2 endPosition, float msTime, uint fadeTime )
 		{
 			ThinkingBubbles = new List<HintBubble>();
 
@@ -90,7 +90,7 @@ namespace VertexArmy.Global.Hints
 			_state = HintState.Thinking;
 		}
 
-		public Hint( string text, Vector2 finalPosition, float msTime, uint fadeTime )
+		public RobotThoughtHint( string text, Vector2 finalPosition, float msTime, uint fadeTime )
 			: this( text, finalPosition, finalPosition, msTime, fadeTime )
 		{
 			_state = HintState.FadeIn;

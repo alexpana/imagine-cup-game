@@ -4,12 +4,13 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using VertexArmy.Global.Behaviours;
+using VertexArmy.Global.Hints;
 
 namespace VertexArmy.Global.Managers
 {
 	public class HintManager : IUpdatable
 	{
-		private readonly List<Hint> _activeHints;
+		private readonly List<RobotThoughtHint> _activeHints;
 		private readonly SpriteBatch _spriteBatch;
 		private readonly SpriteFont _font;
 
@@ -23,7 +24,7 @@ namespace VertexArmy.Global.Managers
 
 		public HintManager()
 		{
-			_activeHints = new List<Hint>();
+			_activeHints = new List<RobotThoughtHint>();
 			_spriteBatch = new SpriteBatch( Platform.Instance.Device );
 			_font = Platform.Instance.Content.Load<SpriteFont>( "fonts/Impact" );
 		}
@@ -33,7 +34,7 @@ namespace VertexArmy.Global.Managers
 		{
 			if ( layer != 0 )
 			{
-				foreach ( Hint h in _activeHints )
+				foreach ( RobotThoughtHint h in _activeHints )
 				{
 					if ( h.Layer == layer )
 					{
@@ -43,8 +44,8 @@ namespace VertexArmy.Global.Managers
 			}
 
 			var hint = endPosition.HasValue
-				? new Hint( text, startPosition, endPosition.Value, msTime, fadeTime )
-				: new Hint( text, startPosition, msTime, fadeTime );
+				? new RobotThoughtHint( text, startPosition, endPosition.Value, msTime, fadeTime )
+				: new RobotThoughtHint( text, startPosition, msTime, fadeTime );
 
 			_activeHints.Add( hint );
 
@@ -62,7 +63,7 @@ namespace VertexArmy.Global.Managers
 		{
 			lock ( _activeHints )
 			{
-				List<Hint> hintsToRemove = new List<Hint>();
+				List<RobotThoughtHint> hintsToRemove = new List<RobotThoughtHint>();
 				foreach ( var activeHint in _activeHints )
 				{
 					activeHint.Update( gameTime );
@@ -110,7 +111,7 @@ namespace VertexArmy.Global.Managers
 			_spriteBatch.Draw( _tooltipBackgroundBottom, position, Color.White * alpha );
 		}
 
-		public void Render( Hint hint )
+		public void Render( RobotThoughtHint hint )
 		{
 			foreach ( var thinkingBubble in hint.ThinkingBubbles )
 			{

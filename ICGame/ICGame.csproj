@@ -176,6 +176,7 @@
     <Compile Include="Global\Controllers\FreeCameraController.cs" />
     <Compile Include="Global\Controllers\GravityController.cs" />
     <Compile Include="Global\Controllers\LineJointController.cs" />
+    <Compile Include="Global\Controllers\OrbitCameraController.cs" />
     <Compile Include="Global\Controllers\RelativeController.cs" />
     <Compile Include="Global\Behaviours\IController.cs" />
     <Compile Include="Global\Controllers\BodyController.cs" />

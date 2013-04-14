@@ -45,22 +45,22 @@ namespace VertexArmy.Global.Controllers
 				_lastScrollValue = Mouse.GetState().ScrollWheelValue;
 			}
 
-			Vector3 direction = new Vector3( Mouse.GetState().X, Mouse.GetState().Y, 0f );
-			direction -= _screen;
+			Vector3 relativePosition = new Vector3( Mouse.GetState().X, Mouse.GetState().Y, 0f );
+			relativePosition -= _screen;
 
-			if ( Math.Abs( direction.X ) < _error.X && Math.Abs( direction.Y ) < _error.Y )
+			if ( Math.Abs( relativePosition.X ) < _error.X && Math.Abs( relativePosition.Y ) < _error.Y )
 			{
 				return;
 			}
-			if ( Math.Abs( direction.X ) > _error2.X || Math.Abs( direction.Y ) > _error2.Y )
+			if ( Math.Abs( relativePosition.X ) > _error2.X || Math.Abs( relativePosition.Y ) > _error2.Y )
 			{
 				return;
 			}
 
-			direction *= new Vector3( 1f, -1f, 0f );
-			direction *= ( float ) dt.ElapsedGameTime.TotalSeconds;
+			relativePosition *= new Vector3( 1f, -1f, 0f );
+			relativePosition *= ( float ) dt.ElapsedGameTime.TotalSeconds;
 
-			Vector3 lookingPosition = camera.Parent.GetPosition() + direction;
+			Vector3 lookingPosition = camera.Parent.GetPosition() + relativePosition;
 			camera.Parent.SetPosition( lookingPosition );
 		}
 

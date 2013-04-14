@@ -192,6 +192,7 @@
     <Compile Include="Global\Managers\CursorManager.cs" />
     <Compile Include="Global\Managers\ControllerRepository.cs" />
     <Compile Include="Global\Settings.cs" />
+    <Compile Include="Global\ShapeListeners\HintShapeListener.cs" />
     <Compile Include="Graphics\Attachables\Attachable.cs" />
     <Compile Include="Graphics\Attachables\CameraAttachable.cs" />
     <Compile Include="Graphics\Attachables\SafAttachable.cs" />

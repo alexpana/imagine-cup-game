@@ -10,7 +10,8 @@ namespace VertexArmy.Global.Managers
 {
 	public class HintManager : IUpdatable
 	{
-		private readonly List<RobotThoughtHint> _activeHints;
+		private readonly List<RobotThoughtHint> _robotThoughtHints;
+		private readonly List<FadeHint> _fadeHints;
 		private readonly SpriteBatch _spriteBatch;
 		private readonly SpriteFont _font;
 
@@ -24,9 +25,27 @@ namespace VertexArmy.Global.Managers
 
 		public HintManager()
 		{
-			_activeHints = new List<RobotThoughtHint>();
+			_fadeHints = new List<FadeHint>();
+			_robotThoughtHints = new List<RobotThoughtHint>();
 			_spriteBatch = new SpriteBatch( Platform.Instance.Device );
 			_font = Platform.Instance.Content.Load<SpriteFont>( "fonts/Impact" );
+		}
+
+		public void SpawnHint( FadeHint hint )
+		{
+			_fadeHints.Add( hint );
+		}
+
+		public FadeHint SpawnHint( string text, Vector2 position, float fadeInTime, float fadeOutTime )
+		{
+			FadeHint hint = new FadeHint( text, position, fadeInTime, fadeOutTime );
+			_fadeHints.Add( hint );
+			return hint;
+		}
+
+		public void RemoveHint ( FadeHint hint )
+		{
+			_fadeHints.Remove( hint );
 		}
 
 		public void SpawnHint( string text, Vector2 startPosition, Vector2? endPosition, float msTime, int layer = 0,
@@ -34,7 +53,7 @@ namespace VertexArmy.Global.Managers
 		{
 			if ( layer != 0 )
 			{
-				foreach ( RobotThoughtHint h in _activeHints )
+				foreach ( RobotThoughtHint h in _robotThoughtHints )
 				{
 					if ( h.Layer == layer )
 					{
@@ -47,7 +66,7 @@ namespace VertexArmy.Global.Managers
 				? new RobotThoughtHint( text, startPosition, endPosition.Value, msTime, fadeTime )
 				: new RobotThoughtHint( text, startPosition, msTime, fadeTime );
 
-			_activeHints.Add( hint );
+			_robotThoughtHints.Add( hint );
 
 			hint.Layer = layer;
 			hint.DismissedCallback = dismissedCallback;
@@ -61,10 +80,10 @@ namespace VertexArmy.Global.Managers
 
 		public void Update( GameTime gameTime )
 		{
-			lock ( _activeHints )
+			lock ( _robotThoughtHints )
 			{
 				List<RobotThoughtHint> hintsToRemove = new List<RobotThoughtHint>();
-				foreach ( var activeHint in _activeHints )
+				foreach ( var activeHint in _robotThoughtHints )
 				{
 					activeHint.Update( gameTime );
 
@@ -81,18 +100,32 @@ namespace VertexArmy.Global.Managers
 						activeHint.DismissedCallback();
 					}
 
-					_activeHints.Remove( activeHint );
+					_robotThoughtHints.Remove( activeHint );
 				}
+			}
+
+			foreach (FadeHint fadeHint in _fadeHints)
+			{
+				fadeHint.Update( gameTime );
 			}
 		}
 
 		public void Render( float dt )
 		{
-			_spriteBatch.Begin( SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullCounterClockwise, null );
+			_spriteBatch.Begin( SpriteSortMode.Immediate, BlendState.NonPremultiplied, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullCounterClockwise, null );
 
-			foreach ( var activeHint in _activeHints )
+			foreach ( var activeHint in _robotThoughtHints )
 			{
 				Render( activeHint );
+			}
+
+			foreach (FadeHint fadeHint in _fadeHints)
+			{
+				if(fadeHint.IsRenderable())
+				{
+					RenderHintBackground(fadeHint.Position, fadeHint.Lines, fadeHint.Color.A / 255f);
+					_spriteBatch.DrawString( _font, fadeHint.Text, fadeHint.Position + new Vector2( 15, 12 ), fadeHint.Color );
+				}
 			}
 
 			_spriteBatch.End();
@@ -132,9 +165,10 @@ namespace VertexArmy.Global.Managers
 			get { return _instance; }
 		}
 
-		public void Clear( )
+		public void Clear()
 		{
-			_activeHints.Clear( );
+			_fadeHints.Clear();
+			_robotThoughtHints.Clear();
 		}
 	}
 }

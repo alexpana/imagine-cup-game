@@ -49,7 +49,7 @@ namespace VertexArmy.Global.Hints
 			_timeToLiveMs = timeToLive;
 			Position = position;
 			Text = text;
-			_state = HintState.FadeIn;
+			_state = HintState.Stopped;
 			Color = color;
 			_color.A = 0;
 			_timer = 0;
@@ -58,6 +58,42 @@ namespace VertexArmy.Global.Hints
 		public bool IsRenderable()
 		{
 			return _state == HintState.Playing || _state == HintState.FadeIn || _state == HintState.FadeOut;
+		}
+
+		public void StopHintAsync()
+		{
+			switch ( _state )
+			{
+				case HintState.Playing:
+					_timer = 0;
+					_state = HintState.FadeOut;
+					break;
+			}
+		}
+
+		public void StartAsync()
+		{
+			switch ( _state )
+			{
+				case HintState.Playing:
+					_timer = 0;
+					break;
+				case HintState.FadeIn:
+					break;
+				case HintState.FadeOut:
+					break;
+				default:
+					_color.A = 0;
+					_timer = 0;
+					_state = HintState.FadeIn;
+					break;
+			}
+		}
+
+		public void StopHint()
+		{
+			_timer = 0;
+			_state = HintState.Stopped;
 		}
 
 		public void Update( GameTime time )

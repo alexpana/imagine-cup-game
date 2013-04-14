@@ -12,7 +12,9 @@ using VertexArmy.GameWorld;
 using VertexArmy.Global;
 using VertexArmy.Global.Controllers;
 using VertexArmy.Global.Controllers.Components;
+using VertexArmy.Global.Hints;
 using VertexArmy.Global.Managers;
+using VertexArmy.Global.ShapeListeners;
 using VertexArmy.Physics.DebugView;
 using VertexArmy.Utilities;
 
@@ -28,6 +30,8 @@ namespace VertexArmy.States
 
 		public GameEntity Robot;
 		public GameEntity Camera;
+
+		private WorldShapeCollisionController _wsController;
 
 		private LevelPrefab _level;
 
@@ -169,6 +173,13 @@ namespace VertexArmy.States
 			Camera = GameWorldManager.Instance.GetEntity( "camera1" );
 			Camera.SetRotation( 5f );
 			FrameUpdateManager.Instance.Register( new GravityController() );
+
+
+
+			_wsController = new WorldShapeCollisionController();
+			ControllerRepository.Instance.RegisterController( "RobotTriggerController", camControl );
+			FrameUpdateManager.Instance.Register( _wsController );
+			_wsController.SetSubject( Robot );
 		}
 
 		public void LoadTriggers()
@@ -202,11 +213,13 @@ namespace VertexArmy.States
 					new BodyTriggerAreaComponent( new Vector2( 10f, 10f ), Robot.MainBody, EndOfGameHint )
 				);
 
-			GameWorldManager.Instance.SpawnEntity( "Trigger", "hint1", new Vector3( -150, 60f, 0f ) );
-			GameWorldManager.Instance.GetEntity( "hint1" ).RegisterComponent(
-					"trigger",
-					new BodyTriggerAreaComponent( new Vector2( 10f, 10f ), Robot.MainBody, Hint1 )
-				);
+			//GameWorldManager.Instance.SpawnEntity( "Trigger", "hint1", new Vector3( -150, 60f, 0f ) );
+			//GameWorldManager.Instance.GetEntity( "hint1" ).RegisterComponent(
+				//	"trigger",
+					//new BodyTriggerAreaComponent( new Vector2( 10f, 10f ), Robot.MainBody, Hint1 )
+				//);
+
+			_wsController.Register( new HintShapeListener( new FadeHint( "Crates can be pushed around.\nTry pushing that crate towards the wall button.", new Vector2( 100, 50 ), 500f, 500f ) ), new BoundingSphere( new Vector3( -150, 60, 0f ), 200 ) );
 
 			GameWorldManager.Instance.SpawnEntity( "Trigger", "hint2", new Vector3( 320, 60f, 0f ) );
 			GameWorldManager.Instance.GetEntity( "hint2" ).RegisterComponent(

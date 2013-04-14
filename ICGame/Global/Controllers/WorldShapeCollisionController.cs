@@ -1,8 +1,6 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using VertexArmy.Global.Behaviours;
-using VertexArmy.Graphics;
-
 using RankBoundingBox = System.Collections.Generic.KeyValuePair<int, Microsoft.Xna.Framework.BoundingBox>;
 using RankBoundingSphere = System.Collections.Generic.KeyValuePair<int, Microsoft.Xna.Framework.BoundingSphere>;
 
@@ -31,24 +29,23 @@ namespace VertexArmy.Global.Controllers
 			return blist == null ? new RankBoundingSphere( -1, new BoundingSphere() ) : new RankBoundingSphere( blist.Count, sphere );
 		}
 
-		WorldShapeCollisionController()
+		public WorldShapeCollisionController()
 		{
-			Data = new List<object>( 4 );
+			Data = new List<object>( 4 ) { null, null, null, null };
 		}
-		/// <param name="node">
+		/// <param name="transformable">
 
 		/// </param>
-		public void SetSubject( SceneNode node )
+		public void SetSubject( ITransformable transformable )
 		{
-			Data[0] = node;
+			Data[0] = transformable;
 		}
 
 		private readonly Dictionary<int, IShapeListener> _boxListeners = new Dictionary<int, IShapeListener>();
 		private readonly Dictionary<int, IShapeListener> _sphereListeners = new Dictionary<int, IShapeListener>();
 
-		/// <param name="shapeListener">
-
-		/// </param>
+		/// <param name="shapeListener"> </param>
+		/// <param name="box"> </param>
 		public void Register( IShapeListener shapeListener, BoundingBox box )
 		{
 			if ( Data[1] == null )
@@ -77,13 +74,13 @@ namespace VertexArmy.Global.Controllers
 			( ( List<IShapeListener> ) Data[1] ).Add( shapeListener );
 		}
 
-		private readonly List<RankBoundingBox> _insideBBox = new List<RankBoundingBox>();
-		private readonly List<RankBoundingSphere> _insideBSphere = new List<RankBoundingSphere>();
+		private List<RankBoundingBox> _insideBBox = new List<RankBoundingBox>();
+		private List<RankBoundingSphere> _insideBSphere = new List<RankBoundingSphere>();
 
 
 		private void UpdateBoxIntersections()
 		{
-			SceneNode node = Data[0] as SceneNode;
+			ITransformable node = Data[0] as ITransformable;
 
 			if ( node == null )
 				return;
@@ -101,7 +98,7 @@ namespace VertexArmy.Global.Controllers
 
 				foreach ( RankBoundingBox boundingBox in boxlist )
 				{
-					if ( boundingBox.Value.Contains( node.GetAbsolutePosition() ) != ContainmentType.Disjoint )
+					if ( boundingBox.Value.Contains( node.GetPosition() ) != ContainmentType.Disjoint )
 						currentIntersection.Add( boundingBox );
 				}
 
@@ -154,12 +151,13 @@ namespace VertexArmy.Global.Controllers
 				{
 					_boxListeners[keyValuePair.Key].OnEachFrameInsideShape();
 				}
+				_insideBBox = currentIntersection;
 			}
 		}
 
 		private void UpdateSphereIntersections()
 		{
-			SceneNode node = Data[0] as SceneNode;
+			ITransformable node = Data[0] as ITransformable;
 
 			if ( node == null )
 				return;
@@ -178,7 +176,7 @@ namespace VertexArmy.Global.Controllers
 
 				foreach ( RankBoundingSphere boundingSphere in spherelist )
 				{
-					if ( boundingSphere.Value.Contains( node.GetAbsolutePosition() ) != ContainmentType.Disjoint )
+					if ( boundingSphere.Value.Contains( node.GetPosition() ) != ContainmentType.Disjoint )
 						currentIntersection.Add( boundingSphere );
 				}
 
@@ -214,7 +212,7 @@ namespace VertexArmy.Global.Controllers
 				while ( i < currentIntersection.Count )
 					enterSpheres.Add( currentIntersection[i++] );
 
-				while ( j < _insideBBox.Count )
+				while ( j < _insideBSphere.Count )
 					exitSpheres.Add( _insideBSphere[j++] );
 
 				foreach ( RankBoundingSphere keyValuePair in enterSpheres )
@@ -231,9 +229,10 @@ namespace VertexArmy.Global.Controllers
 				{
 					_sphereListeners[keyValuePair.Key].OnEachFrameInsideShape();
 				}
+				_insideBSphere = currentIntersection;
 			}
 		}
-
+		
 		public void Update( GameTime dt )
 		{
 			if ( Data == null )
@@ -252,7 +251,7 @@ namespace VertexArmy.Global.Controllers
 		public List<object> Data { get; set; }
 		public void Clean()
 		{
-			throw new System.NotImplementedException();
+			
 		}
 	}
 }

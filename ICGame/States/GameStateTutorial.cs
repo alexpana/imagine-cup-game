@@ -195,17 +195,22 @@ namespace VertexArmy.States
 			FrameUpdateManager.Instance.Register( ControllerRepository.Instance.GetController( "upgradeCube1Controller" ) );
 
 
-			GameWorldManager.Instance.SpawnEntity( "Trigger", "death1", new Vector3( 1492, 60f, 0f ) );
-			GameWorldManager.Instance.GetEntity( "death1" ).RegisterComponent(
-					"trigger",
-					new BodyTriggerAreaComponent( new Vector2( 10f, 10f ), Robot.MainBody, ShowIsBlockedHint )
-				);
 
-			GameWorldManager.Instance.SpawnEntity( "Trigger", "death2", new Vector3( 2455, -60f, 0f ) );
-			GameWorldManager.Instance.GetEntity( "death2" ).RegisterComponent(
-					"trigger",
-					new BodyTriggerAreaComponent( new Vector2( 10f, 10f ), Robot.MainBody, ShowIsBlockedHint )
-				);
+			_wsController.Register( new HintShapeListener( new FadeHint( "It seems you are blocked.\nPress the 'R' key to reset your position.", new Vector2( 100, 50 ), 500f, 500f )), new BoundingSphere( new Vector3( 1492, 30f, 0f ), 90 ) );
+			_wsController.Register( new HintShapeListener( new FadeHint( "It seems you are blocked.\nPress the 'R' key to reset your position.", new Vector2( 100, 50 ), 500f, 500f )), new BoundingSphere( new Vector3( 2455, -90f, 0f ), 90 ) );
+
+			
+			//GameWorldManager.Instance.SpawnEntity( "Trigger", "death1", new Vector3( 1492, 60f, 0f ) );
+			//GameWorldManager.Instance.GetEntity( "death1" ).RegisterComponent(
+					//"trigger",
+					//new BodyTriggerAreaComponent( new Vector2( 10f, 10f ), Robot.MainBody, ShowIsBlockedHint )
+				//);
+
+			//GameWorldManager.Instance.SpawnEntity( "Trigger", "death2", new Vector3( 2455, -60f, 0f ) );
+			//GameWorldManager.Instance.GetEntity( "death2" ).RegisterComponent(
+				//	"trigger",
+					//new BodyTriggerAreaComponent( new Vector2( 10f, 10f ), Robot.MainBody, ShowIsBlockedHint )
+				//);
 
 			GameWorldManager.Instance.SpawnEntity( "Trigger", "endGame", new Vector3( 3500, 30f, 0f ) );
 			GameWorldManager.Instance.GetEntity( "endGame" ).RegisterComponent(
@@ -219,25 +224,48 @@ namespace VertexArmy.States
 					//new BodyTriggerAreaComponent( new Vector2( 10f, 10f ), Robot.MainBody, Hint1 )
 				//);
 
-			_wsController.Register( new HintShapeListener( new FadeHint( "Crates can be pushed around.\nTry pushing that crate towards the wall button.", new Vector2( 100, 50 ), 500f, 500f ), true ), new BoundingSphere( new Vector3( -150, 60, 0f ), 200 ) );
+			_wsController.Register( 
+				new HintShapeListener ( new FadeHint( "Crates can be pushed around.\nTry pushing that crate towards the wall button.", new Vector2( 100, 50 ), 2000f, 500f, 500f ), true ), 
+				new BoundingSphere( new Vector3( -150, 60, 0f ), 200 ) );
+			
+			_wsController.Register( 
+				new HintShapeListener( new FadeHint( "Step onto the platform ahead for an upgrade.", new Vector2( 100, 100 ), 500f, 500f ), true ), 
+				new BoundingSphere( new Vector3( 320, 60f, 0f ), 150 ) );
 
-			GameWorldManager.Instance.SpawnEntity( "Trigger", "hint2", new Vector3( 320, 60f, 0f ) );
-			GameWorldManager.Instance.GetEntity( "hint2" ).RegisterComponent(
-					"trigger",
-					new BodyTriggerAreaComponent( new Vector2( 10f, 10f ), Robot.MainBody, Hint2 )
-				);
+			_wsController.Register(
+				new HintShapeListener( new FadeHint( "Sometimes you can get stuck.\nPress R to reverse to the last checkpoint.", new Vector2( 100, 100 ), 2000f, 500f, 500f ), true ),
+				new BoundingSphere( new Vector3( 1200, 150f, 0f ), 200 ) );
 
-			GameWorldManager.Instance.SpawnEntity( "Trigger", "hint3", new Vector3( 1200, 150f, 0f ) );
-			GameWorldManager.Instance.GetEntity( "hint3" ).RegisterComponent(
-					"trigger",
-					new BodyTriggerAreaComponent( new Vector2( 10f, 10f ), Robot.MainBody, Hint3 )
-				);
+			_wsController.Register(
+				new HintShapeListener( new FadeHint( "Some puzzles can be harder to overcome.\nRemember to press R in case you get stuck.", new Vector2( 100, 100 ), 2000f, 500f, 500f ), true ),
+				new BoundingSphere( new Vector3( 1900, 150f, 0f ), 200 ) );
 
-			GameWorldManager.Instance.SpawnEntity( "Trigger", "hint4", new Vector3( 1900, 150f, 0f ) );
-			GameWorldManager.Instance.GetEntity( "hint4" ).RegisterComponent(
-					"trigger",
-					new BodyTriggerAreaComponent( new Vector2( 10f, 10f ), Robot.MainBody, Hint4 )
-				);
+			_wsController.Register(
+				new HintShapeListener( new FadeHint( "Press Mouse1 to pull objects towards the robot. \nPress Mouse2 to push away objects from the robot.", new Vector2( 100, 100 ), 500f, 500f ), true ),
+				new BoundingSphere( new Vector3( 620f, 70f, 0f ), 100 ) );
+
+
+
+			//	string Text = "Press Mouse1 to pull objects towards the robot. \nPress Mouse2 to push away objects from the robot.";
+			//	HintManager.Instance.SpawnHint( Text, new Vector2( 100, 100 ), 7000, 1 );
+
+			//GameWorldManager.Instance.SpawnEntity( "Trigger", "hint2", new Vector3( 320, 60f, 0f ) );
+			//GameWorldManager.Instance.GetEntity( "hint2" ).RegisterComponent(
+				//	"trigger",
+					//new BodyTriggerAreaComponent( new Vector2( 10f, 10f ), Robot.MainBody, Hint2 )
+				//);
+
+			//GameWorldManager.Instance.SpawnEntity( "Trigger", "hint3", new Vector3( 1200, 150f, 0f ) );
+			//GameWorldManager.Instance.GetEntity( "hint3" ).RegisterComponent(
+				//	"trigger",
+					//new BodyTriggerAreaComponent( new Vector2( 10f, 10f ), Robot.MainBody, Hint3 )
+				//);
+
+			//GameWorldManager.Instance.SpawnEntity( "Trigger", "hint4", new Vector3( 1900, 150f, 0f ) );
+			//GameWorldManager.Instance.GetEntity( "hint4" ).RegisterComponent(
+				//	"trigger",
+					//new BodyTriggerAreaComponent( new Vector2( 10f, 10f ), Robot.MainBody, Hint4 )
+				//);
 		}
 
 		public void LoadLevel()
@@ -302,6 +330,7 @@ namespace VertexArmy.States
 		{
 			_hint1 = _hint2 = _hint3 = _hint4 = _endOfGameHintShown = _blockedHintShown = false;
 			HintManager.Instance.Clear();
+			_wsController.Clean();
 			GameWorldManager.Instance.LoadLastState();
 		}
 
@@ -315,8 +344,8 @@ namespace VertexArmy.States
 
 				Robot.RegisterComponent( "force", new SentientForceComponent() );
 				GameWorldManager.Instance.SaveState();
-				string Text = "Press Mouse1 to pull objects towards the robot. \nPress Mouse2 to push away objects from the robot.";
-				HintManager.Instance.SpawnHint( Text, new Vector2( 100, 100 ), 7000, 1 );
+			//	string Text = "Press Mouse1 to pull objects towards the robot. \nPress Mouse2 to push away objects from the robot.";
+			//	HintManager.Instance.SpawnHint( Text, new Vector2( 100, 100 ), 7000, 1 );
 			}
 		}
 

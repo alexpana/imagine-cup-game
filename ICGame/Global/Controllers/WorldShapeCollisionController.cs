@@ -251,7 +251,8 @@ namespace VertexArmy.Global.Controllers
 		public List<object> Data { get; set; }
 		public void Clean()
 		{
-			
+			_insideBBox.Clear();
+			_insideBSphere.Clear();
 		}
 	}
 }

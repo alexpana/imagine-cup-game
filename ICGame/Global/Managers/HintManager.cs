@@ -33,7 +33,8 @@ namespace VertexArmy.Global.Managers
 
 		public void SpawnHint( FadeHint hint )
 		{
-			_fadeHints.Add( hint );
+			if(!_fadeHints.Contains(hint))
+				_fadeHints.Add( hint );
 		}
 
 		public FadeHint SpawnHint( string text, Vector2 position, float fadeInTime, float fadeOutTime )
@@ -123,8 +124,9 @@ namespace VertexArmy.Global.Managers
 			{
 				if(fadeHint.IsRenderable())
 				{
-					RenderHintBackground(fadeHint.Position, fadeHint.Lines, fadeHint.Color.A / 255f);
-					_spriteBatch.DrawString( _font, fadeHint.Text, fadeHint.Position + new Vector2( 15, 12 ), fadeHint.Color );
+					Vector2 offset = new Vector2( 20, 16 );
+					RenderHintBackground(fadeHint.Position - offset, fadeHint.Lines, fadeHint.Color.A / 255f);
+					_spriteBatch.DrawString( _font, fadeHint.Text, fadeHint.Position, fadeHint.Color );
 				}
 			}
 

@@ -24,11 +24,11 @@ namespace VertexArmy.Global.ShapeListeners
 		{
 			_hint = hint;
 			_onlyOnce = onlyOnce;
-			HintManager.Instance.SpawnHint( hint );
 		}
 
 		public void OnEnterShape()
 		{
+			HintManager.Instance.SpawnHint( _hint );
 			if( _onlyOnce && _timesPlayed == 0 )
 				_hint.StartAsync();
 			else if (!_onlyOnce)

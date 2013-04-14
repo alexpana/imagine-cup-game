@@ -37,7 +37,7 @@ namespace VertexArmy.Global.Managers
 
 		public LevelPrefab GetLevelPrefab( string filepath )
 		{
-			if ( File.Exists( filepath ) )
+			try
 			{
 				LevelPrefab level;
 				using ( Stream stream = TitleContainer.OpenStream( filepath ) )
@@ -48,8 +48,11 @@ namespace VertexArmy.Global.Managers
 
 				return level;
 			}
+			catch ( FileNotFoundException )
+			{
 
-			return new LevelPrefab { filepath = filepath };
+				return new LevelPrefab { filepath = filepath };
+			}
 		}
 
 

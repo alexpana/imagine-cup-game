@@ -846,17 +846,18 @@
     <Content Include="..\ContentBuild\effects\v4\wall.mgfxo">
       <Link>Content\effects\wall.mgfxo</Link>
     </Content>
-    <None Include="..\ICGame\Content\Levels\level1.eql">
+    <Content Include="..\ICGame\Content\Levels\level1.eql">
       <Link>Content\Levels\level1.eql</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="..\ICGame\Content\Levels\level2.eql">
+    </Content>
+    <Content Include="..\ICGame\Content\Levels\level2.eql">
       <Link>Content\Levels\level2.eql</Link>
-    </None>
-    <None Include="..\ICGame\Content\Levels\tutorial.level">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\ICGame\Content\Levels\tutorial.level">
       <Link>Content\Levels\tutorial.level</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    </Content>
     <None Include="Equitrilium.Windows8_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>

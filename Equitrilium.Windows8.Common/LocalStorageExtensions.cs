@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using Windows.Storage;
 
 namespace VertexArmy.Windows8
@@ -19,6 +20,20 @@ namespace VertexArmy.Windows8
 			task.Wait();
 
 			return task.Result;
+		}
+
+		public static bool FileExists( string fileName )
+		{
+			try
+			{
+				var fileTask = ApplicationData.Current.LocalFolder.GetFileAsync( fileName );
+				fileTask.AsTask().Wait();
+				return true;
+			}
+			catch
+			{
+				return false;
+			}
 		}
 	}
 }

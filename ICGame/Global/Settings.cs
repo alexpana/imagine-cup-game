@@ -71,7 +71,7 @@ namespace VertexArmy.Global
 
 		public void Load( string fileName = "Settings.txt" )
 		{
-			if ( !File.Exists( fileName ) )
+			if ( !LocalStorageExtensions.FileExists( fileName ) )
 			{
 				Save( fileName );
 			}
@@ -81,7 +81,7 @@ namespace VertexArmy.Global
 #if WINDOWS
 				using ( var stream = new FileStream( fileName, FileMode.OpenOrCreate ) )
 #else
-				using ( var stream = LocalStorageExtensions.OpenStreamForRead( fileName) )
+				using ( var stream = LocalStorageExtensions.OpenStreamForRead( fileName ) )
 #endif
 				{
 					using ( StreamReader sr = new StreamReader( stream ) )

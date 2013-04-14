@@ -32,7 +32,7 @@ for /r %%i in (ICGameContent\effects\*.fx) do (
 	rem SHADER MODEL < 4.0
 	call :do_conversion !EffInPath! !EffOutPath!
 	
-	rm ContentBuild\effects\%%~ni.xnb
+	if exist ContentBuild\effects\%%~ni.xnb rm ContentBuild\effects\%%~ni.xnb
 )
 
 echo [Compile Content Phase] ---- Cleanup ...
@@ -44,8 +44,9 @@ goto :success
 rem FUNCTIONS
 :do_conversion <fx> <mgfxo> <extraparams> (
 	if "%~t1" == "%~t2" goto :return
-	for /F %%i in ('dir /B /O:D %1 %2') do set newest=%%i
-	if "%newest%" == "%~n2%~x2" goto :return
+	rem TODO: fix this
+	rem for /F %%i in ('dir /B /O:D %1 %2') do set newest=%%i
+	rem if "%newest%" == "%~n2%~x2" goto :return
 	rem echo Converting "%1" to mgfxo... ( with params: %3)
 	
 	%MGFXTOOL% %1 %2 %3

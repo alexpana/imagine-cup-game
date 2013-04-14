@@ -27,13 +27,13 @@ sampler SpotsSampler = sampler_state {
 
 struct VertexShaderInput
 {
-    float4 Position : POSITION0;
+    float4 Position : SV_Position;
 	float2 TexCoord : TEXCOORD0;
 };
 
 struct VertexShaderOutput
 {
-    float4 Position : POSITION0;
+    float4 Position : SV_Position;
 	float2 TexCoord : TEXCOORD0;
 };
 

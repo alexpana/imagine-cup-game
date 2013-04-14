@@ -10,7 +10,7 @@ float blurDistance;
 
 struct VertexShaderInput
 {
-    float4 Position : POSITION0;
+    float4 Position : SV_Position;
 	float2 Texcoord : TEXCOORD0;
 };
 

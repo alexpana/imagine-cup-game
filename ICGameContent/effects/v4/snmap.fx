@@ -9,7 +9,7 @@ float2 uvScale;
 
 struct VertexShaderInput
 {
-    float4 Position : POSITION0;
+    float4 Position : SV_Position;
 	float3 Normal : NORMAL0;
 	float3 Tangent : TANGENT0;
 	float2 Texcoord : TEXCOORD0;

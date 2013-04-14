@@ -13,7 +13,7 @@ sampler TextureSampler = sampler_state
 
 struct VertexShaderInput
 {
-    float4 Position : POSITION0;
+    float4 Position : SV_Position;
 
     // TODO: add input channels such as texture
     // coordinates and vertex colors here.
@@ -21,7 +21,7 @@ struct VertexShaderInput
 
 struct VertexShaderOutput
 {
-    float4 Position : POSITION0;
+    float4 Position : SV_Position;
 
     // TODO: add vertex shader outputs such as colors and texture
     // coordinates here. These values will automatically be interpolated

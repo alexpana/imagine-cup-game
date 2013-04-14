@@ -232,6 +232,9 @@
     <Compile Include="..\ICGame\Global\Behaviours\IParameter.cs">
       <Link>Global\Behaviours\IParameter.cs</Link>
     </Compile>
+    <Compile Include="..\ICGame\Global\Behaviours\IShapeListener.cs">
+      <Link>Global\Behaviours\IShapeListener.cs</Link>
+    </Compile>
     <Compile Include="..\ICGame\Global\Behaviours\ITransformable.cs">
       <Link>Global\Behaviours\ITransformable.cs</Link>
     </Compile>
@@ -280,6 +283,9 @@
     <Compile Include="..\ICGame\Global\Controllers\LineJointController.cs">
       <Link>Global\Controllers\LineJointController.cs</Link>
     </Compile>
+    <Compile Include="..\ICGame\Global\Controllers\OrbitCameraController.cs">
+      <Link>Global\Controllers\OrbitCameraController.cs</Link>
+    </Compile>
     <Compile Include="..\ICGame\Global\Controllers\RelativeController.cs">
       <Link>Global\Controllers\RelativeController.cs</Link>
     </Compile>
@@ -324,6 +330,9 @@
     </Compile>
     <Compile Include="..\ICGame\Global\Settings.cs">
       <Link>Global\Settings.cs</Link>
+    </Compile>
+    <Compile Include="..\ICGame\Global\ShapeListeners\HintShapeListener.cs">
+      <Link>Global\ShapeListeners\HintShapeListener.cs</Link>
     </Compile>
     <Compile Include="..\ICGame\Graphics\Attachables\Attachable.cs">
       <Link>Graphics\Attachables\Attachable.cs</Link>

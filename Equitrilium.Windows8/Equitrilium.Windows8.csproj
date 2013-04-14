@@ -858,6 +858,10 @@
       <Link>Content\Levels\tutorial.level</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="..\ContentBuild\effects\v4\saf.mgfxo">
+      <Link>Content\effects\saf.mgfxo</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="Equitrilium.Windows8_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>

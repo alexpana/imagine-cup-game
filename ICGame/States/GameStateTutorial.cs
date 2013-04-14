@@ -20,7 +20,7 @@ namespace VertexArmy.States
 {
 	internal class GameStateTutorial : PlayableGameState
 	{
-		private ContentManager _contentManager;
+		private readonly ContentManager _contentManager;
 
 		private DebugViewXNA _debugView;
 		private Matrix _projection;
@@ -31,11 +31,9 @@ namespace VertexArmy.States
 
 		private LevelPrefab _level;
 
-		private bool _actionReset;
-		private bool _actionToggleDebugView;
 		private bool _debugViewState;
 
-		private bool _hint1, _hint2, _hint3, _hint4, _endOfGameHintShown;
+		private bool _hint1, _hint2, _hint3, _hint4, _endOfGameHintShown, _blockedHintShown;
 
 		public GameStateTutorial( ContentManager content )
 		{
@@ -52,16 +50,15 @@ namespace VertexArmy.States
 				Hint1();
 			}
 #endif
-
 			if ( Robot != null )
 			{
 
 				if ( Robot.GetPosition().Y < -2000 )
 				{
-					GameWorldManager.Instance.LoadLastState();
+					ResetGameState();
 				}
 #if ALLOW_HACKS
-				if ( Keyboard.GetState( PlayerIndex.One ).IsKeyDown( Keys.Up ) )
+				if ( Platform.Instance.Input.IsKeyPressed( Keys.Up ) )
 				{
 					if ( Robot.PhysicsEntity.GetCollisionLayer().Equals( Category.Cat1 ) )
 					{
@@ -70,7 +67,7 @@ namespace VertexArmy.States
 						Robot.SetPosition( new Vector3( position.X, position.Y, -800 ) );
 					}
 				}
-				if ( Keyboard.GetState( PlayerIndex.One ).IsKeyDown( Keys.Down ) )
+				if ( Platform.Instance.Input.IsKeyPressed( Keys.Down ) )
 				{
 					if ( Robot.PhysicsEntity.GetCollisionLayer().Equals( Category.Cat2 ) )
 					{
@@ -81,33 +78,15 @@ namespace VertexArmy.States
 				}
 #endif
 
-				if ( Keyboard.GetState( PlayerIndex.One ).IsKeyDown( Keys.R ) )
+				if ( Platform.Instance.Input.IsKeyPressed( Keys.R, false ) )
 				{
-					if ( !_actionReset )
-					{
-						GameWorldManager.Instance.LoadLastState();
-						_actionReset = true;
-					}
-				}
-
-				if ( Keyboard.GetState( PlayerIndex.One ).IsKeyUp( Keys.R ) )
-				{
-					_actionReset = false;
+					ResetGameState();
 				}
 			}
 #if ALLOW_HACKS
-			if ( Keyboard.GetState( PlayerIndex.One ).IsKeyDown( Keys.D ) )
+			if ( Platform.Instance.Input.IsKeyPressed( Keys.D, false ) )
 			{
-				if ( !_actionToggleDebugView )
-				{
-					_debugViewState = !_debugViewState;
-					_actionToggleDebugView = true;
-				}
-			}
-
-			if ( Keyboard.GetState( PlayerIndex.One ).IsKeyUp( Keys.D ) )
-			{
-				_actionToggleDebugView = false;
+				_debugViewState = !_debugViewState;
 			}
 #endif
 
@@ -134,8 +113,6 @@ namespace VertexArmy.States
 				_debugView.DrawString( 1, 39, "Mouse:" + Mouse.GetState().X + ", " + Mouse.GetState().Y );
 				_debugView.RenderDebugData( ref _projection, ref _view );
 			}
-
-
 		}
 
 		public void LoadStatics()
@@ -180,11 +157,12 @@ namespace VertexArmy.States
 
 			Robot.RegisterComponent(
 				"control",
-				new CarControlComponent( new List<string> { "GearJoint1", "GearJoint2", "GearJoint3" }, new List<float>() { 7f, 7f, 7f } )
+				new CarControlComponent(
+					new List<string> { "GearJoint1", "GearJoint2", "GearJoint3" }, new List<float> { 7f, 7f, 7f } )
 				);
 
 
-			OrbitCameraController camControl = new OrbitCameraController( Robot, SceneManager.Instance.GetCurrentCamera( ) );
+			OrbitCameraController camControl = new OrbitCameraController( Robot, SceneManager.Instance.GetCurrentCamera() );
 			ControllerRepository.Instance.RegisterController( "camcontrol", camControl );
 			FrameUpdateManager.Instance.Register( camControl );
 
@@ -209,13 +187,13 @@ namespace VertexArmy.States
 			GameWorldManager.Instance.SpawnEntity( "Trigger", "death1", new Vector3( 1492, 60f, 0f ) );
 			GameWorldManager.Instance.GetEntity( "death1" ).RegisterComponent(
 					"trigger",
-					new BodyTriggerAreaComponent( new Vector2( 10f, 10f ), Robot.MainBody, LoadLastSateCallback )
+					new BodyTriggerAreaComponent( new Vector2( 10f, 10f ), Robot.MainBody, ShowIsBlockedHint )
 				);
 
 			GameWorldManager.Instance.SpawnEntity( "Trigger", "death2", new Vector3( 2455, -60f, 0f ) );
 			GameWorldManager.Instance.GetEntity( "death2" ).RegisterComponent(
 					"trigger",
-					new BodyTriggerAreaComponent( new Vector2( 10f, 10f ), Robot.MainBody, LoadLastSateCallback )
+					new BodyTriggerAreaComponent( new Vector2( 10f, 10f ), Robot.MainBody, ShowIsBlockedHint )
 				);
 
 			GameWorldManager.Instance.SpawnEntity( "Trigger", "endGame", new Vector3( 3500, 30f, 0f ) );
@@ -272,10 +250,7 @@ namespace VertexArmy.States
 			FrameUpdateManager.Instance.Register( HintManager.Instance );
 
 			_hint1 = _hint2 = _hint3 = _hint4 = false;
-			_actionReset = false;
 			_debugViewState = false;
-			_actionToggleDebugView = false;
-
 
 			_debugView = new DebugViewXNA( Platform.Instance.PhysicsWorld );
 
@@ -310,6 +285,12 @@ namespace VertexArmy.States
 			HintManager.Instance.Clear();
 		}
 
+		private void ResetGameState()
+		{
+			HintManager.Instance.Clear();
+			GameWorldManager.Instance.LoadLastState();
+		}
+
 		public void UpgradeCube1Callback()
 		{
 			if ( Robot.GetComponent( "force" ) == null )
@@ -325,9 +306,12 @@ namespace VertexArmy.States
 			}
 		}
 
-		public void LoadLastSateCallback()
+		private void ShowIsBlockedHint()
 		{
-			GameWorldManager.Instance.LoadLastState();
+			if ( _blockedHintShown ) { return; }
+
+			_blockedHintShown = true;
+			HintManager.Instance.SpawnHint( "It seems you are blocked.\nPress the 'R' key to reset your position.", new Vector2( 100, 100 ), 5000, 1 );
 		}
 
 		private void EndOfGameHint()

@@ -145,6 +145,7 @@
     <Compile Include="GameWorld\Prefabs\Structs\ControllerType.cs" />
     <Compile Include="GameWorld\Prefabs\Structs\ControllerPrefab.cs" />
     <Compile Include="GameWorld\Prefabs\Structs\SafSceneNodePrefab.cs" />
+    <Compile Include="Global\Behaviours\IShapeListener.cs" />
     <Compile Include="Global\Behaviours\IUpdatable.cs" />
     <Compile Include="Content\Prefabs\CameraPrefab.cs" />
     <Compile Include="Content\Prefabs\SimpleMeshPrefab.cs" />
@@ -180,6 +181,7 @@
     <Compile Include="Global\Controllers\RelativeController.cs" />
     <Compile Include="Global\Behaviours\IController.cs" />
     <Compile Include="Global\Controllers\BodyController.cs" />
+    <Compile Include="Global\Controllers\WorldShapeCollisionController.cs" />
     <Compile Include="Global\Managers\Hint.cs" />
     <Compile Include="Global\Managers\HintManager.cs" />
     <Compile Include="Global\Managers\InGameMenuManager.cs" />

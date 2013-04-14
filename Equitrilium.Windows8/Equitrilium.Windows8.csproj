@@ -807,61 +807,44 @@
       <Link>Content\sounds\metalhit2.xnb</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\ContentBuild\effects\blur.mgfxo">
+    <Content Include="..\ContentBuild\effects\v4\blur.mgfxo">
       <Link>Content\effects\blur.mgfxo</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\ContentBuild\effects\cel.mgfxo">
+    <Content Include="..\ContentBuild\effects\v4\cel.mgfxo">
       <Link>Content\effects\cel.mgfxo</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\ContentBuild\effects\CubeMaterial.mgfxo">
+    <Content Include="..\ContentBuild\effects\v4\CubeMaterial.mgfxo">
       <Link>Content\effects\CubeMaterial.mgfxo</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\ContentBuild\effects\depth.mgfxo">
+    <Content Include="..\ContentBuild\effects\v4\depth.mgfxo">
       <Link>Content\effects\depth.mgfxo</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\ContentBuild\effects\depthoffield.mgfxo">
+    <Content Include="..\ContentBuild\effects\v4\depthoffield.mgfxo">
       <Link>Content\effects\depthoffield.mgfxo</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\ContentBuild\effects\highlight.mgfxo">
+    <Content Include="..\ContentBuild\effects\v4\highlight.mgfxo">
       <Link>Content\effects\highlight.mgfxo</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\ContentBuild\effects\robo.mgfxo">
+    <Content Include="..\ContentBuild\effects\v4\robo.mgfxo">
       <Link>Content\effects\robo.mgfxo</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\ContentBuild\effects\saf.mgfxo">
-      <Link>Content\effects\saf.mgfxo</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\ContentBuild\effects\sepia.mgfxo">
+    <Content Include="..\ContentBuild\effects\v4\sepia.mgfxo">
       <Link>Content\effects\sepia.mgfxo</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\ContentBuild\effects\snmap.mgfxo">
+    <Content Include="..\ContentBuild\effects\v4\snmap.mgfxo">
       <Link>Content\effects\snmap.mgfxo</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\ContentBuild\effects\snmap_menu.mgfxo">
+    <Content Include="..\ContentBuild\effects\v4\snmap_menu.mgfxo">
       <Link>Content\effects\snmap_menu.mgfxo</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\ContentBuild\effects\snmap_menu_flat.mgfxo">
+    <Content Include="..\ContentBuild\effects\v4\snmap_menu_flat.mgfxo">
       <Link>Content\effects\snmap_menu_flat.mgfxo</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\ContentBuild\effects\textured.mgfxo">
+    <Content Include="..\ContentBuild\effects\v4\textured.mgfxo">
       <Link>Content\effects\textured.mgfxo</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\ContentBuild\effects\wall.mgfxo">
+    <Content Include="..\ContentBuild\effects\v4\wall.mgfxo">
       <Link>Content\effects\wall.mgfxo</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="..\ICGame\Content\Levels\level1.eql">
       <Link>Content\Levels\level1.eql</Link>

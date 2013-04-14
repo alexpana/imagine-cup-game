@@ -219,7 +219,7 @@ namespace VertexArmy.States
 					//new BodyTriggerAreaComponent( new Vector2( 10f, 10f ), Robot.MainBody, Hint1 )
 				//);
 
-			_wsController.Register( new HintShapeListener( new FadeHint( "Crates can be pushed around.\nTry pushing that crate towards the wall button.", new Vector2( 100, 50 ), 500f, 500f ) ), new BoundingSphere( new Vector3( -150, 60, 0f ), 200 ) );
+			_wsController.Register( new HintShapeListener( new FadeHint( "Crates can be pushed around.\nTry pushing that crate towards the wall button.", new Vector2( 100, 50 ), 500f, 500f ), true ), new BoundingSphere( new Vector3( -150, 60, 0f ), 200 ) );
 
 			GameWorldManager.Instance.SpawnEntity( "Trigger", "hint2", new Vector3( 320, 60f, 0f ) );
 			GameWorldManager.Instance.GetEntity( "hint2" ).RegisterComponent(

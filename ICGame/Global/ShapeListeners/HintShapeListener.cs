@@ -7,17 +7,34 @@ namespace VertexArmy.Global.ShapeListeners
 {
 	class HintShapeListener : IShapeListener
 	{
-		private FadeHint _hint;
+		private readonly FadeHint _hint;
+		private readonly bool _onlyOnce;
+
+		private int _timesPlayed;
+
 		public HintShapeListener ( FadeHint hint )
 		{
+			_timesPlayed = 0;
+			_onlyOnce = false;
 			_hint = hint;
+			HintManager.Instance.SpawnHint( hint );
+		}
+
+		public HintShapeListener( FadeHint hint, bool onlyOnce )
+		{
+			_hint = hint;
+			_onlyOnce = onlyOnce;
 			HintManager.Instance.SpawnHint( hint );
 		}
 
 		public void OnEnterShape()
 		{
-			if(_hint != null)
+			if( _onlyOnce && _timesPlayed == 0 )
 				_hint.StartAsync();
+			else if (!_onlyOnce)
+				_hint.StartAsync();
+
+			_timesPlayed++;
 		}
 
 		public void OnExitShape()

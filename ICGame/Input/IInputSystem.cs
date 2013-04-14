@@ -17,6 +17,7 @@ namespace VertexArmy.Input
 
 		Vector2 PointerPosition { get; }
 		Vector2 PointerDelta { get; }
+		int ScrollDelta { get; }
 
 		bool IsKeyPressed( Keys key, bool continuous = true );
 	}

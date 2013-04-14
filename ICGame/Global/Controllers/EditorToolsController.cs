@@ -33,7 +33,6 @@ namespace VertexArmy.Global.Controllers
 		private Vector3 _relative;
 		private int _selectedPrefab;
 		private List<string> _prefabs;
-		private float _lastScrollValue;
 
 		private GameEntity _selectedEntity;
 		private GameEntity _tryEntity;
@@ -57,7 +56,6 @@ namespace VertexArmy.Global.Controllers
 			_externalRotateTime = -1;
 			_prefabs = new List<string>( PrefabRepository.Instance.PrefabNames );
 			_selectedPrefab = 0;
-			_lastScrollValue = Mouse.GetState().ScrollWheelValue;
 			_lastLayerSelected = Category.Cat1;
 			_lastSelectedZ = 0f;
 			_specialRotation = ( float ) ( Math.PI / 6f );
@@ -416,9 +414,10 @@ namespace VertexArmy.Global.Controllers
 		{
 			if ( _state.Equals( EditorState.None ) && Keyboard.GetState().IsKeyDown( Keys.C ) )
 			{
-				if ( Mouse.GetState().ScrollWheelValue != _lastScrollValue )
+				int scrollDelta = _inputSystem.ScrollDelta;
+				if ( scrollDelta != 0 )
 				{
-					double scrollDirection = ( Mouse.GetState().ScrollWheelValue - _lastScrollValue ) / 120;
+					double scrollDirection = scrollDelta / 120.0;
 					int direction;
 					if ( scrollDirection < 0 )
 					{
@@ -428,7 +427,6 @@ namespace VertexArmy.Global.Controllers
 					{
 						direction = ( int ) Math.Ceiling( scrollDirection );
 					}
-					_lastScrollValue = Mouse.GetState().ScrollWheelValue;
 
 					_selectedPrefab += direction;
 					while ( _selectedPrefab < 0 )

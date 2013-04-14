@@ -18,6 +18,7 @@ namespace VertexArmy.Input
 
 		public Vector2 PointerPosition { get; private set; }
 		public Vector2 PointerDelta { get; private set; }
+		public int ScrollDelta { get; private set; }
 
 		private MouseState _previousMouseState;
 		private MouseState _currentMouseState;
@@ -53,6 +54,7 @@ namespace VertexArmy.Input
 			Vector2 currentPosition = new Vector2( _currentMouseState.X, _currentMouseState.Y );
 			PointerDelta = currentPosition - PointerPosition;
 			PointerPosition = currentPosition;
+			ScrollDelta = _currentMouseState.ScrollWheelValue - _previousMouseState.ScrollWheelValue;
 		}
 
 		public bool IsKeyPressed( Keys key, bool continuous = true )

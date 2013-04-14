@@ -8,6 +8,7 @@ using VertexArmy.Global.Behaviours;
 using VertexArmy.Global.Managers;
 using VertexArmy.Graphics;
 using VertexArmy.Graphics.Attachables;
+using VertexArmy.Input;
 
 namespace VertexArmy.Global.Controllers
 {
@@ -41,6 +42,10 @@ namespace VertexArmy.Global.Controllers
 		private float _lastSelectedZ;
 		private float _specialRotation;
 
+		private readonly IInputSystem _inputSystem;
+		private const float OperationSmallIncrement = 0.1f;
+		private const float OperationBigIncrement = 2f;
+
 		public EditorToolsController()
 		{
 			_leftClick = false;
@@ -56,6 +61,8 @@ namespace VertexArmy.Global.Controllers
 			_lastLayerSelected = Category.Cat1;
 			_lastSelectedZ = 0f;
 			_specialRotation = ( float ) ( Math.PI / 6f );
+
+			_inputSystem = Platform.Instance.Input;
 		}
 
 		private void SelectProcess( GameTime dt )
@@ -157,14 +164,16 @@ namespace VertexArmy.Global.Controllers
 				Vector3 newPosition = new Vector3( m3D.X, m3D.Y, _selectedEntity.GetPosition().Z ) - _relative;
 				_selectedEntity.SetPosition( newPosition );
 			}
+
 			if ( _selectedEntity != null && _state.Equals( EditorState.Selected ) )
 			{
 				Vector3 move = Vector3.Zero;
-				if ( Keyboard.GetState().IsKeyDown( Keys.Up ) )
+
+				if ( _inputSystem.IsKeyPressed( Keys.Up ) )
 				{
 					move += Vector3.UnitY;
 				}
-				else if ( Keyboard.GetState().IsKeyDown( Keys.Down ) )
+				else if ( _inputSystem.IsKeyPressed( Keys.Down ) )
 				{
 					move -= Vector3.UnitY;
 				}
@@ -185,6 +194,15 @@ namespace VertexArmy.Global.Controllers
 				else if ( Keyboard.GetState().IsKeyDown( Keys.OemPlus ) )
 				{
 					move += Vector3.UnitZ;
+				}
+
+				if ( _inputSystem.IsKeyPressed( Keys.LeftControl ) || _inputSystem.IsKeyPressed( Keys.RightControl ) )
+				{
+					move *= OperationBigIncrement;
+				}
+				else if ( _inputSystem.IsKeyPressed( Keys.LeftShift ) || _inputSystem.IsKeyPressed( Keys.RightShift ) )
+				{
+					move *= OperationSmallIncrement;
 				}
 
 				if ( !move.Equals( Vector3.Zero ) )
@@ -217,6 +235,7 @@ namespace VertexArmy.Global.Controllers
 			if ( _selectedEntity != null && _state.Equals( EditorState.Rotating ) )
 			{
 				float rotate = 0f;
+
 				Quaternion externalRotation = Quaternion.Identity;
 
 				if ( Keyboard.GetState().IsKeyDown( Keys.Left ) )
@@ -235,6 +254,15 @@ namespace VertexArmy.Global.Controllers
 				else if ( Keyboard.GetState().IsKeyDown( Keys.O ) )
 				{
 					externalRotation = Quaternion.Slerp( _selectedEntity.GetExternalRotation(), Quaternion.CreateFromAxisAngle( Vector3.UnitY, 84.78f ), ( float ) ( dt.ElapsedGameTime.TotalMilliseconds / 120f ) );
+				}
+
+				if ( _inputSystem.IsKeyPressed( Keys.LeftControl ) || _inputSystem.IsKeyPressed( Keys.RightControl ) )
+				{
+					rotate *= OperationBigIncrement;
+				}
+				else if ( _inputSystem.IsKeyPressed( Keys.LeftShift ) || _inputSystem.IsKeyPressed( Keys.RightShift ) )
+				{
+					rotate *= OperationSmallIncrement;
 				}
 
 				if ( rotate != 0 )
@@ -298,6 +326,7 @@ namespace VertexArmy.Global.Controllers
 			if ( _selectedEntity != null && _state.Equals( EditorState.Scaling ) )
 			{
 				Vector3 scale = Vector3.Zero;
+
 				if ( Keyboard.GetState().IsKeyDown( Keys.Up ) )
 				{
 					scale += Vector3.UnitY / 2;
@@ -325,6 +354,14 @@ namespace VertexArmy.Global.Controllers
 					scale += Vector3.UnitZ / 2;
 				}
 
+				if ( _inputSystem.IsKeyPressed( Keys.LeftControl ) || _inputSystem.IsKeyPressed( Keys.RightControl ) )
+				{
+					scale *= OperationBigIncrement;
+				}
+				else if ( _inputSystem.IsKeyPressed( Keys.LeftShift ) || _inputSystem.IsKeyPressed( Keys.RightShift ) )
+				{
+					scale *= OperationSmallIncrement;
+				}
 
 				if ( !scale.Equals( Vector3.Zero ) )
 				{

@@ -287,6 +287,7 @@ namespace VertexArmy.States
 
 		private void ResetGameState()
 		{
+			_hint1 = _hint2 = _hint3 = _hint4 = _endOfGameHintShown = _blockedHintShown = false;
 			HintManager.Instance.Clear();
 			GameWorldManager.Instance.LoadLastState();
 		}

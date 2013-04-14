@@ -7,7 +7,7 @@ using VertexArmy.Global.Managers;
 using VertexArmy.Input;
 #if NETFX_CORE
 using System.IO;
-using SharpDX.Text;
+
 
 #endif
 
@@ -40,9 +40,12 @@ namespace VertexArmy.Global
 #if NETFX_CORE
 			using ( var stream = TitleContainer.OpenStream( "Content/effects/" + path + ".mgfxo" ) )
 			{
-				using ( var sr = new StreamReader( stream ) )
+				using ( var memoryStream = new MemoryStream() )
 				{
-					return new Effect( Device, Encoding.ASCII.GetBytes( sr.ReadToEnd() ) );
+					stream.CopyTo( memoryStream );
+					memoryStream.Position = 0;
+
+					return new Effect( Device, memoryStream.ToArray() );
 				}
 			}
 #else

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
 
-namespace VertexArmy.Global.Managers
+namespace VertexArmy.Global.Hints
 {
 	public class HintBubble
 	{

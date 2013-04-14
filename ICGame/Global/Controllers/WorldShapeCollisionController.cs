@@ -78,30 +78,21 @@ namespace VertexArmy.Global.Controllers
 		}
 
 		private readonly List<RankBoundingBox> _insideBBox = new List<RankBoundingBox>();
-		private readonly List<RankBoundingSphere> _insideBSphere = new List<RankBoundingSphere>(); 
+		private readonly List<RankBoundingSphere> _insideBSphere = new List<RankBoundingSphere>();
 
-		public void Update( GameTime dt )
+
+		private void UpdateBoxIntersections()
 		{
-			if ( Data == null )
-				return;
-
-			if(Data[0] == null)
-				return;
-
-			if ( Data[1] == null )
-				return;
-
 			SceneNode node = Data[0] as SceneNode;
 
-			if(node == null)
+			if ( node == null )
 				return;
-			
 
 			if ( Data[2] != null )
 			{
 				List<RankBoundingBox> boxlist = Data[2] as List<RankBoundingBox>;
 
-				if(boxlist == null)
+				if ( boxlist == null )
 					return;
 
 
@@ -110,8 +101,8 @@ namespace VertexArmy.Global.Controllers
 
 				foreach ( RankBoundingBox boundingBox in boxlist )
 				{
-					if(boundingBox.Value.Contains(node.GetAbsolutePosition()) != ContainmentType.Disjoint)
-						currentIntersection.Add(boundingBox);
+					if ( boundingBox.Value.Contains( node.GetAbsolutePosition() ) != ContainmentType.Disjoint )
+						currentIntersection.Add( boundingBox );
 				}
 
 				//compute the set difference between the two lists
@@ -121,18 +112,18 @@ namespace VertexArmy.Global.Controllers
 				List<RankBoundingBox> exitBoxes = new List<RankBoundingBox>();
 				List<RankBoundingBox> insideBoxes = new List<RankBoundingBox>();
 
-				while ( i < currentIntersection.Count && j < _insideBBox.Count)
+				while ( i < currentIntersection.Count && j < _insideBBox.Count )
 				{
-					if (currentIntersection[i].Key == _insideBBox[j].Key)
+					if ( currentIntersection[i].Key == _insideBBox[j].Key )
 					{
 						insideBoxes.Add( currentIntersection[i] );
 						i++;
 						j++;
 					}
 
-					else if (currentIntersection[i].Key < _insideBBox[j].Key)
+					else if ( currentIntersection[i].Key < _insideBBox[j].Key )
 					{
-						enterBoxes.Add(currentIntersection[i]);
+						enterBoxes.Add( currentIntersection[i] );
 						i++;
 					}
 
@@ -143,13 +134,13 @@ namespace VertexArmy.Global.Controllers
 					}
 				}
 
-				while (i < currentIntersection.Count)
-					enterBoxes.Add(currentIntersection[i++]);
+				while ( i < currentIntersection.Count )
+					enterBoxes.Add( currentIntersection[i++] );
 
-				while (j < _insideBBox.Count)
-					exitBoxes.Add(_insideBBox[j++]);
+				while ( j < _insideBBox.Count )
+					exitBoxes.Add( _insideBBox[j++] );
 
-				foreach (RankBoundingBox keyValuePair in enterBoxes)
+				foreach ( RankBoundingBox keyValuePair in enterBoxes )
 				{
 					_boxListeners[keyValuePair.Key].OnEnterShape();
 				}
@@ -164,13 +155,98 @@ namespace VertexArmy.Global.Controllers
 					_boxListeners[keyValuePair.Key].OnEachFrameInsideShape();
 				}
 			}
+		}
+
+		private void UpdateSphereIntersections()
+		{
+			SceneNode node = Data[0] as SceneNode;
+
+			if ( node == null )
+				return;
+
 
 			if ( Data[3] != null )
 			{
+				List<RankBoundingSphere> spherelist = Data[3] as List<RankBoundingSphere>;
 
+				if ( spherelist == null )
+					return;
+
+
+				List<RankBoundingSphere> currentIntersection = new List<RankBoundingSphere>();
+
+
+				foreach ( RankBoundingSphere boundingSphere in spherelist )
+				{
+					if ( boundingSphere.Value.Contains( node.GetAbsolutePosition() ) != ContainmentType.Disjoint )
+						currentIntersection.Add( boundingSphere );
+				}
+
+				//compute the set difference between the two lists
+				int i = 0, j = 0;
+
+				List<RankBoundingSphere> enterSpheres = new List<RankBoundingSphere>();
+				List<RankBoundingSphere> exitSpheres = new List<RankBoundingSphere>();
+				List<RankBoundingSphere> insideSpheres = new List<RankBoundingSphere>();
+
+				while ( i < currentIntersection.Count && j < _insideBSphere.Count )
+				{
+					if ( currentIntersection[i].Key == _insideBSphere[j].Key )
+					{
+						insideSpheres.Add( currentIntersection[i] );
+						i++;
+						j++;
+					}
+
+					else if ( currentIntersection[i].Key < _insideBSphere[j].Key )
+					{
+						enterSpheres.Add( currentIntersection[i] );
+						i++;
+					}
+
+					else if ( currentIntersection[i].Key > _insideBSphere[j].Key )
+					{
+						exitSpheres.Add( _insideBSphere[j] );
+						j++;
+					}
+				}
+
+				while ( i < currentIntersection.Count )
+					enterSpheres.Add( currentIntersection[i++] );
+
+				while ( j < _insideBBox.Count )
+					exitSpheres.Add( _insideBSphere[j++] );
+
+				foreach ( RankBoundingSphere keyValuePair in enterSpheres )
+				{
+					_sphereListeners[keyValuePair.Key].OnEnterShape();
+				}
+
+				foreach ( RankBoundingSphere keyValuePair in exitSpheres )
+				{
+					_sphereListeners[keyValuePair.Key].OnExitShape();
+				}
+
+				foreach ( RankBoundingSphere keyValuePair in insideSpheres )
+				{
+					_sphereListeners[keyValuePair.Key].OnEachFrameInsideShape();
+				}
 			}
+		}
 
+		public void Update( GameTime dt )
+		{
+			if ( Data == null )
+				return;
 
+			if(Data[0] == null)
+				return;
+
+			if ( Data[1] == null )
+				return;
+			
+			UpdateBoxIntersections();
+			UpdateSphereIntersections();
 		}
 
 		public List<object> Data { get; set; }
@@ -180,4 +256,3 @@ namespace VertexArmy.Global.Controllers
 		}
 	}
 }
-

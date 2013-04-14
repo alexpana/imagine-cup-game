@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Input;
 using VertexArmy.Content.Prefabs;
 using VertexArmy.Global;
 using VertexArmy.Global.Managers;
+using VertexArmy.Graphics;
 
 namespace VertexArmy.States.Menu
 {
@@ -31,9 +32,25 @@ namespace VertexArmy.States.Menu
 			_lightPos.Z = ( float ) ( 50000f + 20000.0 * Math.Sin( gameTime.TotalGameTime.TotalMilliseconds / 1000.0 ) );
 			SceneManager.Instance.SetLightPosition( _lightPos );
 
+		    SceneNode nodeUnderPointer = null;
+
+            if (Platform.Instance.Input.PointerDelta.Length() > 0)
+            {
+                List<SceneNode> nodes = SceneManager.Instance.IntersectScreenRayWithSceneNodes(Platform.Instance.Input.PointerPosition);
+                if (nodes.Count > 0)
+                {
+                    nodeUnderPointer = nodes[0];
+                }
+            }
+
 			foreach ( var levelCube in _levelCubes )
 			{
 				var entity = GameWorldManager.Instance.GetEntity( levelCube.Id );
+
+                if( nodeUnderPointer == entity.MainNode )
+                {
+                    _activeCube = levelCube;
+                }
 
 				if ( levelCube == _activeCube )
 				{
@@ -65,11 +82,7 @@ namespace VertexArmy.States.Menu
 
 			if ( Platform.Instance.Input.IsKeyPressed( Keys.Enter, false ) )
 			{
-				if ( _activeCube.Items != null &&
-					 _activeCube.Items.Count > 0 )
-				{
-					_activeCube.Items[0].Activate();
-				}
+			    ActivateSelectedItem();
 			}
 
 			if ( Platform.Instance.Input.IsKeyPressed( Keys.Back, false ) ||
@@ -79,7 +92,16 @@ namespace VertexArmy.States.Menu
 			}
 		}
 
-		private void SelectCube( int index )
+	    private void ActivateSelectedItem()
+	    {
+            if (_activeCube.Items != null &&
+                 _activeCube.Items.Count > 0)
+            {
+                _activeCube.Items[0].Activate();
+            }
+	    }
+
+	    private void SelectCube( int index )
 		{
 			Vector3 selectedCubeScale = new Vector3( 2, 2, 2 );
 			if ( _activeCube != null )

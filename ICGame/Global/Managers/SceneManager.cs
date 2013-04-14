@@ -511,5 +511,10 @@ namespace VertexArmy.Global.Managers
 			}
 			return nodes;
 		}
+
+        public List<SceneNode> IntersectScreenRayWithSceneNodes( Vector2 screenPosition )
+        {
+            return IntersectScreenRayWithSceneNodes((int)screenPosition.X, (int)screenPosition.Y);
+        }
 	}
 }

@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Input;
 using VertexArmy.Content.Prefabs;
 using VertexArmy.Global;
 using VertexArmy.Global.Managers;
+using VertexArmy.Graphics;
 
 namespace VertexArmy.States.Menu
 {
@@ -87,8 +88,8 @@ namespace VertexArmy.States.Menu
 			}
 			else if ( _platform.Input.IsKeyPressed( Keys.Enter, false ) )
 			{
-				_activeCube.Items[_activeCube.SelectedItem].Activate();
-				_platform.SoundManager.PlaySound( MenuEventSound );
+                ActivateSelectedItem();
+
 			}
 			else if ( _platform.Input.IsKeyPressed( Keys.Escape, false ) ||
 					 _platform.Input.IsKeyPressed( Keys.Back, false ) )
@@ -100,8 +101,23 @@ namespace VertexArmy.States.Menu
 					_platform.SoundManager.PlaySound( MenuEventSound );
 				}
 			}
+            if( _platform.Input.IsLeftPointerFirstTimePressed )
+            {
+                var mouseX = (int)_platform.Input.PointerPosition.X;
+                var mouseY = (int)_platform.Input.PointerPosition.Y;
+                List<SceneNode> nodes = SceneManager.Instance.IntersectScreenRayWithSceneNodes(mouseX, mouseY);
+                if( nodes.Count > 0 )
+                {
+                    ActivateSelectedItem();
+                }
+            }
 		}
 
+        private void ActivateSelectedItem()
+        {
+            _activeCube.Items[_activeCube.SelectedItem].Activate();
+            _platform.SoundManager.PlaySound(MenuEventSound);
+        }
 		private void CreateMenus()
 		{
 			_mainMenuCube = new MenuCube( ContentManager )

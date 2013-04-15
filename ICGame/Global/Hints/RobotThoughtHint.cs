@@ -23,11 +23,11 @@ namespace VertexArmy.Global.Hints
 		public Action DismissedCallback { get; set; }
 
 		private const int ThinkingSpeed = 500;
-		private const int ThinkingBubbleInterval = (int)(500.0 / 4.7);
+		private const int ThinkingBubbleInterval = ( int ) ( 500.0 / 4.7 );
 		private const float ThinkingBubbleInitialScale = 0.5f;
 		private const float ThinkingBubbleScaleIncrement = 0.2f;
 
-		private readonly Texture2D _bubbleTexture = Platform.Instance.Content.Load<Texture2D>( "images/menu/metro/color_hint_bubble"  );
+		private readonly Texture2D _bubbleTexture = Platform.Instance.Content.Load<Texture2D>( "images/menu/metro/color_hint_bubble" );
 
 		internal enum HintState
 		{
@@ -50,7 +50,7 @@ namespace VertexArmy.Global.Hints
 		private readonly Vector2 _finalPosition;
 		private readonly Vector2 _startPosition;
 
-		public Color Color { get; private set; }
+		public Color Color { get; set; }
 
 		public int LinesCount { get; private set; }
 		public string Text { get; set; }
@@ -65,7 +65,7 @@ namespace VertexArmy.Global.Hints
 		private int _currentFadeOperation; // -1 fade In, 0, 1 fade Out
 		public float Alpha { get; private set; }
 		#endregion
-		
+
 		public RobotThoughtHint( string text, Vector2 startPosition, Vector2 endPosition, float msTime, uint fadeTime )
 		{
 			ThinkingBubbles = new List<HintBubble>();
@@ -74,7 +74,7 @@ namespace VertexArmy.Global.Hints
 			//TODO: rework this
 			LinesCount = text.Split( '\n' ).Length;
 
-			Color = new Color( 32.0f / 255.0f, 40.0f / 255.0f, 50.0f / 255.0f );
+			Color = new Color( 0.81f, 0.5f, 0.33f );
 			_currentFadeOperation = 1;
 			Layer = 0;
 			_startPosition = startPosition;

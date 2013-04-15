@@ -31,7 +31,7 @@ namespace VertexArmy.Global.Managers
 
 		public void SpawnHint( FadeHint hint )
 		{
-			if(!_fadeHints.Contains(hint))
+			if ( !_fadeHints.Contains( hint ) )
 				_fadeHints.Add( hint );
 		}
 
@@ -43,7 +43,7 @@ namespace VertexArmy.Global.Managers
 			return hint;
 		}
 
-		public void RemoveHint ( FadeHint hint )
+		public void RemoveHint( FadeHint hint )
 		{
 			_fadeHints.Remove( hint );
 		}
@@ -104,7 +104,7 @@ namespace VertexArmy.Global.Managers
 				}
 			}
 
-			foreach (FadeHint fadeHint in _fadeHints)
+			foreach ( FadeHint fadeHint in _fadeHints )
 			{
 				fadeHint.Update( gameTime );
 			}
@@ -119,7 +119,7 @@ namespace VertexArmy.Global.Managers
 				activeHint.Render();
 			}
 
-			foreach (FadeHint fadeHint in _fadeHints)
+			foreach ( FadeHint fadeHint in _fadeHints )
 			{
 				fadeHint.Render();
 
@@ -146,9 +146,9 @@ namespace VertexArmy.Global.Managers
 			_spriteBatch.DrawString( _font, text, position, color );
 		}
 
-		public void RenderTexture(  Texture2D texture, Vector2 position, Rectangle? sourceRect, Color color, float rotation, Vector2 origin, float scale = 1,  SpriteEffects effects = SpriteEffects.None, float layerDepth = 0 )
+		public void RenderTexture( Texture2D texture, Vector2 position, Rectangle? sourceRect, Color color, float rotation, Vector2 origin, float scale = 1, SpriteEffects effects = SpriteEffects.None, float layerDepth = 0 )
 		{
-			_spriteBatch.Draw(texture, position, sourceRect, color, rotation, origin, scale, effects, layerDepth);
+			_spriteBatch.Draw( texture, position, sourceRect, color, rotation, origin, scale, effects, layerDepth );
 		}
 
 		// ReSharper disable InconsistentNaming

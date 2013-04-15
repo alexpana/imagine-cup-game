@@ -1,9 +1,10 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using VertexArmy.Global.Managers;
 
 namespace VertexArmy.Global.Hints
 {
-	public class FadeHint : IHint
+	public class FadeHint : IDismissableHint
 	{
 		private Color _color;
 		private string _text;
@@ -14,7 +15,7 @@ namespace VertexArmy.Global.Hints
 		private HintState _state;
 
 		public Vector2 Position;
-		
+
 		public Color Color
 		{
 			get { return _color; }
@@ -39,7 +40,7 @@ namespace VertexArmy.Global.Hints
 
 		public int Lines { get; private set; }
 
-		public FadeHint(string text, Vector2 position, float fadeIn, float fadeOut) :
+		public FadeHint( string text, Vector2 position, float fadeIn, float fadeOut ) :
 			this( text, position, new Color( 0.81f, 0.5f, 0.33f ), float.PositiveInfinity, fadeIn, fadeOut )
 		{ }
 
@@ -107,8 +108,8 @@ namespace VertexArmy.Global.Hints
 			{
 				case HintState.FadeIn:
 					_timer += ( float ) time.ElapsedGameTime.TotalMilliseconds;
-					_color.A = (byte)(255f * _timer / _fadeInMs);
-					if(_timer > _fadeInMs)
+					_color.A = ( byte ) ( 255f * _timer / _fadeInMs );
+					if ( _timer > _fadeInMs )
 					{
 						_timer = 0;
 						_color.A = 255;
@@ -125,7 +126,7 @@ namespace VertexArmy.Global.Hints
 					break;
 				case HintState.FadeOut:
 					_timer += ( float ) time.ElapsedGameTime.TotalMilliseconds;
-					_color.A = ( byte ) ( 255f * ( 1f -  _timer / _fadeOutMs ));
+					_color.A = ( byte ) ( 255f * ( 1f - _timer / _fadeOutMs ) );
 					if ( _timer > _fadeOutMs )
 					{
 						_color.A = 0;
@@ -154,6 +155,13 @@ namespace VertexArmy.Global.Hints
 			Playing,
 			FadeOut,
 			Stopped,
+		}
+
+		public Action DismissedCallback { get; set; }
+
+		public bool ShouldDismiss()
+		{
+			return _state == HintState.Stopped;
 		}
 	}
 }

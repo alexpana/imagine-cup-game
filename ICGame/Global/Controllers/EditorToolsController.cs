@@ -167,7 +167,7 @@ namespace VertexArmy.Global.Controllers
 			if(Keyboard.GetState().IsKeyDown(Keys.V))
 			{
 				Vector3 position = SceneManager.Instance.IntersectScreenRayWithPlane(0);
-				HintManager.Instance.SpawnHint("Cursor 3D position: " + position.ToString() , new Vector2( 400f, 20f ), 500, 6, null, 1 );
+				HintManager.Instance.SpawnHint("Cursor 3D position: " + position.ToString() , new Vector2( 200f, 20f ), 500, 6, null, 1 );
 			}
 				
 			//if( dt.ElapsedGameTime.TotalMilliseconds )

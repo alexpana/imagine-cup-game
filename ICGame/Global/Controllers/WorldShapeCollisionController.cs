@@ -9,15 +9,15 @@ namespace VertexArmy.Global.Controllers
 {
 	public class WorldShapeCollisionController : IController
 	{
-		
-		
+
+
 		private RankBoundingBox ToRankedBoundingBox( BoundingBox box )
 		{
 			if ( Data[2] == null )
 				Data[2] = new List<RankBoundingBox>();
 
 			List<RankBoundingBox> blist = Data[2] as List<RankBoundingBox>;
-			return blist == null ? new RankBoundingBox(-1, new BoundingBox()) : new RankBoundingBox(blist.Count, box);
+			return blist == null ? new RankBoundingBox( -1, new BoundingBox() ) : new RankBoundingBox( blist.Count, box );
 		}
 
 		private RankBoundingSphere ToRankedBoundingSphere( BoundingSphere sphere )
@@ -232,18 +232,18 @@ namespace VertexArmy.Global.Controllers
 				_insideBSphere = currentIntersection;
 			}
 		}
-		
+
 		public void Update( GameTime dt )
 		{
 			if ( Data == null )
 				return;
 
-			if(Data[0] == null)
+			if ( Data[0] == null )
 				return;
 
 			if ( Data[1] == null )
 				return;
-			
+
 			UpdateBoxIntersections();
 			UpdateSphereIntersections();
 		}

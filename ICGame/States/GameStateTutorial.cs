@@ -37,10 +37,12 @@ namespace VertexArmy.States
 		private bool _debugViewState;
 
 		private bool _endOfGameHintShown;
+		private readonly Dictionary<string, bool> _saveTriggerStates;
 
 		public GameStateTutorial( ContentManager content )
 		{
 			_contentManager = content;
+			_saveTriggerStates = new Dictionary<string, bool>();
 		}
 
 		public override void OnUpdate( GameTime gameTime )
@@ -180,17 +182,41 @@ namespace VertexArmy.States
 					new BodyTriggerAreaComponent( new Vector2( 10f, 10f ), Robot.MainBody, UpgradeCube1Callback )
 				);
 
+			SpawnSaveTrigger( "save1", new Vector3( 1682f, 138f, 0f ) );
+			SpawnSaveTrigger( "save2", new Vector3( 3600, 0, 0f ) );
+
 			GameWorldManager.Instance.SpawnEntity( "SafCollectible", "safCollectible1", new Vector3( 500f + 60f * 2, 70f, 0f ) );
 			ControllerRepository.Instance.RegisterController( "upgradeCube1Controller", new CollectibleController( GameWorldManager.Instance.GetEntity( "safCollectible1" ).MainNode ) );
 			FrameUpdateManager.Instance.Register( ControllerRepository.Instance.GetController( "upgradeCube1Controller" ) );
 
+
 			GameWorldManager.Instance.SpawnEntity( "Trigger", "endGame", new Vector3( 3500, 30f, 0f ) );
 			GameWorldManager.Instance.GetEntity( "endGame" ).RegisterComponent(
-					"trigger",
-					new BodyTriggerAreaComponent( new Vector2( 10f, 10f ), Robot.MainBody, EndOfGameHint )
-				);
+				"trigger",
+				new BodyTriggerAreaComponent( new Vector2( 10f, 10f ), Robot.MainBody, EndOfGameHint ) );
 
 			RegisterHints();
+		}
+
+		private void SpawnSaveTrigger( string triggerName, Vector3 position )
+		{
+			_saveTriggerStates[triggerName] = false;
+
+			GameWorldManager.Instance.SpawnEntity( "Trigger", triggerName, position );
+			GameWorldManager.Instance.GetEntity( triggerName ).RegisterComponent(
+					"trigger",
+					new BodyTriggerAreaComponent( new Vector2( 10f, 10f ), Robot.MainBody,
+						() =>
+						{
+							if ( _saveTriggerStates[triggerName] )
+							{
+								return;
+							}
+
+							GameWorldManager.Instance.SaveState();
+							_saveTriggerStates[triggerName] = true;
+						} )
+				);
 		}
 
 		private void RegisterHints()

@@ -16,7 +16,12 @@ namespace VertexArmy.Global.Controllers
 	public class EditorToolsController : IController
 	{
 		private EditorState _state;
-		public EditorState State { get { return _state; } }
+
+		public EditorState State
+		{
+			get { return _state; }
+		}
+
 		private double _clickTime;
 		private double _moveTime, _rotateTime, _scaleTime, _externalRotateTime;
 
@@ -155,6 +160,17 @@ namespace VertexArmy.Global.Controllers
 				_selectedEntity = null;
 				_state = EditorState.None;
 			}
+		}
+
+		public void ShowInfoProcess( GameTime dt )
+		{
+			if(Keyboard.GetState().IsKeyDown(Keys.V))
+			{
+				Vector3 position = SceneManager.Instance.IntersectScreenRayWithPlane(0);
+				HintManager.Instance.SpawnHint("Cursor 3D position: " + position.ToString() , new Vector2( 400f, 20f ), 500, 6, null, 1 );
+			}
+				
+			//if( dt.ElapsedGameTime.TotalMilliseconds )
 		}
 
 		public void MoveProcess( GameTime dt )
@@ -539,6 +555,7 @@ namespace VertexArmy.Global.Controllers
 			ScaleProcess( dt );
 			SpawnProcess( dt );
 			SetCategoryProcess( dt );
+			ShowInfoProcess( dt );
 
 			if ( _state.Equals( EditorState.Selected ) && _inputSystem.IsKeyPressed( Keys.Delete ) )
 			{

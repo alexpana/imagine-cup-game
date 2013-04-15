@@ -105,7 +105,7 @@ float4 main_PS(VertexShaderOutput input) : COLOR
 	float4 diffuse = Kd * tex2D( ColorMapSampler, input.Texcoord.xy);
 	float4 specular = Ks * tex2D( SpecularMapSampler, input.Texcoord.xy);
 
-	return diffuse + ambient + specular;
+	return float4( (diffuse + ambient + specular).rgb, 1 );
    
 }
 

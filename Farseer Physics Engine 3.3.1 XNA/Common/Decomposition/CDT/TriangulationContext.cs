@@ -30,7 +30,6 @@
  */
 
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using Poly2Tri.Triangulation.Delaunay;
 
 namespace Poly2Tri.Triangulation
@@ -69,7 +68,9 @@ namespace Poly2Tri.Triangulation
 
 		public abstract TriangulationConstraint NewConstraint( TriangulationPoint a, TriangulationPoint b );
 
-		[MethodImpl( MethodImplOptions.Synchronized )]
+#if WINDOWS
+		[System.Runtime.CompilerServices.MethodImpl( System.Runtime.CompilerServices.MethodImplOptions.Synchronized )]
+#endif
 		public void Update( string message )
 		{
 		}

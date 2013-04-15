@@ -3,6 +3,12 @@ using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Json;
 
+
+#if NETFX_CORE
+using VertexArmy.Windows8;
+using Windows.Storage;
+#endif
+
 namespace VertexArmy.Global
 {
 	public class SettingEventArgs : EventArgs
@@ -49,26 +55,40 @@ namespace VertexArmy.Global
 
 		public void Save( string fileName = "Settings.txt" )
 		{
-			using ( StreamWriter sw = new StreamWriter( fileName ) )
+#if WINDOWS
+			using ( var stream = new FileStream( fileName, FileMode.OpenOrCreate ) )
+#else
+			using ( var stream = LocalStorageExtensions.OpenStreamForWrite( fileName, CreationCollisionOption.ReplaceExisting ) )
+#endif
 			{
-				DataContractJsonSerializer serializer = new DataContractJsonSerializer( _settings.GetType() );
-				serializer.WriteObject( sw.BaseStream, _settings );
+				using ( StreamWriter sw = new StreamWriter( stream ) )
+				{
+					DataContractJsonSerializer serializer = new DataContractJsonSerializer( _settings.GetType() );
+					serializer.WriteObject( sw.BaseStream, _settings );
+				}
 			}
 		}
 
 		public void Load( string fileName = "Settings.txt" )
 		{
-			if ( !File.Exists( fileName ) )
+			if ( !LocalStorageExtensions.FileExists( fileName ) )
 			{
 				Save( fileName );
 			}
 
 			try
 			{
-				using ( StreamReader sr = new StreamReader( fileName ) )
+#if WINDOWS
+				using ( var stream = new FileStream( fileName, FileMode.OpenOrCreate ) )
+#else
+				using ( var stream = LocalStorageExtensions.OpenStreamForRead( fileName ) )
+#endif
 				{
-					DataContractJsonSerializer serializer = new DataContractJsonSerializer( _settings.GetType() );
-					_settings = ( Dictionary<string, object> ) serializer.ReadObject( sr.BaseStream );
+					using ( StreamReader sr = new StreamReader( stream ) )
+					{
+						DataContractJsonSerializer serializer = new DataContractJsonSerializer( _settings.GetType() );
+						_settings = ( Dictionary<string, object> ) serializer.ReadObject( sr.BaseStream );
+					}
 				}
 			}
 			catch

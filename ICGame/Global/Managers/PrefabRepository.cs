@@ -37,19 +37,21 @@ namespace VertexArmy.Global.Managers
 
 		public LevelPrefab GetLevelPrefab( string filepath )
 		{
-			if ( File.Exists( filepath ) )
+			try
 			{
-				Stream stream = TitleContainer.OpenStream( filepath );
-
-				ISerializer<LevelPrefab> serializer = SerializerFactory.CreateSerializer<LevelPrefab>();
-				LevelPrefab level = serializer.ReadObject( stream );
-				stream.Close();
+				LevelPrefab level;
+				using ( Stream stream = TitleContainer.OpenStream( filepath ) )
+				{
+					ISerializer<LevelPrefab> serializer = SerializerFactory.CreateSerializer<LevelPrefab>();
+					level = serializer.ReadObject( stream );
+				}
 
 				return level;
 			}
-			else
+			catch ( FileNotFoundException )
 			{
-				return new LevelPrefab() { filepath = filepath };
+
+				return new LevelPrefab { filepath = filepath };
 			}
 		}
 

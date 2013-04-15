@@ -1,8 +1,11 @@
-﻿using System.Collections.Generic;
-using System.IO;
+﻿using System;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 using VertexArmy.Global.Managers;
+#if WINDOWS
+using System.IO;
 using VertexArmy.Serialization;
+#endif
 
 namespace VertexArmy.Content.Prefabs
 {
@@ -16,6 +19,9 @@ namespace VertexArmy.Content.Prefabs
 
 		public void SerializeLevel()
 		{
+#if NETFX_CORE
+			throw new NotImplementedException( "Level prefab saving not implemented in Windows 8 yet." );
+#else
 			using ( StreamWriter streamWriter = new StreamWriter( filepath ) )
 			{
 				ISerializer<LevelPrefab> serializer = SerializerFactory.CreateSerializer<LevelPrefab>();
@@ -27,6 +33,7 @@ namespace VertexArmy.Content.Prefabs
 				ISerializer<LevelPrefab> serializer = SerializerFactory.CreateSerializer<LevelPrefab>();
 				serializer.WriteObject( this, streamWriter.BaseStream );
 			}
+#endif
 #endif
 		}
 

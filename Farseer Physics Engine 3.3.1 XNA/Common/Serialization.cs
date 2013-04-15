@@ -7,6 +7,10 @@ using FarseerPhysics.Collision.Shapes;
 using FarseerPhysics.Dynamics;
 using FarseerPhysics.Dynamics.Joints;
 using Microsoft.Xna.Framework;
+#if NETFX_CORE
+using VertexArmy.Windows8;
+using Windows.Storage;
+#endif
 
 namespace FarseerPhysics.Common
 {
@@ -14,7 +18,11 @@ namespace FarseerPhysics.Common
 	{
 		public static void Serialize( World world, string filename )
 		{
+#if WINDOWS
 			using ( FileStream fs = new FileStream( filename, FileMode.Create ) )
+#else
+			using ( var fs = LocalStorageExtensions.OpenStreamForWrite( filename, CreationCollisionOption.ReplaceExisting ) )
+#endif
 			{
 				new WorldXmlSerializer().Serialize( world, fs );
 			}
@@ -22,7 +30,11 @@ namespace FarseerPhysics.Common
 
 		public static void Deserialize( World world, string filename )
 		{
+#if WINDOWS
 			using ( FileStream fs = new FileStream( filename, FileMode.Open ) )
+#else
+			using ( var fs = LocalStorageExtensions.OpenStreamForRead( filename ) )
+#endif
 			{
 				new WorldXmlDeserializer().Deserialize( world, fs );
 			}
@@ -30,7 +42,11 @@ namespace FarseerPhysics.Common
 
 		public static World Deserialize( string filename )
 		{
+#if WINDOWS
 			using ( FileStream fs = new FileStream( filename, FileMode.Open ) )
+#else
+			using ( var fs = LocalStorageExtensions.OpenStreamForRead( filename ) )
+#endif
 			{
 				return new WorldXmlDeserializer().Deserialize( fs );
 			}
@@ -428,7 +444,12 @@ namespace FarseerPhysics.Common
 			_writer.WriteEndElement();
 
 			_writer.Flush();
+			//TODO:
+#if WINDOWS
 			_writer.Close();
+#else
+			throw new NotImplementedException( "Check if close is still needed on Windows 8" );
+#endif
 		}
 
 		private int FindBodyIndex( Body body )
@@ -1220,7 +1241,11 @@ namespace FarseerPhysics.Common
 
 		public XMLFragmentParser( string fileName )
 		{
-			using ( FileStream fs = new FileStream( fileName, FileMode.Open, FileAccess.Read ) )
+#if WINDOWS
+			using ( FileStream fs = new FileStream( fileName, FileMode.Open ) )
+#else
+			using ( var fs = LocalStorageExtensions.OpenStreamForRead( fileName ) )
+#endif
 				Load( fs );
 		}
 

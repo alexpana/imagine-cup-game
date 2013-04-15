@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Microsoft.Xna.Framework;
-using VertexArmy.Global.Behaviours;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace VertexArmy.Global.Managers
 {
-	class InGameMenuManager : IUpdatable
+	class InGameMenuManager
 	{
 		enum MenuItem
 		{
@@ -24,10 +20,10 @@ namespace VertexArmy.Global.Managers
 			private Vector2 _size = new Vector2( 342, 266 );
 			private Vector2 _offset = new Vector2( 274, 192 );
 
-			public MenuMetrics( )
+			public MenuMetrics()
 			{
-				_offset.X = ( Platform.Instance.Device.Viewport.Width - GetSize( ).X ) / 2;
-				_offset.Y = ( Platform.Instance.Device.Viewport.Height - GetSize( ).Y ) / 2;
+				_offset.X = ( Platform.Instance.Device.Viewport.Width - GetSize().X ) / 2;
+				_offset.Y = ( Platform.Instance.Device.Viewport.Height - GetSize().Y ) / 2;
 			}
 
 			public Vector2 GetItemOffset( MenuItem item )
@@ -47,18 +43,18 @@ namespace VertexArmy.Global.Managers
 				return _offset;
 			}
 
-			public Vector2 GetSize( )
+			public Vector2 GetSize()
 			{
 				return _size;
 			}
 
-			public Vector2 GetItemSize( )
+			public Vector2 GetItemSize()
 			{
 				return new Vector2( 342, 48 );
 			}
 		};
 
-		private MenuMetrics _metrics = new MenuMetrics( );
+		private MenuMetrics _metrics = new MenuMetrics();
 
 		private String _prefix = "images/menu/metro/";
 
@@ -96,18 +92,18 @@ namespace VertexArmy.Global.Managers
 
 		private void RenderTexture( Texture2D texture, Vector2 position )
 		{
-			int x = ( int ) ( _metrics.GetMenuOffset( ).X + position.X );
-			int y = ( int ) ( _metrics.GetMenuOffset( ).Y + position.Y );
+			int x = ( int ) ( _metrics.GetMenuOffset().X + position.X );
+			int y = ( int ) ( _metrics.GetMenuOffset().Y + position.Y );
 			_spriteBatch.Draw( texture, new Rectangle( x, y, texture.Width, texture.Height ), Color.White );
 		}
 
-		public void Render( )
+		public void Render()
 		{
 			_spriteBatch.Begin( SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullCounterClockwise, null );
 
 			RenderTexture( _texBackground, Vector2.Zero );
 			RenderTexture( _texTitle, Vector2.Zero );
-			
+
 			// Render the highlight
 			if ( _selectedItem != MenuItem.MI_NONE )
 			{
@@ -158,22 +154,22 @@ namespace VertexArmy.Global.Managers
 
 			if ( _selectedItem == MenuItem.MI_CONTINUE && Platform.Instance.Input.IsLeftPointerFirstTimePressed )
 			{
-				CallbackContinue( );
+				CallbackContinue();
 			}
 			if ( _selectedItem == MenuItem.MI_EXIT && Platform.Instance.Input.IsLeftPointerFirstTimePressed )
 			{
-				CallbackExit( );
+				CallbackExit();
 			}
 		}
 
 		private void CallbackContinue()
 		{
-			_callbackContinue( );
+			_callbackContinue();
 		}
 
 		private void CallbackExit()
 		{
-			_callbackExit( );
+			_callbackExit();
 		}
 	}
 }

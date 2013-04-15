@@ -70,6 +70,11 @@ namespace VertexArmy.Global.Managers
 				return;
 			}
 
+#if NETFX_CORE
+			//TODO: Implement this for Windows 8
+			return;
+#endif
+
 			if ( _collisionSounds.ContainsKey( body ) )
 			{
 				if ( _collisionSoundsInstances.ContainsKey( body ) && _collisionSoundsInstances[body].State.Equals( SoundState.Playing ) )

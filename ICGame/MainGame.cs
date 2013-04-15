@@ -1,6 +1,8 @@
 using FarseerPhysics.Dynamics;
 using Microsoft.Xna.Framework;
+#if WINDOWS
 using Microsoft.Xna.Framework.GamerServices;
+#endif
 using VertexArmy.Content.Materials;
 using VertexArmy.Content.Prefabs;
 using VertexArmy.Global;
@@ -31,7 +33,9 @@ namespace VertexArmy
 			Content.RootDirectory = "Content";
 			UnitsConverter.SetDisplayUnitToSimUnitRatio( 64 );
 
+#if WINDOWS
 			Components.Add( new GamerServicesComponent( this ) );
+#endif
 		}
 
 		protected override void Initialize()

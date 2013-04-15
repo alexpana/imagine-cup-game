@@ -1,6 +1,8 @@
 ﻿//#define ALLOW_HACKS
 using System.Collections.Generic;
 using FarseerPhysics.Dynamics;
+using FarseerPhysics.Dynamics.Joints;
+using FarseerPhysics.Factories;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
@@ -32,7 +34,7 @@ namespace VertexArmy.States
 		private bool _actionReset;
 		private bool _actionToggleDebugView;
 		private bool _debugViewState;
-
+		private ButtonComponent _gravityButton;
 
 		public GameStateDemo2( ContentManager content )
 		{
@@ -44,6 +46,16 @@ namespace VertexArmy.States
 			base.OnUpdate( gameTime );
 #if ALLOW_HACKS
 #endif
+
+			if ( _gravityButton.ButtonState )
+			{
+				Platform.Instance.PhysicsWorld.Gravity = Vector2.Zero;
+			}
+			else
+			{
+				Platform.Instance.PhysicsWorld.Gravity = new Vector2( 0f, 9.82f );
+			}
+
 			if ( Robot != null )
 			{
 
@@ -133,15 +145,39 @@ namespace VertexArmy.States
 
 		public void LoadSemiStatics()
 		{
+			GameWorldManager.Instance.GetEntity( "button1" ).RegisterComponent(
+				"active",
+				new ButtonComponent( "ButtonJoint1" )
+			);
+
 			GameWorldManager.Instance.GetEntity( "button0" ).RegisterComponent(
 				"active",
-				new ButtonComponent( "ButtonJoint1", true, true )
+				new ButtonComponent( "ButtonJoint1", false, true )
 			);
 
 			GameWorldManager.Instance.GetEntity( "lifteddoor0" ).RegisterComponent(
 				"doorHandle",
-				new LiftedDoorComponent( GameWorldManager.Instance.GetEntity( "button0" ).GetComponent( "active" ), "DoorJoint1" )
+				new LiftedDoorComponent( GameWorldManager.Instance.GetEntity( "button1" ).GetComponent( "active" ), "DoorJoint1" )
 			);
+
+			_gravityButton = GameWorldManager.Instance.GetEntity( "button0" ).GetComponent( "active" ) as ButtonComponent;
+
+			JointFactory.CreateFixedRevoluteJoint(
+				Platform.Instance.PhysicsWorld,
+				GameWorldManager.Instance.GetEntity( "floorbridge0" ).PhysicsEntity.GetBody( "FloorBody" ),
+				UnitsConverter.ToSimUnits( new Vector2( 120f, 0f ) ),
+				UnitsConverter.ToSimUnits( new Vector2( 2040f + 60f * 16, -43 ) )
+			);
+
+
+			FixedDistanceJoint dj = JointFactory.CreateFixedDistanceJoint(
+				Platform.Instance.PhysicsWorld,
+				GameWorldManager.Instance.GetEntity( "floorbridge0" ).PhysicsEntity.GetBody( "FloorBody" ),
+				UnitsConverter.ToSimUnits( new Vector2( -120f, -5f ) ),
+				UnitsConverter.ToSimUnits( new Vector2( 2040f + 60f * 20, -180f ) )
+				);
+			dj.Frequency = 2f;
+			dj.DampingRatio = 0.4f;
 		}
 
 		public void LoadDynamics()

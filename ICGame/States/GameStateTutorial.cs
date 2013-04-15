@@ -198,9 +198,9 @@ namespace VertexArmy.States
 
 
 
-			_wsController.Register( new HintShapeListener( new FadeHint( "It seems you are blocked.\nPress the 'R' key to reset your position.", new Vector2( 100, 50 ), 500f, 500f )), 
+			_wsController.Register( new HintShapeListener( new FadeHint( "It seems you are blocked.\nPress the 'R' key to reset your position.", new Vector2( 100, 50 ), 500f, 500f ) ),
 				new BoundingSphere( new Vector3( 1492, 30f, 0f ), 90 ) );
-			_wsController.Register( new HintShapeListener( new FadeHint( "It seems you are blocked.\nPress the 'R' key to reset your position.", new Vector2( 100, 50 ), 500f, 500f )),
+			_wsController.Register( new HintShapeListener( new FadeHint( "It seems you are blocked.\nPress the 'R' key to reset your position.", new Vector2( 100, 50 ), 500f, 500f ) ),
 				new BoundingBox( new Vector3( 2200, -280, -100 ), new Vector3( 3000, -5, 100 ) ) );
 
 			//GameWorldManager.Instance.SpawnEntity( "Trigger", "death1", new Vector3( 1492, 60f, 0f ) );

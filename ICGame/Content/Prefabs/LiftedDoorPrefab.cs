@@ -17,7 +17,7 @@ namespace VertexArmy.Content.Prefabs
 				Density = 1f,
 				Width = 60f,
 				Height = 5f,
-				Offset = Vector2.Zero,
+				Offset = new Vector2( 0f, -5f ),
 				Type = ShapeType.Rectangle
 			};
 
@@ -25,8 +25,8 @@ namespace VertexArmy.Content.Prefabs
 			{
 				Density = 1f,
 				Width = 10f,
-				Height = 150f,
-				Offset = new Vector2( -25f, -77.5f ),
+				Height = 180f,
+				Offset = new Vector2( -25f, -100f ),
 				Type = ShapeType.Rectangle
 			};
 
@@ -34,8 +34,8 @@ namespace VertexArmy.Content.Prefabs
 			{
 				Density = 1f,
 				Width = 10f,
-				Height = 150f,
-				Offset = new Vector2( 25f, -77.5f ),
+				Height = 180f,
+				Offset = new Vector2( 25f, -100f ),
 				Type = ShapeType.Rectangle
 			};
 
@@ -86,7 +86,7 @@ namespace VertexArmy.Content.Prefabs
 				UpperLimit = 240f,
 				LowerLimit = 100f,
 				LimitEnabled = true,
-				MaxMotorForce = 10f,
+				MaxMotorForce = 6.5f,
 				MotorSpeed = 2f,
 				MotorEnabled = true
 			};

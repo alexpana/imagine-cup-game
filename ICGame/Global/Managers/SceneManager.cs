@@ -58,8 +58,8 @@ namespace VertexArmy.Global.Managers
 			if ( _depth == null )
 			{
 				PresentationParameters pp = Platform.Instance.Device.PresentationParameters;
-				_depth = new RenderTarget2D( Platform.Instance.Device, pp.BackBufferWidth, pp.BackBufferHeight, false, SurfaceFormat.Single, Platform.Instance.Device.PresentationParameters.DepthStencilFormat, 
-					Platform.Instance.Device.PresentationParameters.MultiSampleCount, RenderTargetUsage.PreserveContents);
+				_depth = new RenderTarget2D( Platform.Instance.Device, pp.BackBufferWidth, pp.BackBufferHeight, false, SurfaceFormat.Single, Platform.Instance.Device.PresentationParameters.DepthStencilFormat,
+					Platform.Instance.Device.PresentationParameters.MultiSampleCount, RenderTargetUsage.PreserveContents );
 			}
 			return _depth;
 		}
@@ -88,7 +88,7 @@ namespace VertexArmy.Global.Managers
 			_backgroundSprite = Platform.Instance.Content.Load<Texture2D>( @"images/background" );
 
 #if DEBUG
-			ShowDebugInfo = true;
+			ShowDebugInfo = false;
 #else
 			ShowDebugInfo = false;
 #endif
@@ -214,7 +214,7 @@ namespace VertexArmy.Global.Managers
 			Renderer.Instance.LastFrame = Renderer.Instance.CurrentFrame;
 		}
 
-		private void RenderWithoutDof ( float dt )
+		private void RenderWithoutDof( float dt )
 		{
 			RenderColorRenderTarget( dt );
 			Platform.Instance.Device.Clear( ClearOptions.Target | ClearOptions.DepthBuffer, Color.DarkSlateBlue, 1.0f, 0 );
@@ -266,12 +266,12 @@ namespace VertexArmy.Global.Managers
 		public bool UseDof = false;
 		public bool UsePostDraw = false;
 
-		
-		public  void Render ( float dt )
+
+		public void Render( float dt )
 		{
 			if ( UseDof )
 			{
-				RenderWithDof(dt);
+				RenderWithDof( dt );
 			}
 			else
 			{
@@ -288,12 +288,12 @@ namespace VertexArmy.Global.Managers
 			RenderDepthRenderTarget( dt );
 			RenderColorRenderTarget( dt );
 
-			Platform.Instance.Device.BlendState = new BlendState( );
+			Platform.Instance.Device.BlendState = new BlendState();
 			Platform.Instance.Device.RasterizerState = RasterizerState.CullCounterClockwise;
 
 
-			Quad scquad = GetScreenQuad( );
-			Material dof = Renderer.Instance.GetDepthOfFieldMaterial( );
+			Quad scquad = GetScreenQuad();
+			Material dof = Renderer.Instance.GetDepthOfFieldMaterial();
 
 
 			dof.SetParameter( "matWorldViewProj", Matrix.Identity );
@@ -308,10 +308,10 @@ namespace VertexArmy.Global.Managers
 		{
 			_spriteBatch.Begin( SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullCounterClockwise, null );
 			_spriteBatch.Draw( _backgroundSprite, new Rectangle( ( int ) 0, 0, _backgroundSprite.Width, _backgroundSprite.Height ), Color.White );
-			_spriteBatch.End( );
+			_spriteBatch.End();
 		}
 
-		public void RenderColorRenderTarget(float dt)
+		public void RenderColorRenderTarget( float dt )
 		{
 			RenderTarget2D colorRenderTarget = GetColorRt();
 			Platform.Instance.Device.SetRenderTarget( colorRenderTarget );
@@ -369,10 +369,10 @@ namespace VertexArmy.Global.Managers
 				Renderer.Instance.LoadMatrix( EMatrix.World, registeredNode.GetAbsoluteTransformation() );
 				if ( currentCam.GetFrustum().Contains( registeredNode.GetTransformedBoundingBox() ) != ContainmentType.Disjoint && !registeredNode.Invisible && registeredNode.DrawsDepth )
 				{
-					Renderer.Instance.SetParameter("matWorldViewProj", Renderer.Instance.MatWorldViewProjection);
-					foreach (var attachable in registeredNode.Attachable)
+					Renderer.Instance.SetParameter( "matWorldViewProj", Renderer.Instance.MatWorldViewProjection );
+					foreach ( var attachable in registeredNode.Attachable )
 					{
-						attachable.RenderDepth(dt);
+						attachable.RenderDepth( dt );
 					}
 				}
 			}
@@ -414,13 +414,13 @@ namespace VertexArmy.Global.Managers
 				Renderer.Instance.LoadMatrix( EMatrix.World, registeredNode.GetAbsoluteTransformation() );
 				if ( currentCam.GetFrustum().Contains( registeredNode.GetTransformedBoundingBox() ) != ContainmentType.Disjoint && !registeredNode.Invisible )
 				{
-					Renderer.Instance.SetParameter("matWorld", Renderer.Instance.MatWorld);
-					Renderer.Instance.SetParameter("matWorldInverseTranspose", Renderer.Instance.MatWorldInverseTranspose);
-					Renderer.Instance.SetParameter("matWorldViewProj", Renderer.Instance.MatWorldViewProjection);
-				
-					foreach (var attachable in registeredNode.Attachable)
+					Renderer.Instance.SetParameter( "matWorld", Renderer.Instance.MatWorld );
+					Renderer.Instance.SetParameter( "matWorldInverseTranspose", Renderer.Instance.MatWorldInverseTranspose );
+					Renderer.Instance.SetParameter( "matWorldViewProj", Renderer.Instance.MatWorldViewProjection );
+
+					foreach ( var attachable in registeredNode.Attachable )
 					{
-						attachable.Render(dt);
+						attachable.Render( dt );
 					}
 				}
 				else
@@ -432,16 +432,16 @@ namespace VertexArmy.Global.Managers
 
 			if ( ShowDebugInfo )
 			{
-				string toShow = culledCount.ToString() + " objects culled out of " + _registeredNodes.Count + " objects\nFPS: " + (1000f/dt).ToString();
-				
+				string toShow = culledCount.ToString() + " objects culled out of " + _registeredNodes.Count + " objects\nFPS: " + ( 1000f / dt ).ToString();
+
 				if ( _hint == null )
-					_hint = HintManager.Instance.SpawnHint( toShow,  new Vector2( 600, 20 ), 200f, 2000f );
+					_hint = HintManager.Instance.SpawnHint( toShow, new Vector2( 600, 20 ), 200f, 2000f );
 				else
 				{
 					_hint.Text = toShow;
-					HintManager.Instance.SpawnHint(_hint);
+					HintManager.Instance.SpawnHint( _hint );
 				}
-				
+
 			}
 
 			if ( !UsePostDraw )
@@ -452,14 +452,14 @@ namespace VertexArmy.Global.Managers
 				Renderer.Instance.LoadMatrix( EMatrix.World, registeredNode.GetAbsoluteTransformation() );
 				if ( currentCam.GetFrustum().Contains( registeredNode.GetTransformedBoundingBox() ) != ContainmentType.Disjoint && !registeredNode.Invisible )
 				{
-					Renderer.Instance.SetParameter("matWorld", Renderer.Instance.MatWorld);
-					Renderer.Instance.SetParameter("matWorldInverseTranspose", Renderer.Instance.MatWorldInverseTranspose);
-					Renderer.Instance.SetParameter("matWorldViewProj", Renderer.Instance.MatWorldViewProjection);
+					Renderer.Instance.SetParameter( "matWorld", Renderer.Instance.MatWorld );
+					Renderer.Instance.SetParameter( "matWorldInverseTranspose", Renderer.Instance.MatWorldInverseTranspose );
+					Renderer.Instance.SetParameter( "matWorldViewProj", Renderer.Instance.MatWorldViewProjection );
 
 
-					foreach (var attachable in registeredNode.Attachable)
+					foreach ( var attachable in registeredNode.Attachable )
 					{
-						attachable.PostRender(dt);
+						attachable.PostRender( dt );
 					}
 				}
 			}
@@ -467,30 +467,30 @@ namespace VertexArmy.Global.Managers
 
 		public Texture2D MenuBackgroundTexture;
 
-		public void SortByLayer ()
+		public void SortByLayer()
 		{
 			//hack to fix SAF node transparency
 
 
-			_registeredNodes.Sort( ( a, b ) => ( a.GetLayer() - b.GetLayer()) );
+			_registeredNodes.Sort( ( a, b ) => ( a.GetLayer() - b.GetLayer() ) );
 
 		}
 
-		
+
 		public void Update( GameTime dt )
 		{
-			Renderer.Instance.SetParameter( "fTimeMs", (float)dt.TotalGameTime.TotalMilliseconds );
+			Renderer.Instance.SetParameter( "fTimeMs", ( float ) dt.TotalGameTime.TotalMilliseconds );
 		}
 
-		public Vector3 IntersectScreenRayWithPlane ( float zPlane )
+		public Vector3 IntersectScreenRayWithPlane( float zPlane )
 		{
 			MouseState state = Mouse.GetState();
-			return IntersectScreenRayWithPlane(zPlane, state.X, state.Y);
+			return IntersectScreenRayWithPlane( zPlane, state.X, state.Y );
 		}
 
 		public Vector3 IntersectScreenRayWithPlane( float zPlane, int screenX, int screenY )
 		{
-			Vector4 zerov = Vector4.Transform( new Vector4(0, 0, zPlane, 1.0f), Renderer.Instance.MatViewProjection );
+			Vector4 zerov = Vector4.Transform( new Vector4( 0, 0, zPlane, 1.0f ), Renderer.Instance.MatViewProjection );
 
 			Vector3 boardpoint = new Vector3( screenX, screenY, zerov.Z / zerov.W );
 
@@ -511,36 +511,36 @@ namespace VertexArmy.Global.Managers
 			Vector3 farPointW = Platform.Instance.Device.Viewport.Unproject( farPoint, projection, view, Matrix.Identity );
 
 
-			Ray ray = new Ray( nearPointW, Vector3.Normalize(farPointW - nearPointW) );
+			Ray ray = new Ray( nearPointW, Vector3.Normalize( farPointW - nearPointW ) );
 
 
 			List<SceneNode> nodes = new List<SceneNode>();
 
-			foreach (SceneNode registeredNode in _registeredNodes)
+			foreach ( SceneNode registeredNode in _registeredNodes )
 			{
 				bool isMesh = false;
 
-				foreach (Attachable attachable in registeredNode.Attachable)
+				foreach ( Attachable attachable in registeredNode.Attachable )
 				{
-					if ((attachable as MeshAttachable) != null)
+					if ( ( attachable as MeshAttachable ) != null )
 					{
 						isMesh = true;
 					}
 				}
 
-				if (isMesh)
+				if ( isMesh )
 				{
 					BoundingBox tBox = registeredNode.GetTransformedBoundingBox();
 					if ( ray.Intersects( tBox ) != null )
-						nodes.Add(registeredNode);
+						nodes.Add( registeredNode );
 				}
 			}
 			return nodes;
 		}
 
-        public List<SceneNode> IntersectScreenRayWithSceneNodes( Vector2 screenPosition )
-        {
-            return IntersectScreenRayWithSceneNodes((int)screenPosition.X, (int)screenPosition.Y);
-        }
+		public List<SceneNode> IntersectScreenRayWithSceneNodes( Vector2 screenPosition )
+		{
+			return IntersectScreenRayWithSceneNodes( ( int ) screenPosition.X, ( int ) screenPosition.Y );
+		}
 	}
 }

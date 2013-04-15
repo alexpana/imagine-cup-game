@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using VertexArmy.Global.Managers;
 
 namespace VertexArmy.Global.Hints
 {
@@ -16,12 +18,16 @@ namespace VertexArmy.Global.Hints
 		public int Time { get; set; }
 	}
 
-	public class RobotThoughtHint
+	public class RobotThoughtHint : IDismissableHint
 	{
+		public Action DismissedCallback { get; set; }
+
 		private const int ThinkingSpeed = 500;
 		private const int ThinkingBubbleInterval = (int)(500.0 / 4.7);
 		private const float ThinkingBubbleInitialScale = 0.5f;
 		private const float ThinkingBubbleScaleIncrement = 0.2f;
+
+		private readonly Texture2D _bubbleTexture = Platform.Instance.Content.Load<Texture2D>( "images/menu/metro/color_hint_bubble"  );
 
 		internal enum HintState
 		{
@@ -47,7 +53,7 @@ namespace VertexArmy.Global.Hints
 		public Color Color { get; private set; }
 
 		public int LinesCount { get; private set; }
-		public string Text { get; private set; }
+		public string Text { get; set; }
 
 		#region Thinking
 		private int _thinkTime;
@@ -59,9 +65,7 @@ namespace VertexArmy.Global.Hints
 		private int _currentFadeOperation; // -1 fade In, 0, 1 fade Out
 		public float Alpha { get; private set; }
 		#endregion
-
-		public Action DismissedCallback;
-
+		
 		public RobotThoughtHint( string text, Vector2 startPosition, Vector2 endPosition, float msTime, uint fadeTime )
 		{
 			ThinkingBubbles = new List<HintBubble>();
@@ -168,6 +172,23 @@ namespace VertexArmy.Global.Hints
 					Alpha = MathHelper.Lerp( 0, 1.0f, ( float ) _currentFadeTime / _fadeTime );
 				}
 			}
+		}
+
+		public void Render()
+		{
+			foreach ( var thinkingBubble in ThinkingBubbles )
+			{
+				HintManager.Instance.RenderTexture( _bubbleTexture, thinkingBubble.Position, null, Color.White * thinkingBubble.Alpha, 0, Vector2.Zero, thinkingBubble.Scale, SpriteEffects.None, 0 );
+			}
+
+			Vector2 offset = new Vector2( 20, 16 );
+			HintManager.Instance.RenderHintBackground( CurrentPosition - offset, LinesCount, Alpha );
+			HintManager.Instance.RenderString( Text, CurrentPosition, Color * Alpha );
+		}
+
+		public bool ShouldDismiss()
+		{
+			return Time < 0;
 		}
 	}
 }

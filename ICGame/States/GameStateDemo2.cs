@@ -35,10 +35,14 @@ namespace VertexArmy.States
 		private bool _actionToggleDebugView;
 		private bool _debugViewState;
 		private ButtonComponent _gravityButton;
+		private bool _gravityChanged;
+
+		private Vector2 _sucktionSpot;
 
 		public GameStateDemo2( ContentManager content )
 		{
 			_contentManager = content;
+			_gravityChanged = false;
 		}
 
 		public override void OnUpdate( GameTime gameTime )
@@ -47,13 +51,11 @@ namespace VertexArmy.States
 #if ALLOW_HACKS
 #endif
 
-			if ( _gravityButton.ButtonState )
+			if ( _gravityButton.ButtonState && !_gravityChanged )
 			{
 				Platform.Instance.PhysicsWorld.Gravity = Vector2.Zero;
-			}
-			else
-			{
-				Platform.Instance.PhysicsWorld.Gravity = new Vector2( 0f, 9.82f );
+				GameWorldManager.Instance.SaveState();
+				_gravityChanged = true;
 			}
 
 			if ( Robot != null )
@@ -166,7 +168,7 @@ namespace VertexArmy.States
 				Platform.Instance.PhysicsWorld,
 				GameWorldManager.Instance.GetEntity( "floorbridge0" ).PhysicsEntity.GetBody( "FloorBody" ),
 				UnitsConverter.ToSimUnits( new Vector2( 120f, 0f ) ),
-				UnitsConverter.ToSimUnits( new Vector2( 2040f + 60f * 16, -43 ) )
+				UnitsConverter.ToSimUnits( new Vector2( 2689f, 564 ) )
 			);
 
 
@@ -174,10 +176,10 @@ namespace VertexArmy.States
 				Platform.Instance.PhysicsWorld,
 				GameWorldManager.Instance.GetEntity( "floorbridge0" ).PhysicsEntity.GetBody( "FloorBody" ),
 				UnitsConverter.ToSimUnits( new Vector2( -120f, -5f ) ),
-				UnitsConverter.ToSimUnits( new Vector2( 2040f + 60f * 20, -180f ) )
+				UnitsConverter.ToSimUnits( new Vector2( 2466f, 244f ) )
 				);
-			dj.Frequency = 2f;
-			dj.DampingRatio = 0.4f;
+			dj.Frequency = 1.5f;
+			dj.DampingRatio = 0.355f;
 		}
 
 		public void LoadDynamics()
@@ -204,8 +206,22 @@ namespace VertexArmy.States
 
 		public void LoadTriggers()
 		{
+			GameWorldManager.Instance.SpawnEntity( "Trigger", "airpipeforce", new Vector3( -800, 400f, 0f ), 5f );
+			GameWorldManager.Instance.GetEntity( "airpipeforce" ).RegisterComponent(
+					"trigger",
+					new BodyTriggerAreaComponent( new Vector2( 260f, 1200f ), AirPipeTrigger )
+				);
 
+			Vector3 sucktionSpot3D = GameWorldManager.Instance.GetEntity( "pipe0" ).GetPosition() + Vector3.UnitY * 700f;
+			_sucktionSpot = UnitsConverter.ToSimUnits( new Vector2( sucktionSpot3D.X, sucktionSpot3D.Y ) - ( Vector2.UnitY * 300f ) );
+		}
 
+		private void AirPipeTrigger( Body b )
+		{
+			Vector2 force = _sucktionSpot - b.Position;
+			force.Normalize();
+			force = force * 0.1f;
+			b.ApplyForce( force );
 		}
 
 		public void LoadLevel()
@@ -226,7 +242,7 @@ namespace VertexArmy.States
 			SceneManager.Instance.UseDof = true;
 			LoadLevel();
 			GameWorldManager.Instance.SaveState();
-			Platform.Instance.PhysicsWorld.Gravity = Vector2.UnitY * Platform.Instance.PhysicsWorld.Gravity.Length();
+			Platform.Instance.PhysicsWorld.Gravity = new Vector2( 0f, 9.82f );
 
 			FrameUpdateManager.Instance.Register( HintManager.Instance );
 

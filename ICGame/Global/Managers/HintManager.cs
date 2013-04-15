@@ -10,8 +10,8 @@ namespace VertexArmy.Global.Managers
 {
 	public class HintManager : IUpdatable
 	{
-		private readonly List<RobotThoughtHint> _robotThoughtHints;
-		private readonly List<FadeHint> _fadeHints;
+		private readonly List<IDismissableHint> _robotThoughtHints;
+		private readonly List<IHint> _fadeHints;
 		private readonly SpriteBatch _spriteBatch;
 		private readonly SpriteFont _font;
 
@@ -19,14 +19,12 @@ namespace VertexArmy.Global.Managers
 		private readonly Texture2D _tooltipBackgroundMiddle = Platform.Instance.Content.Load<Texture2D>( "images/menu/metro/tooltip_middle" );
 		private readonly Texture2D _tooltipBackgroundBottom = Platform.Instance.Content.Load<Texture2D>( "images/menu/metro/tooltip_bottom" );
 
-		private readonly Texture2D _thinkingBubbleTexture = Platform.Instance.Content.Load<Texture2D>( "images/menu/metro/color_hint_bubble" );
-
 		private const int DefaultHintFadeTime = 1000;
 
 		public HintManager()
 		{
-			_fadeHints = new List<FadeHint>();
-			_robotThoughtHints = new List<RobotThoughtHint>();
+			_fadeHints = new List<IHint>();
+			_robotThoughtHints = new List<IDismissableHint>();
 			_spriteBatch = new SpriteBatch( Platform.Instance.Device );
 			_font = Platform.Instance.Content.Load<SpriteFont>( "fonts/Impact" );
 		}
@@ -84,12 +82,12 @@ namespace VertexArmy.Global.Managers
 		{
 			lock ( _robotThoughtHints )
 			{
-				List<RobotThoughtHint> hintsToRemove = new List<RobotThoughtHint>();
+				List<IDismissableHint> hintsToRemove = new List<IDismissableHint>();
 				foreach ( var activeHint in _robotThoughtHints )
 				{
 					activeHint.Update( gameTime );
 
-					if ( activeHint.Time < 0 )
+					if ( activeHint.ShouldDismiss() )
 					{
 						hintsToRemove.Add( activeHint );
 					}
@@ -118,23 +116,19 @@ namespace VertexArmy.Global.Managers
 
 			foreach ( var activeHint in _robotThoughtHints )
 			{
-				Render( activeHint );
+				activeHint.Render();
 			}
 
 			foreach (FadeHint fadeHint in _fadeHints)
 			{
-				if(fadeHint.IsRenderable())
-				{
-					Vector2 offset = new Vector2( 20, 16 );
-					RenderHintBackground(fadeHint.Position - offset, fadeHint.Lines, fadeHint.Color.A / 255f);
-					_spriteBatch.DrawString( _font, fadeHint.Text, fadeHint.Position, fadeHint.Color );
-				}
+				fadeHint.Render();
+
 			}
 
 			_spriteBatch.End();
 		}
 
-		private void RenderHintBackground( Vector2 position, int linecount, float alpha )
+		public void RenderHintBackground( Vector2 position, int linecount, float alpha )
 		{
 			// Delta position should be 20, 16
 			_spriteBatch.Draw( _tooltipBackgroundTop, position, Color.White * alpha );
@@ -147,17 +141,14 @@ namespace VertexArmy.Global.Managers
 			_spriteBatch.Draw( _tooltipBackgroundBottom, position, Color.White * alpha );
 		}
 
-		public void Render( RobotThoughtHint hint )
+		public void RenderString( String text, Vector2 position, Color color )
 		{
-			foreach ( var thinkingBubble in hint.ThinkingBubbles )
-			{
-				_spriteBatch.Draw( _thinkingBubbleTexture, thinkingBubble.Position, null, Color.White * thinkingBubble.Alpha, 0, Vector2.Zero, thinkingBubble.Scale, SpriteEffects.None, 0 );
-			}
+			_spriteBatch.DrawString( _font, text, position, color );
+		}
 
-			Vector2 offset = new Vector2( 20, 16 );
-			RenderHintBackground( hint.CurrentPosition - offset, hint.LinesCount, hint.Alpha );
-
-			_spriteBatch.DrawString( _font, hint.Text, hint.CurrentPosition, hint.Color * hint.Alpha );
+		public void RenderTexture(  Texture2D texture, Vector2 position, Rectangle? sourceRect, Color color, float rotation, Vector2 origin, float scale = 1,  SpriteEffects effects = SpriteEffects.None, float layerDepth = 0 )
+		{
+			_spriteBatch.Draw(texture, position, sourceRect, color, rotation, origin, scale, effects, layerDepth);
 		}
 
 		// ReSharper disable InconsistentNaming

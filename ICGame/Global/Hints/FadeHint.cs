@@ -1,8 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
+using VertexArmy.Global.Managers;
 
 namespace VertexArmy.Global.Hints
 {
-	public class FadeHint
+	public class FadeHint : IHint
 	{
 		private Color _color;
 		private string _text;
@@ -39,11 +40,11 @@ namespace VertexArmy.Global.Hints
 		public int Lines { get; private set; }
 
 		public FadeHint(string text, Vector2 position, float fadeIn, float fadeOut) :
-			this(text, position, Color.Orange, float.PositiveInfinity, fadeIn, fadeOut)
+			this( text, position, new Color( 0.81f, 0.5f, 0.33f ), float.PositiveInfinity, fadeIn, fadeOut )
 		{ }
 
 		public FadeHint( string text, Vector2 position, float timeToLive, float fadeIn, float fadeOut ) :
-			this( text, position, Color.Orange, timeToLive, fadeIn, fadeOut )
+			this( text, position, new Color( 0.81f, 0.5f, 0.33f ), timeToLive, fadeIn, fadeOut )
 		{ }
 
 		public FadeHint( string text, Vector2 position, Color color, float timeToLive, float fadeIn, float fadeOut )
@@ -134,6 +135,16 @@ namespace VertexArmy.Global.Hints
 					break;
 				case HintState.Stopped:
 					break;
+			}
+		}
+
+		public void Render()
+		{
+			if ( IsRenderable() )
+			{
+				Vector2 offset = new Vector2( 20, 16 );
+				HintManager.Instance.RenderHintBackground( Position - offset, Lines, Color.A / 255f );
+				HintManager.Instance.RenderString( Text, Position, Color );
 			}
 		}
 

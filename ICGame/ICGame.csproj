@@ -182,8 +182,11 @@
     <Compile Include="Global\Behaviours\IController.cs" />
     <Compile Include="Global\Controllers\BodyController.cs" />
     <Compile Include="Global\Controllers\WorldShapeCollisionController.cs" />
+    <Compile Include="Global\Hints\IDismissableHint.cs" />
+    <Compile Include="Global\Hints\IHint.cs" />
     <Compile Include="Global\Hints\RobotThoughtHint.cs" />
     <Compile Include="Global\Hints\FadeHint.cs" />
+    <Compile Include="Global\Hints\SharpThoughtHints.cs" />
     <Compile Include="Global\Managers\HintManager.cs" />
     <Compile Include="Global\Managers\InGameMenuManager.cs" />
     <Compile Include="Global\Managers\SoundManager.cs" />

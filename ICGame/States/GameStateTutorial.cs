@@ -1,5 +1,4 @@
-﻿//#define ALLOW_HACKS
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using FarseerPhysics.Dynamics;
 using FarseerPhysics.Dynamics.Joints;
 using FarseerPhysics.Factories;
@@ -47,7 +46,7 @@ namespace VertexArmy.States
 		public override void OnUpdate( GameTime gameTime )
 		{
 			base.OnUpdate( gameTime );
-#if ALLOW_HACKS
+#if DEBUG
 			if ( Platform.Instance.Input.IsKeyPressed( Keys.H, false ) )
 			{
 				_hint1 = false;
@@ -61,7 +60,7 @@ namespace VertexArmy.States
 				{
 					ResetGameState();
 				}
-#if ALLOW_HACKS
+#if DEBUG
 				if ( Platform.Instance.Input.IsKeyPressed( Keys.Up ) )
 				{
 					if ( Robot.PhysicsEntity.GetCollisionLayer().Equals( Category.Cat1 ) )
@@ -87,7 +86,7 @@ namespace VertexArmy.States
 					ResetGameState();
 				}
 			}
-#if ALLOW_HACKS
+#if DEBUG
 			if ( Platform.Instance.Input.IsKeyPressed( Keys.D, false ) )
 			{
 				_debugViewState = !_debugViewState;
@@ -167,7 +166,6 @@ namespace VertexArmy.States
 
 
 			CameraController camControl = new CameraController( Robot, SceneManager.Instance.GetCurrentCamera() );
-			//OrbitCameraController camControl = new OrbitCameraController( Robot, SceneManager.Instance.GetCurrentCamera() );
 			ControllerRepository.Instance.RegisterController( "camcontrol", camControl );
 
 			FrameUpdateManager.Instance.Register( camControl );
@@ -196,40 +194,26 @@ namespace VertexArmy.States
 			ControllerRepository.Instance.RegisterController( "upgradeCube1Controller", new CollectibleController( GameWorldManager.Instance.GetEntity( "safCollectible1" ).MainNode ) );
 			FrameUpdateManager.Instance.Register( ControllerRepository.Instance.GetController( "upgradeCube1Controller" ) );
 
-
-
-			_wsController.Register( new HintShapeListener( new FadeHint( "It seems you are blocked.\nPress the 'R' key to reset your position.", new Vector2( 100, 50 ), 500f, 500f ) ),
-				new BoundingSphere( new Vector3( 1492, 30f, 0f ), 90 ) );
-			_wsController.Register( new HintShapeListener( new FadeHint( "It seems you are blocked.\nPress the 'R' key to reset your position.", new Vector2( 100, 50 ), 500f, 500f ) ),
-				new BoundingBox( new Vector3( 2200, -280, -100 ), new Vector3( 3000, -5, 100 ) ) );
-
-			//GameWorldManager.Instance.SpawnEntity( "Trigger", "death1", new Vector3( 1492, 60f, 0f ) );
-			//GameWorldManager.Instance.GetEntity( "death1" ).RegisterComponent(
-			//"trigger",
-			//new BodyTriggerAreaComponent( new Vector2( 10f, 10f ), Robot.MainBody, ShowIsBlockedHint )
-			//);
-
-			//GameWorldManager.Instance.SpawnEntity( "Trigger", "death2", new Vector3( 2455, -60f, 0f ) );
-			//GameWorldManager.Instance.GetEntity( "death2" ).RegisterComponent(
-			//	"trigger",
-			//new BodyTriggerAreaComponent( new Vector2( 10f, 10f ), Robot.MainBody, ShowIsBlockedHint )
-			//);
-
 			GameWorldManager.Instance.SpawnEntity( "Trigger", "endGame", new Vector3( 3500, 30f, 0f ) );
 			GameWorldManager.Instance.GetEntity( "endGame" ).RegisterComponent(
 					"trigger",
 					new BodyTriggerAreaComponent( new Vector2( 10f, 10f ), Robot.MainBody, EndOfGameHint )
 				);
 
-			//GameWorldManager.Instance.SpawnEntity( "Trigger", "hint1", new Vector3( -150, 60f, 0f ) );
-			//GameWorldManager.Instance.GetEntity( "hint1" ).RegisterComponent(
-			//	"trigger",
-			//new BodyTriggerAreaComponent( new Vector2( 10f, 10f ), Robot.MainBody, Hint1 )
-			//);
+			RegisterHints();
+		}
+
+		private void RegisterHints()
+		{
+			_wsController.Register( new HintShapeListener( new FadeHint( "It seems you are blocked.\nPress the 'R' key to reset your position.", new Vector2( 100, 50 ), 500f, 500f ) ),
+				new BoundingSphere( new Vector3( 1492, 30f, 0f ), 90 ) );
+
+			_wsController.Register( new HintShapeListener( new FadeHint( "It seems you are blocked.\nPress the 'R' key to reset your position.", new Vector2( 100, 50 ), 500f, 500f ) ),
+				new BoundingBox( new Vector3( 2200, -280, -100 ), new Vector3( 3000, -5, 100 ) ) );
 
 			_wsController.Register(
-				new HintShapeListener( new FadeHint( "Crates can be pushed around.\nTry pushing that crate towards the wall button.", new Vector2( 100, 50 ), 2000f, 500f, 500f ), true ),
-				new BoundingSphere( new Vector3( -150, 60, 0f ), 200 ) );
+			new HintShapeListener( new FadeHint( "Crates can be pushed around.\nTry pushing that crate towards the wall button.", new Vector2( 100, 50 ), 2000f, 500f, 500f ), true ),
+			new BoundingSphere( new Vector3( -150, 60, 0f ), 200 ) );
 
 			_wsController.Register(
 				new HintShapeListener( new FadeHint( "Step onto the platform ahead for an upgrade.", new Vector2( 100, 100 ), 500f, 500f ), true ),
@@ -246,29 +230,6 @@ namespace VertexArmy.States
 			_wsController.Register(
 				new HintShapeListener( new FadeHint( "Press Mouse1 to pull objects towards the robot. \nPress Mouse2 to push away objects from the robot.", new Vector2( 100, 100 ), 500f, 500f ), true ),
 				new BoundingSphere( new Vector3( 620f, 70f, 0f ), 100 ) );
-
-
-
-			//	string Text = "Press Mouse1 to pull objects towards the robot. \nPress Mouse2 to push away objects from the robot.";
-			//	HintManager.Instance.SpawnHint( Text, new Vector2( 100, 100 ), 7000, 1 );
-
-			//GameWorldManager.Instance.SpawnEntity( "Trigger", "hint2", new Vector3( 320, 60f, 0f ) );
-			//GameWorldManager.Instance.GetEntity( "hint2" ).RegisterComponent(
-			//	"trigger",
-			//new BodyTriggerAreaComponent( new Vector2( 10f, 10f ), Robot.MainBody, Hint2 )
-			//);
-
-			//GameWorldManager.Instance.SpawnEntity( "Trigger", "hint3", new Vector3( 1200, 150f, 0f ) );
-			//GameWorldManager.Instance.GetEntity( "hint3" ).RegisterComponent(
-			//	"trigger",
-			//new BodyTriggerAreaComponent( new Vector2( 10f, 10f ), Robot.MainBody, Hint3 )
-			//);
-
-			//GameWorldManager.Instance.SpawnEntity( "Trigger", "hint4", new Vector3( 1900, 150f, 0f ) );
-			//GameWorldManager.Instance.GetEntity( "hint4" ).RegisterComponent(
-			//	"trigger",
-			//new BodyTriggerAreaComponent( new Vector2( 10f, 10f ), Robot.MainBody, Hint4 )
-			//);
 		}
 
 		public void LoadLevel()

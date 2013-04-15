@@ -36,7 +36,7 @@ namespace VertexArmy.States
 
 		private bool _debugViewState;
 
-		private bool _hint1, _hint2, _hint3, _hint4, _endOfGameHintShown, _blockedHintShown;
+		private bool _endOfGameHintShown;
 
 		public GameStateTutorial( ContentManager content )
 		{
@@ -46,13 +46,6 @@ namespace VertexArmy.States
 		public override void OnUpdate( GameTime gameTime )
 		{
 			base.OnUpdate( gameTime );
-#if DEBUG
-			if ( Platform.Instance.Input.IsKeyPressed( Keys.H, false ) )
-			{
-				_hint1 = false;
-				Hint1();
-			}
-#endif
 			if ( Robot != null )
 			{
 
@@ -92,7 +85,6 @@ namespace VertexArmy.States
 				_debugViewState = !_debugViewState;
 			}
 #endif
-
 		}
 
 		public override void OnRender( GameTime gameTime )
@@ -174,8 +166,6 @@ namespace VertexArmy.States
 			Camera.SetRotation( 5f );
 			FrameUpdateManager.Instance.Register( new GravityController() );
 
-
-
 			_wsController = new WorldShapeCollisionController();
 			ControllerRepository.Instance.RegisterController( "RobotTriggerController", camControl );
 			FrameUpdateManager.Instance.Register( _wsController );
@@ -254,7 +244,6 @@ namespace VertexArmy.States
 
 			FrameUpdateManager.Instance.Register( HintManager.Instance );
 
-			_hint1 = _hint2 = _hint3 = _hint4 = false;
 			_debugViewState = false;
 
 			_debugView = new DebugViewXNA( Platform.Instance.PhysicsWorld );
@@ -292,7 +281,7 @@ namespace VertexArmy.States
 
 		private void ResetGameState()
 		{
-			_hint1 = _hint2 = _hint3 = _hint4 = _endOfGameHintShown = _blockedHintShown = false;
+			_endOfGameHintShown = false;
 			HintManager.Instance.Clear();
 			_wsController.Clean();
 			GameWorldManager.Instance.LoadLastState();
@@ -308,17 +297,7 @@ namespace VertexArmy.States
 
 				Robot.RegisterComponent( "force", new SentientForceComponent() );
 				GameWorldManager.Instance.SaveState();
-				//	string Text = "Press Mouse1 to pull objects towards the robot. \nPress Mouse2 to push away objects from the robot.";
-				//	HintManager.Instance.SpawnHint( Text, new Vector2( 100, 100 ), 7000, 1 );
 			}
-		}
-
-		private void ShowIsBlockedHint()
-		{
-			if ( _blockedHintShown ) { return; }
-
-			_blockedHintShown = true;
-			HintManager.Instance.SpawnHint( "It seems you are blocked.\nPress the 'R' key to reset your position.", new Vector2( 100, 100 ), 5000, 1 );
 		}
 
 		private void EndOfGameHint()
@@ -333,47 +312,6 @@ namespace VertexArmy.States
 		{
 			StateManager.Instance.PopState();
 			StateManager.Instance.ChangeState( GameState.Menu );
-		}
-
-		public void Hint1()
-		{
-			if ( !_hint1 )
-			{
-				string Text = "Crates can be pushed around.\nTry pushing that crate towards the wall button.";
-				HintManager.Instance.SpawnHint( Text, new Vector2( 400, 300 ), new Vector2( 100, 100 ), 4000 );
-				//HintManager.Instance.SpawnHint( Text, new Vector2( 100, 100 ), 4000, 1 );
-				_hint1 = true;
-			}
-		}
-
-		public void Hint2()
-		{
-			if ( !_hint2 )
-			{
-				string Text = "Step onto the platform ahead for an upgrade.";
-				HintManager.Instance.SpawnHint( Text, new Vector2( 100, 150 ), 2000, 1 );
-				_hint2 = true;
-			}
-		}
-
-		public void Hint3()
-		{
-			if ( !_hint3 )
-			{
-				string Text = "Sometimes you can get stuck.\nPress R to reverse to the last checkpoint.";
-				HintManager.Instance.SpawnHint( Text, new Vector2( 100, 180 ), 5000, 1 );
-				_hint3 = true;
-			}
-		}
-
-		public void Hint4()
-		{
-			if ( !_hint4 )
-			{
-				string Text = "Some puzzles can be harder to overcome.\nRemember to press R incase you get stuck.";
-				HintManager.Instance.SpawnHint( Text, new Vector2( 100, 70 ), 5000, 1 );
-				_hint4 = true;
-			}
 		}
 	}
 }

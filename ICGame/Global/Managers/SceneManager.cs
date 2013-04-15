@@ -32,6 +32,8 @@ namespace VertexArmy.Global.Managers
 
 		private Quad _screenQuad;
 
+		public bool ShowDebugInfo;
+
 		private SpriteBatch _spriteBatch;
 		private Texture2D _backgroundSprite;
 
@@ -84,6 +86,12 @@ namespace VertexArmy.Global.Managers
 			_audioListener = new AudioListener();
 			_spriteBatch = new SpriteBatch( Platform.Instance.Device );
 			_backgroundSprite = Platform.Instance.Content.Load<Texture2D>( @"images/background" );
+
+#if DEBUG
+			ShowDebugInfo = true;
+#else
+			ShowDebugInfo = false;
+#endif
 
 		}
 
@@ -372,8 +380,6 @@ namespace VertexArmy.Global.Managers
 					}
 				}
 			}
-
-		
 		}
 
 		private FadeHint _hint;
@@ -409,21 +415,16 @@ namespace VertexArmy.Global.Managers
 			int culledCount = 0;
 			foreach ( var registeredNode in _registeredNodes )
 			{
-				if ( currentCam.GetFrustum().Contains( registeredNode.GetTransformedBoundingBox() ) != ContainmentType.Disjoint )
+				if ( currentCam.GetFrustum().Contains( registeredNode.GetTransformedBoundingBox() ) != ContainmentType.Disjoint && !registeredNode.Invisible )
 				{
 					Renderer.Instance.LoadMatrix(EMatrix.World, registeredNode.GetAbsoluteTransformation());
 					Renderer.Instance.SetParameter("matWorld", Renderer.Instance.MatWorld);
 					Renderer.Instance.SetParameter("matWorldInverseTranspose", Renderer.Instance.MatWorldInverseTranspose);
 					Renderer.Instance.SetParameter("matWorldViewProj", Renderer.Instance.MatWorldViewProjection);
 
-
-
 					foreach (var attachable in registeredNode.Attachable)
 					{
-						if (!attachable.Parent.Invisible)
-						{
-							attachable.Render(dt);
-						}
+						attachable.Render(dt);
 					}
 				}
 				else
@@ -432,11 +433,13 @@ namespace VertexArmy.Global.Managers
 				}
 			}
 
-			
 
-			if ( _hint == null )
-				_hint = HintManager.Instance.SpawnHint( culledCount.ToString() + " objects culled out of " + _registeredNodes.Count + " objects", new Vector2( 600, 20 ), 200f, 2000f );
-			_hint.Text = culledCount.ToString() + " objects culled out of " + _registeredNodes.Count + " objects";
+			if ( ShowDebugInfo )
+			{
+				if ( _hint == null )
+					_hint = HintManager.Instance.SpawnHint( culledCount.ToString() + " objects culled out of " + _registeredNodes.Count + " objects", new Vector2( 600, 20 ), 200f, 2000f );
+				_hint.Text = culledCount.ToString() + " objects culled out of " + _registeredNodes.Count + " objects";
+			}
 
 			if ( !UsePostDraw )
 				return;

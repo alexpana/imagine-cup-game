@@ -293,11 +293,11 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="movies\PurpleStarFlight.wmv">
+    <None Include="movies\PurpleStarFlight.wmv">
       <Name>PurpleStarFlight</Name>
       <Importer>WmvImporter</Importer>
       <Processor>VideoProcessor</Processor>
-    </Compile>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="effects\blur.fx">
@@ -636,6 +636,13 @@
       <Name>unlit_textured</Name>
       <Importer>EffectImporter</Importer>
       <Processor>EffectProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="images\menu\level_cube_level2_text.png">
+      <Name>level_cube_level2_text</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />

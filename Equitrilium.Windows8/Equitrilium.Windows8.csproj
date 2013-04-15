@@ -217,9 +217,6 @@
     <Compile Include="..\ICGame\GameWorld\Prefabs\Structs\PhysicsPrefab.cs">
       <Link>GameWorld\Prefabs\Structs\PhysicsPrefab.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\GameWorld\Prefabs\Structs\SafSceneNodePrefab.cs">
-      <Link>GameWorld\Prefabs\Structs\SafSceneNodePrefab.cs</Link>
-    </Compile>
     <Compile Include="..\ICGame\GameWorld\Prefabs\Structs\ShapePrefab.cs">
       <Link>GameWorld\Prefabs\Structs\ShapePrefab.cs</Link>
     </Compile>
@@ -289,6 +286,24 @@
     <Compile Include="..\ICGame\Global\Controllers\RelativeController.cs">
       <Link>Global\Controllers\RelativeController.cs</Link>
     </Compile>
+    <Compile Include="..\ICGame\Global\Controllers\WorldShapeCollisionController.cs">
+      <Link>Global\Controllers\WorldShapeCollisionController.cs</Link>
+    </Compile>
+    <Compile Include="..\ICGame\Global\Hints\FadeHint.cs">
+      <Link>Global\Hints\FadeHint.cs</Link>
+    </Compile>
+    <Compile Include="..\ICGame\Global\Hints\IDismissableHint.cs">
+      <Link>Global\Hints\IDismissableHint.cs</Link>
+    </Compile>
+    <Compile Include="..\ICGame\Global\Hints\IHint.cs">
+      <Link>Global\Hints\IHint.cs</Link>
+    </Compile>
+    <Compile Include="..\ICGame\Global\Hints\RobotThoughtHint.cs">
+      <Link>Global\Hints\RobotThoughtHint.cs</Link>
+    </Compile>
+    <Compile Include="..\ICGame\Global\Hints\SharpThoughtHints.cs">
+      <Link>Global\Hints\SharpThoughtHints.cs</Link>
+    </Compile>
     <Compile Include="..\ICGame\Global\Managers\ControllerRepository.cs">
       <Link>Global\Managers\ControllerRepository.cs</Link>
     </Compile>
@@ -300,9 +315,6 @@
     </Compile>
     <Compile Include="..\ICGame\Global\Managers\GameWorldManager.cs">
       <Link>Global\Managers\GameWorldManager.cs</Link>
-    </Compile>
-    <Compile Include="..\ICGame\Global\Managers\Hint.cs">
-      <Link>Global\Managers\Hint.cs</Link>
     </Compile>
     <Compile Include="..\ICGame\Global\Managers\HintManager.cs">
       <Link>Global\Managers\HintManager.cs</Link>
@@ -345,9 +357,6 @@
     </Compile>
     <Compile Include="..\ICGame\Graphics\Attachables\MeshAttachable.cs">
       <Link>Graphics\Attachables\MeshAttachable.cs</Link>
-    </Compile>
-    <Compile Include="..\ICGame\Graphics\Attachables\SafAttachable.cs">
-      <Link>Graphics\Attachables\SafAttachable.cs</Link>
     </Compile>
     <Compile Include="..\ICGame\Graphics\Material.cs">
       <Link>Graphics\Material.cs</Link>

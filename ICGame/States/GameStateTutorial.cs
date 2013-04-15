@@ -36,23 +36,18 @@ namespace VertexArmy.States
 
 		private bool _debugViewState;
 
-		private bool _hint1, _hint2, _hint3, _hint4, _endOfGameHintShown, _blockedHintShown;
+		private bool _endOfGameHintShown;
+		private readonly Dictionary<string, bool> _saveTriggerStates;
 
 		public GameStateTutorial( ContentManager content )
 		{
 			_contentManager = content;
+			_saveTriggerStates = new Dictionary<string, bool>();
 		}
 
 		public override void OnUpdate( GameTime gameTime )
 		{
 			base.OnUpdate( gameTime );
-#if DEBUG
-			if ( Platform.Instance.Input.IsKeyPressed( Keys.H, false ) )
-			{
-				_hint1 = false;
-				Hint1();
-			}
-#endif
 			if ( Robot != null )
 			{
 
@@ -92,7 +87,6 @@ namespace VertexArmy.States
 				_debugViewState = !_debugViewState;
 			}
 #endif
-
 		}
 
 		public override void OnRender( GameTime gameTime )
@@ -174,8 +168,6 @@ namespace VertexArmy.States
 			Camera.SetRotation( 5f );
 			FrameUpdateManager.Instance.Register( new GravityController() );
 
-
-
 			_wsController = new WorldShapeCollisionController();
 			ControllerRepository.Instance.RegisterController( "RobotTriggerController", camControl );
 			FrameUpdateManager.Instance.Register( _wsController );
@@ -190,17 +182,41 @@ namespace VertexArmy.States
 					new BodyTriggerAreaComponent( new Vector2( 10f, 10f ), Robot.MainBody, UpgradeCube1Callback )
 				);
 
+			SpawnSaveTrigger( "save1", new Vector3( 1682f, 138f, 0f ) );
+			SpawnSaveTrigger( "save2", new Vector3( 3600, 0, 0f ) );
+
 			GameWorldManager.Instance.SpawnEntity( "SafCollectible", "safCollectible1", new Vector3( 500f + 60f * 2, 70f, 0f ) );
 			ControllerRepository.Instance.RegisterController( "upgradeCube1Controller", new CollectibleController( GameWorldManager.Instance.GetEntity( "safCollectible1" ).MainNode ) );
 			FrameUpdateManager.Instance.Register( ControllerRepository.Instance.GetController( "upgradeCube1Controller" ) );
 
+
 			GameWorldManager.Instance.SpawnEntity( "Trigger", "endGame", new Vector3( 3500, 30f, 0f ) );
 			GameWorldManager.Instance.GetEntity( "endGame" ).RegisterComponent(
-					"trigger",
-					new BodyTriggerAreaComponent( new Vector2( 10f, 10f ), Robot.MainBody, EndOfGameHint )
-				);
+				"trigger",
+				new BodyTriggerAreaComponent( new Vector2( 10f, 10f ), Robot.MainBody, EndOfGameHint ) );
 
 			RegisterHints();
+		}
+
+		private void SpawnSaveTrigger( string triggerName, Vector3 position )
+		{
+			_saveTriggerStates[triggerName] = false;
+
+			GameWorldManager.Instance.SpawnEntity( "Trigger", triggerName, position );
+			GameWorldManager.Instance.GetEntity( triggerName ).RegisterComponent(
+					"trigger",
+					new BodyTriggerAreaComponent( new Vector2( 10f, 10f ), Robot.MainBody,
+						() =>
+						{
+							if ( _saveTriggerStates[triggerName] )
+							{
+								return;
+							}
+
+							GameWorldManager.Instance.SaveState();
+							_saveTriggerStates[triggerName] = true;
+						} )
+				);
 		}
 
 		private void RegisterHints()
@@ -254,7 +270,6 @@ namespace VertexArmy.States
 
 			FrameUpdateManager.Instance.Register( HintManager.Instance );
 
-			_hint1 = _hint2 = _hint3 = _hint4 = false;
 			_debugViewState = false;
 
 			_debugView = new DebugViewXNA( Platform.Instance.PhysicsWorld );
@@ -292,7 +307,7 @@ namespace VertexArmy.States
 
 		private void ResetGameState()
 		{
-			_hint1 = _hint2 = _hint3 = _hint4 = _endOfGameHintShown = _blockedHintShown = false;
+			_endOfGameHintShown = false;
 			HintManager.Instance.Clear();
 			_wsController.Clean();
 			GameWorldManager.Instance.LoadLastState();
@@ -308,17 +323,7 @@ namespace VertexArmy.States
 
 				Robot.RegisterComponent( "force", new SentientForceComponent() );
 				GameWorldManager.Instance.SaveState();
-				//	string Text = "Press Mouse1 to pull objects towards the robot. \nPress Mouse2 to push away objects from the robot.";
-				//	HintManager.Instance.SpawnHint( Text, new Vector2( 100, 100 ), 7000, 1 );
 			}
-		}
-
-		private void ShowIsBlockedHint()
-		{
-			if ( _blockedHintShown ) { return; }
-
-			_blockedHintShown = true;
-			HintManager.Instance.SpawnHint( "It seems you are blocked.\nPress the 'R' key to reset your position.", new Vector2( 100, 100 ), 5000, 1 );
 		}
 
 		private void EndOfGameHint()
@@ -333,47 +338,6 @@ namespace VertexArmy.States
 		{
 			StateManager.Instance.PopState();
 			StateManager.Instance.ChangeState( GameState.Menu );
-		}
-
-		public void Hint1()
-		{
-			if ( !_hint1 )
-			{
-				string Text = "Crates can be pushed around.\nTry pushing that crate towards the wall button.";
-				HintManager.Instance.SpawnHint( Text, new Vector2( 400, 300 ), new Vector2( 100, 100 ), 4000 );
-				//HintManager.Instance.SpawnHint( Text, new Vector2( 100, 100 ), 4000, 1 );
-				_hint1 = true;
-			}
-		}
-
-		public void Hint2()
-		{
-			if ( !_hint2 )
-			{
-				string Text = "Step onto the platform ahead for an upgrade.";
-				HintManager.Instance.SpawnHint( Text, new Vector2( 100, 150 ), 2000, 1 );
-				_hint2 = true;
-			}
-		}
-
-		public void Hint3()
-		{
-			if ( !_hint3 )
-			{
-				string Text = "Sometimes you can get stuck.\nPress R to reverse to the last checkpoint.";
-				HintManager.Instance.SpawnHint( Text, new Vector2( 100, 180 ), 5000, 1 );
-				_hint3 = true;
-			}
-		}
-
-		public void Hint4()
-		{
-			if ( !_hint4 )
-			{
-				string Text = "Some puzzles can be harder to overcome.\nRemember to press R incase you get stuck.";
-				HintManager.Instance.SpawnHint( Text, new Vector2( 100, 70 ), 5000, 1 );
-				_hint4 = true;
-			}
 		}
 	}
 }

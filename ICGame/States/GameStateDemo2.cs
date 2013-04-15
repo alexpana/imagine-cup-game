@@ -70,6 +70,7 @@ namespace VertexArmy.States
 					GameWorldManager.Instance.LoadLastState();
 				}
 
+#if DEBUG
 				if ( Keyboard.GetState( PlayerIndex.One ).IsKeyDown( Keys.Up ) )
 				{
 					if ( Robot.PhysicsEntity.GetCollisionLayer().Equals( Category.Cat1 ) )
@@ -88,6 +89,7 @@ namespace VertexArmy.States
 						Robot.SetPosition( new Vector3( position.X, position.Y, 0f ) );
 					}
 				}
+#endif
 
 				if ( Keyboard.GetState( PlayerIndex.One ).IsKeyDown( Keys.R ) )
 				{

@@ -12,18 +12,16 @@ namespace VertexArmy.Global.ShapeListeners
 
 		private int _timesPlayed;
 
-		public HintShapeListener ( FadeHint hint )
+		public HintShapeListener ( FadeHint hint ) : this(hint, false)
 		{
-			_timesPlayed = 0;
-			_onlyOnce = false;
-			_hint = hint;
-			HintManager.Instance.SpawnHint( hint );
+		
 		}
 
 		public HintShapeListener( FadeHint hint, bool onlyOnce )
 		{
 			_hint = hint;
 			_onlyOnce = onlyOnce;
+			_timesPlayed = 0;
 		}
 
 		public void OnEnterShape()

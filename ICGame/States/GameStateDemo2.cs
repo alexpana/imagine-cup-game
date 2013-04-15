@@ -59,6 +59,7 @@ namespace VertexArmy.States
 				Platform.Instance.PhysicsWorld.Gravity = Vector2.Zero;
 				GameWorldManager.Instance.SaveState();
 				_gravityChanged = true;
+				HintManager.Instance.SpawnHint( "Gravity has been disabled, use the attraction \nforce to navigate through the rest of the level.", new Vector2( 100, 100 ), 4000, 1 );
 			}
 
 			if ( Robot != null )

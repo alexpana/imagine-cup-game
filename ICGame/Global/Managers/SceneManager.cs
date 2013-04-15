@@ -171,6 +171,8 @@ namespace VertexArmy.Global.Managers
 						_sceneCameras.Remove( cameraAttachable );
 				}
 			}
+
+			SortByLayer();
 		}
 
 		public CameraAttachable GetCurrentCamera()
@@ -364,19 +366,13 @@ namespace VertexArmy.Global.Managers
 
 			foreach ( var registeredNode in _registeredNodes )
 			{
-				//if ( currentCam.GetFrustum().Contains( registeredNode.GetTransformedBoundingBox() ) != ContainmentType.Disjoint )
+				Renderer.Instance.LoadMatrix( EMatrix.World, registeredNode.GetAbsoluteTransformation() );
+				if ( currentCam.GetFrustum().Contains( registeredNode.GetTransformedBoundingBox() ) != ContainmentType.Disjoint && !registeredNode.Invisible && registeredNode.DrawsDepth )
 				{
-
-					Renderer.Instance.LoadMatrix(EMatrix.World, registeredNode.GetAbsoluteTransformation());
 					Renderer.Instance.SetParameter("matWorldViewProj", Renderer.Instance.MatWorldViewProjection);
-
-
 					foreach (var attachable in registeredNode.Attachable)
 					{
-						if (!attachable.Parent.Invisible)
-						{
-							attachable.RenderDepth(dt);
-						}
+						attachable.RenderDepth(dt);
 					}
 				}
 			}
@@ -415,13 +411,13 @@ namespace VertexArmy.Global.Managers
 			int culledCount = 0;
 			foreach ( var registeredNode in _registeredNodes )
 			{
+				Renderer.Instance.LoadMatrix( EMatrix.World, registeredNode.GetAbsoluteTransformation() );
 				if ( currentCam.GetFrustum().Contains( registeredNode.GetTransformedBoundingBox() ) != ContainmentType.Disjoint && !registeredNode.Invisible )
 				{
-					Renderer.Instance.LoadMatrix(EMatrix.World, registeredNode.GetAbsoluteTransformation());
 					Renderer.Instance.SetParameter("matWorld", Renderer.Instance.MatWorld);
 					Renderer.Instance.SetParameter("matWorldInverseTranspose", Renderer.Instance.MatWorldInverseTranspose);
 					Renderer.Instance.SetParameter("matWorldViewProj", Renderer.Instance.MatWorldViewProjection);
-
+				
 					foreach (var attachable in registeredNode.Attachable)
 					{
 						attachable.Render(dt);
@@ -436,9 +432,10 @@ namespace VertexArmy.Global.Managers
 
 			if ( ShowDebugInfo )
 			{
+				string toShow = culledCount.ToString() + " objects culled out of " + _registeredNodes.Count + " objects\nFPS: " + (1000f/dt).ToString();
 				if ( _hint == null )
-					_hint = HintManager.Instance.SpawnHint( culledCount.ToString() + " objects culled out of " + _registeredNodes.Count + " objects", new Vector2( 600, 20 ), 200f, 2000f );
-				_hint.Text = culledCount.ToString() + " objects culled out of " + _registeredNodes.Count + " objects";
+					_hint = HintManager.Instance.SpawnHint( toShow,  new Vector2( 600, 20 ), 200f, 2000f );
+				_hint.Text = toShow;
 			}
 
 			if ( !UsePostDraw )
@@ -446,10 +443,9 @@ namespace VertexArmy.Global.Managers
 			//post render
 			foreach ( var registeredNode in _registeredNodes )
 			{
-				if ( currentCam.GetFrustum().Contains( registeredNode.GetTransformedBoundingBox() ) != ContainmentType.Disjoint )
+				Renderer.Instance.LoadMatrix( EMatrix.World, registeredNode.GetAbsoluteTransformation() );
+				if ( currentCam.GetFrustum().Contains( registeredNode.GetTransformedBoundingBox() ) != ContainmentType.Disjoint && !registeredNode.Invisible )
 				{
-
-					Renderer.Instance.LoadMatrix(EMatrix.World, registeredNode.GetAbsoluteTransformation());
 					Renderer.Instance.SetParameter("matWorld", Renderer.Instance.MatWorld);
 					Renderer.Instance.SetParameter("matWorldInverseTranspose", Renderer.Instance.MatWorldInverseTranspose);
 					Renderer.Instance.SetParameter("matWorldViewProj", Renderer.Instance.MatWorldViewProjection);
@@ -457,15 +453,10 @@ namespace VertexArmy.Global.Managers
 
 					foreach (var attachable in registeredNode.Attachable)
 					{
-						if (!attachable.Parent.Invisible)
-						{
-							attachable.PostRender(dt);
-						}
+						attachable.PostRender(dt);
 					}
 				}
 			}
-
-		
 		}
 
 		public Texture2D MenuBackgroundTexture;

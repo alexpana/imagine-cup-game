@@ -74,6 +74,8 @@ namespace VertexArmy.Graphics
 			return _bSphere;
 		}
 
+		public bool DrawsDepth = true;
+
 		public BoundingBox GetTransformedBoundingBox()
 		{
 			foreach ( Attachable at in _attachables )

@@ -18,6 +18,7 @@ namespace VertexArmy.GameWorld.Prefabs.Structs
 		public Quaternion LocalRotation = Quaternion.Identity;
 		public Vector3 LocalScale = Vector3.One;
 		public bool Invisible;
+		public bool DrawsDepth = true;
 
 		public Func<IDictionary<string, object>, Material> GetMaterialFunc()
 		{
@@ -36,6 +37,7 @@ namespace VertexArmy.GameWorld.Prefabs.Structs
 			scn.SetRotation( LocalRotation );
 			scn.SetScale( LocalScale );
 			scn.Invisible = Invisible;
+			scn.DrawsDepth = DrawsDepth;
 
 			return scn;
 		}

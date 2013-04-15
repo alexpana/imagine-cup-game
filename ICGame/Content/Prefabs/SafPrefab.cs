@@ -17,7 +17,8 @@ namespace VertexArmy.Content.Prefabs
 				Name = "Mesh",
 				LocalRotation = Quaternion.Identity,
 				LocalScale = Vector3.One,
-				Invisible = true
+				Invisible = true,
+				DrawsDepth =  false
 			};
 
 			mesh.RegisterMeshSceneNode( one );

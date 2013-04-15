@@ -17,6 +17,7 @@ namespace VertexArmy.GameWorld.Prefabs.Structs
 		public Vector3 LocalPosition;
 		public Quaternion LocalRotation = Quaternion.Identity;
 		public Vector3 LocalScale = Vector3.One;
+		public bool Invisible;
 
 		public Func<IDictionary<string, object>, Material> GetMaterialFunc()
 		{
@@ -34,6 +35,7 @@ namespace VertexArmy.GameWorld.Prefabs.Structs
 			scn.SetPosition( LocalPosition );
 			scn.SetRotation( LocalRotation );
 			scn.SetScale( LocalScale );
+			scn.Invisible = Invisible;
 
 			return scn;
 		}

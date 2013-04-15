@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using VertexArmy.Global.Behaviours;
+using VertexArmy.Global.Hints;
 using VertexArmy.Graphics;
 using VertexArmy.Graphics.Attachables;
 using VertexArmy.States;
@@ -353,22 +354,29 @@ namespace VertexArmy.Global.Managers
 			Renderer.Instance.LoadMatrix( EMatrix.Projection, currentCam.GetPerspectiveMatrix() );
 			Renderer.Instance.LoadMatrix( EMatrix.View, currentCam.GetViewMatrix() );
 
-
 			foreach ( var registeredNode in _registeredNodes )
 			{
-				Renderer.Instance.LoadMatrix( EMatrix.World, registeredNode.GetAbsoluteTransformation() );
-				Renderer.Instance.SetParameter( "matWorldViewProj", Renderer.Instance.MatWorldViewProjection );
-
-
-				foreach ( var attachable in registeredNode.Attachable )
+				//if ( currentCam.GetFrustum().Contains( registeredNode.GetTransformedBoundingBox() ) != ContainmentType.Disjoint )
 				{
-					if ( !attachable.Parent.Invisible )
+
+					Renderer.Instance.LoadMatrix(EMatrix.World, registeredNode.GetAbsoluteTransformation());
+					Renderer.Instance.SetParameter("matWorldViewProj", Renderer.Instance.MatWorldViewProjection);
+
+
+					foreach (var attachable in registeredNode.Attachable)
 					{
-						attachable.RenderDepth( dt );
+						if (!attachable.Parent.Invisible)
+						{
+							attachable.RenderDepth(dt);
+						}
 					}
 				}
 			}
+
+		
 		}
+
+		private FadeHint _hint;
 
 		private void DrawScene( float dt )
 		{
@@ -398,43 +406,61 @@ namespace VertexArmy.Global.Managers
 
 			Renderer.Instance.SetParameter( "eyePosition", currentCam.Parent.GetPosition() );
 			Renderer.Instance.SetParameter( "lightPosition", _lightPosition );
-
+			int culledCount = 0;
 			foreach ( var registeredNode in _registeredNodes )
 			{
-				Renderer.Instance.LoadMatrix( EMatrix.World, registeredNode.GetAbsoluteTransformation() );
-				Renderer.Instance.SetParameter( "matWorld", Renderer.Instance.MatWorld );
-				Renderer.Instance.SetParameter( "matWorldInverseTranspose", Renderer.Instance.MatWorldInverseTranspose );
-				Renderer.Instance.SetParameter( "matWorldViewProj", Renderer.Instance.MatWorldViewProjection );
-
-
-				foreach ( var attachable in registeredNode.Attachable )
+				if ( currentCam.GetFrustum().Contains( registeredNode.GetTransformedBoundingBox() ) != ContainmentType.Disjoint )
 				{
-					if ( !attachable.Parent.Invisible )
+					Renderer.Instance.LoadMatrix(EMatrix.World, registeredNode.GetAbsoluteTransformation());
+					Renderer.Instance.SetParameter("matWorld", Renderer.Instance.MatWorld);
+					Renderer.Instance.SetParameter("matWorldInverseTranspose", Renderer.Instance.MatWorldInverseTranspose);
+					Renderer.Instance.SetParameter("matWorldViewProj", Renderer.Instance.MatWorldViewProjection);
+
+
+
+					foreach (var attachable in registeredNode.Attachable)
 					{
-						attachable.Render( dt );
+						if (!attachable.Parent.Invisible)
+						{
+							attachable.Render(dt);
+						}
 					}
 				}
+				else
+				{
+					culledCount++;
+				}
 			}
+
+			
+
+			if ( _hint == null )
+				_hint = HintManager.Instance.SpawnHint( culledCount.ToString() + " objects culled out of " + _registeredNodes.Count + " objects", new Vector2( 600, 20 ), 200f, 2000f );
+			_hint.Text = culledCount.ToString() + " objects culled out of " + _registeredNodes.Count + " objects";
+
 			if ( !UsePostDraw )
 				return;
 			//post render
 			foreach ( var registeredNode in _registeredNodes )
 			{
-				Renderer.Instance.LoadMatrix( EMatrix.World, registeredNode.GetAbsoluteTransformation() );
-				Renderer.Instance.SetParameter( "matWorld", Renderer.Instance.MatWorld );
-				Renderer.Instance.SetParameter( "matWorldInverseTranspose", Renderer.Instance.MatWorldInverseTranspose );
-				Renderer.Instance.SetParameter( "matWorldViewProj", Renderer.Instance.MatWorldViewProjection );
-
-
-				foreach ( var attachable in registeredNode.Attachable )
+				if ( currentCam.GetFrustum().Contains( registeredNode.GetTransformedBoundingBox() ) != ContainmentType.Disjoint )
 				{
-					if ( !attachable.Parent.Invisible )
+
+					Renderer.Instance.LoadMatrix(EMatrix.World, registeredNode.GetAbsoluteTransformation());
+					Renderer.Instance.SetParameter("matWorld", Renderer.Instance.MatWorld);
+					Renderer.Instance.SetParameter("matWorldInverseTranspose", Renderer.Instance.MatWorldInverseTranspose);
+					Renderer.Instance.SetParameter("matWorldViewProj", Renderer.Instance.MatWorldViewProjection);
+
+
+					foreach (var attachable in registeredNode.Attachable)
 					{
-						attachable.PostRender(dt);
+						if (!attachable.Parent.Invisible)
+						{
+							attachable.PostRender(dt);
+						}
 					}
 				}
 			}
-
 
 		
 		}

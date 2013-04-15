@@ -39,6 +39,10 @@ namespace VertexArmy.Graphics
 		[DataMember]
 		private bool _hasBSphere;
 
+		public bool PositionChanged
+		{
+			get { return ShouldRecomputeTransformations(); }
+		}
 
 		public Vector3 GetAbsolutePosition()
 		{

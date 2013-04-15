@@ -46,19 +46,19 @@ namespace VertexArmy.Graphics.Attachables
 
 		public override void RenderDepth( float dt )
 		{
-			Material Depth = Renderer.Instance.GetDepthBufferMaterial();
-			Renderer.Instance.SetGlobalMaterialParameters( Depth );
+			Material depth = Renderer.Instance.GetDepthBufferMaterial();
+			Renderer.Instance.SetGlobalMaterialParameters( depth );
 
 
 			foreach ( ModelMesh m in Model.Meshes )
 			{
 				foreach ( ModelMeshPart part in m.MeshParts )
 				{
-					part.Effect = Depth.Effect;
+					part.Effect = depth.Effect;
 				}
 			}
 
-			Depth.Apply();
+			depth.Apply();
 			foreach ( ModelMesh m in Model.Meshes )
 			{
 				m.Draw();

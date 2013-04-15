@@ -9,15 +9,18 @@ namespace VertexArmy.Content.Prefabs
 		public static PrefabEntity CreatePrefab()
 		{
 			PrefabEntity mesh = new PrefabEntity();
-			SafSceneNodePrefab crateSceneNode = new SafSceneNodePrefab
+
+			MeshSceneNodePrefab one = new MeshSceneNodePrefab
 			{
 				Material = "SafMaterial",
 				Mesh = "models/saf",
 				Name = "Mesh",
-				LocalRotation = Quaternion.Identity
+				LocalRotation = Quaternion.Identity,
+				LocalScale = Vector3.One,
+				Invisible = true
 			};
 
-			mesh.RegisterSafSceneNode( crateSceneNode );
+			mesh.RegisterMeshSceneNode( one );
 			return mesh;
 		}
 	}

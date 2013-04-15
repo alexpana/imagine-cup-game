@@ -41,6 +41,7 @@ namespace VertexArmy.Global.Managers
 		{
 			FadeHint hint = new FadeHint( text, position, fadeInTime, fadeOutTime );
 			_fadeHints.Add( hint );
+			hint.StartAsync();
 			return hint;
 		}
 

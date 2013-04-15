@@ -144,7 +144,6 @@
     <Compile Include="GameWorld\Prefabs\PrefabUtils.cs" />
     <Compile Include="GameWorld\Prefabs\Structs\ControllerType.cs" />
     <Compile Include="GameWorld\Prefabs\Structs\ControllerPrefab.cs" />
-    <Compile Include="GameWorld\Prefabs\Structs\SafSceneNodePrefab.cs" />
     <Compile Include="Global\Behaviours\IShapeListener.cs" />
     <Compile Include="Global\Behaviours\IUpdatable.cs" />
     <Compile Include="Content\Prefabs\CameraPrefab.cs" />
@@ -199,7 +198,6 @@
     <Compile Include="Global\ShapeListeners\HintShapeListener.cs" />
     <Compile Include="Graphics\Attachables\Attachable.cs" />
     <Compile Include="Graphics\Attachables\CameraAttachable.cs" />
-    <Compile Include="Graphics\Attachables\SafAttachable.cs" />
     <Compile Include="Graphics\ParticleSystem\LinearValueGenerator.cs" />
     <Compile Include="Graphics\ParticleSystem\Particle.cs" />
     <Compile Include="Graphics\ParticleSystem\ParticleCache.cs" />

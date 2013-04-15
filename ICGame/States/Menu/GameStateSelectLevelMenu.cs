@@ -7,6 +7,7 @@ using VertexArmy.Content.Prefabs;
 using VertexArmy.Global;
 using VertexArmy.Global.Managers;
 using VertexArmy.Graphics;
+using VertexArmy.Graphics.Attachables;
 
 namespace VertexArmy.States.Menu
 {
@@ -16,6 +17,7 @@ namespace VertexArmy.States.Menu
 		private int _selectedCubeIndex;
 		private MenuCube _activeCube;
 		Vector3 _lightPos = new Vector3( 0, 40000, 20000 );
+	    private SceneNode _lastNodeUnderPointer = null;
 
 		private readonly float _cubeRotationDelta = MathHelper.ToRadians( 0.5f );
 
@@ -40,29 +42,29 @@ namespace VertexArmy.States.Menu
                 if (nodes.Count > 0)
                 {
                     nodeUnderPointer = nodes[0];
+                    _lastNodeUnderPointer = nodeUnderPointer;
+                }
+                else
+                {
+                    _lastNodeUnderPointer = null;
                 }
             }
 
-			foreach ( var levelCube in _levelCubes )
+			for ( int i = 0; i < _levelCubes.Count; ++i )
 			{
-				var entity = GameWorldManager.Instance.GetEntity( levelCube.Id );
 
-                if( nodeUnderPointer == entity.MainNode )
+				var entity = GameWorldManager.Instance.GetEntity( _levelCubes[i].Id );
+                if (entity.SceneNodes["MenuCubeNode"] == nodeUnderPointer)
                 {
-                    _activeCube = levelCube;
+                    SelectCube( i );
                 }
-
-				if ( levelCube == _activeCube )
-				{
-					entity.SetScale( new Vector3( 2, 2, 2 ) );
-				}
 
 				entity.SetExternalRotation(
 					Quaternion.Concatenate( entity.GetExternalRotation(),
 						Quaternion.CreateFromAxisAngle( Vector3.UnitY, _cubeRotationDelta ) ) );
 			}
 
-			if ( Platform.Instance.Input.IsKeyPressed( Keys.Right, false ) )
+            if (Platform.Instance.Input.IsKeyPressed(Keys.Right, false) || Platform.Instance.Input.ScrollDelta < 0)
 			{
 				if ( _selectedCubeIndex < _levelCubes.Count - 1 )
 				{
@@ -71,7 +73,7 @@ namespace VertexArmy.States.Menu
 				}
 			}
 
-			if ( Platform.Instance.Input.IsKeyPressed( Keys.Left, false ) )
+            if (Platform.Instance.Input.IsKeyPressed(Keys.Left, false) || Platform.Instance.Input.ScrollDelta > 0)
 			{
 				if ( _selectedCubeIndex > 0 )
 				{
@@ -84,6 +86,11 @@ namespace VertexArmy.States.Menu
 			{
 			    ActivateSelectedItem();
 			}
+
+            if (Platform.Instance.Input.IsLeftPointerFirstTimePressed && _lastNodeUnderPointer != null)
+            {
+                ActivateSelectedItem();
+            }
 
 			if ( Platform.Instance.Input.IsKeyPressed( Keys.Back, false ) ||
 				Platform.Instance.Input.IsKeyPressed( Keys.Escape, false ) )
@@ -111,6 +118,7 @@ namespace VertexArmy.States.Menu
 
 			_activeCube = _levelCubes[index];
 			GameWorldManager.Instance.GetEntity( _activeCube.Id ).SetScale( selectedCubeScale );
+	        _selectedCubeIndex = index;
 		}
 
 		public override void OnEnter()
@@ -121,9 +129,8 @@ namespace VertexArmy.States.Menu
 
 			GameWorldManager.Instance.SpawnEntity( CameraPrefab.PrefabName, "levelmenu_camera", new Vector3( 0, 10, 200 ) );
 
-			//GameWorldManager.Instance.SpawnEntity( "WallMenu2", "wallMenu1",
-			//	new Vector3( 0f, 0f, -1800f ), Quaternion.CreateFromAxisAngle( Vector3.UnitX, -0.3f ), 150 );
-		}
+            SelectCube(0);
+        }
 
 		private void CreateLevelsCubes()
 		{

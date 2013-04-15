@@ -78,41 +78,59 @@ namespace VertexArmy.States.Menu
 
 		private void HandleInput()
 		{
-			if ( _platform.Input.IsKeyPressed( Keys.Left, false ) )
-			{
-				_activeCube.SelectPreviousItem();
-			}
-			else if ( _platform.Input.IsKeyPressed( Keys.Right, false ) )
-			{
-				_activeCube.SelectNextItem();
-			}
-			else if ( _platform.Input.IsKeyPressed( Keys.Enter, false ) )
-			{
-                ActivateSelectedItem();
+            HandleKeyboardInput();
+            HandleMouseInput();
+		}
 
-			}
-			else if ( _platform.Input.IsKeyPressed( Keys.Escape, false ) ||
-					 _platform.Input.IsKeyPressed( Keys.Back, false ) )
-			{
-				if ( _activeCube.PreviousMenu != null )
-				{
-					_activeCube.Destroy();
-					_activeCube = _activeCube.PreviousMenu;
-					_platform.SoundManager.PlaySound( MenuEventSound );
-				}
-			}
-            if( _platform.Input.IsLeftPointerFirstTimePressed )
+        private void HandleMouseInput()
+        {
+            if (_platform.Input.IsLeftPointerFirstTimePressed)
             {
                 var mouseX = (int)_platform.Input.PointerPosition.X;
                 var mouseY = (int)_platform.Input.PointerPosition.Y;
                 List<SceneNode> nodes = SceneManager.Instance.IntersectScreenRayWithSceneNodes(mouseX, mouseY);
-                if( nodes.Count > 0 )
+                if (nodes.Count > 0)
                 {
                     ActivateSelectedItem();
                 }
             }
-		}
 
+            if ( _platform.Input.ScrollDelta < 0 )
+            {
+                _activeCube.SelectNextItem();
+            }
+            if( _platform.Input.ScrollDelta > 0 )
+            {
+                _activeCube.SelectPreviousItem();
+            }
+
+        }
+        private void HandleKeyboardInput()
+        {
+            if (_platform.Input.IsKeyPressed(Keys.Left, false))
+            {
+                _activeCube.SelectPreviousItem();
+            }
+            else if (_platform.Input.IsKeyPressed(Keys.Right, false))
+            {
+                _activeCube.SelectNextItem();
+            }
+            else if (_platform.Input.IsKeyPressed(Keys.Enter, false))
+            {
+                ActivateSelectedItem();
+
+            }
+            else if (_platform.Input.IsKeyPressed(Keys.Escape, false) ||
+                     _platform.Input.IsKeyPressed(Keys.Back, false))
+            {
+                if (_activeCube.PreviousMenu != null)
+                {
+                    _activeCube.Destroy();
+                    _activeCube = _activeCube.PreviousMenu;
+                    _platform.SoundManager.PlaySound(MenuEventSound);
+                }
+            }
+        }
         private void ActivateSelectedItem()
         {
             _activeCube.Items[_activeCube.SelectedItem].Activate();

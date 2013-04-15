@@ -7,7 +7,6 @@ using VertexArmy.Content.Prefabs;
 using VertexArmy.Global;
 using VertexArmy.Global.Managers;
 using VertexArmy.Graphics;
-using VertexArmy.Graphics.Attachables;
 
 namespace VertexArmy.States.Menu
 {
@@ -144,7 +143,7 @@ namespace VertexArmy.States.Menu
 			};
 			tutorialCube.Spawn( -50f );
 
-			var lockedLevel1Cube = CreateLevelMenuCube( "level_cube_locked_text" );
+			var lockedLevel1Cube = CreateLevelMenuCube( "level_cube_level2_text" );
 			lockedLevel1Cube.Items = new List<MenuItem>
 			{
 				new MenuItem

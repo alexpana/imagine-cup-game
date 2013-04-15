@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 
 namespace VertexArmy.Global.Managers
 {
@@ -8,17 +9,17 @@ namespace VertexArmy.Global.Managers
 	{
 		enum MenuItem
 		{
-			MI_CONTINUE,
-			MI_EXIT,
-			MI_NONE
+			Continue,
+			Exit,
+            None
 		};
 
 		private class MenuMetrics
 		{
-			private Vector2 _offsetItemContinue = new Vector2( 0, 116 );
-			private Vector2 _offsetItemExit = new Vector2( 0, 164 );
-			private Vector2 _size = new Vector2( 342, 266 );
-			private Vector2 _offset = new Vector2( 274, 192 );
+            private readonly Vector2 _offsetItemContinue = new Vector2(0, 116);
+            private readonly Vector2 _offsetItemExit = new Vector2(0, 164);
+            private readonly Vector2 _size = new Vector2(342, 266);
+            private readonly Vector2 _offset = new Vector2(274, 192);
 
 			public MenuMetrics()
 			{
@@ -30,9 +31,9 @@ namespace VertexArmy.Global.Managers
 			{
 				switch ( item )
 				{
-					case MenuItem.MI_CONTINUE:
+					case MenuItem.Continue:
 						return _offsetItemContinue;
-					case MenuItem.MI_EXIT:
+					case MenuItem.Exit:
 						return _offsetItemExit;
 				}
 				return Vector2.Zero;
@@ -43,10 +44,10 @@ namespace VertexArmy.Global.Managers
 				return _offset;
 			}
 
-			public Vector2 GetSize()
-			{
-				return _size;
-			}
+		    private Vector2 GetSize()
+            {
+                return _size;
+            }
 
 			public Vector2 GetItemSize()
 			{
@@ -54,26 +55,26 @@ namespace VertexArmy.Global.Managers
 			}
 		};
 
-		private MenuMetrics _metrics = new MenuMetrics();
+        private readonly MenuMetrics _metrics = new MenuMetrics();
 
-		private String _prefix = "images/menu/metro/";
+	    private const String Prefix = "images/menu/metro/";
 
-		private Texture2D _texBackground = null;
-		private Texture2D _texTitle = null;
-		private Texture2D _texHighlight = null;
-		private Texture2D _texItemContinue = null;
-		private Texture2D _texItemExit = null;
+	    private readonly Texture2D _texBackground;
+        private readonly Texture2D _texTitle;
+        private readonly Texture2D _texHighlight;
+        private readonly Texture2D _texItemContinue;
+        private readonly Texture2D _texItemExit;
 
-		private SpriteBatch _spriteBatch;
+		private readonly SpriteBatch _spriteBatch;
 
-		private MenuItem _selectedItem = MenuItem.MI_CONTINUE;
+		private MenuItem _selectedItem = MenuItem.Continue;
 
-		private Action _callbackContinue;
-		private Action _callbackExit;
+		private readonly Action _callbackContinue;
+        private readonly Action _callbackExit;
 
 		private Texture2D LoadTexture( String name )
 		{
-			return Platform.Instance.Content.Load<Texture2D>( _prefix + name );
+			return Platform.Instance.Content.Load<Texture2D>( Prefix + name );
 		}
 
 		public InGameMenuManager( Action callbackContine, Action callbackExit )
@@ -92,8 +93,8 @@ namespace VertexArmy.Global.Managers
 
 		private void RenderTexture( Texture2D texture, Vector2 position )
 		{
-			int x = ( int ) ( _metrics.GetMenuOffset().X + position.X );
-			int y = ( int ) ( _metrics.GetMenuOffset().Y + position.Y );
+			var x = ( int ) ( _metrics.GetMenuOffset().X + position.X );
+			var y = ( int ) ( _metrics.GetMenuOffset().Y + position.Y );
 			_spriteBatch.Draw( texture, new Rectangle( x, y, texture.Width, texture.Height ), Color.White );
 		}
 
@@ -104,14 +105,13 @@ namespace VertexArmy.Global.Managers
 			RenderTexture( _texBackground, Vector2.Zero );
 			RenderTexture( _texTitle, Vector2.Zero );
 
-			// Render the highlight
-			if ( _selectedItem != MenuItem.MI_NONE )
+			if ( _selectedItem != MenuItem.None )
 			{
 				RenderTexture( _texHighlight, _metrics.GetItemOffset( _selectedItem ) );
 			}
 
-			RenderTexture( _texItemContinue, _metrics.GetItemOffset( MenuItem.MI_CONTINUE ) );
-			RenderTexture( _texItemExit, _metrics.GetItemOffset( MenuItem.MI_EXIT ) );
+			RenderTexture( _texItemContinue, _metrics.GetItemOffset( MenuItem.Continue ) );
+			RenderTexture( _texItemExit, _metrics.GetItemOffset( MenuItem.Exit ) );
 
 			_spriteBatch.End();
 		}
@@ -135,32 +135,61 @@ namespace VertexArmy.Global.Managers
 		{
 			Vector2 cursor = Platform.Instance.Input.PointerPosition - _metrics.GetMenuOffset();
 
-			_selectedItem = MenuItem.MI_NONE;
+            if ( Platform.Instance.Input.PointerDelta.Length() > 0 )
+            {
+                if (PointIntersectsMenuItem(cursor, MenuItem.Continue))
+                {
+                    _selectedItem = MenuItem.Continue;
+                }
 
-			if ( PointIntersectsMenuItem( cursor, MenuItem.MI_CONTINUE ) )
-			{
-				_selectedItem = MenuItem.MI_CONTINUE;
-			}
+                if (PointIntersectsMenuItem(cursor, MenuItem.Exit))
+                {
+                    _selectedItem = MenuItem.Exit;
+                }
+            }
 
-			if ( PointIntersectsMenuItem( cursor, MenuItem.MI_EXIT ) )
-			{
-				_selectedItem = MenuItem.MI_EXIT;
-			}
+            if( Platform.Instance.Input.IsKeyPressed( Keys.Down, false ) )
+            {
+                MoveSelectionDown();
+            }
+            if( Platform.Instance.Input.IsKeyPressed( Keys.Up, false ) )
+            {
+                MoveSelectionUp();
+            }
 		}
+
+	    private void MoveSelectionUp()
+	    {
+	        _selectedItem = _selectedItem == MenuItem.Continue ? MenuItem.Exit : MenuItem.Continue;
+	    }
+
+	    private void MoveSelectionDown()
+        {
+            MoveSelectionUp();
+        }
 
 		public void Update( GameTime gameTime )
 		{
 			CheckSelectedItem();
 
-			if ( _selectedItem == MenuItem.MI_CONTINUE && Platform.Instance.Input.IsLeftPointerFirstTimePressed )
-			{
-				CallbackContinue();
-			}
-			if ( _selectedItem == MenuItem.MI_EXIT && Platform.Instance.Input.IsLeftPointerFirstTimePressed )
-			{
-				CallbackExit();
-			}
+            if( Platform.Instance.Input.IsLeftPointerFirstTimePressed || Platform.Instance.Input.IsKeyPressed( Keys.Enter, false ) )
+            {
+                CallbackSelection();
+            }
 		}
+
+        private void CallbackSelection()
+        {
+            switch (_selectedItem)
+            {
+                case MenuItem.Continue:
+                    CallbackContinue();
+                    break;
+                case MenuItem.Exit:
+                    CallbackExit();
+                    break;
+            }
+        }
 
 		private void CallbackContinue()
 		{

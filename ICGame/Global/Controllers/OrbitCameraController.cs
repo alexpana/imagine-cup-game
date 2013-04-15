@@ -16,6 +16,7 @@ namespace VertexArmy.Global.Controllers
 		public OrbitCameraController( ITransformable transformable, CameraAttachable camera )
 		{
 			Data = new List<object> { transformable, camera };
+		    _rotations.X = (float)Math.PI/2.0f;
 		}
 
 		public void Update( GameTime dt )

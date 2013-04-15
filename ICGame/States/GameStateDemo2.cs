@@ -36,13 +36,16 @@ namespace VertexArmy.States
 		private bool _debugViewState;
 		private ButtonComponent _gravityButton;
 		private bool _gravityChanged;
+		private bool _endOfGameHintShown;
 
 		private Vector2 _sucktionSpot;
+		private CameraController _camControl;
 
 		public GameStateDemo2( ContentManager content )
 		{
 			_contentManager = content;
 			_gravityChanged = false;
+			_endOfGameHintShown = false;
 		}
 
 		public override void OnUpdate( GameTime gameTime )
@@ -195,9 +198,9 @@ namespace VertexArmy.States
 				);
 
 
-			CameraController camControl = new CameraController( Robot, SceneManager.Instance.GetCurrentCamera() );
-			ControllerRepository.Instance.RegisterController( "camcontrol", camControl );
-			FrameUpdateManager.Instance.Register( camControl );
+			_camControl = new CameraController( Robot, SceneManager.Instance.GetCurrentCamera() );
+			ControllerRepository.Instance.RegisterController( "camcontrol", _camControl );
+			FrameUpdateManager.Instance.Register( _camControl );
 
 			Camera = GameWorldManager.Instance.GetEntity( "camera1" );
 			Camera.SetRotation( 5f );
@@ -209,11 +212,32 @@ namespace VertexArmy.States
 			GameWorldManager.Instance.SpawnEntity( "Trigger", "airpipeforce", new Vector3( -800, 400f, 0f ), 5f );
 			GameWorldManager.Instance.GetEntity( "airpipeforce" ).RegisterComponent(
 					"trigger",
-					new BodyTriggerAreaComponent( new Vector2( 260f, 1200f ), AirPipeTrigger )
+					new BodyTriggerAreaComponent( new Vector2( 250f, 1200f ), AirPipeTrigger )
+				);
+
+			GameWorldManager.Instance.SpawnEntity( "Trigger", "endGame", new Vector3( -797f, 575f, 0f ), 1f );
+			GameWorldManager.Instance.GetEntity( "endGame" ).RegisterComponent(
+					"trigger",
+					new BodyTriggerAreaComponent( new Vector2( 150f, 100f ), Robot.MainBody, EndGame )
 				);
 
 			Vector3 sucktionSpot3D = GameWorldManager.Instance.GetEntity( "pipe0" ).GetPosition() + Vector3.UnitY * 700f;
 			_sucktionSpot = UnitsConverter.ToSimUnits( new Vector2( sucktionSpot3D.X, sucktionSpot3D.Y ) - ( Vector2.UnitY * 300f ) );
+		}
+
+		private void EndGame()
+		{
+			if ( _endOfGameHintShown ) { return; }
+
+			_endOfGameHintShown = true;
+			FrameUpdateManager.Instance.Unregister( _camControl );
+			HintManager.Instance.SpawnHint( "Thanks for playing level 2!", new Vector2( 100, 100 ), 4000, 1, EndGameCallback );
+		}
+
+		public void EndGameCallback()
+		{
+			StateManager.Instance.PopState();
+			StateManager.Instance.ChangeState( GameState.Menu );
 		}
 
 		private void AirPipeTrigger( Body b )

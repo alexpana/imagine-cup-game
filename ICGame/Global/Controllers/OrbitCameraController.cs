@@ -58,10 +58,10 @@ namespace VertexArmy.Global.Controllers
 				( float ) ( Math.Sin( _rotations.Y ) * _distanceFromObject ),
 				( float ) ( Math.Sin( _rotations.X ) * Math.Cos( _rotations.Y ) * _distanceFromObject ) );
 
-			Quaternion newRotation = Quaternion.CreateFromYawPitchRoll( _rotations.Y, _rotations.X, 0 );
+			//Quaternion newRotation = Quaternion.CreateFromYawPitchRoll( _rotations.Y, _rotations.X, 0 );
 
 			camera.Parent.SetPosition( newPosition );
-			camera.Parent.SetRotation( newRotation );
+			camera.LookingDirection = Vector3.Normalize( - newPosition + objective);
 		}
 
 

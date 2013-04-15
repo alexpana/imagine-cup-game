@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 using VertexArmy.Global.Behaviours;
 using VertexArmy.Graphics.Attachables;
 
@@ -43,8 +44,9 @@ namespace VertexArmy.Global.Controllers
 
 		private void ReadInput()
 		{
-			_rotations.X -= Platform.Instance.Input.PointerDelta.X * 0.005f;
-			_rotations.Y -= Platform.Instance.Input.PointerDelta.Y * 0.005f;
+			_rotations.X += Platform.Instance.Input.PointerDelta.X * 0.003f;
+			_rotations.Y += Platform.Instance.Input.PointerDelta.Y * 0.003f;
+		    _distanceFromObject = 1000 + Mouse.GetState().ScrollWheelValue;
 		}
 
 		private void UpdateParent()

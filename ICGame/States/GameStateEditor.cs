@@ -8,6 +8,7 @@ using VertexArmy.GameWorld;
 using VertexArmy.Global;
 using VertexArmy.Global.Controllers;
 using VertexArmy.Global.Managers;
+using VertexArmy.Input;
 using VertexArmy.Physics.DebugView;
 using VertexArmy.Utilities;
 
@@ -28,15 +29,24 @@ namespace VertexArmy.States
 
 		private bool _actionToggleDebugView;
 		private bool _debugViewState;
+		private bool _debugViewGrid;
 
 		private bool _levelLoaded;
 		private bool _saveAction;
 		private string _levelName;
+		private IInputSystem _inputSystem;
+
+		private float _debugViewGridstep;
+		private Color _gridColor;
 
 		public GameStateEditor( ContentManager content )
 		{
 			_contentManager = content;
 			_saveAction = false;
+			_inputSystem = Platform.Instance.Input;
+			_debugViewGridstep = UnitsConverter.ToSimUnits( 1f );
+			_gridColor = new Color( 128, 128, 128, 80 );
+			_debugViewGrid = true;
 		}
 
 		public override void OnUpdate( GameTime gameTime )
@@ -78,6 +88,23 @@ namespace VertexArmy.States
 			{
 				_actionToggleDebugView = false;
 			}
+
+			if ( _inputSystem.IsKeyPressed( Keys.G, false ) )
+			{
+				_debugViewGrid = !_debugViewGrid;
+			}
+
+			// debug view segments
+			_debugViewGridstep = UnitsConverter.ToSimUnits( 1f );
+			if ( _inputSystem.IsKeyPressed( Keys.LeftControl ) || _inputSystem.IsKeyPressed( Keys.RightControl ) )
+			{
+				_debugViewGridstep *= 2f;
+			}
+			else if ( _inputSystem.IsKeyPressed( Keys.LeftShift ) || _inputSystem.IsKeyPressed( Keys.RightShift ) )
+			{
+				_debugViewGridstep *= 0.1f;
+			}
+
 		}
 
 		public override void OnRender( GameTime gameTime )
@@ -91,15 +118,39 @@ namespace VertexArmy.States
 
 			if ( _debugViewState )
 			{
+
 				float scale = ( SceneManager.Instance.GetCurrentCamera().Parent.GetPosition().Z / 1024.0f );
+
+				float left = UnitsConverter.ToSimUnits( SceneManager.Instance.GetCurrentCamera().Parent.GetPosition().X - Platform.Instance.Device.Viewport.Width / 2f * scale );
+
+				float right = UnitsConverter.ToSimUnits( SceneManager.Instance.GetCurrentCamera().Parent.GetPosition().X + Platform.Instance.Device.Viewport.Width / 2f * scale );
+
+				float top = UnitsConverter.ToSimUnits( -SceneManager.Instance.GetCurrentCamera().Parent.GetPosition().Y + Platform.Instance.Device.Viewport.Height / 2f * scale );
+
+				float bottom = UnitsConverter.ToSimUnits( -SceneManager.Instance.GetCurrentCamera().Parent.GetPosition().Y - Platform.Instance.Device.Viewport.Height / 2f * scale );
+
 				_projection = Matrix.CreateOrthographicOffCenter(
-					UnitsConverter.ToSimUnits( SceneManager.Instance.GetCurrentCamera().Parent.GetPosition().X - Platform.Instance.Device.Viewport.Width / 2f * scale ),
-					UnitsConverter.ToSimUnits( SceneManager.Instance.GetCurrentCamera().Parent.GetPosition().X + Platform.Instance.Device.Viewport.Width / 2f * scale ),
-					UnitsConverter.ToSimUnits( -SceneManager.Instance.GetCurrentCamera().Parent.GetPosition().Y + Platform.Instance.Device.Viewport.Height / 2f * scale ),
-					UnitsConverter.ToSimUnits( -SceneManager.Instance.GetCurrentCamera().Parent.GetPosition().Y - Platform.Instance.Device.Viewport.Height / 2f * scale ),
+					left,
+					right,
+					top,
+					bottom,
 					0f,
 					1f
 					);
+
+				if ( _debugViewGrid )
+				{
+					_debugView.BeginCustomDraw( ref _projection, ref _view );
+					for ( float i = left - left % _debugViewGridstep; i < right; i += _debugViewGridstep )
+					{
+						_debugView.DrawSegment( new Vector2( i, top ), new Vector2( i, bottom ), _gridColor );
+					}
+					for ( float i = bottom - bottom % _debugViewGridstep; i < top; i += _debugViewGridstep )
+					{
+						_debugView.DrawSegment( new Vector2( left, i ), new Vector2( right, i ), _gridColor );
+					}
+					_debugView.EndCustomDraw();
+				}
 
 				_debugView.RenderDebugData( ref _projection, ref _view );
 			}

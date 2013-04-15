@@ -25,6 +25,37 @@ namespace VertexArmy.Utilities
 
 		}
 
+		public static Vector3 SnapToGridXY( Vector3 position, float gridStep )
+		{
+			float lowerLimitX = position.X - position.X % gridStep;
+			float lowerLimitY = position.Y - position.Y % gridStep;
+
+			float midLimitX = lowerLimitX + gridStep / 2f;
+			float midLimitY = lowerLimitY + gridStep / 2f;
+
+			float resultX;
+			float resultY;
+			if ( position.X < midLimitX )
+			{
+				resultX = lowerLimitX;
+			}
+			else
+			{
+				resultX = lowerLimitX + gridStep;
+			}
+
+			if ( position.Y < midLimitY )
+			{
+				resultY = lowerLimitY;
+			}
+			else
+			{
+				resultY = lowerLimitY + gridStep;
+			}
+
+			return new Vector3( resultX, resultY, position.Z );
+		}
+
 		public static void RotateTransformableAroundPoint2D( ITransformable trans, Vector2 point, float rotation )
 		{
 			float s = ( float ) Math.Sin( rotation );

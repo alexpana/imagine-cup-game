@@ -293,11 +293,11 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="movies\PurpleStarFlight.wmv">
+    <None Include="movies\PurpleStarFlight.wmv">
       <Name>PurpleStarFlight</Name>
       <Importer>WmvImporter</Importer>
       <Processor>VideoProcessor</Processor>
-    </Compile>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="effects\blur.fx">

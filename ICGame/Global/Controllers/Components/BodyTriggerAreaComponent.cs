@@ -11,8 +11,10 @@ namespace VertexArmy.Global.Controllers.Components
 	public class BodyTriggerAreaComponent : BaseComponent
 	{
 		public delegate void MethodToCall();
+		public delegate void MethodToCall2( Body b );
 		public Body Area;
 		public MethodToCall Callback;
+		public MethodToCall2 Callback2;
 		public Body _body;
 
 		public BodyTriggerAreaComponent( Vector2 size, Body body, MethodToCall callback )
@@ -26,6 +28,18 @@ namespace VertexArmy.Global.Controllers.Components
 
 			_body = body;
 			Callback = callback;
+		}
+
+		public BodyTriggerAreaComponent( Vector2 size, MethodToCall2 callback )
+		{
+			Data = new List<object>();
+
+			_type = ComponentType.BodyTriggerArea;
+			Area = BodyFactory.CreateRectangle( Platform.Instance.PhysicsWorld, UnitsConverter.ToSimUnits( size.X ), UnitsConverter.ToSimUnits( size.Y ), 0.1f );
+			Area.BodyType = BodyType.Kinematic;
+			Area.IsSensor = true;
+
+			Callback2 = callback;
 		}
 
 		public override void InitEntity()
@@ -47,19 +61,35 @@ namespace VertexArmy.Global.Controllers.Components
 
 		public bool BeginContactB( Contact c )
 		{
-			if ( c.FixtureA.Body.Equals( _body ) )
+			if ( _body != null )
 			{
-				Callback();
+				if ( c.FixtureA.Body.Equals( _body ) )
+				{
+					Callback();
+				}
 			}
+			else
+			{
+				Callback2( c.FixtureA.Body );
+			}
+
 			return false;
 		}
 
 		public bool BeginContactA( Contact c )
 		{
-			if ( c.FixtureB.Body.Equals( _body ) )
+			if ( _body != null )
 			{
-				Callback();
+				if ( c.FixtureB.Body.Equals( _body ) )
+				{
+					Callback();
+				}
 			}
+			else
+			{
+				Callback2( c.FixtureB.Body );
+			}
+
 			return false;
 		}
 

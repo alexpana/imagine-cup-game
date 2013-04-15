@@ -15,8 +15,8 @@ namespace VertexArmy.Content.Prefabs
 			{
 				Density = 1f,
 				Width = 20f,
-				Height = 950f,
-				Offset = new Vector2( -101f, 425f ),
+				Height = 880f,
+				Offset = new Vector2( -80f, 425f ),
 				Type = ShapeType.Rectangle
 			};
 
@@ -24,7 +24,7 @@ namespace VertexArmy.Content.Prefabs
 			{
 				Density = 1f,
 				Width = 20f,
-				Height = 950f,
+				Height = 880f,
 				Offset = new Vector2( 101f, 425f ),
 				Type = ShapeType.Rectangle
 			};

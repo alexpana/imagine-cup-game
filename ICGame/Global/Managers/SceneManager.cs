@@ -433,9 +433,15 @@ namespace VertexArmy.Global.Managers
 			if ( ShowDebugInfo )
 			{
 				string toShow = culledCount.ToString() + " objects culled out of " + _registeredNodes.Count + " objects\nFPS: " + (1000f/dt).ToString();
+				
 				if ( _hint == null )
 					_hint = HintManager.Instance.SpawnHint( toShow,  new Vector2( 600, 20 ), 200f, 2000f );
-				_hint.Text = toShow;
+				else
+				{
+					_hint.Text = toShow;
+					HintManager.Instance.SpawnHint(_hint);
+				}
+				
 			}
 
 			if ( !UsePostDraw )

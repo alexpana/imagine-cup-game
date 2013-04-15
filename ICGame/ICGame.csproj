@@ -127,6 +127,7 @@
     <Compile Include="Content\Materials\TexturedMaterial.cs" />
     <Compile Include="Content\Materials\MenuCubeMaterial.cs" />
     <Compile Include="Content\Materials\SafMaterial.cs" />
+    <Compile Include="Content\Materials\UnlitTexturedMaterial.cs" />
     <Compile Include="Content\Prefabs\ButtonPrefab.cs" />
     <Compile Include="Content\Prefabs\DamagedRobot1Prefab.cs" />
     <Compile Include="Content\Prefabs\FloorBridgePrefab.cs" />

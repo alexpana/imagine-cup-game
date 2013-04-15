@@ -1,5 +1,4 @@
-﻿//#define ALLOW_HACKS
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using FarseerPhysics.Dynamics;
 using FarseerPhysics.Dynamics.Joints;
 using FarseerPhysics.Factories;
@@ -47,7 +46,7 @@ namespace VertexArmy.States
 		public override void OnUpdate( GameTime gameTime )
 		{
 			base.OnUpdate( gameTime );
-#if ALLOW_HACKS
+#if DEBUG
 			if ( Platform.Instance.Input.IsKeyPressed( Keys.H, false ) )
 			{
 				_hint1 = false;
@@ -61,7 +60,7 @@ namespace VertexArmy.States
 				{
 					ResetGameState();
 				}
-#if ALLOW_HACKS
+#if DEBUG
 				if ( Platform.Instance.Input.IsKeyPressed( Keys.Up ) )
 				{
 					if ( Robot.PhysicsEntity.GetCollisionLayer().Equals( Category.Cat1 ) )
@@ -87,7 +86,7 @@ namespace VertexArmy.States
 					ResetGameState();
 				}
 			}
-#if ALLOW_HACKS
+#if DEBUG
 			if ( Platform.Instance.Input.IsKeyPressed( Keys.D, false ) )
 			{
 				_debugViewState = !_debugViewState;

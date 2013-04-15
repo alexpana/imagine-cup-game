@@ -69,7 +69,6 @@ namespace VertexArmy.States
 				{
 					GameWorldManager.Instance.LoadLastState();
 				}
-
 #if DEBUG
 				if ( Keyboard.GetState( PlayerIndex.One ).IsKeyDown( Keys.Up ) )
 				{
@@ -90,7 +89,6 @@ namespace VertexArmy.States
 					}
 				}
 #endif
-
 				if ( Keyboard.GetState( PlayerIndex.One ).IsKeyDown( Keys.R ) )
 				{
 					if ( !_actionReset )

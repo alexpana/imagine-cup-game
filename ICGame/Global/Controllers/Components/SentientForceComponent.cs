@@ -20,7 +20,7 @@ namespace VertexArmy.Global.Controllers.Components
 		public const float AttractionForce = 10f;
 		public const float RepulsiveForce = 8f;
 
-		private Vector2 _oldPosition;
+		private Vector2 _oldPosition, _followPosition;
 		private float _distanceSim;
 		private Category _collisionCategory;
 
@@ -91,9 +91,9 @@ namespace VertexArmy.Global.Controllers.Components
 					//double dTime = ( data[1] as ParameterGameTime ).Value.ElapsedGameTime.TotalSeconds;
 
 					Vector3 followPosition3D = UnitsConverter.ToSimUnits( SceneManager.Instance.IntersectScreenRayWithPlane( Entity.GetPosition().Z ) );
-					Vector2 followPosition = new Vector2( followPosition3D.X, followPosition3D.Y );
+					_followPosition = new Vector2( followPosition3D.X, followPosition3D.Y );
 
-					Vector2 direction = followPosition - Cone.Position;
+					Vector2 direction = _followPosition - Cone.Position;
 					direction.Normalize();
 
 					Cone.Rotation = ( float ) Math.Acos( direction.X ) * Math.Sign( ( float ) Math.Asin( direction.Y ) );
@@ -125,29 +125,35 @@ namespace VertexArmy.Global.Controllers.Components
 
 		public bool BeginContactB( Contact c )
 		{
-			if ( c.FixtureA.Body.IsStatic )
-			{
-				return false;
-			}
+
 			if ( Mouse.GetState().LeftButton.Equals( ButtonState.Pressed ) )
 			{
-				Vector2 forceDirection = _oldPosition - c.FixtureA.Body.Position;
+
+				Vector2 normal;
+				FixedArray2<Vector2> points;
+				c.GetWorldManifold( out normal, out points );
+
+				Vector2 forceDirection = _oldPosition - points[0];
 				//float ratio = 1 - ( forceDirection.Length() / _distanceSim );
 				float ratio = 1f;
 				forceDirection.Normalize();
 				Vector2 force = forceDirection * ratio * AttractionForce;
 				c.FixtureA.Body.ApplyForce( force );
-				Entity.MainBody.ApplyForce( -force * 0.5f );
+				Entity.MainBody.ApplyForce( -force * 0.2f );
 			}
 			else if ( Mouse.GetState().RightButton.Equals( ButtonState.Pressed ) )
 			{
-				Vector2 forceDirection = c.FixtureA.Body.Position - _oldPosition;
+				Vector2 normal;
+				FixedArray2<Vector2> points;
+				c.GetWorldManifold( out normal, out points );
+
+				Vector2 forceDirection = points[0] - _oldPosition;
 				//float ratio = 1 - ( forceDirection.Length() / _distanceSim );
 				float ratio = 1f;
 				forceDirection.Normalize();
 				Vector2 force = forceDirection * ratio * RepulsiveForce;
 				c.FixtureA.Body.ApplyForce( force );
-				Entity.MainBody.ApplyForce( -force * 0.5f );
+				Entity.MainBody.ApplyForce( -force * 0.2f );
 			}
 
 			return false;
@@ -155,25 +161,34 @@ namespace VertexArmy.Global.Controllers.Components
 
 		public bool BeginContactA( Contact c )
 		{
-			if ( c.FixtureB.Body.IsStatic )
-			{
-				return false;
-			}
+
 			if ( Mouse.GetState().LeftButton.Equals( ButtonState.Pressed ) )
 			{
-				Vector2 forceDirection = _oldPosition - c.FixtureB.Body.Position;
+				Vector2 normal;
+				FixedArray2<Vector2> points;
+				c.GetWorldManifold( out normal, out points );
+
+				Vector2 forceDirection = _oldPosition - points[0];
 				//float ratio = 1 - ( forceDirection.Length() / _distanceSim );
 				float ratio = 1f;
 				forceDirection.Normalize();
-				c.FixtureB.Body.ApplyForce( forceDirection * ratio * AttractionForce );
+				Vector2 force = forceDirection * ratio * RepulsiveForce;
+				c.FixtureB.Body.ApplyForce( force );
+				Entity.MainBody.ApplyForce( -force * 0.1f );
 			}
 			else if ( Mouse.GetState().RightButton.Equals( ButtonState.Pressed ) )
 			{
-				Vector2 forceDirection = c.FixtureB.Body.Position - _oldPosition;
+				Vector2 normal;
+				FixedArray2<Vector2> points;
+				c.GetWorldManifold( out normal, out points );
+
+				Vector2 forceDirection = points[0] - _oldPosition;
 				//float ratio = 1 - ( forceDirection.Length() / _distanceSim );
 				float ratio = 1f;
 				forceDirection.Normalize();
-				c.FixtureB.Body.ApplyForce( forceDirection * ratio * RepulsiveForce );
+				Vector2 force = forceDirection * ratio * RepulsiveForce;
+				c.FixtureB.Body.ApplyForce( force );
+				Entity.MainBody.ApplyForce( -force * 0.1f );
 			}
 
 			return false;

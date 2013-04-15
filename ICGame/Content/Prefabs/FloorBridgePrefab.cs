@@ -22,7 +22,7 @@ namespace VertexArmy.Content.Prefabs
 
 			BodyPrefab floorBody = new BodyPrefab
 			{
-				Friction = 0.3f,
+				Friction = 1f,
 				LocalPosition = Vector2.Zero,
 				Name = "FloorBody",
 				Shapes = new List<ShapePrefab> { floorShape },

@@ -16,17 +16,17 @@ namespace VertexArmy.Graphics
 		public Vector3 Left;
 
 		public VertexPositionNormalTexture[] Vertices;
-		public short [] Indices;
+		public short[] Indices;
 
 		private VertexBuffer _vertexBuffer;
 		private IndexBuffer _indexBuffer;
 
 		public Quad()
 		{
-			Init(Vector3.UnitZ, Vector3.Backward, Vector3.Up, 2f, 2f);
+			Init( Vector3.UnitZ, Vector3.Backward, Vector3.Up, 2f, 2f );
 		}
 
-		public void Init(Vector3 origin, Vector3 normal, Vector3 up, float width, float height)
+		public void Init( Vector3 origin, Vector3 normal, Vector3 up, float width, float height )
 		{
 			Vertices = new VertexPositionNormalTexture[4];
 			Indices = new short[6];
@@ -35,12 +35,12 @@ namespace VertexArmy.Graphics
 			Up = up;
 
 			// Calculate the quad corners
-			Left = Vector3.Cross(normal, Up);
-			Vector3 uppercenter = (Up * height / 2) + origin;
-			UpperLeft = uppercenter + (Left * width / 2);
-			UpperRight = uppercenter - (Left * width / 2);
-			LowerLeft = UpperLeft - (Up * height);
-			LowerRight = UpperRight - (Up * height);
+			Left = Vector3.Cross( normal, Up );
+			Vector3 uppercenter = ( Up * height / 2 ) + origin;
+			UpperLeft = uppercenter + ( Left * width / 2 );
+			UpperRight = uppercenter - ( Left * width / 2 );
+			LowerLeft = UpperLeft - ( Up * height );
+			LowerRight = UpperRight - ( Up * height );
 
 			FillVertices();
 
@@ -51,13 +51,13 @@ namespace VertexArmy.Graphics
 		{
 			// Fill in texture coordinates to display full texture
 			// on quad
-			Vector2 textureUpperLeft = new Vector2(0.0f, 0.0f);
-			Vector2 textureUpperRight = new Vector2(1.0f, 0.0f);
-			Vector2 textureLowerLeft = new Vector2(0.0f, 1.0f);
-			Vector2 textureLowerRight = new Vector2(1.0f, 1.0f);
+			Vector2 textureUpperLeft = new Vector2( 0.0f, 0.0f );
+			Vector2 textureUpperRight = new Vector2( 1.0f, 0.0f );
+			Vector2 textureLowerLeft = new Vector2( 0.0f, 1.0f );
+			Vector2 textureLowerRight = new Vector2( 1.0f, 1.0f );
 
 			// Provide a normal for each vertex
-			for (int i = 0; i < Vertices.Length; i++)
+			for ( int i = 0; i < Vertices.Length; i++ )
 			{
 				Vertices[i].Normal = Normal;
 			}
@@ -86,20 +86,32 @@ namespace VertexArmy.Graphics
 		public void CreateDeviceData()
 		{
 			_vertexBuffer = new VertexBuffer( Platform.Instance.Device, typeof( VertexPositionNormalTexture ), 4, BufferUsage.None );
-			_vertexBuffer.SetData(Vertices);
+			_vertexBuffer.SetData( Vertices );
 
-			_indexBuffer = new IndexBuffer(Platform.Instance.Device, IndexElementSize.SixteenBits, 6, BufferUsage.None);
-			_indexBuffer.SetData(Indices);
+			_indexBuffer = new IndexBuffer( Platform.Instance.Device, IndexElementSize.SixteenBits, 6, BufferUsage.None );
+			_indexBuffer.SetData( Indices );
 		}
 
-		public void Draw(Material mat)
+		public void SetSamplerStates()
+		{
+			Platform.Instance.Device.SamplerStates[0] = SamplerState.LinearClamp;
+			Platform.Instance.Device.SamplerStates[1] = SamplerState.LinearClamp;
+			Platform.Instance.Device.SamplerStates[2] = SamplerState.LinearClamp;
+			Platform.Instance.Device.SamplerStates[3] = SamplerState.LinearClamp;
+			Platform.Instance.Device.SamplerStates[4] = SamplerState.LinearClamp;
+			Platform.Instance.Device.SamplerStates[5] = SamplerState.LinearClamp;
+		}
+
+		public void Draw( Material mat )
 		{
 			mat.Apply();
 			Platform.Instance.Device.Indices = _indexBuffer;
 			Platform.Instance.Device.SetVertexBuffer( _vertexBuffer );
-			
+
 			mat.Effect.CurrentTechnique.Passes[0].Apply();
-			Platform.Instance.Device.DrawIndexedPrimitives( PrimitiveType.TriangleList, 0, 0, Vertices.Length, 0, Indices.Length / 3 );     
+			SetSamplerStates();
+
+			Platform.Instance.Device.DrawIndexedPrimitives( PrimitiveType.TriangleList, 0, 0, Vertices.Length, 0, Indices.Length / 3 );
 		}
 	}
 }

@@ -53,7 +53,7 @@ namespace VertexArmy.Global.Hints
 		public Color Color { get; private set; }
 
 		public int LinesCount { get; private set; }
-		public string Text { get; private set; }
+		public string Text { get; set; }
 
 		#region Thinking
 		private int _thinkTime;

@@ -1,23 +1,40 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using VertexArmy.Global.Managers;
 
 namespace VertexArmy.Global.Hints
 {
-	class SharpThoughtHints : IHint
+	class SharpThoughtHint : IDismissableHint
 	{
 
-		public SharpThoughtHints( string text, Vector2 position )
+		private readonly Texture2D _background = Platform.Instance.Content.Load<Texture2D>("images/empty_dark_blue");
+		private readonly Vector2 _position;
+		private float _timeToLive;
+
+		public SharpThoughtHint( string text, Vector2 position, float timeToLive )
 		{
-			
+			_position = position;
+			_timeToLive = timeToLive;
 		}
+
+		public string Text { get; set; }
 
 		public void Update( GameTime time )
 		{
-			throw new System.NotImplementedException();
+			_timeToLive -= time.ElapsedGameTime.Milliseconds;
 		}
 
 		public void Render()
 		{
-			throw new System.NotImplementedException();
+			HintManager.Instance.RenderTexture( _background, _position, null, Color.White, 0, new Vector2( 0, 0 ), 1 );
+		}
+
+		public Action DismissedCallback { get; set; }
+
+		public bool ShouldDismiss()
+		{
+			return _timeToLive <= 0;
 		}
 	}
 }

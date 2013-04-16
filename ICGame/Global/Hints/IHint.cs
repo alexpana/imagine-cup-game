@@ -2,8 +2,9 @@
 
 namespace VertexArmy.Global.Hints
 {
-	interface IHint
+	public interface IHint
 	{
+		string Text { get; set; }
 		void Update(GameTime time);
 		void Render();
 	}

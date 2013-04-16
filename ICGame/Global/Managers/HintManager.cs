@@ -146,7 +146,7 @@ namespace VertexArmy.Global.Managers
 			_spriteBatch.DrawString( _font, text, position, color );
 		}
 
-		public void RenderTexture(  Texture2D texture, Vector2 position, Rectangle? sourceRect, Color color, float rotation, Vector2 origin, float scale,  SpriteEffects effects, float layerDepth  )
+		public void RenderTexture(  Texture2D texture, Vector2 position, Rectangle? sourceRect, Color color, float rotation, Vector2 origin, float scale = 1,  SpriteEffects effects = SpriteEffects.None, float layerDepth = 0 )
 		{
 			_spriteBatch.Draw(texture, position, sourceRect, color, rotation, origin, scale, effects, layerDepth);
 		}

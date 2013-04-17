@@ -20,7 +20,7 @@ namespace VertexArmy.Graphics.Attachables
 			internal set { _boundSphere = value; }
 		}
 
-		public MeshAttachable( Model mod, Material mat )
+		public MeshAttachable( string name, Model mod, Material mat )
 		{
 			_boundSphere = new BoundingSphere();
 			Highlighted = false;
@@ -37,6 +37,8 @@ namespace VertexArmy.Graphics.Attachables
 			}
 
 			Model = mod;
+			Model.Tag = name;
+
 			Material = mat;
 		}
 
@@ -191,11 +193,11 @@ namespace VertexArmy.Graphics.Attachables
 					int vertexStride = meshPart.VertexBuffer.VertexDeclaration.VertexStride;
 					int vertexBufferSize = meshPart.NumVertices * vertexStride;
 
-					float[] vertexData = new float[vertexBufferSize / sizeof ( float )];
+					float[] vertexData = new float[vertexBufferSize / sizeof( float )];
 					meshPart.VertexBuffer.GetData( vertexData );
 
 					// Iterate through vertexes (possibly) growing bounding box, all calculations are done in world space
-					for ( int i = 0; i < vertexBufferSize / sizeof ( float ); i += vertexStride / sizeof ( float ) )
+					for ( int i = 0; i < vertexBufferSize / sizeof( float ); i += vertexStride / sizeof( float ) )
 					{
 						Vector3 position = new Vector3( vertexData[i], vertexData[i + 1], vertexData[i + 2] );
 

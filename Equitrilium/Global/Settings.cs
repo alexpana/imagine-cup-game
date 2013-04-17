@@ -97,6 +97,7 @@ namespace VertexArmy.Global
 			}
 			catch
 			{
+				Save( fileName );
 			}
 		}
 

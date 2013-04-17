@@ -29,7 +29,7 @@ namespace VertexArmy.GameWorld.Prefabs.Structs
 		{
 			var materialFunc = GetMaterialFunc();
 			SceneNode scn = new SceneNode();
-			MeshAttachable mesh = new MeshAttachable( Platform.Instance.Content.Load<Model>( Mesh ), materialFunc( parameters ) );
+			MeshAttachable mesh = new MeshAttachable( Name, Platform.Instance.Content.Load<Model>( Mesh ), materialFunc( parameters ) );
 			GameWorldManager.Instance.RegisterMesh( mesh, entity );
 			scn.AddAttachable( mesh );
 

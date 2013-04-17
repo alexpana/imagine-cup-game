@@ -4,12 +4,12 @@ float3 f3Color;
 
 struct VertexShaderInput
 {
-    float4 Position : POSITION;
+    float4 Position : SV_POSITION;
 };
 
 struct VertexShaderOutput
 {
-	float4 ScreenPosition : POSITION;
+	float4 ScreenPosition : SV_POSITION;
 };
 
 VertexShaderOutput main_VS(VertexShaderInput input) 
@@ -21,7 +21,7 @@ VertexShaderOutput main_VS(VertexShaderInput input)
 	return output;
 }
 
-float4 main_PS(VertexShaderOutput input) : COLOR
+float4 main_PS(VertexShaderOutput input) : SV_Target
 {
 	return float4( f3Color, 0.2 );
 }

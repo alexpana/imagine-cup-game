@@ -5,14 +5,14 @@ float3 eyePosition;
 
 struct VertexShaderInput
 {
-    float4 Position : POSITION;
+    float4 Position : SV_POSITION;
 	float3 Normal : NORMAL;
 	float2 Texcoord : TEXCOORD0;
 };
 
 struct VertexShaderOutput
 {
-	float4 ScreenPosition : POSITION;
+	float4 ScreenPosition : SV_POSITION;
 	float2 Texcoord : TEXCOORD0;
 	float3 Normal : TEXCOORD1;
 	float3 ToLight : TEXCOORD2;
@@ -43,7 +43,7 @@ VertexShaderOutput vertex_shader(VertexShaderInput input)
 	return output;
 }
 
-float4 main_PS(VertexShaderOutput input) : COLOR
+float4 main_PS(VertexShaderOutput input) : SV_Target
 {
 	float step1 = 0.3;
 	float step2 = 0.9;

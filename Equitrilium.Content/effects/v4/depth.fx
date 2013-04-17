@@ -2,12 +2,12 @@ float4x4 matWorldViewProj;
 
 struct VertexShaderInput
 {
-	float4 Position : SV_Position;
+	float4 Position : SV_POSITION;
 };
 
 struct VertexShaderOutput
 {
-	float4 ScreenPosition : POSITION;
+	float4 ScreenPosition : SV_POSITION;
 	float4 Distance		  : TEXCOORD0;
 };
 
@@ -22,7 +22,7 @@ VertexShaderOutput main_VS(VertexShaderInput input)
 	return output;
 }
 
-float4 main_PS(VertexShaderOutput input) : COLOR
+float4 main_PS(VertexShaderOutput input) : SV_Target
 {
 
 	float d = input.Distance.z/input.Distance.w;

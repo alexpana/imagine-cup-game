@@ -152,12 +152,14 @@ namespace VertexArmy.States.Menu
 			};
 			lockedLevel1Cube.Spawn( 0f );
 
-			var lockedLevel2Cube = CreateLevelMenuCube( "level_cube_locked_text" );
-			lockedLevel2Cube.Spawn( 50f );
+			
+
+			//var lockedLevel2Cube = CreateLevelMenuCube( "level_cube_locked_text" );
+			//lockedLevel2Cube.Spawn( 50f );
 
 			_levelCubes.Add( tutorialCube );
 			_levelCubes.Add( lockedLevel1Cube );
-			_levelCubes.Add( lockedLevel2Cube );
+			//_levelCubes.Add( lockedLevel2Cube );
 
 			_activeCube = tutorialCube;
 		}

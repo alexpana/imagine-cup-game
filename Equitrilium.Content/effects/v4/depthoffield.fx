@@ -10,13 +10,13 @@ float blurDistance;
 
 struct VertexShaderInput
 {
-    float4 Position : SV_Position;
+    float4 Position : SV_POSITION;
 	float2 Texcoord : TEXCOORD0;
 };
 
 struct VertexShaderOutput
 {
-	float4 ScreenPosition : POSITION;
+	float4 ScreenPosition : SV_POSITION;
 	float2 Texcoord : TEXCOORD0;
 };
 
@@ -51,7 +51,7 @@ VertexShaderOutput main_VS(VertexShaderInput input)
 	return output;
 }
 
-float4 main_PS(VertexShaderOutput input) : COLOR
+float4 main_PS(VertexShaderOutput input) : SV_Target
 {
 	float4 blurColor;
 

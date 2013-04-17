@@ -8,7 +8,7 @@ float3 lightPosition;
 
 struct VertexShaderInput
 {
-    float4 Position : SV_Position;
+    float4 Position : SV_POSITION;
 	float3 Normal : NORMAL0;
 	float3 Tangent : TANGENT0;
 	float2 Texcoord : TEXCOORD0;
@@ -16,7 +16,7 @@ struct VertexShaderInput
 
 struct VertexShaderOutput
 {
-	float4 ScreenPosition : POSITION;
+	float4 ScreenPosition : SV_POSITION;
 	float3 Texcoord : TEXCOORD0;
 	float3 ToLightT : TEXCOORD1;
 	float3 ToEyeT : TEXCOORD2;
@@ -88,7 +88,7 @@ VertexShaderOutput main_VS(VertexShaderInput input)
     return output;
 }
 
-float4 main_PS(VertexShaderOutput input) : COLOR
+float4 main_PS(VertexShaderOutput input) : SV_Target
 {
 	float3 N = (2.0 * tex2D(NormalMapSampler, input.Texcoord.xy) - 1.0).xyz;
 

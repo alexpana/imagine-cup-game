@@ -774,9 +774,6 @@
     <Content Include="..\ContentBuild\sounds\button-30.xnb">
       <Link>Content\sounds\button-30.xnb</Link>
     </Content>
-    <Content Include="..\ContentBuild\sounds\cloak_enable.xnb">
-      <Link>Content\sounds\cloak_enable.xnb</Link>
-    </Content>
     <Content Include="..\ContentBuild\sounds\engine_run.xnb">
       <Link>Content\sounds\engine_run.xnb</Link>
     </Content>
@@ -806,9 +803,6 @@
     <None Include="Equitrilium.Windows8_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="..\ContentBuild\movies\PurpleStarFlight.wmv">
-      <Link>Content\movies\PurpleStarFlight.wmv</Link>
-    </Content>
     <Content Include="..\ContentBuild\music\Beluga_-_Lost_In_Outer_Space.wma">
       <Link>Content\music\Beluga_-_Lost_In_Outer_Space.wma</Link>
     </Content>

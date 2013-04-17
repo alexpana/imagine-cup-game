@@ -27,13 +27,13 @@ sampler SpotsSampler = sampler_state {
 
 struct VertexShaderInput
 {
-    float4 Position : SV_Position;
+    float4 Position : SV_POSITION;
 	float2 TexCoord : TEXCOORD0;
 };
 
 struct VertexShaderOutput
 {
-    float4 Position : SV_Position;
+    float4 Position : SV_POSITION;
 	float2 TexCoord : TEXCOORD0;
 };
 
@@ -49,7 +49,7 @@ VertexShaderOutput VertexShaderFunction(VertexShaderInput input)
     return output;
 }
 
-float4 PixelShaderFunction(VertexShaderOutput input) : COLOR0
+float4 PixelShaderFunction(VertexShaderOutput input) : SV_Target
 {
 	float2x2 rotation = { cos(ValTime), sin(ValTime), -sin(ValTime), cos(ValTime) };
 	float2 uvCoord = mul( input.TexCoord.xy, rotation );

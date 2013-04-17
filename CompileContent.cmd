@@ -32,7 +32,7 @@ for /r %%i in (Equitrilium.Content\effects\*.fx) do (
 	rem SHADER MODEL < 4.0
 	call :do_conversion !EffInPath! !EffOutPath!
 	
-	if exist ContentBuild\effects\%%~ni.xnb rm ContentBuild\effects\%%~ni.xnb
+	if exist ContentBuild\effects\%%~ni.xnb del ContentBuild\effects\%%~ni.xnb
 )
 
 echo [Compile Content Phase] ---- Cleanup ...

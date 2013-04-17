@@ -8,46 +8,47 @@ set MGFXTOOL=2MGFX.exe
 setlocal ENABLEDELAYEDEXPANSION
 
 echo [Compile Content Phase] ---- Building content project ...
-mkdir /p ContentBuild
+if not exist ContentBuild mkdir ContentBuild
 
-msbuild /property:XNAContentPipelineTargetPlatform="Windows" /p:Configuration=Release /property:XNAContentPipelineTargetProfile=Reach Equitrilium.Content/Equitrilium.Content.contentproj /p:OutputPath=ContentBuild
-
-echo [Compile Content Phase] ---- Copying results from the content project ....
-xcopy /y /d /i /s Equitrilium.Content\ContentBuild\Content\* ContentBuild\
-
+msbuild /property:XNAContentPipelineTargetPlatform="Windows" /p:Configuration=Release /property:XNAContentPipelineTargetProfile=Reach Equitrilium.Content/Equitrilium.Content.contentproj /p:OutputPath=../ContentBuild
 
 echo [Compile Content Phase] ---- Compiling shaders ...
-if not exist ContentBuild\effects\v4 mkdir ContentBuild\effects\v4
+xcopy /y /d /i /s Equitrilium.Content\effects\* ContentBuild\Content\effects\
 
-for /r %%i in (Equitrilium.Content\effects\*.fx) do (
-	set EffV4InPath=Equitrilium.Content\effects\v4\%%~ni.fx
-	set EffV4OutPath=ContentBuild\effects\v4\%%~ni.mgfxo
-	
-	set EffInPath=Equitrilium.Content\effects\%%~ni.fx
-	set EffOutPath=ContentBuild\effects\%%~ni.mgfxo
-	
+for /r %%i in (Equitrilium.Content\effects\*.fx) do (	
 	rem SHADER MODEL >= 4.0
-	call :do_conversion !EffV4InPath! !EffV4OutPath! /dx11
+	call :do_conversion ContentBuild\Content\effects\v4\ %%~ni /dx11
 	
 	rem SHADER MODEL < 4.0
-	call :do_conversion !EffInPath! !EffOutPath!
-	
-	if exist ContentBuild\effects\%%~ni.xnb del ContentBuild\effects\%%~ni.xnb
+	rem call :do_conversion ContentBuild\Content\effects\ %%~ni
 )
 
 echo [Compile Content Phase] ---- Cleanup ...
 
-rm Equitrilium.Content\cachefile-*.txt
+if exist Equitrilium.Content\cachefile-*.txt del Equitrilium.Content\cachefile-*.txt
 goto :success
 
-
 rem FUNCTIONS
-:do_conversion <fx> <mgfxo> <extraparams> (
+:do_conversion <path> <filename> <extraparams> (
+	set InPath=%1\%2.fx
+	set OutPath=%1\%2.mgfxo
+	
+	if not exist !InPath! goto :return
+	
+	call :convert !InPath! !OutPath! %3
+	
+	:return
+	exit /b
+)
+
+:convert <fx> <mgfxo> <extraparams> (
+	if not exist %2 goto :convert
 	if "%~t1" == "%~t2" goto :return
-	rem TODO: fix this
-	rem for /F %%i in ('dir /B /O:D %1 %2') do set newest=%%i
-	rem if "%newest%" == "%~n2%~x2" goto :return
-	rem echo Converting "%1" to mgfxo... ( with params: %3)
+	for /F "delims=" %%i in ('dir /B /A-D /OD %1 %2') do set newest=%%i
+	if "%newest%" == "%~n2%~x2" goto :return
+	
+	:convert
+	echo Converting "%1" to mgfxo... ( with params: %3)
 	
 	%MGFXTOOL% %1 %2 %3
 	

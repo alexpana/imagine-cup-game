@@ -300,7 +300,7 @@ namespace VertexArmy.Global.Managers
 
 		private void DrawBackground()
 		{
-			_spriteBatch.Begin( SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullCounterClockwise, null );
+			_spriteBatch.Begin( SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.None, RasterizerState.CullCounterClockwise, null );
 			_spriteBatch.Draw( _backgroundSprite, new Rectangle( ( int ) 0, 0, _backgroundSprite.Width, _backgroundSprite.Height ), Color.White );
 			_spriteBatch.End();
 		}
@@ -313,6 +313,9 @@ namespace VertexArmy.Global.Managers
 			Platform.Instance.Device.Clear( ClearOptions.Target | ClearOptions.DepthBuffer, Color.DarkSlateBlue, 1.0f, 0 );
 
 			DrawBackground();
+
+			Platform.Instance.Device.DepthStencilState = DepthStencilState.Default;
+
 			DrawScene( dt );
 
 			Renderer.Instance.CurrentFrame = colorRenderTarget;

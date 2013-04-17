@@ -265,7 +265,7 @@ namespace VertexArmy.Global.Managers
 
 		public void Render( float dt )
 		{
-			Platform.Instance.Device.Clear( ClearOptions.Target | ClearOptions.DepthBuffer | ClearOptions.Stencil, Color.DarkSlateBlue, 1.0f, 0 );
+			Platform.Instance.Device.Clear( ClearOptions.Target | ClearOptions.DepthBuffer, Color.DarkSlateBlue, 1.0f, 0 );
 			if ( UseDof )
 			{
 				RenderWithDof( dt );

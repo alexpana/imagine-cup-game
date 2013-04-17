@@ -555,251 +555,254 @@
       <Link>Content\effects\saf.mgfxo</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="..\ContentBuild\fonts\Impact.xnb">
+    <Content Include="..\ContentBuild\fonts\Impact.xnb">
       <Link>Content\fonts\Impact.xnb</Link>
-    </None>
-    <None Include="..\ContentBuild\fonts\SpriteFont1.xnb">
+    </Content>
+    <Content Include="..\ContentBuild\fonts\SpriteFont1.xnb">
       <Link>Content\fonts\SpriteFont1.xnb</Link>
-    </None>
-    <None Include="..\ContentBuild\images\background.xnb">
+    </Content>
+    <Content Include="..\ContentBuild\images\background.xnb">
       <Link>Content\images\background.xnb</Link>
-    </None>
-    <None Include="..\ContentBuild\images\color_bridge.xnb">
+    </Content>
+    <Content Include="..\ContentBuild\images\color_bridge.xnb">
       <Link>Content\images\color_bridge.xnb</Link>
-    </None>
-    <None Include="..\ContentBuild\images\color_button.xnb">
+    </Content>
+    <Content Include="..\ContentBuild\images\color_button.xnb">
       <Link>Content\images\color_button.xnb</Link>
-    </None>
-    <None Include="..\ContentBuild\images\color_crate.xnb">
+    </Content>
+    <Content Include="..\ContentBuild\images\color_crate.xnb">
       <Link>Content\images\color_crate.xnb</Link>
-    </None>
-    <None Include="..\ContentBuild\images\color_door_inner.xnb">
+    </Content>
+    <Content Include="..\ContentBuild\images\color_door_inner.xnb">
       <Link>Content\images\color_door_inner.xnb</Link>
-    </None>
-    <None Include="..\ContentBuild\images\color_door_outer.xnb">
+    </Content>
+    <Content Include="..\ContentBuild\images\color_door_outer.xnb">
       <Link>Content\images\color_door_outer.xnb</Link>
-    </None>
-    <None Include="..\ContentBuild\images\color_pipe.xnb">
+    </Content>
+    <Content Include="..\ContentBuild\images\color_pipe.xnb">
       <Link>Content\images\color_pipe.xnb</Link>
-    </None>
-    <None Include="..\ContentBuild\images\color_robo.xnb">
+    </Content>
+    <Content Include="..\ContentBuild\images\color_robo.xnb">
       <Link>Content\images\color_robo.xnb</Link>
-    </None>
-    <None Include="..\ContentBuild\images\color_uplatform.xnb">
+    </Content>
+    <Content Include="..\ContentBuild\images\color_uplatform.xnb">
       <Link>Content\images\color_uplatform.xnb</Link>
-    </None>
-    <None Include="..\ContentBuild\images\cursor_arrow.xnb">
+    </Content>
+    <Content Include="..\ContentBuild\images\cursor_arrow.xnb">
       <Link>Content\images\cursor_arrow.xnb</Link>
-    </None>
-    <None Include="..\ContentBuild\images\cursor_hand_closed.xnb">
+    </Content>
+    <Content Include="..\ContentBuild\images\cursor_hand_closed.xnb">
       <Link>Content\images\cursor_hand_closed.xnb</Link>
-    </None>
-    <None Include="..\ContentBuild\images\cursor_hand_open.xnb">
+    </Content>
+    <Content Include="..\ContentBuild\images\cursor_hand_open.xnb">
       <Link>Content\images\cursor_hand_open.xnb</Link>
-    </None>
-    <None Include="..\ContentBuild\images\empty_dark_blue.xnb">
+    </Content>
+    <Content Include="..\ContentBuild\images\empty_dark_blue.xnb">
       <Link>Content\images\empty_dark_blue.xnb</Link>
-    </None>
-    <None Include="..\ContentBuild\images\empty_dark_gray.xnb">
+    </Content>
+    <Content Include="..\ContentBuild\images\empty_dark_gray.xnb">
       <Link>Content\images\empty_dark_gray.xnb</Link>
-    </None>
-    <None Include="..\ContentBuild\images\empty_gray.xnb">
+    </Content>
+    <Content Include="..\ContentBuild\images\empty_gray.xnb">
       <Link>Content\images\empty_gray.xnb</Link>
-    </None>
-    <None Include="..\ContentBuild\images\empty_normals.xnb">
+    </Content>
+    <Content Include="..\ContentBuild\images\empty_normals.xnb">
       <Link>Content\images\empty_normals.xnb</Link>
-    </None>
-    <None Include="..\ContentBuild\images\empty_specular.xnb">
+    </Content>
+    <Content Include="..\ContentBuild\images\empty_specular.xnb">
       <Link>Content\images\empty_specular.xnb</Link>
-    </None>
-    <None Include="..\ContentBuild\images\empty_white.xnb">
+    </Content>
+    <Content Include="..\ContentBuild\images\empty_white.xnb">
       <Link>Content\images\empty_white.xnb</Link>
-    </None>
-    <None Include="..\ContentBuild\images\menu\level_cube_locked_text.xnb">
+    </Content>
+    <Content Include="..\ContentBuild\images\menu\level_cube_locked_text.xnb">
       <Link>Content\images\menu\level_cube_locked_text.xnb</Link>
-    </None>
-    <None Include="..\ContentBuild\images\menu\level_cube_tutorial_text.xnb">
+    </Content>
+    <Content Include="..\ContentBuild\images\menu\level_cube_tutorial_text.xnb">
       <Link>Content\images\menu\level_cube_tutorial_text.xnb</Link>
-    </None>
-    <None Include="..\ContentBuild\images\menu\main_cube_text.xnb">
+    </Content>
+    <Content Include="..\ContentBuild\images\menu\main_cube_text.xnb">
       <Link>Content\images\menu\main_cube_text.xnb</Link>
-    </None>
-    <None Include="..\ContentBuild\images\menu\main_cube_text_flat.xnb">
+    </Content>
+    <Content Include="..\ContentBuild\images\menu\main_cube_text_flat.xnb">
       <Link>Content\images\menu\main_cube_text_flat.xnb</Link>
-    </None>
-    <None Include="..\ContentBuild\images\menu\menu_cube_DIFF.xnb">
+    </Content>
+    <Content Include="..\ContentBuild\images\menu\menu_cube_DIFF.xnb">
       <Link>Content\images\menu\menu_cube_DIFF.xnb</Link>
-    </None>
-    <None Include="..\ContentBuild\images\menu\menu_cube_flat_DIFF.xnb">
+    </Content>
+    <Content Include="..\ContentBuild\images\menu\menu_cube_flat_DIFF.xnb">
       <Link>Content\images\menu\menu_cube_flat_DIFF.xnb</Link>
-    </None>
-    <None Include="..\ContentBuild\images\menu\menu_cube_NORM.xnb">
+    </Content>
+    <Content Include="..\ContentBuild\images\menu\menu_cube_NORM.xnb">
       <Link>Content\images\menu\menu_cube_NORM.xnb</Link>
-    </None>
-    <None Include="..\ContentBuild\images\menu\menu_cube_NORM_NRM.xnb">
+    </Content>
+    <Content Include="..\ContentBuild\images\menu\menu_cube_NORM_NRM.xnb">
       <Link>Content\images\menu\menu_cube_NORM_NRM.xnb</Link>
-    </None>
-    <None Include="..\ContentBuild\images\menu\menu_cube_no_text.xnb">
+    </Content>
+    <Content Include="..\ContentBuild\images\menu\menu_cube_no_text.xnb">
       <Link>Content\images\menu\menu_cube_no_text.xnb</Link>
-    </None>
-    <None Include="..\ContentBuild\images\menu\menu_cube_OCC.xnb">
+    </Content>
+    <Content Include="..\ContentBuild\images\menu\menu_cube_OCC.xnb">
       <Link>Content\images\menu\menu_cube_OCC.xnb</Link>
-    </None>
-    <None Include="..\ContentBuild\images\menu\menu_cube_SPEC.xnb">
+    </Content>
+    <Content Include="..\ContentBuild\images\menu\menu_cube_SPEC.xnb">
       <Link>Content\images\menu\menu_cube_SPEC.xnb</Link>
-    </None>
-    <None Include="..\ContentBuild\images\menu\metro\Background.xnb">
+    </Content>
+    <Content Include="..\ContentBuild\images\menu\metro\Background.xnb">
       <Link>Content\images\menu\metro\Background.xnb</Link>
-    </None>
-    <None Include="..\ContentBuild\images\menu\metro\color_hint_bubble.xnb">
+    </Content>
+    <Content Include="..\ContentBuild\images\menu\metro\color_hint_bubble.xnb">
       <Link>Content\images\menu\metro\color_hint_bubble.xnb</Link>
-    </None>
-    <None Include="..\ContentBuild\images\menu\metro\ig_background.xnb">
+    </Content>
+    <Content Include="..\ContentBuild\images\menu\metro\ig_background.xnb">
       <Link>Content\images\menu\metro\ig_background.xnb</Link>
-    </None>
-    <None Include="..\ContentBuild\images\menu\metro\ig_highlight.xnb">
+    </Content>
+    <Content Include="..\ContentBuild\images\menu\metro\ig_highlight.xnb">
       <Link>Content\images\menu\metro\ig_highlight.xnb</Link>
-    </None>
-    <None Include="..\ContentBuild\images\menu\metro\ig_item_continue.xnb">
+    </Content>
+    <Content Include="..\ContentBuild\images\menu\metro\ig_item_continue.xnb">
       <Link>Content\images\menu\metro\ig_item_continue.xnb</Link>
-    </None>
-    <None Include="..\ContentBuild\images\menu\metro\ig_item_exit.xnb">
+    </Content>
+    <Content Include="..\ContentBuild\images\menu\metro\ig_item_exit.xnb">
       <Link>Content\images\menu\metro\ig_item_exit.xnb</Link>
-    </None>
-    <None Include="..\ContentBuild\images\menu\metro\ig_title.xnb">
+    </Content>
+    <Content Include="..\ContentBuild\images\menu\metro\ig_title.xnb">
       <Link>Content\images\menu\metro\ig_title.xnb</Link>
-    </None>
-    <None Include="..\ContentBuild\images\menu\metro\tooltip_bottom.xnb">
+    </Content>
+    <Content Include="..\ContentBuild\images\menu\metro\tooltip_bottom.xnb">
       <Link>Content\images\menu\metro\tooltip_bottom.xnb</Link>
-    </None>
-    <None Include="..\ContentBuild\images\menu\metro\tooltip_middle.xnb">
+    </Content>
+    <Content Include="..\ContentBuild\images\menu\metro\tooltip_middle.xnb">
       <Link>Content\images\menu\metro\tooltip_middle.xnb</Link>
-    </None>
-    <None Include="..\ContentBuild\images\menu\metro\tooltip_top.xnb">
+    </Content>
+    <Content Include="..\ContentBuild\images\menu\metro\tooltip_top.xnb">
       <Link>Content\images\menu\metro\tooltip_top.xnb</Link>
-    </None>
-    <None Include="..\ContentBuild\images\menu\options_cube_sounds-off.xnb">
+    </Content>
+    <Content Include="..\ContentBuild\images\menu\options_cube_sounds-off.xnb">
       <Link>Content\images\menu\options_cube_sounds-off.xnb</Link>
-    </None>
-    <None Include="..\ContentBuild\images\menu\options_cube_sounds-on.xnb">
+    </Content>
+    <Content Include="..\ContentBuild\images\menu\options_cube_sounds-on.xnb">
       <Link>Content\images\menu\options_cube_sounds-on.xnb</Link>
-    </None>
-    <None Include="..\ContentBuild\images\tooltip_double_line.xnb">
+    </Content>
+    <Content Include="..\ContentBuild\images\tooltip_double_line.xnb">
       <Link>Content\images\tooltip_double_line.xnb</Link>
-    </None>
-    <None Include="..\ContentBuild\images\tooltip_single_line.xnb">
+    </Content>
+    <Content Include="..\ContentBuild\images\tooltip_single_line.xnb">
       <Link>Content\images\tooltip_single_line.xnb</Link>
-    </None>
-    <None Include="..\ContentBuild\images\waves-noalpha.xnb">
+    </Content>
+    <Content Include="..\ContentBuild\images\waves-noalpha.xnb">
       <Link>Content\images\waves-noalpha.xnb</Link>
-    </None>
-    <None Include="..\ContentBuild\images\waves.xnb">
+    </Content>
+    <Content Include="..\ContentBuild\images\waves.xnb">
       <Link>Content\images\waves.xnb</Link>
-    </None>
-    <None Include="..\ContentBuild\models\blob.xnb">
+    </Content>
+    <Content Include="..\ContentBuild\models\blob.xnb">
       <Link>Content\models\blob.xnb</Link>
-    </None>
-    <None Include="..\ContentBuild\models\button_body.xnb">
+    </Content>
+    <Content Include="..\ContentBuild\models\button_body.xnb">
       <Link>Content\models\button_body.xnb</Link>
-    </None>
-    <None Include="..\ContentBuild\models\button_head.xnb">
+    </Content>
+    <Content Include="..\ContentBuild\models\button_head.xnb">
       <Link>Content\models\button_head.xnb</Link>
-    </None>
-    <None Include="..\ContentBuild\models\crate00.xnb">
+    </Content>
+    <Content Include="..\ContentBuild\models\crate00.xnb">
       <Link>Content\models\crate00.xnb</Link>
-    </None>
-    <None Include="..\ContentBuild\models\door_inner.xnb">
+    </Content>
+    <Content Include="..\ContentBuild\models\door_inner.xnb">
       <Link>Content\models\door_inner.xnb</Link>
-    </None>
-    <None Include="..\ContentBuild\models\door_outer.xnb">
+    </Content>
+    <Content Include="..\ContentBuild\models\door_outer.xnb">
       <Link>Content\models\door_outer.xnb</Link>
-    </None>
-    <None Include="..\ContentBuild\models\floor_tile.xnb">
+    </Content>
+    <Content Include="..\ContentBuild\models\floor_tile.xnb">
       <Link>Content\models\floor_tile.xnb</Link>
-    </None>
-    <None Include="..\ContentBuild\models\floor_tile_1.xnb">
+    </Content>
+    <Content Include="..\ContentBuild\models\floor_tile_1.xnb">
       <Link>Content\models\floor_tile_1.xnb</Link>
-    </None>
-    <None Include="..\ContentBuild\models\menu_cube.xnb">
+    </Content>
+    <Content Include="..\ContentBuild\models\menu_cube.xnb">
       <Link>Content\models\menu_cube.xnb</Link>
-    </None>
-    <None Include="..\ContentBuild\models\pipe.xnb">
+    </Content>
+    <Content Include="..\ContentBuild\models\pipe.xnb">
       <Link>Content\models\pipe.xnb</Link>
-    </None>
-    <None Include="..\ContentBuild\models\pyramid.xnb">
+    </Content>
+    <Content Include="..\ContentBuild\models\pyramid.xnb">
       <Link>Content\models\pyramid.xnb</Link>
-    </None>
-    <None Include="..\ContentBuild\models\quad.xnb">
+    </Content>
+    <Content Include="..\ContentBuild\models\quad.xnb">
       <Link>Content\models\quad.xnb</Link>
-    </None>
-    <None Include="..\ContentBuild\models\robo_body.xnb">
+    </Content>
+    <Content Include="..\ContentBuild\models\robo_body.xnb">
       <Link>Content\models\robo_body.xnb</Link>
-    </None>
-    <None Include="..\ContentBuild\models\robo_link.xnb">
+    </Content>
+    <Content Include="..\ContentBuild\models\robo_link.xnb">
       <Link>Content\models\robo_link.xnb</Link>
-    </None>
-    <None Include="..\ContentBuild\models\robo_wheel.xnb">
+    </Content>
+    <Content Include="..\ContentBuild\models\robo_wheel.xnb">
       <Link>Content\models\robo_wheel.xnb</Link>
-    </None>
-    <None Include="..\ContentBuild\models\saf.xnb">
+    </Content>
+    <Content Include="..\ContentBuild\models\saf.xnb">
       <Link>Content\models\saf.xnb</Link>
-    </None>
-    <None Include="..\ContentBuild\models\sphere.xnb">
+    </Content>
+    <Content Include="..\ContentBuild\models\sphere.xnb">
       <Link>Content\models\sphere.xnb</Link>
-    </None>
-    <None Include="..\ContentBuild\models\upgrade_platform.xnb">
+    </Content>
+    <Content Include="..\ContentBuild\models\upgrade_platform.xnb">
       <Link>Content\models\upgrade_platform.xnb</Link>
-    </None>
-    <None Include="..\ContentBuild\models\wall_tile.xnb">
+    </Content>
+    <Content Include="..\ContentBuild\models\wall_tile.xnb">
       <Link>Content\models\wall_tile.xnb</Link>
-    </None>
+    </Content>
+    <Content Include="..\ContentBuild\images\menu\level_cube_level2_text.xnb">
+      <Link>Content\images\menu\level_cube_level2_text.xnb</Link>
+    </Content>
     <None Include="..\ContentBuild\movies\PurpleStarFlight.xnb">
       <Link>Content\movies\PurpleStarFlight.xnb</Link>
     </None>
-    <None Include="..\ContentBuild\music\Beluga_-_Lost_In_Outer_Space.xnb">
+    <Content Include="..\ContentBuild\music\Beluga_-_Lost_In_Outer_Space.xnb">
       <Link>Content\music\Beluga_-_Lost_In_Outer_Space.xnb</Link>
-    </None>
-    <None Include="..\ContentBuild\music\proto1_menu.xnb">
+    </Content>
+    <Content Include="..\ContentBuild\music\proto1_menu.xnb">
       <Link>Content\music\proto1_menu.xnb</Link>
-    </None>
-    <None Include="..\ContentBuild\sounds\bang.xnb">
+    </Content>
+    <Content Include="..\ContentBuild\sounds\bang.xnb">
       <Link>Content\sounds\bang.xnb</Link>
-    </None>
-    <None Include="..\ContentBuild\sounds\button-27.xnb">
+    </Content>
+    <Content Include="..\ContentBuild\sounds\button-27.xnb">
       <Link>Content\sounds\button-27.xnb</Link>
-    </None>
-    <None Include="..\ContentBuild\sounds\button-30.xnb">
+    </Content>
+    <Content Include="..\ContentBuild\sounds\button-30.xnb">
       <Link>Content\sounds\button-30.xnb</Link>
-    </None>
-    <None Include="..\ContentBuild\sounds\cloak_enable.xnb">
+    </Content>
+    <Content Include="..\ContentBuild\sounds\cloak_enable.xnb">
       <Link>Content\sounds\cloak_enable.xnb</Link>
-    </None>
-    <None Include="..\ContentBuild\sounds\engine_run.xnb">
+    </Content>
+    <Content Include="..\ContentBuild\sounds\engine_run.xnb">
       <Link>Content\sounds\engine_run.xnb</Link>
-    </None>
-    <None Include="..\ContentBuild\sounds\hit1.xnb">
+    </Content>
+    <Content Include="..\ContentBuild\sounds\hit1.xnb">
       <Link>Content\sounds\hit1.xnb</Link>
-    </None>
-    <None Include="..\ContentBuild\sounds\hit2.xnb">
+    </Content>
+    <Content Include="..\ContentBuild\sounds\hit2.xnb">
       <Link>Content\sounds\hit2.xnb</Link>
-    </None>
-    <None Include="..\ContentBuild\sounds\hit3.xnb">
+    </Content>
+    <Content Include="..\ContentBuild\sounds\hit3.xnb">
       <Link>Content\sounds\hit3.xnb</Link>
-    </None>
-    <None Include="..\ContentBuild\sounds\hit4.xnb">
+    </Content>
+    <Content Include="..\ContentBuild\sounds\hit4.xnb">
       <Link>Content\sounds\hit4.xnb</Link>
-    </None>
-    <None Include="..\ContentBuild\sounds\metalhit2.xnb">
+    </Content>
+    <Content Include="..\ContentBuild\sounds\metalhit2.xnb">
       <Link>Content\sounds\metalhit2.xnb</Link>
-    </None>
-    <None Include="..\Equitrilium\Content\Levels\level1.eql">
+    </Content>
+    <Content Include="..\Equitrilium\Content\Levels\level1.eql">
       <Link>Content\Levels\level1.eql</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="..\Equitrilium\Content\Levels\level2.eql">
+    </Content>
+    <Content Include="..\Equitrilium\Content\Levels\level2.eql">
       <Link>Content\Levels\level2.eql</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    </Content>
     <None Include="Equitrilium.Windows8_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>

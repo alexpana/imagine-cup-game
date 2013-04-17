@@ -1,4 +1,3 @@
-
 using FarseerPhysics.Dynamics;
 using FarseerPhysics.Dynamics.Joints;
 using VertexArmy.Global.Behaviours;
@@ -48,7 +47,6 @@ namespace VertexArmy.GameWorld.Prefabs.Structs
 					{
 						ent = GameWorldManager.Instance.GetEntity( bodyNames[0] );
 						body = ent.PhysicsEntity.GetBody( bodyNames[1] );
-
 					}
 
 					BodyController bc = new BodyController( transf, body, ent );
@@ -73,6 +71,5 @@ namespace VertexArmy.GameWorld.Prefabs.Structs
 			}
 			return new BodyController( null, null, null );
 		}
-
 	}
 }

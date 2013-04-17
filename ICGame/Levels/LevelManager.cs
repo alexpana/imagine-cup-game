@@ -4,7 +4,10 @@ namespace VertexArmy.Levels
 {
 	public class LevelManager
 	{
-		public static LevelManager Instance { get { return LevelManagerInstanceHolder.Instance; } }
+		public static LevelManager Instance
+		{
+			get { return LevelManagerInstanceHolder.Instance; }
+		}
 
 		private readonly Dictionary<string, Level> _loadedLevels;
 
@@ -55,16 +58,18 @@ namespace VertexArmy.Levels
 
 		private LevelManager()
 		{
-			_loadedLevels = new Dictionary<string, Level>( );
+			_loadedLevels = new Dictionary<string, Level>();
 		}
 
 		#region Singleton
+
 		private static class LevelManagerInstanceHolder
 		{
 			// ReSharper disable MemberHidesStaticFromOuterClass
-			public static readonly LevelManager Instance = new LevelManager( );
+			public static readonly LevelManager Instance = new LevelManager();
 			// ReSharper restore MemberHidesStaticFromOuterClass
 		}
+
 		#endregion
 	}
 }

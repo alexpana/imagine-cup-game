@@ -13,10 +13,10 @@ namespace VertexArmy.Global.Managers
 	{
 		private readonly Dictionary<string, GameEntity> _entities;
 		private List<EntityState> _savedState;
-		private Dictionary<MeshAttachable, GameEntity> _meshes;
-		private Dictionary<GameEntity, List<MeshAttachable>> _entitiesMapToMeshes;
+		private readonly Dictionary<MeshAttachable, GameEntity> _meshes;
+		private readonly Dictionary<GameEntity, List<MeshAttachable>> _entitiesMapToMeshes;
 
-		private bool _frozen;
+		private readonly bool _frozen;
 
 		public GameEntity GetEntity( string name )
 		{
@@ -28,7 +28,7 @@ namespace VertexArmy.Global.Managers
 		}
 
 		public void SpawnEntity( string prefabName, string entityName, Vector3 position, float scale = 1f, Category layer = Category.Cat1,
-			GameEntityParameters parameters = null )
+		                         GameEntityParameters parameters = null )
 		{
 			SpawnEntity( PrefabRepository.Instance.GetPrefab( prefabName ), entityName, position, Vector3.One * scale, layer, parameters );
 		}
@@ -39,7 +39,7 @@ namespace VertexArmy.Global.Managers
 		}
 
 		public void SpawnEntity( string prefabName, string entityName, Vector3 position, Vector3 scale, Category layer = Category.Cat1,
-	GameEntityParameters parameters = null )
+		                         GameEntityParameters parameters = null )
 		{
 			SpawnEntity( PrefabRepository.Instance.GetPrefab( prefabName ), entityName, position, Vector3.One * scale, layer, parameters );
 		}
@@ -50,7 +50,7 @@ namespace VertexArmy.Global.Managers
 		}
 
 		public void SpawnEntity( PrefabEntity prefab, string entityName, Vector3 position, float scale = 1f, Category layer = Category.Cat1,
-	GameEntityParameters parameters = null )
+		                         GameEntityParameters parameters = null )
 		{
 			SpawnEntity( prefab, entityName, position, Vector3.One * scale, layer, parameters );
 		}
@@ -61,7 +61,7 @@ namespace VertexArmy.Global.Managers
 		}
 
 		public void SpawnEntity( PrefabEntity prefab, string entityName, Vector3 position, Vector3 scale, Category layer = Category.Cat1,
-			GameEntityParameters parameters = null )
+		                         GameEntityParameters parameters = null )
 		{
 			GameEntity entity = prefab.CreateGameEntity( this, scale, parameters );
 			entity.Name = entityName;
@@ -144,7 +144,7 @@ namespace VertexArmy.Global.Managers
 		public void Clear()
 		{
 			var entities = _entities.Keys.ToArray();
-			foreach (var name in entities)
+			foreach ( var name in entities )
 			{
 				RemoveEntity( name );
 			}
@@ -246,7 +246,7 @@ namespace VertexArmy.Global.Managers
 			{
 				if ( !_entities.ContainsKey( entState.Name ) )
 				{
-					this.SpawnEntity( entState.Prefab, entState.Name, entState.Position, entState.Scale );
+					SpawnEntity( entState.Prefab, entState.Name, entState.Position, entState.Scale );
 				}
 
 				GameEntity entity = _entities[entState.Name];
@@ -283,7 +283,6 @@ namespace VertexArmy.Global.Managers
 						b.AngularVelocity = angularVelocities[i];
 					}
 				}
-
 			}
 		}
 
@@ -310,39 +309,50 @@ namespace VertexArmy.Global.Managers
 	{
 		[DataMember]
 		public string Name;
+
 		[DataMember]
 		public Vector3 Position;
+
 		[DataMember]
 		public Quaternion Rotation;
+
 		[DataMember]
 		public Quaternion ExternalRotation;
+
 		[DataMember]
 		public string Prefab;
+
 		[DataMember]
 		public bool PhysicsEnabled;
+
 		[DataMember]
 		public Vector3 Scale;
+
 		[DataMember]
 		public Category CollisionCategory;
 
 		[DataMember]
 		public Dictionary<string, Vector2> BodyPositions;
+
 		[DataMember]
 		public Dictionary<string, float> BodyRotations;
+
 		[DataMember]
 		public Dictionary<string, Vector2> BodyLinearVelocities;
+
 		[DataMember]
 		public Dictionary<string, float> BodyAngularVelocities;
 
 		[DataMember]
 		public Dictionary<string, List<Vector2>> PathBodyPositions;
+
 		[DataMember]
 		public Dictionary<string, List<float>> PathBodyRotations;
+
 		[DataMember]
 		public Dictionary<string, List<Vector2>> PathBodyLinearVelocities;
+
 		[DataMember]
 		public Dictionary<string, List<float>> PathBodyAngularVelocities;
-
 	}
-
 }

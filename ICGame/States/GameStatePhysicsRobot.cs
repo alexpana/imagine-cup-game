@@ -19,8 +19,7 @@ namespace VertexArmy.States
 {
 	internal class GameStatePhysicsRobot : PlayableGameState
 	{
-
-		private ContentManager _contentManager;
+		private readonly ContentManager _contentManager;
 
 		private DebugViewXNA _debugView;
 		private Matrix _projection;
@@ -53,7 +52,6 @@ namespace VertexArmy.States
 
 			if ( Robot != null )
 			{
-
 				bool moving = false;
 
 				if ( !_cameraMoving && Math.Abs( _cameraPosition - Robot.GetPosition().X ) > _cameraError )
@@ -147,15 +145,12 @@ namespace VertexArmy.States
 					}
 					_actionSpawn = true;
 				}
-
-
 			}
 
 			if ( Keyboard.GetState( PlayerIndex.One ).IsKeyUp( Keys.S ) )
 			{
 				_actionSpawn = false;
 			}
-
 		}
 
 		public void RenderScene()
@@ -185,16 +180,12 @@ namespace VertexArmy.States
 				//_debugView.DrawString( 1, 51, "MaxSpeed:" + _robot.RobotPhysics.MaxAttainedSpeed );
 				_debugView.RenderDebugData( ref _projection, ref _view );
 			}
-
-
 		}
 
 		public void LoadPhysicsContent()
 		{
-
 			_ground = new Body( Platform.Instance.PhysicsWorld );
 			{
-
 				Vertices terrain = new Vertices();
 				terrain.Add( new Vector2( -20f, 15f ) );
 				terrain.Add( new Vector2( -20f, 20f ) );

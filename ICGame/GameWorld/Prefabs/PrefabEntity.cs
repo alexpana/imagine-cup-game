@@ -19,7 +19,7 @@ namespace VertexArmy.GameWorld.Prefabs
 		private readonly Dictionary<string, MeshSceneNodePrefab> _sceneNodesPrefab;
 		private readonly Dictionary<string, ArrayMeshSceneNodePrefab> _arrayMeshSceneNodesPrefab;
 		private readonly Dictionary<string, ControllerPrefab> _controllersPrefab;
-		
+
 		private readonly Dictionary<string, CameraSceneNodePrefab> _cameraSceneNodesPrefab;
 
 		public PrefabEntity()
@@ -75,7 +75,7 @@ namespace VertexArmy.GameWorld.Prefabs
 		{
 			_sceneNodesPrefab.Add( scn.Name, scn );
 		}
-		
+
 		public void RegisterArrayMeshSceneNode( ArrayMeshSceneNodePrefab pscn )
 		{
 			_arrayMeshSceneNodesPrefab.Add( pscn.Name, pscn );
@@ -118,7 +118,7 @@ namespace VertexArmy.GameWorld.Prefabs
 				entity.PhysicsEntity.AddJoint(
 					j.Name,
 					j.GetPhysicsJoint( scale )
-				);
+					);
 			}
 
 			foreach ( PathPrefab p in _physicsPrefab.Paths.Values )
@@ -126,7 +126,7 @@ namespace VertexArmy.GameWorld.Prefabs
 				entity.PhysicsEntity.AddPath(
 					p.Name,
 					p.GetPathEntity( scale )
-				);
+					);
 			}
 		}
 
@@ -198,14 +198,11 @@ namespace VertexArmy.GameWorld.Prefabs
 						FrameUpdateManager.Instance.Register( ljc );
 						break;
 				}
-
 			}
 		}
 
 		public static void ImportJsonScript( string file )
 		{
-
 		}
-
 	}
 }

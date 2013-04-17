@@ -4,6 +4,6 @@ namespace VertexArmy.Global.Behaviours
 {
 	public interface IUpdatable
 	{
-		void Update(GameTime dt);
+		void Update( GameTime dt );
 	}
 }

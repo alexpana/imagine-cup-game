@@ -72,7 +72,6 @@ namespace VertexArmy.Global.Controllers.Components
 					Entity.PhysicsEntity.SetLineJointMotorSpeed( _lineJoints[i], direction * _lineJointsSpeeds[i] );
 				}
 			}
-
 		}
 
 		public override void Clean()

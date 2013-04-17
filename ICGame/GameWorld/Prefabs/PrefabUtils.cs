@@ -1,11 +1,9 @@
-﻿
-namespace VertexArmy.GameWorld.Prefabs
+﻿namespace VertexArmy.GameWorld.Prefabs
 {
 	public class PrefabUtils
 	{
 		public static string[] GetEntityAndComponentName( string value )
 		{
-
 			if ( value.Contains( "." ) )
 			{
 				char[] splitPattern = new char[1] { '.' };

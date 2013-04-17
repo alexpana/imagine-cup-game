@@ -9,6 +9,7 @@ namespace VertexArmy.Global.Controllers
 	{
 		private bool _actionChangeGravity;
 		private Vector2 _startPosition, _endPosition;
+
 		public GravityController()
 		{
 			_actionChangeGravity = false;
@@ -35,7 +36,6 @@ namespace VertexArmy.Global.Controllers
 
 		public void Clean()
 		{
-
 		}
 	}
 }

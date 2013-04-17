@@ -137,7 +137,6 @@ namespace VertexArmy.Content.Prefabs
 
 			BodyPrefab link = new BodyPrefab
 			{
-
 				Name = "Link",
 				Shapes = new List<ShapePrefab> { linkShape, linkFeetShape },
 				Friction = 1f,
@@ -154,12 +153,12 @@ namespace VertexArmy.Content.Prefabs
 				ConnectFirstAndLast = true,
 				JointType = JointType.Revolute,
 				Path = new List<Vector2>
-					{
-						new Vector2(60f, -32f),
-						new Vector2(0f, 51f),
-						new Vector2(-50f, -32f ),
-						new Vector2(55f , -38f  )
-					},
+				{
+					new Vector2( 60f, -32f ),
+					new Vector2( 0f, 51f ),
+					new Vector2( -50f, -32f ),
+					new Vector2( 55f, -38f )
+				},
 				Body = link
 			};
 
@@ -206,7 +205,6 @@ namespace VertexArmy.Content.Prefabs
 				Name = "Links",
 				Mesh = "models/robo_link",
 				Material = "RobotMaterial",
-
 				Path = "Track",
 				StartIndex = 0,
 				EndIndex = 28
@@ -215,12 +213,12 @@ namespace VertexArmy.Content.Prefabs
 			robot.RegisterArrayMeshSceneNode( linkNode );
 
 			ControllerPrefab gear1Controller = new ControllerPrefab
-											   {
-												   Name = "Gear1BodyController",
-												   Type = ControllerType.BodyController,
-												   Body = "Gear1",
-												   Transformable = "Gear1"
-											   };
+			{
+				Name = "Gear1BodyController",
+				Type = ControllerType.BodyController,
+				Body = "Gear1",
+				Transformable = "Gear1"
+			};
 
 			robot.RegisterController( gear1Controller );
 

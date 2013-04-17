@@ -97,9 +97,9 @@ namespace VertexArmy.Utilities
 			simUnits.Y = -y * _simUnitsToDisplayUnitsRatio;
 		}
 
-		public static Quaternion To3DRotation(float rot)
+		public static Quaternion To3DRotation( float rot )
 		{
-			return Quaternion.CreateFromAxisAngle(new Vector3(0f, 0f, 1f), -rot);
+			return Quaternion.CreateFromAxisAngle( new Vector3( 0f, 0f, 1f ), -rot );
 		}
 	}
 }

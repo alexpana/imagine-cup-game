@@ -1,5 +1,4 @@
-﻿
-namespace VertexArmy.States.Menu
+﻿namespace VertexArmy.States.Menu
 {
 	public class SwitchMenuItem : MenuItem
 	{

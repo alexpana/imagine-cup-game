@@ -11,18 +11,18 @@ namespace VertexArmy.Content.Prefabs
 
 
 			MeshSceneNodePrefab crateSceneNode = new MeshSceneNodePrefab
-												 {
-													 Material = "RobotMaterial",
-													 Mesh = "models/robo_wheel",
-													 Name = "Mesh"
-												 };
+			{
+				Material = "RobotMaterial",
+				Mesh = "models/robo_wheel",
+				Name = "Mesh"
+			};
 
 			mesh.RegisterMeshSceneNode( crateSceneNode );
 
 			return mesh;
 		}
 
-		public static PrefabEntity CreatePrefab(string mesh, string material, string name)
+		public static PrefabEntity CreatePrefab( string mesh, string material, string name )
 		{
 			PrefabEntity prf = new PrefabEntity { Name = name };
 

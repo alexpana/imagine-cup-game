@@ -105,7 +105,7 @@ namespace VertexArmy.States
 
 		public void OnClose()
 		{
-			_contentManager.Unload( );
+			_contentManager.Unload();
 		}
 	}
 }

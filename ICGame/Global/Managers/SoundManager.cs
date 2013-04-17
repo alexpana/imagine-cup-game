@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using FarseerPhysics.Dynamics;
 using Microsoft.Xna.Framework;
@@ -71,7 +70,7 @@ namespace VertexArmy.Global.Managers
 			}
 
 #if NETFX_CORE
-			//TODO: Implement this for Windows 8
+	//TODO: Implement this for Windows 8
 			return;
 #endif
 

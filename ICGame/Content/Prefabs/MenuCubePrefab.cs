@@ -20,32 +20,32 @@ namespace VertexArmy.Content.Prefabs
 			PrefabEntity cube = new PrefabEntity { Name = "Menu Cube" };
 
 			ShapePrefab cubeShape = new ShapePrefab
-									 {
-										 Density = 1f,
-										 Width = 20f,
-										 Height = 20f,
-										 Offset = Vector2.Zero,
-										 Type = ShapeType.Rectangle
-									 };
+			{
+				Density = 1f,
+				Width = 20f,
+				Height = 20f,
+				Offset = Vector2.Zero,
+				Type = ShapeType.Rectangle
+			};
 
 			BodyPrefab cubeBody = new BodyPrefab
-								   {
-									   Friction = GetRandomFriction(),
-									   LocalPosition = Vector2.Zero,
-									   Name = "MenuCubeBody",
-									   Shapes = new List<ShapePrefab> { cubeShape },
-									   Restitution = 0.25f,
-									   Static = false
-								   };
+			{
+				Friction = GetRandomFriction(),
+				LocalPosition = Vector2.Zero,
+				Name = "MenuCubeBody",
+				Shapes = new List<ShapePrefab> { cubeShape },
+				Restitution = 0.25f,
+				Static = false
+			};
 
 			cube.RegisterBody( cubeBody, true );
 
 			MeshSceneNodePrefab cubeSceneNode = new MeshSceneNodePrefab
-												 {
-													 Material = "MenuCubeMaterial",
-													 Mesh = "models/menu_cube",
-													 Name = "MenuCubeNode"
-												 };
+			{
+				Material = "MenuCubeMaterial",
+				Mesh = "models/menu_cube",
+				Name = "MenuCubeNode"
+			};
 
 			cube.RegisterMeshSceneNode( cubeSceneNode );
 

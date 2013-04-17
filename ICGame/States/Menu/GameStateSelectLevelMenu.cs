@@ -15,7 +15,7 @@ namespace VertexArmy.States.Menu
 		private readonly List<MenuCube> _levelCubes;
 		private int _selectedCubeIndex;
 		private MenuCube _activeCube;
-		Vector3 _lightPos = new Vector3( 0, 40000, 20000 );
+		private Vector3 _lightPos = new Vector3( 0, 40000, 20000 );
 		private SceneNode _lastNodeUnderPointer = null;
 
 		private readonly float _cubeRotationDelta = MathHelper.ToRadians( 0.5f );
@@ -51,7 +51,6 @@ namespace VertexArmy.States.Menu
 
 			for ( int i = 0; i < _levelCubes.Count; ++i )
 			{
-
 				var entity = GameWorldManager.Instance.GetEntity( _levelCubes[i].Id );
 				if ( entity.SceneNodes["MenuCubeNode"] == nodeUnderPointer )
 				{
@@ -92,7 +91,7 @@ namespace VertexArmy.States.Menu
 			}
 
 			if ( Platform.Instance.Input.IsKeyPressed( Keys.Back, false ) ||
-				Platform.Instance.Input.IsKeyPressed( Keys.Escape, false ) )
+			     Platform.Instance.Input.IsKeyPressed( Keys.Escape, false ) )
 			{
 				StateManager.Instance.ChangeState( GameState.Menu );
 			}
@@ -101,7 +100,7 @@ namespace VertexArmy.States.Menu
 		private void ActivateSelectedItem()
 		{
 			if ( _activeCube.Items != null &&
-				 _activeCube.Items.Count > 0 )
+			     _activeCube.Items.Count > 0 )
 			{
 				_activeCube.Items[0].Activate();
 			}
@@ -138,7 +137,7 @@ namespace VertexArmy.States.Menu
 			{
 				new MenuItem
 				{
-					Activated = obj => StateManager.Instance.ChangeState(GameState.TutorialLevel)
+					Activated = obj => StateManager.Instance.ChangeState( GameState.TutorialLevel )
 				}
 			};
 			tutorialCube.Spawn( -50f );

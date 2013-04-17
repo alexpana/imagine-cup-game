@@ -5,7 +5,7 @@ using VertexArmy.Graphics;
 
 namespace VertexArmy.Content.Materials
 {
-	class HighlightMaterial
+	internal class HighlightMaterial
 	{
 		public static Material CreateMaterial()
 		{

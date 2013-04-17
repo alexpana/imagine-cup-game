@@ -3,8 +3,8 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using VertexArmy.Global;
-using VertexArmy.Graphics;
 using VertexArmy.Global.Managers;
+using VertexArmy.Graphics;
 
 namespace VertexArmy.States
 {
@@ -15,7 +15,7 @@ namespace VertexArmy.States
 		private SpriteBatch _spriteBatch;
 
 		private Texture2D _background;
-		private InGameMenuManager _manager;
+		private readonly InGameMenuManager _manager;
 
 		public GameStatePaused( ContentManager content )
 		{
@@ -27,19 +27,19 @@ namespace VertexArmy.States
 		{
 			if ( Platform.Instance.Input.IsKeyPressed( Keys.Escape, false ) )
 			{
-				OnContinueAction( );
+				OnContinueAction();
 			}
 			_manager.Update( gameTime );
 		}
 
 		public void OnContinueAction()
 		{
-			StateManager.Instance.PopState( );
+			StateManager.Instance.PopState();
 		}
 
 		public void OnExitAction()
 		{
-			StateManager.Instance.PopState( );
+			StateManager.Instance.PopState();
 			StateManager.Instance.ChangeState( GameState.Menu );
 		}
 
@@ -49,7 +49,7 @@ namespace VertexArmy.States
 
 			// Draw game background
 			_spriteBatch.Draw( _background, new Rectangle( 0, 0, Platform.Instance.Device.Viewport.Width, Platform.Instance.Device.Viewport.Height ), Color.White );
-			_spriteBatch.End( );
+			_spriteBatch.End();
 
 			_manager.Render();
 		}

@@ -1,8 +1,6 @@
 using FarseerPhysics.Dynamics;
 using Microsoft.Xna.Framework;
-#if WINDOWS
 using Microsoft.Xna.Framework.GamerServices;
-#endif
 using VertexArmy.Content.Materials;
 using VertexArmy.Content.Prefabs;
 using VertexArmy.Global;
@@ -10,6 +8,8 @@ using VertexArmy.Global.Managers;
 using VertexArmy.Input;
 using VertexArmy.States;
 using VertexArmy.Utilities;
+#if WINDOWS
+#endif
 
 namespace VertexArmy
 {
@@ -45,7 +45,7 @@ namespace VertexArmy
 			Platform.Instance.Input = new PCInputSystem();
 			PhysicsContactManager.Instance.Initialize();
 #if TEST_LEVEL_LOADING
-			// This is for testing the level loading part. Do not modify this!
+	// This is for testing the level loading part. Do not modify this!
 			StateManager.Instance.ChangeState( GameState.LevelLoading );
 #elif MODEL_VIEW
 			StateManager.Instance.ChangeState( GameState.ModelView );
@@ -129,7 +129,6 @@ namespace VertexArmy
 			}
 
 			CursorManager.Instance.Render();
-
 		}
 	}
 }

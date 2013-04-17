@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.IO;
 using System.Runtime.Serialization;
 using VertexArmy.Global.Managers;
-#if WINDOWS
-using System.IO;
 using VertexArmy.Serialization;
+#if WINDOWS
+
 #endif
 
 namespace VertexArmy.Content.Prefabs
@@ -14,6 +14,7 @@ namespace VertexArmy.Content.Prefabs
 	{
 		[DataMember]
 		public string filepath;
+
 		[DataMember]
 		public List<EntityState> _savedState;
 

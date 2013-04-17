@@ -3,10 +3,9 @@ using Microsoft.Xna.Framework.Graphics;
 using VertexArmy.Global;
 using VertexArmy.Graphics;
 
-
 namespace VertexArmy.Content.Materials
 {
-	class SafMaterial
+	internal class SafMaterial
 	{
 		public static Material CreateMaterial()
 		{

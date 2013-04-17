@@ -4,7 +4,6 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using VertexArmy.Content.Materials;
 
-
 namespace VertexArmy.Graphics
 {
 	public enum EMatrix
@@ -15,13 +14,14 @@ namespace VertexArmy.Graphics
 		Texture,
 		Count
 	};
+
 	public sealed class Renderer //default
 	{
 		private static volatile Renderer _instance;
 		private static readonly object _syncRoot = new Object();
-		
-		private readonly dynamic _parameter = new List<object>( );
-		private readonly Dictionary<String, int> _bindings = new Dictionary<string, int>( );
+
+		private readonly dynamic _parameter = new List<object>();
+		private readonly Dictionary<String, int> _bindings = new Dictionary<string, int>();
 
 
 		public Texture2D CurrentFrame;
@@ -35,7 +35,7 @@ namespace VertexArmy.Graphics
 
 		public Material GetDepthBufferMaterial()
 		{
-			return _depthBuffer ?? (_depthBuffer = DepthBufferMaterial.CreateMaterial());
+			return _depthBuffer ?? ( _depthBuffer = DepthBufferMaterial.CreateMaterial() );
 		}
 
 		public Material GetBlurMaterial()
@@ -59,30 +59,31 @@ namespace VertexArmy.Graphics
 			_parameter[_bindings[name]] = data;
 		}
 
-		public void SetGlobalMaterialParameters(Material mat)
+		public void SetGlobalMaterialParameters( Material mat )
 		{
-			foreach (var binding in _bindings)
+			foreach ( var binding in _bindings )
 			{
-				mat.SetParameter(binding.Key, _parameter[binding.Value]);
+				mat.SetParameter( binding.Key, _parameter[binding.Value] );
 			}
 		}
 
 
 		public const int StackDepth = 8;
-		private Renderer( )
-		{
-			_si = new int[(int)EMatrix.Count];
-			_stacks = new Matrix[(int)EMatrix.Count][];
 
-			for(int i = 0; i < (int)EMatrix.Count; ++i)
+		private Renderer()
+		{
+			_si = new int[( int ) EMatrix.Count];
+			_stacks = new Matrix[( int ) EMatrix.Count][];
+
+			for ( int i = 0; i < ( int ) EMatrix.Count; ++i )
 			{
 				_stacks[i] = new Matrix[StackDepth];
 
-				for(int j = 0; j < (int)EMatrix.Count; ++j)
+				for ( int j = 0; j < ( int ) EMatrix.Count; ++j )
 				{
 					_stacks[i][j] = Matrix.Identity;
 				}
-			
+
 				_si[i] = 0;
 			}
 			_matWorld = Matrix.Identity;
@@ -109,14 +110,14 @@ namespace VertexArmy.Graphics
 
 		public static Renderer Instance
 		{
-			get 
+			get
 			{
-				if ( _instance == null ) 
+				if ( _instance == null )
 				{
-					lock ( _syncRoot ) 
+					lock ( _syncRoot )
 					{
 						if ( _instance == null )
-							_instance = new Renderer( );
+							_instance = new Renderer();
 					}
 				}
 				return _instance;
@@ -129,7 +130,7 @@ namespace VertexArmy.Graphics
 			{
 				if ( _matViewF )
 				{
-					_matView = _stacks[(int)EMatrix.View][_si[(int)EMatrix.View]];
+					_matView = _stacks[( int ) EMatrix.View][_si[( int ) EMatrix.View]];
 					_matViewF = false;
 				}
 				return _matView;
@@ -153,10 +154,10 @@ namespace VertexArmy.Graphics
 		{
 			get
 			{
-				if(_matViewProjectionF)
+				if ( _matViewProjectionF )
 				{
 					_matViewProjection = _stacks[( int ) EMatrix.View][_si[( int ) EMatrix.View]] *
-										 _stacks[( int ) EMatrix.Projection][_si[( int ) EMatrix.Projection]];
+					                     _stacks[( int ) EMatrix.Projection][_si[( int ) EMatrix.Projection]];
 					_matViewProjectionF = false;
 				}
 				return _matViewProjection;
@@ -167,7 +168,7 @@ namespace VertexArmy.Graphics
 		{
 			get
 			{
-				if(_matWorldF)
+				if ( _matWorldF )
 				{
 					_matWorld = _stacks[( int ) EMatrix.World][_si[( int ) EMatrix.World]];
 					_matWorldF = false;
@@ -178,9 +179,9 @@ namespace VertexArmy.Graphics
 
 		public Matrix MatWorldInverseTranspose
 		{
-			get 
-			{ 
-				if(_matWorldInverseTransposeF)
+			get
+			{
+				if ( _matWorldInverseTransposeF )
 				{
 					_matWorldInverseTranspose = Matrix.Invert( Matrix.Transpose( _stacks[( int ) EMatrix.World][_si[( int ) EMatrix.World]] ) );
 					_matWorldInverseTransposeF = false;
@@ -193,11 +194,11 @@ namespace VertexArmy.Graphics
 		{
 			get
 			{
-				if(_matWorldViewProjectionF)
+				if ( _matWorldViewProjectionF )
 				{
 					_matWorldViewProjection =
-						_stacks[(int)EMatrix.World][_si[(int)EMatrix.World]] *
-						_stacks[(int)EMatrix.View][_si[(int)EMatrix.View]] *
+						_stacks[( int ) EMatrix.World][_si[( int ) EMatrix.World]] *
+						_stacks[( int ) EMatrix.View][_si[( int ) EMatrix.View]] *
 						_stacks[( int ) EMatrix.Projection][_si[( int ) EMatrix.Projection]];
 					_matWorldViewProjectionF = false;
 				}
@@ -222,30 +223,30 @@ namespace VertexArmy.Graphics
 		private bool _matViewProjectionF;
 		private bool _matViewF;
 		private bool _matProjectionF;
-		
 
-		public void PushMatrix ( EMatrix matrix )
+
+		public void PushMatrix( EMatrix matrix )
 		{
-			if(_si[(int)matrix] < StackDepth - 1)
+			if ( _si[( int ) matrix] < StackDepth - 1 )
 			{
-				++_si[(int)matrix];
-				_stacks[(int)matrix][_si[(int)matrix]] =
-					_stacks[(int)matrix][_si[(int)matrix - 1]];
+				++_si[( int ) matrix];
+				_stacks[( int ) matrix][_si[( int ) matrix]] =
+					_stacks[( int ) matrix][_si[( int ) matrix - 1]];
 			}
 		}
 
-		public void PopMatrix ( EMatrix matrix )
+		public void PopMatrix( EMatrix matrix )
 		{
-			if(_si[(int)matrix] > 0)
+			if ( _si[( int ) matrix] > 0 )
 			{
-				--_si[(int)matrix];
+				--_si[( int ) matrix];
 			}
-			SetFlags(matrix);
+			SetFlags( matrix );
 		}
 
-		private void SetFlags ( EMatrix matrix )
+		private void SetFlags( EMatrix matrix )
 		{
-			switch(matrix)
+			switch ( matrix )
 			{
 				case EMatrix.World:
 					_matWorldF = true;
@@ -265,10 +266,10 @@ namespace VertexArmy.Graphics
 			}
 		}
 
-		public void LoadIdentity ( EMatrix matrix )
+		public void LoadIdentity( EMatrix matrix )
 		{
-			_stacks[(int)matrix][_si[(int)matrix]] = Matrix.Identity;
-			SetFlags(matrix);
+			_stacks[( int ) matrix][_si[( int ) matrix]] = Matrix.Identity;
+			SetFlags( matrix );
 		}
 
 		public void LoadMatrix( EMatrix matrix, Matrix mat )

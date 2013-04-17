@@ -42,11 +42,13 @@ namespace VertexArmy.Global.Hints
 
 		public FadeHint( string text, Vector2 position, float fadeIn, float fadeOut ) :
 			this( text, position, new Color( 0.81f, 0.5f, 0.33f ), float.PositiveInfinity, fadeIn, fadeOut )
-		{ }
+		{
+		}
 
 		public FadeHint( string text, Vector2 position, float timeToLive, float fadeIn, float fadeOut ) :
 			this( text, position, new Color( 0.81f, 0.5f, 0.33f ), timeToLive, fadeIn, fadeOut )
-		{ }
+		{
+		}
 
 		public FadeHint( string text, Vector2 position, Color color, float timeToLive, float fadeIn, float fadeOut )
 		{

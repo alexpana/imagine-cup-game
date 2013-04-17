@@ -5,21 +5,21 @@ using Microsoft.Xna.Framework.Input;
 
 namespace VertexArmy.Global.Managers
 {
-	class InGameMenuManager
+	internal class InGameMenuManager
 	{
-		enum MenuItem
+		private enum MenuItem
 		{
 			Continue,
 			Exit,
-            None
+			None
 		};
 
 		private class MenuMetrics
 		{
-            private readonly Vector2 _offsetItemContinue = new Vector2(0, 116);
-            private readonly Vector2 _offsetItemExit = new Vector2(0, 164);
-            private readonly Vector2 _size = new Vector2(342, 266);
-            private readonly Vector2 _offset = new Vector2(274, 192);
+			private readonly Vector2 _offsetItemContinue = new Vector2( 0, 116 );
+			private readonly Vector2 _offsetItemExit = new Vector2( 0, 164 );
+			private readonly Vector2 _size = new Vector2( 342, 266 );
+			private readonly Vector2 _offset = new Vector2( 274, 192 );
 
 			public MenuMetrics()
 			{
@@ -44,10 +44,10 @@ namespace VertexArmy.Global.Managers
 				return _offset;
 			}
 
-		    private Vector2 GetSize()
-            {
-                return _size;
-            }
+			private Vector2 GetSize()
+			{
+				return _size;
+			}
 
 			public Vector2 GetItemSize()
 			{
@@ -55,22 +55,22 @@ namespace VertexArmy.Global.Managers
 			}
 		};
 
-        private readonly MenuMetrics _metrics = new MenuMetrics();
+		private readonly MenuMetrics _metrics = new MenuMetrics();
 
-	    private const String Prefix = "images/menu/metro/";
+		private const String Prefix = "images/menu/metro/";
 
-	    private readonly Texture2D _texBackground;
-        private readonly Texture2D _texTitle;
-        private readonly Texture2D _texHighlight;
-        private readonly Texture2D _texItemContinue;
-        private readonly Texture2D _texItemExit;
+		private readonly Texture2D _texBackground;
+		private readonly Texture2D _texTitle;
+		private readonly Texture2D _texHighlight;
+		private readonly Texture2D _texItemContinue;
+		private readonly Texture2D _texItemExit;
 
 		private readonly SpriteBatch _spriteBatch;
 
 		private MenuItem _selectedItem = MenuItem.Continue;
 
 		private readonly Action _callbackContinue;
-        private readonly Action _callbackExit;
+		private readonly Action _callbackExit;
 
 		private Texture2D LoadTexture( String name )
 		{
@@ -135,61 +135,61 @@ namespace VertexArmy.Global.Managers
 		{
 			Vector2 cursor = Platform.Instance.Input.PointerPosition - _metrics.GetMenuOffset();
 
-            if ( Platform.Instance.Input.PointerDelta.Length() > 0 )
-            {
-                if (PointIntersectsMenuItem(cursor, MenuItem.Continue))
-                {
-                    _selectedItem = MenuItem.Continue;
-                }
+			if ( Platform.Instance.Input.PointerDelta.Length() > 0 )
+			{
+				if ( PointIntersectsMenuItem( cursor, MenuItem.Continue ) )
+				{
+					_selectedItem = MenuItem.Continue;
+				}
 
-                if (PointIntersectsMenuItem(cursor, MenuItem.Exit))
-                {
-                    _selectedItem = MenuItem.Exit;
-                }
-            }
+				if ( PointIntersectsMenuItem( cursor, MenuItem.Exit ) )
+				{
+					_selectedItem = MenuItem.Exit;
+				}
+			}
 
-            if( Platform.Instance.Input.IsKeyPressed( Keys.Down, false ) )
-            {
-                MoveSelectionDown();
-            }
-            if( Platform.Instance.Input.IsKeyPressed( Keys.Up, false ) )
-            {
-                MoveSelectionUp();
-            }
+			if ( Platform.Instance.Input.IsKeyPressed( Keys.Down, false ) )
+			{
+				MoveSelectionDown();
+			}
+			if ( Platform.Instance.Input.IsKeyPressed( Keys.Up, false ) )
+			{
+				MoveSelectionUp();
+			}
 		}
 
-	    private void MoveSelectionUp()
-	    {
-	        _selectedItem = _selectedItem == MenuItem.Continue ? MenuItem.Exit : MenuItem.Continue;
-	    }
+		private void MoveSelectionUp()
+		{
+			_selectedItem = _selectedItem == MenuItem.Continue ? MenuItem.Exit : MenuItem.Continue;
+		}
 
-	    private void MoveSelectionDown()
-        {
-            MoveSelectionUp();
-        }
+		private void MoveSelectionDown()
+		{
+			MoveSelectionUp();
+		}
 
 		public void Update( GameTime gameTime )
 		{
 			CheckSelectedItem();
 
-            if( Platform.Instance.Input.IsLeftPointerFirstTimePressed || Platform.Instance.Input.IsKeyPressed( Keys.Enter, false ) )
-            {
-                CallbackSelection();
-            }
+			if ( Platform.Instance.Input.IsLeftPointerFirstTimePressed || Platform.Instance.Input.IsKeyPressed( Keys.Enter, false ) )
+			{
+				CallbackSelection();
+			}
 		}
 
-        private void CallbackSelection()
-        {
-            switch (_selectedItem)
-            {
-                case MenuItem.Continue:
-                    CallbackContinue();
-                    break;
-                case MenuItem.Exit:
-                    CallbackExit();
-                    break;
-            }
-        }
+		private void CallbackSelection()
+		{
+			switch ( _selectedItem )
+			{
+				case MenuItem.Continue:
+					CallbackContinue();
+					break;
+				case MenuItem.Exit:
+					CallbackExit();
+					break;
+			}
+		}
 
 		private void CallbackContinue()
 		{

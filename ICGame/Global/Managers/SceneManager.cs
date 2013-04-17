@@ -23,7 +23,7 @@ namespace VertexArmy.Global.Managers
 		private readonly List<CameraAttachable> _sceneCameras = new List<CameraAttachable>();
 		private readonly List<LightAttachable> _sceneLights = new List<LightAttachable>();
 
-		private AudioListener _audioListener;
+		private readonly AudioListener _audioListener;
 
 		private Vector3 _lightPosition = new Vector3( 0, 40000, 20000 );
 
@@ -34,8 +34,8 @@ namespace VertexArmy.Global.Managers
 
 		public bool ShowDebugInfo;
 
-		private SpriteBatch _spriteBatch;
-		private Texture2D _backgroundSprite;
+		private readonly SpriteBatch _spriteBatch;
+		private readonly Texture2D _backgroundSprite;
 
 		private Quad GetScreenQuad()
 		{
@@ -92,7 +92,6 @@ namespace VertexArmy.Global.Managers
 #else
 			ShowDebugInfo = false;
 #endif
-
 		}
 
 		public void Clear()
@@ -109,7 +108,6 @@ namespace VertexArmy.Global.Managers
 
 		public void RegisterSceneTree( SceneNode node )
 		{
-
 			Queue<SceneNode> knodes = new Queue<SceneNode>();
 
 			knodes.Enqueue( node );
@@ -189,12 +187,10 @@ namespace VertexArmy.Global.Managers
 
 		private void RenderBlurred( float dt )
 		{
-
 			Platform.Instance.Device.Clear( ClearOptions.Target | ClearOptions.DepthBuffer, Color.DarkSlateBlue, 1.0f, 0 );
 
 			RenderDepthRenderTarget( dt );
 			//RenderColorRenderTarget( dt );
-
 
 
 			Platform.Instance.Device.BlendState = new BlendState();
@@ -330,7 +326,6 @@ namespace VertexArmy.Global.Managers
 
 		public void RenderDepthRenderTarget( float dt )
 		{
-
 			RenderTarget2D depthRenderTarget = GetDepthRt();
 
 			Platform.Instance.Device.SetRenderTarget( depthRenderTarget );
@@ -441,7 +436,6 @@ namespace VertexArmy.Global.Managers
 					_hint.Text = toShow;
 					HintManager.Instance.SpawnHint( _hint );
 				}
-
 			}
 
 			if ( !UsePostDraw )
@@ -473,7 +467,6 @@ namespace VertexArmy.Global.Managers
 
 
 			_registeredNodes.Sort( ( a, b ) => ( a.GetLayer() - b.GetLayer() ) );
-
 		}
 
 

@@ -2,7 +2,7 @@
 
 namespace VertexArmy.Graphics.ParticleSystem
 {
-	class ParticleCache
+	internal class ParticleCache
 	{
 		private const int InitialCapacity = 500;
 
@@ -12,10 +12,10 @@ namespace VertexArmy.Graphics.ParticleSystem
 
 		public static ParticleCache Instance
 		{
-			get { return _instance ?? ( _instance = new ParticleCache( ) ); }
+			get { return _instance ?? ( _instance = new ParticleCache() ); }
 		}
 
-		ParticleCache()
+		private ParticleCache()
 		{
 			_particles = new Dictionary<Particle, bool>( InitialCapacity );
 
@@ -27,9 +27,9 @@ namespace VertexArmy.Graphics.ParticleSystem
 
 		private Particle NextAvailableParticle()
 		{
-			foreach( KeyValuePair<Particle, bool> p in _particles )
+			foreach ( KeyValuePair<Particle, bool> p in _particles )
 			{
-				if( p.Value )
+				if ( p.Value )
 				{
 					return p.Key;
 				}
@@ -39,14 +39,14 @@ namespace VertexArmy.Graphics.ParticleSystem
 
 		private Particle CreateNewParticle()
 		{
-			Particle p = new Particle( );
+			Particle p = new Particle();
 			_particles.Add( p, true );
 			return p;
 		}
 
 		public Particle NewParticle()
 		{
-			Particle p = NextAvailableParticle( ) ?? CreateNewParticle( );
+			Particle p = NextAvailableParticle() ?? CreateNewParticle();
 			_particles[p] = false;
 			return p;
 		}

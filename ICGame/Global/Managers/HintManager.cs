@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -49,7 +48,7 @@ namespace VertexArmy.Global.Managers
 		}
 
 		public void SpawnHint( string text, Vector2 startPosition, Vector2? endPosition, float msTime, int layer = 0,
-							  Action dismissedCallback = null, uint fadeTime = DefaultHintFadeTime )
+		                       Action dismissedCallback = null, uint fadeTime = DefaultHintFadeTime )
 		{
 			if ( layer != 0 )
 			{
@@ -63,8 +62,8 @@ namespace VertexArmy.Global.Managers
 			}
 
 			var hint = endPosition.HasValue
-				? new RobotThoughtHint( text, startPosition, endPosition.Value, msTime, fadeTime )
-				: new RobotThoughtHint( text, startPosition, msTime, fadeTime );
+				           ? new RobotThoughtHint( text, startPosition, endPosition.Value, msTime, fadeTime )
+				           : new RobotThoughtHint( text, startPosition, msTime, fadeTime );
 
 			_robotThoughtHints.Add( hint );
 
@@ -73,7 +72,7 @@ namespace VertexArmy.Global.Managers
 		}
 
 		public void SpawnHint( string text, Vector2 position, float msTime, int layer = 0,
-							  Action dismissedCallback = null, uint fadeTime = DefaultHintFadeTime )
+		                       Action dismissedCallback = null, uint fadeTime = DefaultHintFadeTime )
 		{
 			SpawnHint( text, position, null, msTime, layer, dismissedCallback, fadeTime );
 		}
@@ -122,7 +121,6 @@ namespace VertexArmy.Global.Managers
 			foreach ( FadeHint fadeHint in _fadeHints )
 			{
 				fadeHint.Render();
-
 			}
 
 			_spriteBatch.End();

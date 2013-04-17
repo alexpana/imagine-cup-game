@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using VertexArmy.Global;
 
 namespace VertexArmy.Graphics.Attachables
 {
@@ -18,7 +19,7 @@ namespace VertexArmy.Graphics.Attachables
 		private Matrix _view, _perspective;
 
 		public CameraAttachable()
-			: this( new Vector3( 0, 0, 1 ), new Vector3( 0, 1, 0 ), 1, 10000, MathHelper.PiOver4, Global.Platform.Instance.Device.Viewport.AspectRatio )
+			: this( new Vector3( 0, 0, 1 ), new Vector3( 0, 1, 0 ), 1, 10000, MathHelper.PiOver4, Platform.Instance.Device.Viewport.AspectRatio )
 		{
 		}
 
@@ -37,9 +38,9 @@ namespace VertexArmy.Graphics.Attachables
 
 		public BoundingFrustum GetFrustum()
 		{
-			if ( _frustDirty || _frustum == null)
+			if ( _frustDirty || _frustum == null )
 			{
-				_frustum = new BoundingFrustum(GetViewMatrix() * GetPerspectiveMatrix());
+				_frustum = new BoundingFrustum( GetViewMatrix() * GetPerspectiveMatrix() );
 				_frustDirty = false;
 			}
 			return _frustum;
@@ -57,7 +58,7 @@ namespace VertexArmy.Graphics.Attachables
 
 		public Matrix GetViewMatrix()
 		{
-			if(Parent.PositionChanged || _viewDirty)
+			if ( Parent.PositionChanged || _viewDirty )
 			{
 				Vector3 position = Parent.GetAbsolutePosition();
 				_view = Matrix.CreateLookAt( position, position + LookingDirection, _upVector );
@@ -71,7 +72,7 @@ namespace VertexArmy.Graphics.Attachables
 		{
 			if ( _perspectiveDirty )
 			{
-				_perspective = Matrix.CreatePerspectiveFieldOfView(_fov, _aspectRatio, _near, _far);
+				_perspective = Matrix.CreatePerspectiveFieldOfView( _fov, _aspectRatio, _near, _far );
 				_perspectiveDirty = false;
 				_frustDirty = true;
 			}

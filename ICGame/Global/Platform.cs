@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using VertexArmy.Global.Managers;
 using VertexArmy.Input;
+
 #if NETFX_CORE
 using System.IO;
 

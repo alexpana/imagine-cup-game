@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using VertexArmy.Content.Materials;
 using VertexArmy.Global;
 using VertexArmy.Global.Managers;
 
@@ -12,15 +11,12 @@ namespace VertexArmy.Graphics.Attachables
 		public Model Model { get; private set; }
 		public Material Material { get; private set; }
 
-		private Material _highlightMaterial;
+		private readonly Material _highlightMaterial;
 		public Vector3 HighColor;
 
 		public BoundingSphere BoundingSphere
 		{
-			get
-			{
-				return _boundSphere.Transform( Parent.GetAbsoluteTransformation() );
-			}
+			get { return _boundSphere.Transform( Parent.GetAbsoluteTransformation() ); }
 			internal set { _boundSphere = value; }
 		}
 
@@ -29,11 +25,11 @@ namespace VertexArmy.Graphics.Attachables
 			_boundSphere = new BoundingSphere();
 			Highlighted = false;
 			HighColor = Vector3.One;
-			_highlightMaterial = MaterialRepository.Instance.GetMaterial("HighlightMaterial")(null);
+			_highlightMaterial = MaterialRepository.Instance.GetMaterial( "HighlightMaterial" )( null );
 			foreach ( ModelMesh mesh in mod.Meshes )
 			{
 				_boundSphere = BoundingSphere.CreateMerged( _boundSphere, mesh.BoundingSphere );
-				
+
 				foreach ( ModelMeshPart part in mesh.MeshParts )
 				{
 					part.Effect = mat.Effect;
@@ -73,7 +69,7 @@ namespace VertexArmy.Graphics.Attachables
 			}
 		}
 
-		public override void PostRender ( float dt )
+		public override void PostRender( float dt )
 		{
 			if ( Highlighted )
 			{
@@ -155,8 +151,7 @@ namespace VertexArmy.Graphics.Attachables
 
 		public BoundingBox GetTransformedAABB()
 		{
-			
-			Vector3 min = Vector3.Transform( GetAABB().Min, Parent.GetAbsoluteTransformation());
+			Vector3 min = Vector3.Transform( GetAABB().Min, Parent.GetAbsoluteTransformation() );
 			Vector3 max = Vector3.Transform( GetAABB().Max, Parent.GetAbsoluteTransformation() );
 
 			Vector3 trueMin = min;
@@ -179,37 +174,37 @@ namespace VertexArmy.Graphics.Attachables
 				trueMin.Z = max.Z;
 				trueMax.Z = min.Z;
 			}
-			return new BoundingBox(trueMin, trueMax);
+			return new BoundingBox( trueMin, trueMax );
 		}
 
 		private void ComputeAABB()
 		{
-			Vector3 min = new Vector3(float.MaxValue, float.MaxValue, float.MaxValue);
-			Vector3 max = new Vector3(float.MinValue, float.MinValue, float.MinValue);
+			Vector3 min = new Vector3( float.MaxValue, float.MaxValue, float.MaxValue );
+			Vector3 max = new Vector3( float.MinValue, float.MinValue, float.MinValue );
 
 
-			foreach (ModelMesh mesh in Model.Meshes)
+			foreach ( ModelMesh mesh in Model.Meshes )
 			{
-				foreach (ModelMeshPart meshPart in mesh.MeshParts)
+				foreach ( ModelMeshPart meshPart in mesh.MeshParts )
 				{
 					// Vertex buffer parameters
 					int vertexStride = meshPart.VertexBuffer.VertexDeclaration.VertexStride;
 					int vertexBufferSize = meshPart.NumVertices * vertexStride;
 
-					float[] vertexData = new float[vertexBufferSize / sizeof( float )];
+					float[] vertexData = new float[vertexBufferSize / sizeof ( float )];
 					meshPart.VertexBuffer.GetData( vertexData );
 
 					// Iterate through vertexes (possibly) growing bounding box, all calculations are done in world space
-					for ( int i = 0; i < vertexBufferSize / sizeof( float ); i += vertexStride / sizeof( float ) )
+					for ( int i = 0; i < vertexBufferSize / sizeof ( float ); i += vertexStride / sizeof ( float ) )
 					{
-						Vector3 position = new Vector3(vertexData[i], vertexData[i + 1], vertexData[i + 2]);
+						Vector3 position = new Vector3( vertexData[i], vertexData[i + 1], vertexData[i + 2] );
 
 						min = Vector3.Min( min, position );
 						max = Vector3.Max( max, position );
 					}
 				}
 			}
-			_localSpaceAABB = new BoundingBox(min, max);
+			_localSpaceAABB = new BoundingBox( min, max );
 		}
 	}
 }

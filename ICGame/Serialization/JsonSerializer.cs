@@ -7,7 +7,6 @@ namespace VertexArmy.Serialization
 {
 	public class JsonSerializer<T> : ISerializer<T>
 	{
-
 		private readonly DataContractJsonSerializer _serializer;
 
 		public JsonSerializer()
@@ -27,6 +26,5 @@ namespace VertexArmy.Serialization
 		{
 			return ( T ) _serializer.ReadObject( stream );
 		}
-
 	}
 }

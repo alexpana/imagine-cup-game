@@ -33,14 +33,14 @@ namespace VertexArmy.Content.Prefabs
 			caseWall2.Polygon[0].Add( new Vector2( -13f, 0.5f ) );
 
 			BodyPrefab buttonCaseBody = new BodyPrefab
-								   {
-									   Friction = 1f,
-									   LocalPosition = Vector2.Zero,
-									   Name = "ButtonCase",
-									   Shapes = new List<ShapePrefab> { caseBottom, caseWall1, caseWall2 },
-									   Restitution = 0.1f,
-									   Static = true
-								   };
+			{
+				Friction = 1f,
+				LocalPosition = Vector2.Zero,
+				Name = "ButtonCase",
+				Shapes = new List<ShapePrefab> { caseBottom, caseWall1, caseWall2 },
+				Restitution = 0.1f,
+				Static = true
+			};
 
 			button.RegisterBody( buttonCaseBody, true );
 

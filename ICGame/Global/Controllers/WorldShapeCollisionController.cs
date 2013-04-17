@@ -9,8 +9,6 @@ namespace VertexArmy.Global.Controllers
 {
 	public class WorldShapeCollisionController : IController
 	{
-
-
 		private RankBoundingBox ToRankedBoundingBox( BoundingBox box )
 		{
 			if ( Data[2] == null )
@@ -33,8 +31,8 @@ namespace VertexArmy.Global.Controllers
 		{
 			Data = new List<object>( 4 ) { null, null, null, null };
 		}
-		/// <param name="transformable">
 
+		/// <param name="transformable">
 		/// </param>
 		public void SetSubject( ITransformable transformable )
 		{
@@ -249,6 +247,7 @@ namespace VertexArmy.Global.Controllers
 		}
 
 		public List<object> Data { get; set; }
+
 		public void Clean()
 		{
 			_insideBBox.Clear();

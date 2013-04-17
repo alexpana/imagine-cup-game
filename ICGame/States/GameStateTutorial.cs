@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using FarseerPhysics.Dynamics;
 using FarseerPhysics.Dynamics.Joints;
 using FarseerPhysics.Factories;
 using Microsoft.Xna.Framework;
@@ -50,7 +49,6 @@ namespace VertexArmy.States
 			base.OnUpdate( gameTime );
 			if ( Robot != null )
 			{
-
 				if ( Robot.GetPosition().Y < -2000 )
 				{
 					ResetGameState();
@@ -130,7 +128,6 @@ namespace VertexArmy.States
 				);
 			dj.Frequency = 2f;
 			dj.DampingRatio = 0.4f;
-
 		}
 
 		public void LoadSemiStatics()
@@ -143,7 +140,7 @@ namespace VertexArmy.States
 			GameWorldManager.Instance.GetEntity( "door" ).RegisterComponent(
 				"doorHandle",
 				new LiftedDoorComponent( GameWorldManager.Instance.GetEntity( "button1" ).GetComponent( "active" ), "DoorJoint1" )
-			);
+				);
 		}
 
 		public void LoadDynamics()
@@ -178,8 +175,8 @@ namespace VertexArmy.States
 		{
 			GameWorldManager.Instance.SpawnEntity( "Trigger", "upgradeCube1", new Vector3( 500f + 60f * 2, 70f, 0f ) );
 			GameWorldManager.Instance.GetEntity( "upgradeCube1" ).RegisterComponent(
-					"trigger",
-					new BodyTriggerAreaComponent( new Vector2( 10f, 10f ), Robot.MainBody, UpgradeCube1Callback )
+				"trigger",
+				new BodyTriggerAreaComponent( new Vector2( 10f, 10f ), Robot.MainBody, UpgradeCube1Callback )
 				);
 
 			SpawnSaveTrigger( "save1", new Vector3( 1682f, 138f, 0f ) );
@@ -204,18 +201,18 @@ namespace VertexArmy.States
 
 			GameWorldManager.Instance.SpawnEntity( "Trigger", triggerName, position );
 			GameWorldManager.Instance.GetEntity( triggerName ).RegisterComponent(
-					"trigger",
-					new BodyTriggerAreaComponent( new Vector2( 10f, 10f ), Robot.MainBody,
-						() =>
+				"trigger",
+				new BodyTriggerAreaComponent( new Vector2( 10f, 10f ), Robot.MainBody,
+					() =>
+					{
+						if ( _saveTriggerStates[triggerName] )
 						{
-							if ( _saveTriggerStates[triggerName] )
-							{
-								return;
-							}
+							return;
+						}
 
-							GameWorldManager.Instance.SaveState();
-							_saveTriggerStates[triggerName] = true;
-						} )
+						GameWorldManager.Instance.SaveState();
+						_saveTriggerStates[triggerName] = true;
+					} )
 				);
 		}
 
@@ -228,8 +225,8 @@ namespace VertexArmy.States
 				new BoundingBox( new Vector3( 2200, -280, -100 ), new Vector3( 3000, -5, 100 ) ) );
 
 			_wsController.Register(
-			new HintShapeListener( new FadeHint( "Crates can be pushed around.\nTry pushing that crate towards the wall button.", new Vector2( 100, 50 ), 2000f, 500f, 500f ), true ),
-			new BoundingSphere( new Vector3( -150, 60, 0f ), 200 ) );
+				new HintShapeListener( new FadeHint( "Crates can be pushed around.\nTry pushing that crate towards the wall button.", new Vector2( 100, 50 ), 2000f, 500f, 500f ), true ),
+				new BoundingSphere( new Vector3( -150, 60, 0f ), 200 ) );
 
 			_wsController.Register(
 				new HintShapeListener( new FadeHint( "Step onto the platform ahead for an upgrade.", new Vector2( 100, 100 ), 500f, 500f ), true ),
@@ -258,7 +255,6 @@ namespace VertexArmy.States
 			LoadSemiStatics();
 			LoadDynamics();
 			LoadTriggers();
-
 		}
 
 		public override void OnEnter()
@@ -328,7 +324,10 @@ namespace VertexArmy.States
 
 		private void EndOfGameHint()
 		{
-			if ( _endOfGameHintShown ) { return; }
+			if ( _endOfGameHintShown )
+			{
+				return;
+			}
 
 			_endOfGameHintShown = true;
 			HintManager.Instance.SpawnHint( "This concludes the tutorial.\nGood luck in your future endeavours.", new Vector2( 100, 100 ), 4000, 1, EndGameCallback );

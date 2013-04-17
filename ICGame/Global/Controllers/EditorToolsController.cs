@@ -38,15 +38,15 @@ namespace VertexArmy.Global.Controllers
 		private bool _dragging;
 		private Vector3 _relative;
 		private int _selectedPrefab;
-		private List<string> _prefabs;
+		private readonly List<string> _prefabs;
 
 		private GameEntity _selectedEntity;
 		private GameEntity _tryEntity;
 		private GameEntity cursorLocation;
 		private Category _lastLayerSelected;
 		private float _lastSelectedZ;
-		private float _specialRotationBigOperator;
-		private float _specialRotationSmallOperator;
+		private readonly float _specialRotationBigOperator;
+		private readonly float _specialRotationSmallOperator;
 
 		private readonly IInputSystem _inputSystem;
 		private const float OperationSmallIncrement = 0.1f;
@@ -108,7 +108,6 @@ namespace VertexArmy.Global.Controllers
 					_dragging = true;
 					_relative = new Vector3( m3D.X, m3D.Y, _selectedEntity.GetPosition().Z ) - _selectedEntity.GetPosition();
 				}
-
 			}
 			else if ( Mouse.GetState().LeftButton.Equals( ButtonState.Released ) && _leftClick )
 			{
@@ -164,12 +163,12 @@ namespace VertexArmy.Global.Controllers
 
 		public void ShowInfoProcess( GameTime dt )
 		{
-			if(Keyboard.GetState().IsKeyDown(Keys.V))
+			if ( Keyboard.GetState().IsKeyDown( Keys.V ) )
 			{
-				Vector3 position = SceneManager.Instance.IntersectScreenRayWithPlane(0);
-				HintManager.Instance.SpawnHint("Cursor 3D position: " + position.ToString() , new Vector2( 200f, 20f ), 500, 6, null, 1 );
+				Vector3 position = SceneManager.Instance.IntersectScreenRayWithPlane( 0 );
+				HintManager.Instance.SpawnHint( "Cursor 3D position: " + position.ToString(), new Vector2( 200f, 20f ), 500, 6, null, 1 );
 			}
-				
+
 			//if( dt.ElapsedGameTime.TotalMilliseconds )
 		}
 
@@ -281,7 +280,8 @@ namespace VertexArmy.Global.Controllers
 				}
 				else if ( _inputSystem.IsKeyPressed( Keys.Right ) )
 				{
-					rotate += ( float ) dt.ElapsedGameTime.TotalSeconds / 4f; ;
+					rotate += ( float ) dt.ElapsedGameTime.TotalSeconds / 4f;
+					;
 				}
 
 				/* TODO
@@ -405,7 +405,6 @@ namespace VertexArmy.Global.Controllers
 					{
 						_scaleTime = dt.TotalGameTime.TotalMilliseconds;
 						SetScale( _selectedEntity.GetScale() + scale );
-
 					}
 					else if ( dt.TotalGameTime.TotalMilliseconds - _scaleTime > _scaleDelay )
 					{
@@ -501,7 +500,6 @@ namespace VertexArmy.Global.Controllers
 					_state = EditorState.Selected;
 					_selectedEntity = GameWorldManager.Instance.GetEntity( generatedName );
 					Platform.Instance.PhysicsWorld.Step( 0f );
-
 				}
 			}
 		}
@@ -584,8 +582,6 @@ namespace VertexArmy.Global.Controllers
 						HintManager.Instance.SpawnHint( "Scaling entity:" + _selectedEntity.Name + "\nRotation: " + _selectedEntity.GetScale(), offset, 50, 5, null, 1 );
 						break;
 				}
-
-
 			}
 			else
 			{
@@ -601,7 +597,6 @@ namespace VertexArmy.Global.Controllers
 			{
 				if ( !_state.Equals( EditorState.None ) )
 				{
-
 					foreach ( KeyValuePair<string, SceneNode> keyValuePair in _selectedEntity.SceneNodes )
 					{
 						SceneNode node = keyValuePair.Value;
@@ -617,7 +612,6 @@ namespace VertexArmy.Global.Controllers
 							}
 						}
 					}
-
 				}
 			}
 		}
@@ -662,7 +656,6 @@ namespace VertexArmy.Global.Controllers
 
 		public void Clean()
 		{
-
 		}
 	}
 

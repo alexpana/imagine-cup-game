@@ -20,7 +20,6 @@ namespace VertexArmy.Global.Controllers
 
 		public RelativeController( ITransformable outputTransformable, ITransformable inputTransformable, Vector3 relativePosition )
 		{
-
 			RelativePosition = relativePosition;
 			Data = new List<object> { outputTransformable, inputTransformable };
 		}
@@ -52,7 +51,6 @@ namespace VertexArmy.Global.Controllers
 
 		public void Clean()
 		{
-
 		}
 	}
 }

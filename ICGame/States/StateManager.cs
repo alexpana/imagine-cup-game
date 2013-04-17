@@ -15,7 +15,11 @@ namespace VertexArmy.States
 
 		private readonly Stack<IGameState> _requestedStates;
 		private Stack<IGameState> _states;
-		public IGameState CurrentGameState { get { return _states.Count > 0 ? _states.Peek() : null; } }
+
+		public IGameState CurrentGameState
+		{
+			get { return _states.Count > 0 ? _states.Peek() : null; }
+		}
 
 		private StateManager()
 		{
@@ -109,7 +113,8 @@ namespace VertexArmy.States
 			}
 		}
 
-		private static StateManager _instance = new StateManager();
+		private static readonly StateManager _instance = new StateManager();
+
 		public static StateManager Instance
 		{
 			get { return _instance; }

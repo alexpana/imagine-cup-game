@@ -50,7 +50,7 @@ namespace VertexArmy.GameWorld.Prefabs.Structs
 				shapes,
 				Body.Static ? BodyType.Static : BodyType.Dynamic,
 				BodyCount + 1
-			);
+				);
 
 			foreach ( var link in pathEntity.Bodies )
 			{

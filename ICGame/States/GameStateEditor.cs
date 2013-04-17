@@ -16,7 +16,7 @@ namespace VertexArmy.States
 {
 	internal class GameStateEditor : PlayableGameState
 	{
-		private ContentManager _contentManager;
+		private readonly ContentManager _contentManager;
 
 		private DebugViewXNA _debugView;
 		private Matrix _projection;
@@ -34,10 +34,10 @@ namespace VertexArmy.States
 		private bool _levelLoaded;
 		private bool _saveAction;
 		private string _levelName;
-		private IInputSystem _inputSystem;
+		private readonly IInputSystem _inputSystem;
 
 		private float _debugViewGridstep;
-		private Color _gridColor;
+		private readonly Color _gridColor;
 
 		public GameStateEditor( ContentManager content )
 		{
@@ -58,7 +58,6 @@ namespace VertexArmy.States
 
 			base.OnUpdate( gameTime );
 			_pausePhysics = true;
-
 
 
 			if ( Keyboard.GetState().IsKeyDown( Keys.LeftControl ) && Keyboard.GetState().IsKeyDown( Keys.S ) && !_saveAction )
@@ -104,7 +103,6 @@ namespace VertexArmy.States
 			{
 				_debugViewGridstep *= 0.1f;
 			}
-
 		}
 
 		public override void OnRender( GameTime gameTime )
@@ -118,7 +116,6 @@ namespace VertexArmy.States
 
 			if ( _debugViewState )
 			{
-
 				float scale = ( SceneManager.Instance.GetCurrentCamera().Parent.GetPosition().Z / 1024.0f );
 
 				float left = UnitsConverter.ToSimUnits( SceneManager.Instance.GetCurrentCamera().Parent.GetPosition().X - Platform.Instance.Device.Viewport.Width / 2f * scale );

@@ -2,15 +2,12 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
-using VertexArmy.GameWorld.Prefabs;
-using VertexArmy.GameWorld.Prefabs.Structs;
 using VertexArmy.Global.Managers;
 
 namespace VertexArmy.States
 {
-	class GameStateModelViewer : PlayableGameState
+	internal class GameStateModelViewer : PlayableGameState
 	{
-
 		private Quaternion _modelRotation;
 		private float _modelScale = 10.0f;
 
@@ -104,7 +101,7 @@ namespace VertexArmy.States
 
 			GameWorldManager.Instance.SpawnEntity( "Camera", "camera1", new Vector3( 0, 0, 100 ) );
 			GameWorldManager.Instance.SpawnEntity( "Saf", "saf1", new Vector3( 0, 0, 0 ) );
-			
+
 			//GameWorldManager.Instance.SpawnEntity( "robot", "mesh1", new Vector3( 0f, 0, 0f ) );
 		}
 

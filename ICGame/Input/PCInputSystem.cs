@@ -60,8 +60,8 @@ namespace VertexArmy.Input
 		public bool IsKeyPressed( Keys key, bool continuous = true )
 		{
 			return continuous
-					   ? _currentKeyboardState.IsKeyDown( key )
-					   : _currentKeyboardState.IsKeyDown( key ) && _previousKeyboardState.IsKeyUp( key );
+				       ? _currentKeyboardState.IsKeyDown( key )
+				       : _currentKeyboardState.IsKeyDown( key ) && _previousKeyboardState.IsKeyUp( key );
 		}
 	}
 }

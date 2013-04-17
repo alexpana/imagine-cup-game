@@ -16,12 +16,12 @@ namespace VertexArmy.Global.Controllers
 		public OrbitCameraController( ITransformable transformable, CameraAttachable camera )
 		{
 			Data = new List<object> { transformable, camera };
-		    _rotations.X = (float)Math.PI/2.0f;
+			_rotations.X = ( float ) Math.PI / 2.0f;
 		}
 
 		public void Update( GameTime dt )
 		{
-			if( !IsInitialized() )
+			if ( !IsInitialized() )
 			{
 				return;
 			}
@@ -40,31 +40,31 @@ namespace VertexArmy.Global.Controllers
 
 		private Vector3 GetObjectivePosition()
 		{
-			return ( Data[0] as ITransformable ).GetPosition( );	
+			return ( Data[0] as ITransformable ).GetPosition();
 		}
 
 		private void ReadInput()
 		{
 			_rotations.X += Platform.Instance.Input.PointerDelta.X * 0.003f;
 			_rotations.Y += Platform.Instance.Input.PointerDelta.Y * 0.003f;
-		    _distanceFromObject = 1000 + Mouse.GetState().ScrollWheelValue;
+			_distanceFromObject = 1000 + Mouse.GetState().ScrollWheelValue;
 		}
 
 		private void UpdateParent()
 		{
 			CameraAttachable camera = Data[1] as CameraAttachable;
 
-			Vector3 objective = GetObjectivePosition( );
+			Vector3 objective = GetObjectivePosition();
 
 			Vector3 newPosition = objective + new Vector3(
-				( float ) ( Math.Cos( _rotations.X ) * Math.Cos( _rotations.Y ) * _distanceFromObject ),
-				( float ) ( Math.Sin( _rotations.Y ) * _distanceFromObject ),
-				( float ) ( Math.Sin( _rotations.X ) * Math.Cos( _rotations.Y ) * _distanceFromObject ) );
+				                                  ( float ) ( Math.Cos( _rotations.X ) * Math.Cos( _rotations.Y ) * _distanceFromObject ),
+				                                  ( float ) ( Math.Sin( _rotations.Y ) * _distanceFromObject ),
+				                                  ( float ) ( Math.Sin( _rotations.X ) * Math.Cos( _rotations.Y ) * _distanceFromObject ) );
 
 			//Quaternion newRotation = Quaternion.CreateFromYawPitchRoll( _rotations.Y, _rotations.X, 0 );
 
 			camera.Parent.SetPosition( newPosition );
-			camera.LookingDirection = Vector3.Normalize( - newPosition + objective);
+			camera.LookingDirection = Vector3.Normalize( - newPosition + objective );
 		}
 
 
@@ -72,7 +72,6 @@ namespace VertexArmy.Global.Controllers
 
 		public void Clean()
 		{
-
 		}
 	}
 }

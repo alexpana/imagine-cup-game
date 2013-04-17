@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using FarseerPhysics;
 using FarseerPhysics.Common;
 using FarseerPhysics.Dynamics;
@@ -54,7 +53,7 @@ namespace VertexArmy.States.Menu
 				UnitsConverter.ToSimUnits( -Platform.Instance.Device.Viewport.Height / 2f ),
 				0f,
 				1f
-			);
+				);
 		}
 
 		public virtual void OnRender( GameTime gameTime )
@@ -113,7 +112,7 @@ namespace VertexArmy.States.Menu
 			};
 
 			Vertices vertices = new Vertices
-			{	
+			{
 				new Vector2( -10f, 0.5f ),
 				new Vector2( 10f, 0.5f )
 			};

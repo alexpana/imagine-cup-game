@@ -22,7 +22,6 @@ namespace VertexArmy.Utilities
 			{
 				body.Rotation -= Math.Sign( body.Rotation ) * 2f * ( float ) Math.PI;
 			}
-
 		}
 
 		public static Vector3 SnapToGridXY( Vector3 position, float gridStep )
@@ -81,7 +80,7 @@ namespace VertexArmy.Utilities
 			return ( -1 ) * ( float ) Math.Atan2(
 				2 * ( q.X * q.Y + q.Z * q.W ),
 				1 - 2 * ( Math.Pow( q.Y, 2 ) + Math.Pow( q.Z, 2 ) )
-			);
+				                          );
 		}
 	}
 }

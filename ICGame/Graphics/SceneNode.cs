@@ -133,11 +133,10 @@ namespace VertexArmy.Graphics
 		}
 
 
-
 		private bool ShouldRecomputeTransformations()
 		{
 			return _recomputeRelativeTransformation ||
-				   _recomputeAbsoluteTransformation;
+			       _recomputeAbsoluteTransformation;
 		}
 
 

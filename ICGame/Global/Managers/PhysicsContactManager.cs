@@ -1,5 +1,4 @@
-﻿
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using FarseerPhysics.Dynamics;
 using FarseerPhysics.Dynamics.Contacts;
 
@@ -13,6 +12,7 @@ namespace VertexArmy.Global.Managers
 		}
 
 		public delegate bool BeginContactCallback( Contact c );
+
 		public delegate void EndContactCallback( Contact c );
 
 		private Dictionary<Body, BeginContactCallback> _fixtureABeginCallbacks;
@@ -134,7 +134,6 @@ namespace VertexArmy.Global.Managers
 			public static readonly PhysicsContactManager Instance = new PhysicsContactManager();
 			// ReSharper restore MemberHidesStaticFromOuterClass
 		}
-
 	}
 
 	public enum ContactCallbackType

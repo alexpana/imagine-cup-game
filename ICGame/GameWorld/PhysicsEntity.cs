@@ -13,9 +13,9 @@ namespace VertexArmy.GameWorld
 		private bool _enabled;
 		private bool _isActive;
 
-		private Dictionary<string, Body> _bodies;
-		private Dictionary<string, Joint> _joints;
-		private Dictionary<string, PathEntity> _paths;
+		private readonly Dictionary<string, Body> _bodies;
+		private readonly Dictionary<string, Joint> _joints;
+		private readonly Dictionary<string, PathEntity> _paths;
 
 		private Category _collisionCategory;
 
@@ -36,9 +36,7 @@ namespace VertexArmy.GameWorld
 
 		public ICollection<Body> Bodies
 		{
-
 			get { return _bodies.Values; }
-
 		}
 
 		public ICollection<Joint> Joints
@@ -187,7 +185,6 @@ namespace VertexArmy.GameWorld
 					b.Awake = true;
 				}
 			}
-
 		}
 
 		public void SetRotation( Body center, float newRotation )
@@ -206,7 +203,6 @@ namespace VertexArmy.GameWorld
 					TransformUtility.RotateBodyAroundPoint( b, center.Position, modifier );
 				}
 			}
-
 		}
 
 		public void SetLineJointMotorSpeed( List<string> jointNames, float motorSpeed )

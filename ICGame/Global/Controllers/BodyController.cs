@@ -62,7 +62,6 @@ namespace VertexArmy.Global.Controllers
 
 		public void Clean()
 		{
-
 		}
 	}
 }

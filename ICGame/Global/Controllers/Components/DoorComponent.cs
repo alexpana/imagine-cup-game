@@ -8,6 +8,7 @@ namespace VertexArmy.Global.Controllers.Components
 	public class LiftedDoorComponent : BaseComponent
 	{
 		private readonly string _jointName;
+
 		public LiftedDoorComponent( BaseComponent activator, string jointName )
 		{
 			Data = new List<object> { activator };
@@ -46,7 +47,6 @@ namespace VertexArmy.Global.Controllers.Components
 
 		public override void Clean()
 		{
-
 		}
 	}
 }

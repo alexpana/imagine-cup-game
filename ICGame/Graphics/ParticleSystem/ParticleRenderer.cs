@@ -1,7 +1,6 @@
 ﻿namespace VertexArmy.Graphics.ParticleSystem
 {
-	class ParticleRenderer
+	internal class ParticleRenderer
 	{
-
 	}
 }

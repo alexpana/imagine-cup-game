@@ -2,10 +2,9 @@
 using VertexArmy.Global.Hints;
 using VertexArmy.Global.Managers;
 
-
 namespace VertexArmy.Global.ShapeListeners
 {
-	class HintShapeListener : IShapeListener
+	internal class HintShapeListener : IShapeListener
 	{
 		private readonly FadeHint _hint;
 		private readonly bool _onlyOnce;
@@ -13,14 +12,12 @@ namespace VertexArmy.Global.ShapeListeners
 
 		private int _timesPlayed;
 
-		public HintShapeListener ( FadeHint hint ) : this(hint, false, true)
+		public HintShapeListener( FadeHint hint ) : this( hint, false, true )
 		{
-		
 		}
 
-		public HintShapeListener ( FadeHint hint, bool onlyOnce ) : this(hint, onlyOnce, true)
+		public HintShapeListener( FadeHint hint, bool onlyOnce ) : this( hint, onlyOnce, true )
 		{
-			
 		}
 
 		public HintShapeListener( FadeHint hint, bool onlyOnce, bool stopOnExitArea )
@@ -34,9 +31,9 @@ namespace VertexArmy.Global.ShapeListeners
 		public void OnEnterShape()
 		{
 			HintManager.Instance.SpawnHint( _hint );
-			if( _onlyOnce && _timesPlayed == 0 )
+			if ( _onlyOnce && _timesPlayed == 0 )
 				_hint.StartAsync();
-			else if (!_onlyOnce)
+			else if ( !_onlyOnce )
 				_hint.StartAsync();
 
 			_timesPlayed++;
@@ -44,13 +41,12 @@ namespace VertexArmy.Global.ShapeListeners
 
 		public void OnExitShape()
 		{
-			if(_stopOnExit)
+			if ( _stopOnExit )
 				_hint.StopHintAsync();
 		}
 
 		public void OnEachFrameInsideShape()
 		{
-			
 		}
 	}
 }

@@ -2,12 +2,12 @@
 
 namespace VertexArmy.Graphics.ParticleSystem
 {
-	class LinearValueGenerator : IValueGenerator
+	internal class LinearValueGenerator : IValueGenerator
 	{
 		private readonly Range<Vector3> _vec3Range = null;
 		private readonly Range<float> _floatRange = null;
 
-		LinearValueGenerator( Range<Vector3> range )
+		private LinearValueGenerator( Range<Vector3> range )
 		{
 			_vec3Range = range;
 		}
@@ -22,7 +22,7 @@ namespace VertexArmy.Graphics.ParticleSystem
 			return new Vector3(
 				Interpolate( _vec3Range.Start.X, _vec3Range.End.X, index ),
 				Interpolate( _vec3Range.Start.Y, _vec3Range.End.Y, index ),
-				Interpolate( _vec3Range.Start.Z, _vec3Range.End.Z, index ));
+				Interpolate( _vec3Range.Start.Z, _vec3Range.End.Z, index ) );
 		}
 
 		public float GetFloatValue( float index )

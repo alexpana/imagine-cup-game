@@ -1,4 +1,5 @@
 ﻿//#define PLAY_VIDEO
+
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -28,7 +29,7 @@ namespace VertexArmy.States.Menu
 		private Rectangle _videoTargetRectangle;
 #endif
 
-		Vector3 _lightPos = new Vector3( 0, 40000, 20000 );
+		private Vector3 _lightPos = new Vector3( 0, 40000, 20000 );
 
 		public GameStateMenu( ContentManager content )
 			: base( content )
@@ -103,8 +104,8 @@ namespace VertexArmy.States.Menu
 			{
 				_activeCube.SelectPreviousItem();
 			}
-
 		}
+
 		private void HandleKeyboardInput()
 		{
 			if ( _platform.Input.IsKeyPressed( Keys.Left, false ) )
@@ -118,10 +119,9 @@ namespace VertexArmy.States.Menu
 			else if ( _platform.Input.IsKeyPressed( Keys.Enter, false ) )
 			{
 				ActivateSelectedItem();
-
 			}
 			else if ( _platform.Input.IsKeyPressed( Keys.Escape, false ) ||
-					 _platform.Input.IsKeyPressed( Keys.Back, false ) )
+			          _platform.Input.IsKeyPressed( Keys.Back, false ) )
 			{
 				if ( _activeCube.PreviousMenu != null )
 				{
@@ -131,11 +131,13 @@ namespace VertexArmy.States.Menu
 				}
 			}
 		}
+
 		private void ActivateSelectedItem()
 		{
 			_activeCube.Items[_activeCube.SelectedItem].Activate();
 			_platform.SoundManager.PlaySound( MenuEventSound );
 		}
+
 		private void CreateMenus()
 		{
 			_mainMenuCube = new MenuCube( ContentManager )
@@ -144,9 +146,9 @@ namespace VertexArmy.States.Menu
 				SelectionSound = MenuItemSelectionSound,
 				Items = new List<MenuItem>
 				{
-					new MenuItem { Title = "Play!", Activated = args => StateManager.Instance.ChangeState(GameState.SelectLevelMenu) },
-					new MenuItem { Title = "Options", Activated = args => ActivateMenuCube(_optionsMenuCube) },
-					new MenuItem { Title = "Editor", Activated = args => StateManager.Instance.ChangeState(GameState.Editor) },
+					new MenuItem { Title = "Play!", Activated = args => StateManager.Instance.ChangeState( GameState.SelectLevelMenu ) },
+					new MenuItem { Title = "Options", Activated = args => ActivateMenuCube( _optionsMenuCube ) },
+					new MenuItem { Title = "Editor", Activated = args => StateManager.Instance.ChangeState( GameState.Editor ) },
 					new MenuItem { Title = "Exit", Activated = args => _platform.Game.Exit() }
 				}
 			};
@@ -165,8 +167,8 @@ namespace VertexArmy.States.Menu
 						IsOn = _platform.Settings.IsMusicEnabled,
 						Activated = args =>
 						{
-							_platform.Settings.IsMusicEnabled = (bool)args;
-							UpdateMenuItemBackgroundImage(_optionsMenuCube, (bool)args);
+							_platform.Settings.IsMusicEnabled = ( bool ) args;
+							UpdateMenuItemBackgroundImage( _optionsMenuCube, ( bool ) args );
 							_platform.Settings.Save();
 						}
 					}

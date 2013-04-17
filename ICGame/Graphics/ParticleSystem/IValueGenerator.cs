@@ -2,7 +2,7 @@
 
 namespace VertexArmy.Graphics.ParticleSystem
 {
-	interface IValueGenerator
+	internal interface IValueGenerator
 	{
 		Vector3 GetVector3Value( float index );
 		float GetFloatValue( float index );

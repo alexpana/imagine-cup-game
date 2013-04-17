@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using VertexArmy.Global.Behaviours;
-using VertexArmy.Graphics;
 using VertexArmy.Graphics.Attachables;
 
 namespace VertexArmy.Global.Controllers
@@ -9,6 +8,7 @@ namespace VertexArmy.Global.Controllers
 	public class CameraController : IController
 	{
 		private Vector3 _delta = Vector3.Zero;
+
 		public CameraController( ITransformable transformable, CameraAttachable camera )
 		{
 			Data = new List<object> { transformable, camera };
@@ -40,7 +40,6 @@ namespace VertexArmy.Global.Controllers
 
 		public void Clean()
 		{
-
 		}
 	}
 }

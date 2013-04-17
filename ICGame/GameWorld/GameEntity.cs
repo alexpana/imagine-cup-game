@@ -190,7 +190,6 @@ namespace VertexArmy.GameWorld
 
 		public void SetExternalRotation( float newRot )
 		{
-
 			if ( PhysicsEntity.Enabled )
 			{
 				_externalRotation = UnitsConverter.To3DRotation( newRot );
@@ -261,6 +260,5 @@ namespace VertexArmy.GameWorld
 				comp.Clean();
 			}
 		}
-
 	}
 }

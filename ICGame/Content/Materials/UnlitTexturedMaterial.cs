@@ -5,7 +5,7 @@ using VertexArmy.Graphics;
 
 namespace VertexArmy.Content.Materials
 {
-	class UnlitTexturedMaterial
+	internal class UnlitTexturedMaterial
 	{
 		public static Material CreateMaterial( string colorMap )
 		{

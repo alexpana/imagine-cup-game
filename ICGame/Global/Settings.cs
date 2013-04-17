@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Json;
 
-
 #if NETFX_CORE
 using VertexArmy.Windows8;
 using Windows.Storage;
@@ -72,7 +71,7 @@ namespace VertexArmy.Global
 		public void Load( string fileName = "Settings.txt" )
 		{
 #if WINDOWS
-			if (File.Exists(fileName))
+			if ( File.Exists( fileName ) )
 #else
 			if ( !LocalStorageExtensions.FileExists( fileName ) )
 #endif

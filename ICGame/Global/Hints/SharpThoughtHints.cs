@@ -5,10 +5,9 @@ using VertexArmy.Global.Managers;
 
 namespace VertexArmy.Global.Hints
 {
-	class SharpThoughtHint : IDismissableHint
+	internal class SharpThoughtHint : IDismissableHint
 	{
-
-		private readonly Texture2D _background = Platform.Instance.Content.Load<Texture2D>("images/empty_dark_blue");
+		private readonly Texture2D _background = Platform.Instance.Content.Load<Texture2D>( "images/empty_dark_blue" );
 		private readonly Vector2 _position;
 		private float _timeToLive;
 

@@ -10,7 +10,7 @@ namespace VertexArmy.Global.Controllers
 	public class FreeCameraController : IController
 	{
 		private Vector3 _delta = Vector3.Zero;
-		private Vector3 _screen;
+		private readonly Vector3 _screen;
 		private Vector2 _error, _error2;
 
 		public FreeCameraController( CameraAttachable camera )
@@ -68,7 +68,6 @@ namespace VertexArmy.Global.Controllers
 
 		public void Clean()
 		{
-
 		}
 	}
 }

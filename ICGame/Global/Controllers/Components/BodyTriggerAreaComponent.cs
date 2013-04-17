@@ -11,7 +11,9 @@ namespace VertexArmy.Global.Controllers.Components
 	public class BodyTriggerAreaComponent : BaseComponent
 	{
 		public delegate void MethodToCall();
+
 		public delegate void MethodToCall2( Body b );
+
 		public Body Area;
 		public MethodToCall Callback;
 		public MethodToCall2 Callback2;

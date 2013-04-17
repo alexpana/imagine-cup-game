@@ -8,8 +8,8 @@ namespace VertexArmy.Global.Controllers.Components
 	public class ButtonComponent : BaseComponent
 	{
 		private readonly string _jointName;
-		private bool _inversed;
-		private bool _permanent;
+		private readonly bool _inversed;
+		private readonly bool _permanent;
 		private bool _activatedOnce;
 
 		public bool ButtonState { get; internal set; }
@@ -50,7 +50,6 @@ namespace VertexArmy.Global.Controllers.Components
 
 		public override void Clean()
 		{
-
 		}
 	}
 }

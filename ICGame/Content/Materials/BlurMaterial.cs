@@ -5,15 +5,15 @@ using VertexArmy.Graphics;
 
 namespace VertexArmy.Content.Materials
 {
-	class BlurMaterial
+	internal class BlurMaterial
 	{
 		public static Material CreateMaterial()
 		{
 			Material mat = new Material();
-			Effect effect = Platform.Instance.LoadEffect("blur" );
+			Effect effect = Platform.Instance.LoadEffect( "blur" );
 			mat.Effect = effect;
 			mat.AddParameter( "matWorldViewProj", Matrix.Identity );
-			mat.AddParameter( "blurDistance", 0.001f);
+			mat.AddParameter( "blurDistance", 0.001f );
 			mat.AddParameter( "ColorMap", null );
 			return mat;
 		}

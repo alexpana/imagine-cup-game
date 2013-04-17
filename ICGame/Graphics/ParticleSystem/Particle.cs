@@ -2,7 +2,7 @@
 
 namespace VertexArmy.Graphics.ParticleSystem
 {
-	class Particle
+	internal class Particle
 	{
 		public ParticleEmitter Parent;
 		public Vector3 Position { get; set; }

@@ -28,7 +28,7 @@ namespace VertexArmy.Physics.DebugView
 		private SpriteBatch _batch;
 		private SpriteFont _font;
 		private GraphicsDevice _device;
-		private Vector2[] _tempVertices = new Vector2[Settings.MaxPolygonVertices];
+		private readonly Vector2[] _tempVertices = new Vector2[Settings.MaxPolygonVertices];
 		private List<StringData> _stringData;
 
 		private Matrix _localProjection;
@@ -45,7 +45,7 @@ namespace VertexArmy.Physics.DebugView
 		//Contacts
 		private int _pointCount;
 		private const int MaxContactPoints = 2048;
-		private ContactPoint[] _points = new ContactPoint[MaxContactPoints];
+		private readonly ContactPoint[] _points = new ContactPoint[MaxContactPoints];
 
 		//Debug panel
 #if XBOX
@@ -62,14 +62,14 @@ namespace VertexArmy.Physics.DebugView
 		public int ValuesToGraph = 500;
 		public int MinimumValue;
 		public int MaximumValue = 1000;
-		private List<float> _graphValues = new List<float>();
+		private readonly List<float> _graphValues = new List<float>();
 
 #if XBOX
         public Rectangle PerformancePanelBounds = new Rectangle(265, 100, 200, 100);
 #else
 		public Rectangle PerformancePanelBounds = new Rectangle( 250, 100, 200, 100 );
 #endif
-		private Vector2[] _background = new Vector2[4];
+		private readonly Vector2[] _background = new Vector2[4];
 		public bool Enabled = true;
 
 #if XBOX || WINDOWS_PHONE
@@ -122,7 +122,7 @@ namespace VertexArmy.Physics.DebugView
 				Fixture fixtureA = contact.FixtureA;
 
 				FixedArray2<PointState> state1, state2;
-				FarseerPhysics.Collision.Collision.GetPointStates( out state1, out state2, ref oldManifold, ref manifold );
+				Collision.GetPointStates( out state1, out state2, ref oldManifold, ref manifold );
 
 				FixedArray2<Vector2> points;
 				Vector2 normal;
@@ -340,13 +340,13 @@ namespace VertexArmy.Physics.DebugView
 				for ( int i = _graphValues.Count - 1; i > 0; i-- )
 				{
 					float y1 = PerformancePanelBounds.Bottom -
-							   ( ( _graphValues[i] / ( MaximumValue - MinimumValue ) ) * yScale );
+					           ( ( _graphValues[i] / ( MaximumValue - MinimumValue ) ) * yScale );
 					float y2 = PerformancePanelBounds.Bottom -
-							   ( ( _graphValues[i - 1] / ( MaximumValue - MinimumValue ) ) * yScale );
+					           ( ( _graphValues[i - 1] / ( MaximumValue - MinimumValue ) ) * yScale );
 
 					Vector2 x1 =
 						new Vector2( MathHelper.Clamp( x, PerformancePanelBounds.Left, PerformancePanelBounds.Right ),
-									MathHelper.Clamp( y1, PerformancePanelBounds.Top, PerformancePanelBounds.Bottom ) );
+							MathHelper.Clamp( y1, PerformancePanelBounds.Top, PerformancePanelBounds.Bottom ) );
 
 					Vector2 x2 =
 						new Vector2(
@@ -366,11 +366,11 @@ namespace VertexArmy.Physics.DebugView
 			//Draw background.
 			_background[0] = new Vector2( PerformancePanelBounds.X, PerformancePanelBounds.Y );
 			_background[1] = new Vector2( PerformancePanelBounds.X,
-										 PerformancePanelBounds.Y + PerformancePanelBounds.Height );
+				PerformancePanelBounds.Y + PerformancePanelBounds.Height );
 			_background[2] = new Vector2( PerformancePanelBounds.X + PerformancePanelBounds.Width,
-										 PerformancePanelBounds.Y + PerformancePanelBounds.Height );
+				PerformancePanelBounds.Y + PerformancePanelBounds.Height );
 			_background[3] = new Vector2( PerformancePanelBounds.X + PerformancePanelBounds.Width,
-										 PerformancePanelBounds.Y );
+				PerformancePanelBounds.Y );
 
 			DrawSolidPolygon( _background, 4, Color.DarkGray, true );
 		}
@@ -387,20 +387,20 @@ namespace VertexArmy.Physics.DebugView
 			int y = ( int ) DebugPanelPosition.Y;
 
 			DrawString( x, y, "Objects:" +
-							 "\n- Bodies: " + World.BodyList.Count +
-							 "\n- Fixtures: " + fixtures +
-							 "\n- Contacts: " + World.ContactList.Count +
-							 "\n- Joints: " + World.JointList.Count +
-							 "\n- Controllers: " + World.ControllerList.Count +
-							 "\n- Proxies: " + World.ProxyCount );
+			                  "\n- Bodies: " + World.BodyList.Count +
+			                  "\n- Fixtures: " + fixtures +
+			                  "\n- Contacts: " + World.ContactList.Count +
+			                  "\n- Joints: " + World.JointList.Count +
+			                  "\n- Controllers: " + World.ControllerList.Count +
+			                  "\n- Proxies: " + World.ProxyCount );
 
 			DrawString( x + 110, y, "Update time:" +
-								   "\n- Body: " + World.SolveUpdateTime +
-								   "\n- Contact: " + World.ContactsUpdateTime +
-								   "\n- CCD: " + World.ContinuousPhysicsTime +
-								   "\n- Joint: " + World.Island.JointUpdateTime +
-								   "\n- Controller: " + World.ControllersUpdateTime +
-								   "\n- Total: " + World.UpdateTime );
+			                        "\n- Body: " + World.SolveUpdateTime +
+			                        "\n- Contact: " + World.ContactsUpdateTime +
+			                        "\n- CCD: " + World.ContinuousPhysicsTime +
+			                        "\n- Joint: " + World.Island.JointUpdateTime +
+			                        "\n- Controller: " + World.ControllersUpdateTime +
+			                        "\n- Total: " + World.UpdateTime );
 		}
 
 		public void DrawAABB( ref AABB aabb, Color color )
@@ -484,8 +484,8 @@ namespace VertexArmy.Physics.DebugView
 				case JointType.Gear:
 					DrawSegment( x1, x2, color );
 					break;
-				//case JointType.Weld:
-				//    break;
+					//case JointType.Weld:
+					//    break;
 				default:
 					DrawSegment( x1, p1, color );
 					DrawSegment( p1, p2, color );
@@ -499,56 +499,56 @@ namespace VertexArmy.Physics.DebugView
 			switch ( fixture.ShapeType )
 			{
 				case ShapeType.Circle:
-					{
-						CircleShape circle = ( CircleShape ) fixture.Shape;
+				{
+					CircleShape circle = ( CircleShape ) fixture.Shape;
 
-						Vector2 center = MathUtils.Multiply( ref xf, circle.Position );
-						float radius = circle.Radius;
-						Vector2 axis = xf.R.Col1;
+					Vector2 center = MathUtils.Multiply( ref xf, circle.Position );
+					float radius = circle.Radius;
+					Vector2 axis = xf.R.Col1;
 
-						DrawSolidCircle( center, radius, axis, color );
-					}
+					DrawSolidCircle( center, radius, axis, color );
+				}
 					break;
 
 				case ShapeType.Polygon:
+				{
+					PolygonShape poly = ( PolygonShape ) fixture.Shape;
+					int vertexCount = poly.Vertices.Count;
+					Debug.Assert( vertexCount <= Settings.MaxPolygonVertices );
+
+					for ( int i = 0; i < vertexCount; ++i )
 					{
-						PolygonShape poly = ( PolygonShape ) fixture.Shape;
-						int vertexCount = poly.Vertices.Count;
-						Debug.Assert( vertexCount <= Settings.MaxPolygonVertices );
-
-						for ( int i = 0; i < vertexCount; ++i )
-						{
-							_tempVertices[i] = MathUtils.Multiply( ref xf, poly.Vertices[i] );
-						}
-
-						DrawSolidPolygon( _tempVertices, vertexCount, color );
+						_tempVertices[i] = MathUtils.Multiply( ref xf, poly.Vertices[i] );
 					}
+
+					DrawSolidPolygon( _tempVertices, vertexCount, color );
+				}
 					break;
 
 
 				case ShapeType.Edge:
-					{
-						EdgeShape edge = ( EdgeShape ) fixture.Shape;
-						Vector2 v1 = MathUtils.Multiply( ref xf, edge.Vertex1 );
-						Vector2 v2 = MathUtils.Multiply( ref xf, edge.Vertex2 );
-						DrawSegment( v1, v2, color );
-					}
+				{
+					EdgeShape edge = ( EdgeShape ) fixture.Shape;
+					Vector2 v1 = MathUtils.Multiply( ref xf, edge.Vertex1 );
+					Vector2 v2 = MathUtils.Multiply( ref xf, edge.Vertex2 );
+					DrawSegment( v1, v2, color );
+				}
 					break;
 
 				case ShapeType.Loop:
-					{
-						LoopShape loop = ( LoopShape ) fixture.Shape;
-						int count = loop.Vertices.Count;
+				{
+					LoopShape loop = ( LoopShape ) fixture.Shape;
+					int count = loop.Vertices.Count;
 
-						Vector2 v1 = MathUtils.Multiply( ref xf, loop.Vertices[count - 1] );
-						DrawCircle( v1, 0.05f, color );
-						for ( int i = 0; i < count; ++i )
-						{
-							Vector2 v2 = MathUtils.Multiply( ref xf, loop.Vertices[i] );
-							DrawSegment( v1, v2, color );
-							v1 = v2;
-						}
+					Vector2 v1 = MathUtils.Multiply( ref xf, loop.Vertices[count - 1] );
+					DrawCircle( v1, 0.05f, color );
+					for ( int i = 0; i < count; ++i )
+					{
+						Vector2 v2 = MathUtils.Multiply( ref xf, loop.Vertices[i] );
+						DrawSegment( v1, v2, color );
+						v1 = v2;
 					}
+				}
 					break;
 			}
 		}
@@ -629,8 +629,8 @@ namespace VertexArmy.Physics.DebugView
 			{
 				Vector2 v1 = center + radius * new Vector2( ( float ) Math.Cos( theta ), ( float ) Math.Sin( theta ) );
 				Vector2 v2 = center +
-							 radius *
-							 new Vector2( ( float ) Math.Cos( theta + increment ), ( float ) Math.Sin( theta + increment ) );
+				             radius *
+				             new Vector2( ( float ) Math.Cos( theta + increment ), ( float ) Math.Sin( theta + increment ) );
 
 				_primitiveBatch.AddVertex( v1, color, PrimitiveType.LineList );
 				_primitiveBatch.AddVertex( v2, color, PrimitiveType.LineList );
@@ -640,7 +640,7 @@ namespace VertexArmy.Physics.DebugView
 		}
 
 		public override void DrawSolidCircle( Vector2 center, float radius, Vector2 axis, float red, float green,
-											 float blue )
+		                                      float blue )
 		{
 			DrawSolidCircle( center, radius, axis, new Color( red, green, blue ) );
 		}
@@ -663,8 +663,8 @@ namespace VertexArmy.Physics.DebugView
 			{
 				Vector2 v1 = center + radius * new Vector2( ( float ) Math.Cos( theta ), ( float ) Math.Sin( theta ) );
 				Vector2 v2 = center +
-							 radius *
-							 new Vector2( ( float ) Math.Cos( theta + increment ), ( float ) Math.Sin( theta + increment ) );
+				             radius *
+				             new Vector2( ( float ) Math.Cos( theta + increment ), ( float ) Math.Sin( theta + increment ) );
 
 				_primitiveBatch.AddVertex( v0, colorFill, PrimitiveType.TriangleList );
 				_primitiveBatch.AddVertex( v1, colorFill, PrimitiveType.TriangleList );
@@ -722,7 +722,7 @@ namespace VertexArmy.Physics.DebugView
 		}
 
 		public void DrawArrow( Vector2 start, Vector2 end, float length, float width, bool drawStartIndicator,
-							  Color color )
+		                       Color color )
 		{
 			// Draw connection segment between start- and end-point
 			DrawSegment( start, end, color );
@@ -807,9 +807,9 @@ namespace VertexArmy.Physics.DebugView
 			for ( int i = 0; i < _stringData.Count; i++ )
 			{
 				_batch.DrawString( _font, string.Format( _stringData[i].S, _stringData[i].Args ),
-								  new Vector2( _stringData[i].X + 1f, _stringData[i].Y + 1f ), Color.Black );
+					new Vector2( _stringData[i].X + 1f, _stringData[i].Y + 1f ), Color.Black );
 				_batch.DrawString( _font, string.Format( _stringData[i].S, _stringData[i].Args ),
-								  new Vector2( _stringData[i].X, _stringData[i].Y ), _stringData[i].Color );
+					new Vector2( _stringData[i].X, _stringData[i].Y ), _stringData[i].Color );
 			}
 			// end the sprite batch effect
 			_batch.End();
@@ -837,7 +837,7 @@ namespace VertexArmy.Physics.DebugView
 			_stringData = new List<StringData>();
 
 			_localProjection = Matrix.CreateOrthographicOffCenter( 0f, _device.Viewport.Width, _device.Viewport.Height,
-																  0f, 0f, 1f );
+				0f, 0f, 1f );
 			_localView = Matrix.Identity;
 		}
 
@@ -856,10 +856,11 @@ namespace VertexArmy.Physics.DebugView
 
 		private struct StringData
 		{
-			public object[] Args;
-			public Color Color;
-			public string S;
-			public int X, Y;
+			public readonly object[] Args;
+			public readonly Color Color;
+			public readonly string S;
+			public readonly int X;
+			public readonly int Y;
 
 			public StringData( int x, int y, string s, object[] args, Color color )
 			{

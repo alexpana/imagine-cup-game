@@ -1,5 +1,4 @@
-﻿
-namespace VertexArmy.Serialization
+﻿namespace VertexArmy.Serialization
 {
 	/// <summary>
 	/// Interface to define a point that can be called after deserialization 

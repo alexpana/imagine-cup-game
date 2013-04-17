@@ -40,14 +40,14 @@ namespace VertexArmy.Content.Prefabs
 			};
 
 			BodyPrefab doorCaseBody = new BodyPrefab
-								   {
-									   Friction = 1f,
-									   LocalPosition = Vector2.Zero,
-									   Name = "DoorCase",
-									   Shapes = new List<ShapePrefab> { caseTop, caseWall1, caseWall2 },
-									   Restitution = 0.1f,
-									   Static = true
-								   };
+			{
+				Friction = 1f,
+				LocalPosition = Vector2.Zero,
+				Name = "DoorCase",
+				Shapes = new List<ShapePrefab> { caseTop, caseWall1, caseWall2 },
+				Restitution = 0.1f,
+				Static = true
+			};
 
 			liftedDoor.RegisterBody( doorCaseBody, true );
 
@@ -82,7 +82,6 @@ namespace VertexArmy.Content.Prefabs
 				Anchor2 = new Vector2( 0f, 0f ),
 				Axis = new Vector2( 0f, 1f ),
 				CollideConnected = false,
-
 				UpperLimit = 240f,
 				LowerLimit = 100f,
 				LimitEnabled = true,

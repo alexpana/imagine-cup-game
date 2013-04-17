@@ -118,7 +118,7 @@ namespace VertexArmy.States.Menu
 		public void SelectPreviousItem()
 		{
 			if ( _isRotating || Items.Count == 1 ||
-				( SelectedItem == 0 && Items.Count < 4 ) )
+			     ( SelectedItem == 0 && Items.Count < 4 ) )
 			{
 				return;
 			}
@@ -135,7 +135,7 @@ namespace VertexArmy.States.Menu
 		public void SelectNextItem()
 		{
 			if ( _isRotating || Items.Count == 1 ||
-				( SelectedItem >= Items.Count - 1 && Items.Count < 4 ) )
+			     ( SelectedItem >= Items.Count - 1 && Items.Count < 4 ) )
 			{
 				return;
 			}

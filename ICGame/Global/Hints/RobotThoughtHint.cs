@@ -56,14 +56,18 @@ namespace VertexArmy.Global.Hints
 		public string Text { get; set; }
 
 		#region Thinking
+
 		private int _thinkTime;
+
 		#endregion
 
 		#region Fading
+
 		private readonly uint _fadeTime;
 		private int _currentFadeTime;
 		private int _currentFadeOperation; // -1 fade In, 0, 1 fade Out
 		public float Alpha { get; private set; }
+
 		#endregion
 
 		public RobotThoughtHint( string text, Vector2 startPosition, Vector2 endPosition, float msTime, uint fadeTime )

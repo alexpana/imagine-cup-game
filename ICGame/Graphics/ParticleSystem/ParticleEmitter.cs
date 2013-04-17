@@ -2,14 +2,14 @@
 
 namespace VertexArmy.Graphics.ParticleSystem
 {
-	abstract  class ParticleEmitter
+	internal abstract class ParticleEmitter
 	{
 		private ParticleSystem _parent;
 		private float _emissionRate;
 
 		private readonly List<Particle> _aliveParticles;
 
-		ParticleEmitter( ParticleSystem parent, float emissionRate )
+		private ParticleEmitter( ParticleSystem parent, float emissionRate )
 		{
 			_parent = parent;
 			_emissionRate = emissionRate;
@@ -26,7 +26,7 @@ namespace VertexArmy.Graphics.ParticleSystem
 		public void Update()
 		{
 			_cleanupDeadParticles();
-			if( _shouldEmitNewParticle() )
+			if ( _shouldEmitNewParticle() )
 			{
 				EmitNewParticle();
 			}

@@ -125,10 +125,8 @@ namespace VertexArmy.Global.Controllers.Components
 
 		public bool BeginContactB( Contact c )
 		{
-
 			if ( Mouse.GetState().LeftButton.Equals( ButtonState.Pressed ) )
 			{
-
 				Vector2 normal;
 				FixedArray2<Vector2> points;
 				c.GetWorldManifold( out normal, out points );
@@ -161,7 +159,6 @@ namespace VertexArmy.Global.Controllers.Components
 
 		public bool BeginContactA( Contact c )
 		{
-
 			if ( Mouse.GetState().LeftButton.Equals( ButtonState.Pressed ) )
 			{
 				Vector2 normal;

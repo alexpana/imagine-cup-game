@@ -1,4 +1,5 @@
 ﻿//#define ALLOW_HACKS
+
 using System.Collections.Generic;
 using FarseerPhysics.Dynamics;
 using FarseerPhysics.Dynamics.Joints;
@@ -20,7 +21,7 @@ namespace VertexArmy.States
 {
 	internal class GameStateDemo2 : PlayableGameState
 	{
-		private ContentManager _contentManager;
+		private readonly ContentManager _contentManager;
 
 		private DebugViewXNA _debugView;
 		private Matrix _projection;
@@ -64,7 +65,6 @@ namespace VertexArmy.States
 
 			if ( Robot != null )
 			{
-
 				if ( Robot.GetPosition().Y < -2000 )
 				{
 					GameWorldManager.Instance.LoadLastState();
@@ -118,7 +118,6 @@ namespace VertexArmy.States
 				_actionToggleDebugView = false;
 			}
 #endif
-
 		}
 
 		public override void OnRender( GameTime gameTime )
@@ -127,7 +126,6 @@ namespace VertexArmy.States
 
 			if ( _debugViewState )
 			{
-
 				float scale = ( SceneManager.Instance.GetCurrentCamera().Parent.GetPosition().Z / 1024.0f );
 				_projection = Matrix.CreateOrthographicOffCenter(
 					UnitsConverter.ToSimUnits( SceneManager.Instance.GetCurrentCamera().Parent.GetPosition().X - Platform.Instance.Device.Viewport.Width / 2f * scale ),
@@ -140,13 +138,10 @@ namespace VertexArmy.States
 
 				_debugView.RenderDebugData( ref _projection, ref _view );
 			}
-
-
 		}
 
 		public void LoadStatics()
 		{
-
 		}
 
 		public void LoadSemiStatics()
@@ -154,17 +149,17 @@ namespace VertexArmy.States
 			GameWorldManager.Instance.GetEntity( "button1" ).RegisterComponent(
 				"active",
 				new ButtonComponent( "ButtonJoint1" )
-			);
+				);
 
 			GameWorldManager.Instance.GetEntity( "button0" ).RegisterComponent(
 				"active",
 				new ButtonComponent( "ButtonJoint1", false, true )
-			);
+				);
 
 			GameWorldManager.Instance.GetEntity( "lifteddoor0" ).RegisterComponent(
 				"doorHandle",
 				new LiftedDoorComponent( GameWorldManager.Instance.GetEntity( "button1" ).GetComponent( "active" ), "DoorJoint1" )
-			);
+				);
 
 			_gravityButton = GameWorldManager.Instance.GetEntity( "button0" ).GetComponent( "active" ) as ButtonComponent;
 
@@ -173,7 +168,7 @@ namespace VertexArmy.States
 				GameWorldManager.Instance.GetEntity( "floorbridge0" ).PhysicsEntity.GetBody( "FloorBody" ),
 				UnitsConverter.ToSimUnits( new Vector2( 120f, 0f ) ),
 				UnitsConverter.ToSimUnits( new Vector2( 2689f, 564 ) )
-			);
+				);
 
 
 			FixedDistanceJoint dj = JointFactory.CreateFixedDistanceJoint(
@@ -212,14 +207,14 @@ namespace VertexArmy.States
 		{
 			GameWorldManager.Instance.SpawnEntity( "Trigger", "airpipeforce", new Vector3( -800, 400f, 0f ), 5f );
 			GameWorldManager.Instance.GetEntity( "airpipeforce" ).RegisterComponent(
-					"trigger",
-					new BodyTriggerAreaComponent( new Vector2( 250f, 1200f ), AirPipeTrigger )
+				"trigger",
+				new BodyTriggerAreaComponent( new Vector2( 250f, 1200f ), AirPipeTrigger )
 				);
 
 			GameWorldManager.Instance.SpawnEntity( "Trigger", "endGame", new Vector3( -797f, 575f, 0f ), 1f );
 			GameWorldManager.Instance.GetEntity( "endGame" ).RegisterComponent(
-					"trigger",
-					new BodyTriggerAreaComponent( new Vector2( 150f, 100f ), Robot.MainBody, EndGame )
+				"trigger",
+				new BodyTriggerAreaComponent( new Vector2( 150f, 100f ), Robot.MainBody, EndGame )
 				);
 
 			Vector3 sucktionSpot3D = GameWorldManager.Instance.GetEntity( "pipe0" ).GetPosition() + Vector3.UnitY * 700f;
@@ -228,7 +223,10 @@ namespace VertexArmy.States
 
 		private void EndGame()
 		{
-			if ( _endOfGameHintShown ) { return; }
+			if ( _endOfGameHintShown )
+			{
+				return;
+			}
 
 			_endOfGameHintShown = true;
 			FrameUpdateManager.Instance.Unregister( _camControl );
@@ -259,7 +257,6 @@ namespace VertexArmy.States
 			LoadSemiStatics();
 			LoadDynamics();
 			LoadTriggers();
-
 		}
 
 		public override void OnEnter()
@@ -314,6 +311,5 @@ namespace VertexArmy.States
 		{
 			GameWorldManager.Instance.LoadLastState();
 		}
-
 	}
 }

@@ -20,6 +20,7 @@ namespace VertexArmy.Global.Managers
 				_materials.Remove( name );
 			}
 		}
+
 		public Func<IDictionary<string, object>, Material> GetMaterial( string name )
 		{
 			Func<IDictionary<string, object>, Material> materialFunc;

@@ -7,4 +7,3 @@ namespace VertexArmy.Global.Behaviours
 		void OnEachFrameInsideShape();
 	}
 }
-

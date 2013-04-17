@@ -9,7 +9,7 @@ namespace VertexArmy.Global.Managers
 {
 	public class PrefabRepository
 	{
-		private Dictionary<string, PrefabEntity> _prefabs;
+		private readonly Dictionary<string, PrefabEntity> _prefabs;
 
 		public void RegisterPrefab( string name, PrefabEntity prefab )
 		{
@@ -50,7 +50,6 @@ namespace VertexArmy.Global.Managers
 			}
 			catch ( FileNotFoundException )
 			{
-
 				return new LevelPrefab { filepath = filepath };
 			}
 		}

@@ -4,7 +4,7 @@ using VertexArmy.GameWorld.Prefabs.Structs;
 
 namespace VertexArmy.Content.Prefabs
 {
-	class SafCollectiblePrefab
+	internal class SafCollectiblePrefab
 	{
 		public static PrefabEntity CreatePrefab()
 		{
@@ -16,7 +16,7 @@ namespace VertexArmy.Content.Prefabs
 				Material = "SafMaterial",
 				Mesh = "models/saf",
 				Name = "M11",
-				LocalRotation = Quaternion.CreateFromAxisAngle(Vector3.UnitZ, MathHelper.PiOver4),
+				LocalRotation = Quaternion.CreateFromAxisAngle( Vector3.UnitZ, MathHelper.PiOver4 ),
 				LocalScale = 4 * Vector3.One
 			};
 
@@ -38,7 +38,7 @@ namespace VertexArmy.Content.Prefabs
 				Name = "M13",
 				LocalScale = Vector3.One
 			};
-			
+
 			mesh.RegisterMeshSceneNode( one );
 			mesh.RegisterMeshSceneNode( two );
 			mesh.RegisterMeshSceneNode( three );

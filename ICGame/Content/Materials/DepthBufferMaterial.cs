@@ -5,7 +5,7 @@ using VertexArmy.Graphics;
 
 namespace VertexArmy.Content.Materials
 {
-	class DepthBufferMaterial
+	internal class DepthBufferMaterial
 	{
 		public static Material CreateMaterial()
 		{

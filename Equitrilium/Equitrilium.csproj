@@ -267,13 +267,14 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Farseer Physics Engine 3.3.1 XNA\Farseer Physics XNA.csproj">
-      <Project>{0a850700-1abb-4288-a391-6726b90ebeb9}</Project>
-      <Name>Farseer Physics XNA</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ICGameContent\ICGameContent.contentproj">
-      <Name>ICGameContent</Name>
+    <ProjectReference Include="..\Equitrilium.Content\Equitrilium.Content.contentproj">
+      <Project>{F560ACE9-10D8-4170-A156-FC4AEA2F1DAD}</Project>
+      <Name>Equitrilium.Content %28Content%29</Name>
       <XnaReferenceType>Content</XnaReferenceType>
+    </ProjectReference>
+    <ProjectReference Include="..\FarseerPhysics\FarseerPhysics.csproj">
+      <Project>{0a850700-1abb-4288-a391-6726b90ebeb9}</Project>
+      <Name>FarseerPhysics</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

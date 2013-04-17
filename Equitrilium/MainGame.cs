@@ -1,6 +1,5 @@
 using FarseerPhysics.Dynamics;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.GamerServices;
 using VertexArmy.Content.Materials;
 using VertexArmy.Content.Prefabs;
 using VertexArmy.Global;
@@ -9,6 +8,7 @@ using VertexArmy.Input;
 using VertexArmy.States;
 using VertexArmy.Utilities;
 #if WINDOWS
+using Microsoft.Xna.Framework.GamerServices;
 #endif
 
 namespace VertexArmy

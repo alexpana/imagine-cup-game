@@ -100,406 +100,409 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="..\ICGame\Content\Materials\BlurMaterial.cs">
+    <Compile Include="..\Equitrilium\Content\Materials\BlurMaterial.cs">
       <Link>Content\Materials\BlurMaterial.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\Content\Materials\DepthBufferMaterial.cs">
+    <Compile Include="..\Equitrilium\Content\Materials\DepthBufferMaterial.cs">
       <Link>Content\Materials\DepthBufferMaterial.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\Content\Materials\DepthOfFieldMaterial.cs">
+    <Compile Include="..\Equitrilium\Content\Materials\DepthOfFieldMaterial.cs">
       <Link>Content\Materials\DepthOfFieldMaterial.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\Content\Materials\HighlightMaterial.cs">
+    <Compile Include="..\Equitrilium\Content\Materials\HighlightMaterial.cs">
       <Link>Content\Materials\HighlightMaterial.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\Content\Materials\MenuCubeMaterial.cs">
+    <Compile Include="..\Equitrilium\Content\Materials\MenuCubeMaterial.cs">
       <Link>Content\Materials\MenuCubeMaterial.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\Content\Materials\SafMaterial.cs">
+    <Compile Include="..\Equitrilium\Content\Materials\SafMaterial.cs">
       <Link>Content\Materials\SafMaterial.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\Content\Materials\TexturedMaterial.cs">
+    <Compile Include="..\Equitrilium\Content\Materials\TexturedMaterial.cs">
       <Link>Content\Materials\TexturedMaterial.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\Content\Prefabs\ButtonPrefab.cs">
+    <Compile Include="..\Equitrilium\Content\Materials\UnlitTexturedMaterial.cs">
+      <Link>Content\Materials\UnlitTexturedMaterial.cs</Link>
+    </Compile>
+    <Compile Include="..\Equitrilium\Content\Prefabs\ButtonPrefab.cs">
       <Link>Content\Prefabs\ButtonPrefab.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\Content\Prefabs\CameraPrefab.cs">
+    <Compile Include="..\Equitrilium\Content\Prefabs\CameraPrefab.cs">
       <Link>Content\Prefabs\CameraPrefab.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\Content\Prefabs\CratePrefab.cs">
+    <Compile Include="..\Equitrilium\Content\Prefabs\CratePrefab.cs">
       <Link>Content\Prefabs\CratePrefab.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\Content\Prefabs\DamagedRobot1Prefab.cs">
+    <Compile Include="..\Equitrilium\Content\Prefabs\DamagedRobot1Prefab.cs">
       <Link>Content\Prefabs\DamagedRobot1Prefab.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\Content\Prefabs\FloorBridgePrefab.cs">
+    <Compile Include="..\Equitrilium\Content\Prefabs\FloorBridgePrefab.cs">
       <Link>Content\Prefabs\FloorBridgePrefab.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\Content\Prefabs\FloorPrefab.cs">
+    <Compile Include="..\Equitrilium\Content\Prefabs\FloorPrefab.cs">
       <Link>Content\Prefabs\FloorPrefab.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\Content\Prefabs\LevelPrefab.cs">
+    <Compile Include="..\Equitrilium\Content\Prefabs\LevelPrefab.cs">
       <Link>Content\Prefabs\LevelPrefab.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\Content\Prefabs\LiftedDoorPrefab.cs">
+    <Compile Include="..\Equitrilium\Content\Prefabs\LiftedDoorPrefab.cs">
       <Link>Content\Prefabs\LiftedDoorPrefab.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\Content\Prefabs\MenuCubePrefab.cs">
+    <Compile Include="..\Equitrilium\Content\Prefabs\MenuCubePrefab.cs">
       <Link>Content\Prefabs\MenuCubePrefab.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\Content\Prefabs\PipePrefab.cs">
+    <Compile Include="..\Equitrilium\Content\Prefabs\PipePrefab.cs">
       <Link>Content\Prefabs\PipePrefab.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\Content\Prefabs\RobotPrefab.cs">
+    <Compile Include="..\Equitrilium\Content\Prefabs\RobotPrefab.cs">
       <Link>Content\Prefabs\RobotPrefab.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\Content\Prefabs\SafCollectiblePrefab.cs">
+    <Compile Include="..\Equitrilium\Content\Prefabs\SafCollectiblePrefab.cs">
       <Link>Content\Prefabs\SafCollectiblePrefab.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\Content\Prefabs\SafPrefab.cs">
+    <Compile Include="..\Equitrilium\Content\Prefabs\SafPrefab.cs">
       <Link>Content\Prefabs\SafPrefab.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\Content\Prefabs\SimpleMeshPrefab.cs">
+    <Compile Include="..\Equitrilium\Content\Prefabs\SimpleMeshPrefab.cs">
       <Link>Content\Prefabs\SimpleMeshPrefab.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\Content\Prefabs\TriggerPrefab.cs">
+    <Compile Include="..\Equitrilium\Content\Prefabs\TriggerPrefab.cs">
       <Link>Content\Prefabs\TriggerPrefab.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\Content\Prefabs\UpgradePlatformPrefab.cs">
+    <Compile Include="..\Equitrilium\Content\Prefabs\UpgradePlatformPrefab.cs">
       <Link>Content\Prefabs\UpgradePlatformPrefab.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\Content\Prefabs\WallPrefab.cs">
+    <Compile Include="..\Equitrilium\Content\Prefabs\WallPrefab.cs">
       <Link>Content\Prefabs\WallPrefab.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\GameWorld\GameEntity.cs">
+    <Compile Include="..\Equitrilium\GameWorld\GameEntity.cs">
       <Link>GameWorld\GameEntity.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\GameWorld\GameEntityFlags.cs">
+    <Compile Include="..\Equitrilium\GameWorld\GameEntityFlags.cs">
       <Link>GameWorld\GameEntityFlags.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\GameWorld\GameEntityParameters.cs">
+    <Compile Include="..\Equitrilium\GameWorld\GameEntityParameters.cs">
       <Link>GameWorld\GameEntityParameters.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\GameWorld\PhysicsEntity.cs">
+    <Compile Include="..\Equitrilium\GameWorld\PhysicsEntity.cs">
       <Link>GameWorld\PhysicsEntity.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\GameWorld\Prefabs\PrefabEntity.cs">
+    <Compile Include="..\Equitrilium\GameWorld\Prefabs\PrefabEntity.cs">
       <Link>GameWorld\Prefabs\PrefabEntity.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\GameWorld\Prefabs\PrefabUtils.cs">
+    <Compile Include="..\Equitrilium\GameWorld\Prefabs\PrefabUtils.cs">
       <Link>GameWorld\Prefabs\PrefabUtils.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\GameWorld\Prefabs\Structs\ArrayMeshSceneNodePrefab.cs">
+    <Compile Include="..\Equitrilium\GameWorld\Prefabs\Structs\ArrayMeshSceneNodePrefab.cs">
       <Link>GameWorld\Prefabs\Structs\ArrayMeshSceneNodePrefab.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\GameWorld\Prefabs\Structs\BodyPrefab.cs">
+    <Compile Include="..\Equitrilium\GameWorld\Prefabs\Structs\BodyPrefab.cs">
       <Link>GameWorld\Prefabs\Structs\BodyPrefab.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\GameWorld\Prefabs\Structs\CameraSceneNodePrefab.cs">
+    <Compile Include="..\Equitrilium\GameWorld\Prefabs\Structs\CameraSceneNodePrefab.cs">
       <Link>GameWorld\Prefabs\Structs\CameraSceneNodePrefab.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\GameWorld\Prefabs\Structs\ControllerPrefab.cs">
+    <Compile Include="..\Equitrilium\GameWorld\Prefabs\Structs\ControllerPrefab.cs">
       <Link>GameWorld\Prefabs\Structs\ControllerPrefab.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\GameWorld\Prefabs\Structs\ControllerType.cs">
+    <Compile Include="..\Equitrilium\GameWorld\Prefabs\Structs\ControllerType.cs">
       <Link>GameWorld\Prefabs\Structs\ControllerType.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\GameWorld\Prefabs\Structs\JointPrefab.cs">
+    <Compile Include="..\Equitrilium\GameWorld\Prefabs\Structs\JointPrefab.cs">
       <Link>GameWorld\Prefabs\Structs\JointPrefab.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\GameWorld\Prefabs\Structs\MeshSceneNodePrefab.cs">
+    <Compile Include="..\Equitrilium\GameWorld\Prefabs\Structs\MeshSceneNodePrefab.cs">
       <Link>GameWorld\Prefabs\Structs\MeshSceneNodePrefab.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\GameWorld\Prefabs\Structs\PathPrefab.cs">
+    <Compile Include="..\Equitrilium\GameWorld\Prefabs\Structs\PathPrefab.cs">
       <Link>GameWorld\Prefabs\Structs\PathPrefab.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\GameWorld\Prefabs\Structs\PhysicsPrefab.cs">
+    <Compile Include="..\Equitrilium\GameWorld\Prefabs\Structs\PhysicsPrefab.cs">
       <Link>GameWorld\Prefabs\Structs\PhysicsPrefab.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\GameWorld\Prefabs\Structs\ShapePrefab.cs">
+    <Compile Include="..\Equitrilium\GameWorld\Prefabs\Structs\ShapePrefab.cs">
       <Link>GameWorld\Prefabs\Structs\ShapePrefab.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\GameWorld\Prefabs\Structs\ShapeType.cs">
+    <Compile Include="..\Equitrilium\GameWorld\Prefabs\Structs\ShapeType.cs">
       <Link>GameWorld\Prefabs\Structs\ShapeType.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\Global\Behaviours\IController.cs">
+    <Compile Include="..\Equitrilium\Global\Behaviours\IController.cs">
       <Link>Global\Behaviours\IController.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\Global\Behaviours\IParameter.cs">
+    <Compile Include="..\Equitrilium\Global\Behaviours\IParameter.cs">
       <Link>Global\Behaviours\IParameter.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\Global\Behaviours\IShapeListener.cs">
+    <Compile Include="..\Equitrilium\Global\Behaviours\IShapeListener.cs">
       <Link>Global\Behaviours\IShapeListener.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\Global\Behaviours\ITransformable.cs">
+    <Compile Include="..\Equitrilium\Global\Behaviours\ITransformable.cs">
       <Link>Global\Behaviours\ITransformable.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\Global\Behaviours\IUpdatable.cs">
+    <Compile Include="..\Equitrilium\Global\Behaviours\IUpdatable.cs">
       <Link>Global\Behaviours\IUpdatable.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\Global\Controllers\BodyController.cs">
+    <Compile Include="..\Equitrilium\Global\Controllers\BodyController.cs">
       <Link>Global\Controllers\BodyController.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\Global\Controllers\CameraController.cs">
+    <Compile Include="..\Equitrilium\Global\Controllers\CameraController.cs">
       <Link>Global\Controllers\CameraController.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\Global\Controllers\CollectibleController.cs">
+    <Compile Include="..\Equitrilium\Global\Controllers\CollectibleController.cs">
       <Link>Global\Controllers\CollectibleController.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\Global\Controllers\Components\BaseComponent.cs">
+    <Compile Include="..\Equitrilium\Global\Controllers\Components\BaseComponent.cs">
       <Link>Global\Controllers\Components\BaseComponent.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\Global\Controllers\Components\BodyTriggerAreaComponent.cs">
+    <Compile Include="..\Equitrilium\Global\Controllers\Components\BodyTriggerAreaComponent.cs">
       <Link>Global\Controllers\Components\BodyTriggerAreaComponent.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\Global\Controllers\Components\ButtonComponent.cs">
+    <Compile Include="..\Equitrilium\Global\Controllers\Components\ButtonComponent.cs">
       <Link>Global\Controllers\Components\ButtonComponent.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\Global\Controllers\Components\CarControlComponent.cs">
+    <Compile Include="..\Equitrilium\Global\Controllers\Components\CarControlComponent.cs">
       <Link>Global\Controllers\Components\CarControlComponent.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\Global\Controllers\Components\ComponentType.cs">
+    <Compile Include="..\Equitrilium\Global\Controllers\Components\ComponentType.cs">
       <Link>Global\Controllers\Components\ComponentType.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\Global\Controllers\Components\DoorComponent.cs">
+    <Compile Include="..\Equitrilium\Global\Controllers\Components\DoorComponent.cs">
       <Link>Global\Controllers\Components\DoorComponent.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\Global\Controllers\Components\SentientForceComponent.cs">
+    <Compile Include="..\Equitrilium\Global\Controllers\Components\SentientForceComponent.cs">
       <Link>Global\Controllers\Components\SentientForceComponent.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\Global\Controllers\EditorToolsController.cs">
+    <Compile Include="..\Equitrilium\Global\Controllers\EditorToolsController.cs">
       <Link>Global\Controllers\EditorToolsController.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\Global\Controllers\FreeCameraController.cs">
+    <Compile Include="..\Equitrilium\Global\Controllers\FreeCameraController.cs">
       <Link>Global\Controllers\FreeCameraController.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\Global\Controllers\GravityController.cs">
+    <Compile Include="..\Equitrilium\Global\Controllers\GravityController.cs">
       <Link>Global\Controllers\GravityController.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\Global\Controllers\LineJointController.cs">
+    <Compile Include="..\Equitrilium\Global\Controllers\LineJointController.cs">
       <Link>Global\Controllers\LineJointController.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\Global\Controllers\OrbitCameraController.cs">
+    <Compile Include="..\Equitrilium\Global\Controllers\OrbitCameraController.cs">
       <Link>Global\Controllers\OrbitCameraController.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\Global\Controllers\RelativeController.cs">
+    <Compile Include="..\Equitrilium\Global\Controllers\RelativeController.cs">
       <Link>Global\Controllers\RelativeController.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\Global\Controllers\WorldShapeCollisionController.cs">
+    <Compile Include="..\Equitrilium\Global\Controllers\WorldShapeCollisionController.cs">
       <Link>Global\Controllers\WorldShapeCollisionController.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\Global\Hints\FadeHint.cs">
+    <Compile Include="..\Equitrilium\Global\Hints\FadeHint.cs">
       <Link>Global\Hints\FadeHint.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\Global\Hints\IDismissableHint.cs">
+    <Compile Include="..\Equitrilium\Global\Hints\IDismissableHint.cs">
       <Link>Global\Hints\IDismissableHint.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\Global\Hints\IHint.cs">
+    <Compile Include="..\Equitrilium\Global\Hints\IHint.cs">
       <Link>Global\Hints\IHint.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\Global\Hints\RobotThoughtHint.cs">
+    <Compile Include="..\Equitrilium\Global\Hints\RobotThoughtHint.cs">
       <Link>Global\Hints\RobotThoughtHint.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\Global\Hints\SharpThoughtHints.cs">
+    <Compile Include="..\Equitrilium\Global\Hints\SharpThoughtHints.cs">
       <Link>Global\Hints\SharpThoughtHints.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\Global\Managers\ControllerRepository.cs">
+    <Compile Include="..\Equitrilium\Global\Managers\ControllerRepository.cs">
       <Link>Global\Managers\ControllerRepository.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\Global\Managers\CursorManager.cs">
+    <Compile Include="..\Equitrilium\Global\Managers\CursorManager.cs">
       <Link>Global\Managers\CursorManager.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\Global\Managers\FrameUpdateManager.cs">
+    <Compile Include="..\Equitrilium\Global\Managers\FrameUpdateManager.cs">
       <Link>Global\Managers\FrameUpdateManager.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\Global\Managers\GameWorldManager.cs">
+    <Compile Include="..\Equitrilium\Global\Managers\GameWorldManager.cs">
       <Link>Global\Managers\GameWorldManager.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\Global\Managers\HintManager.cs">
+    <Compile Include="..\Equitrilium\Global\Managers\HintManager.cs">
       <Link>Global\Managers\HintManager.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\Global\Managers\InGameMenuManager.cs">
+    <Compile Include="..\Equitrilium\Global\Managers\InGameMenuManager.cs">
       <Link>Global\Managers\InGameMenuManager.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\Global\Managers\MaterialRepository.cs">
+    <Compile Include="..\Equitrilium\Global\Managers\MaterialRepository.cs">
       <Link>Global\Managers\MaterialRepository.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\Global\Managers\PhysicsContactManager.cs">
+    <Compile Include="..\Equitrilium\Global\Managers\PhysicsContactManager.cs">
       <Link>Global\Managers\PhysicsContactManager.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\Global\Managers\PrefabRepository.cs">
+    <Compile Include="..\Equitrilium\Global\Managers\PrefabRepository.cs">
       <Link>Global\Managers\PrefabRepository.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\Global\Managers\SceneManager.cs">
+    <Compile Include="..\Equitrilium\Global\Managers\SceneManager.cs">
       <Link>Global\Managers\SceneManager.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\Global\Managers\SoundManager.cs">
+    <Compile Include="..\Equitrilium\Global\Managers\SoundManager.cs">
       <Link>Global\Managers\SoundManager.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\Global\Platform.cs">
+    <Compile Include="..\Equitrilium\Global\Platform.cs">
       <Link>Global\Platform.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\Global\Settings.cs">
+    <Compile Include="..\Equitrilium\Global\Settings.cs">
       <Link>Global\Settings.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\Global\ShapeListeners\HintShapeListener.cs">
+    <Compile Include="..\Equitrilium\Global\ShapeListeners\HintShapeListener.cs">
       <Link>Global\ShapeListeners\HintShapeListener.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\Graphics\Attachables\Attachable.cs">
+    <Compile Include="..\Equitrilium\Graphics\Attachables\Attachable.cs">
       <Link>Graphics\Attachables\Attachable.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\Graphics\Attachables\CameraAttachable.cs">
+    <Compile Include="..\Equitrilium\Graphics\Attachables\CameraAttachable.cs">
       <Link>Graphics\Attachables\CameraAttachable.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\Graphics\Attachables\LightAttachable.cs">
+    <Compile Include="..\Equitrilium\Graphics\Attachables\LightAttachable.cs">
       <Link>Graphics\Attachables\LightAttachable.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\Graphics\Attachables\MeshAttachable.cs">
+    <Compile Include="..\Equitrilium\Graphics\Attachables\MeshAttachable.cs">
       <Link>Graphics\Attachables\MeshAttachable.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\Graphics\Material.cs">
+    <Compile Include="..\Equitrilium\Graphics\Material.cs">
       <Link>Graphics\Material.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\Graphics\ParticleSystem\IValueGenerator.cs">
+    <Compile Include="..\Equitrilium\Graphics\ParticleSystem\IValueGenerator.cs">
       <Link>Graphics\ParticleSystem\IValueGenerator.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\Graphics\ParticleSystem\LinearValueGenerator.cs">
+    <Compile Include="..\Equitrilium\Graphics\ParticleSystem\LinearValueGenerator.cs">
       <Link>Graphics\ParticleSystem\LinearValueGenerator.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\Graphics\ParticleSystem\Particle.cs">
+    <Compile Include="..\Equitrilium\Graphics\ParticleSystem\Particle.cs">
       <Link>Graphics\ParticleSystem\Particle.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\Graphics\ParticleSystem\ParticleCache.cs">
+    <Compile Include="..\Equitrilium\Graphics\ParticleSystem\ParticleCache.cs">
       <Link>Graphics\ParticleSystem\ParticleCache.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\Graphics\ParticleSystem\ParticleEmitter.cs">
+    <Compile Include="..\Equitrilium\Graphics\ParticleSystem\ParticleEmitter.cs">
       <Link>Graphics\ParticleSystem\ParticleEmitter.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\Graphics\ParticleSystem\ParticleRenderer.cs">
+    <Compile Include="..\Equitrilium\Graphics\ParticleSystem\ParticleRenderer.cs">
       <Link>Graphics\ParticleSystem\ParticleRenderer.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\Graphics\ParticleSystem\ParticleSystem.cs">
+    <Compile Include="..\Equitrilium\Graphics\ParticleSystem\ParticleSystem.cs">
       <Link>Graphics\ParticleSystem\ParticleSystem.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\Graphics\ParticleSystem\Range.cs">
+    <Compile Include="..\Equitrilium\Graphics\ParticleSystem\Range.cs">
       <Link>Graphics\ParticleSystem\Range.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\Graphics\Quad.cs">
+    <Compile Include="..\Equitrilium\Graphics\Quad.cs">
       <Link>Graphics\Quad.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\Graphics\Renderer.cs">
+    <Compile Include="..\Equitrilium\Graphics\Renderer.cs">
       <Link>Graphics\Renderer.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\Graphics\SceneNode.cs">
+    <Compile Include="..\Equitrilium\Graphics\SceneNode.cs">
       <Link>Graphics\SceneNode.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\Input\IInputSystem.cs">
+    <Compile Include="..\Equitrilium\Input\IInputSystem.cs">
       <Link>Input\IInputSystem.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\Input\PCInputSystem.cs">
+    <Compile Include="..\Equitrilium\Input\PCInputSystem.cs">
       <Link>Input\PCInputSystem.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\Levels\Level.cs">
+    <Compile Include="..\Equitrilium\Levels\Level.cs">
       <Link>Levels\Level.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\Levels\LevelChunk.cs">
+    <Compile Include="..\Equitrilium\Levels\LevelChunk.cs">
       <Link>Levels\LevelChunk.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\Levels\LevelManager.cs">
+    <Compile Include="..\Equitrilium\Levels\LevelManager.cs">
       <Link>Levels\LevelManager.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\MainGame.cs">
+    <Compile Include="..\Equitrilium\MainGame.cs">
       <Link>MainGame.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\Physics\DebugView\DebugViewXNA.cs">
+    <Compile Include="..\Equitrilium\Physics\DebugView\DebugViewXNA.cs">
       <Link>Physics\DebugView\DebugViewXNA.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\Physics\DebugView\PrimitiveBatch.cs">
+    <Compile Include="..\Equitrilium\Physics\DebugView\PrimitiveBatch.cs">
       <Link>Physics\DebugView\PrimitiveBatch.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\Serialization\ISerializableObject.cs">
+    <Compile Include="..\Equitrilium\Serialization\ISerializableObject.cs">
       <Link>Serialization\ISerializableObject.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\Serialization\ISerializer.cs">
+    <Compile Include="..\Equitrilium\Serialization\ISerializer.cs">
       <Link>Serialization\ISerializer.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\Serialization\JsonSerializer.cs">
+    <Compile Include="..\Equitrilium\Serialization\JsonSerializer.cs">
       <Link>Serialization\JsonSerializer.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\Serialization\SerializerFactory.cs">
+    <Compile Include="..\Equitrilium\Serialization\SerializerFactory.cs">
       <Link>Serialization\SerializerFactory.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\States\GameState.cs">
+    <Compile Include="..\Equitrilium\States\GameState.cs">
       <Link>States\GameState.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\States\GameStateDemo2.cs">
+    <Compile Include="..\Equitrilium\States\GameStateDemo2.cs">
       <Link>States\GameStateDemo2.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\States\GameStateEditor.cs">
+    <Compile Include="..\Equitrilium\States\GameStateEditor.cs">
       <Link>States\GameStateEditor.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\States\GameStateLevelLoading.cs">
+    <Compile Include="..\Equitrilium\States\GameStateLevelLoading.cs">
       <Link>States\GameStateLevelLoading.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\States\GameStateLoading.cs">
+    <Compile Include="..\Equitrilium\States\GameStateLoading.cs">
       <Link>States\GameStateLoading.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\States\GameStateModelViewer.cs">
+    <Compile Include="..\Equitrilium\States\GameStateModelViewer.cs">
       <Link>States\GameStateModelViewer.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\States\GameStatePaused.cs">
+    <Compile Include="..\Equitrilium\States\GameStatePaused.cs">
       <Link>States\GameStatePaused.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\States\GameStatePhysicsRobot.cs">
+    <Compile Include="..\Equitrilium\States\GameStatePhysicsRobot.cs">
       <Link>States\GameStatePhysicsRobot.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\States\GameStateRoomPreview.cs">
+    <Compile Include="..\Equitrilium\States\GameStateRoomPreview.cs">
       <Link>States\GameStateRoomPreview.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\States\GameStateTutorial.cs">
+    <Compile Include="..\Equitrilium\States\GameStateTutorial.cs">
       <Link>States\GameStateTutorial.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\States\IGameState.cs">
+    <Compile Include="..\Equitrilium\States\IGameState.cs">
       <Link>States\IGameState.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\States\Menu\BaseMenuGameState.cs">
+    <Compile Include="..\Equitrilium\States\Menu\BaseMenuGameState.cs">
       <Link>States\Menu\BaseMenuGameState.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\States\Menu\GameStateMenu.cs">
+    <Compile Include="..\Equitrilium\States\Menu\GameStateMenu.cs">
       <Link>States\Menu\GameStateMenu.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\States\Menu\GameStateSelectLevelMenu.cs">
+    <Compile Include="..\Equitrilium\States\Menu\GameStateSelectLevelMenu.cs">
       <Link>States\Menu\GameStateSelectLevelMenu.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\States\Menu\MenuCube.cs">
+    <Compile Include="..\Equitrilium\States\Menu\MenuCube.cs">
       <Link>States\Menu\MenuCube.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\States\Menu\MenuItem.cs">
+    <Compile Include="..\Equitrilium\States\Menu\MenuItem.cs">
       <Link>States\Menu\MenuItem.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\States\Menu\SwitchMenuItem.cs">
+    <Compile Include="..\Equitrilium\States\Menu\SwitchMenuItem.cs">
       <Link>States\Menu\SwitchMenuItem.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\States\PausableGameState.cs">
+    <Compile Include="..\Equitrilium\States\PausableGameState.cs">
       <Link>States\PausableGameState.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\States\PlayableGameState.cs">
+    <Compile Include="..\Equitrilium\States\PlayableGameState.cs">
       <Link>States\PlayableGameState.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\States\StateManager.cs">
+    <Compile Include="..\Equitrilium\States\StateManager.cs">
       <Link>States\StateManager.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\Utilities\DictionaryExtensions.cs">
+    <Compile Include="..\Equitrilium\Utilities\DictionaryExtensions.cs">
       <Link>Utilities\DictionaryExtensions.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\Utilities\RandomExtensions.cs">
+    <Compile Include="..\Equitrilium\Utilities\RandomExtensions.cs">
       <Link>Utilities\RandomExtensions.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\Utilities\TransformUtility.cs">
+    <Compile Include="..\Equitrilium\Utilities\TransformUtility.cs">
       <Link>Utilities\TransformUtility.cs</Link>
     </Compile>
-    <Compile Include="..\ICGame\Utilities\UnitsConverter.cs">
+    <Compile Include="..\Equitrilium\Utilities\UnitsConverter.cs">
       <Link>Utilities\UnitsConverter.cs</Link>
     </Compile>
     <Compile Include="Program.cs" />
@@ -509,322 +512,6 @@
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
-    <Content Include="..\ContentBuild\fonts\Impact.xnb">
-      <Link>Content\fonts\Impact.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\ContentBuild\fonts\SpriteFont1.xnb">
-      <Link>Content\fonts\SpriteFont1.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\ContentBuild\images\background.xnb">
-      <Link>Content\images\background.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\ContentBuild\images\color_bridge.xnb">
-      <Link>Content\images\color_bridge.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\ContentBuild\images\color_button.xnb">
-      <Link>Content\images\color_button.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\ContentBuild\images\color_crate.xnb">
-      <Link>Content\images\color_crate.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\ContentBuild\images\color_door_inner.xnb">
-      <Link>Content\images\color_door_inner.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\ContentBuild\images\color_door_outer.xnb">
-      <Link>Content\images\color_door_outer.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\ContentBuild\images\color_pipe.xnb">
-      <Link>Content\images\color_pipe.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\ContentBuild\images\color_robo.xnb">
-      <Link>Content\images\color_robo.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\ContentBuild\images\color_uplatform.xnb">
-      <Link>Content\images\color_uplatform.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\ContentBuild\images\cursor_arrow.xnb">
-      <Link>Content\images\cursor_arrow.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\ContentBuild\images\cursor_hand_closed.xnb">
-      <Link>Content\images\cursor_hand_closed.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\ContentBuild\images\cursor_hand_open.xnb">
-      <Link>Content\images\cursor_hand_open.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\ContentBuild\images\empty_dark_blue.xnb">
-      <Link>Content\images\empty_dark_blue.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\ContentBuild\images\empty_dark_gray.xnb">
-      <Link>Content\images\empty_dark_gray.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\ContentBuild\images\empty_gray.xnb">
-      <Link>Content\images\empty_gray.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\ContentBuild\images\empty_normals.xnb">
-      <Link>Content\images\empty_normals.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\ContentBuild\images\empty_specular.xnb">
-      <Link>Content\images\empty_specular.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\ContentBuild\images\empty_white.xnb">
-      <Link>Content\images\empty_white.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\ContentBuild\images\menu\level_cube_locked_text.xnb">
-      <Link>Content\images\menu\level_cube_locked_text.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\ContentBuild\images\menu\level_cube_tutorial_text.xnb">
-      <Link>Content\images\menu\level_cube_tutorial_text.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\ContentBuild\images\menu\main_cube_text.xnb">
-      <Link>Content\images\menu\main_cube_text.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\ContentBuild\images\menu\main_cube_text_flat.xnb">
-      <Link>Content\images\menu\main_cube_text_flat.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\ContentBuild\images\menu\menu_cube_DIFF.xnb">
-      <Link>Content\images\menu\menu_cube_DIFF.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\ContentBuild\images\menu\menu_cube_flat_DIFF.xnb">
-      <Link>Content\images\menu\menu_cube_flat_DIFF.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\ContentBuild\images\menu\menu_cube_NORM.xnb">
-      <Link>Content\images\menu\menu_cube_NORM.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\ContentBuild\images\menu\menu_cube_NORM_NRM.xnb">
-      <Link>Content\images\menu\menu_cube_NORM_NRM.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\ContentBuild\images\menu\menu_cube_no_text.xnb">
-      <Link>Content\images\menu\menu_cube_no_text.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\ContentBuild\images\menu\menu_cube_OCC.xnb">
-      <Link>Content\images\menu\menu_cube_OCC.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\ContentBuild\images\menu\menu_cube_SPEC.xnb">
-      <Link>Content\images\menu\menu_cube_SPEC.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\ContentBuild\images\menu\metro\Background.xnb">
-      <Link>Content\images\menu\metro\Background.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\ContentBuild\images\menu\metro\color_hint_bubble.xnb">
-      <Link>Content\images\menu\metro\color_hint_bubble.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\ContentBuild\images\menu\metro\ig_background.xnb">
-      <Link>Content\images\menu\metro\ig_background.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\ContentBuild\images\menu\metro\ig_highlight.xnb">
-      <Link>Content\images\menu\metro\ig_highlight.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\ContentBuild\images\menu\metro\ig_item_continue.xnb">
-      <Link>Content\images\menu\metro\ig_item_continue.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\ContentBuild\images\menu\metro\ig_item_exit.xnb">
-      <Link>Content\images\menu\metro\ig_item_exit.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\ContentBuild\images\menu\metro\ig_title.xnb">
-      <Link>Content\images\menu\metro\ig_title.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\ContentBuild\images\menu\metro\tooltip_bottom.xnb">
-      <Link>Content\images\menu\metro\tooltip_bottom.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\ContentBuild\images\menu\metro\tooltip_middle.xnb">
-      <Link>Content\images\menu\metro\tooltip_middle.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\ContentBuild\images\menu\metro\tooltip_top.xnb">
-      <Link>Content\images\menu\metro\tooltip_top.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\ContentBuild\images\menu\options_cube_sounds-off.xnb">
-      <Link>Content\images\menu\options_cube_sounds-off.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\ContentBuild\images\menu\options_cube_sounds-on.xnb">
-      <Link>Content\images\menu\options_cube_sounds-on.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\ContentBuild\images\tooltip_double_line.xnb">
-      <Link>Content\images\tooltip_double_line.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\ContentBuild\images\tooltip_single_line.xnb">
-      <Link>Content\images\tooltip_single_line.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\ContentBuild\images\waves-noalpha.xnb">
-      <Link>Content\images\waves-noalpha.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\ContentBuild\images\waves.xnb">
-      <Link>Content\images\waves.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\ContentBuild\models\blob.xnb">
-      <Link>Content\models\blob.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\ContentBuild\models\button_body.xnb">
-      <Link>Content\models\button_body.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\ContentBuild\models\button_head.xnb">
-      <Link>Content\models\button_head.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\ContentBuild\models\crate00.xnb">
-      <Link>Content\models\crate00.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\ContentBuild\models\door_inner.xnb">
-      <Link>Content\models\door_inner.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\ContentBuild\models\door_outer.xnb">
-      <Link>Content\models\door_outer.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\ContentBuild\models\floor_tile.xnb">
-      <Link>Content\models\floor_tile.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\ContentBuild\models\floor_tile_1.xnb">
-      <Link>Content\models\floor_tile_1.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\ContentBuild\models\menu_cube.xnb">
-      <Link>Content\models\menu_cube.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\ContentBuild\models\pipe.xnb">
-      <Link>Content\models\pipe.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\ContentBuild\models\pyramid.xnb">
-      <Link>Content\models\pyramid.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\ContentBuild\models\quad.xnb">
-      <Link>Content\models\quad.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\ContentBuild\models\robo_body.xnb">
-      <Link>Content\models\robo_body.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\ContentBuild\models\robo_link.xnb">
-      <Link>Content\models\robo_link.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\ContentBuild\models\robo_wheel.xnb">
-      <Link>Content\models\robo_wheel.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\ContentBuild\models\saf.xnb">
-      <Link>Content\models\saf.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\ContentBuild\models\sphere.xnb">
-      <Link>Content\models\sphere.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\ContentBuild\models\upgrade_platform.xnb">
-      <Link>Content\models\upgrade_platform.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\ContentBuild\models\wall_tile.xnb">
-      <Link>Content\models\wall_tile.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\ContentBuild\movies\PurpleStarFlight.xnb">
-      <Link>Content\movies\PurpleStarFlight.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\ContentBuild\music\Beluga_-_Lost_In_Outer_Space.xnb">
-      <Link>Content\music\Beluga_-_Lost_In_Outer_Space.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\ContentBuild\music\proto1_menu.xnb">
-      <Link>Content\music\proto1_menu.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\ContentBuild\sounds\bang.xnb">
-      <Link>Content\sounds\bang.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\ContentBuild\sounds\button-27.xnb">
-      <Link>Content\sounds\button-27.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\ContentBuild\sounds\button-30.xnb">
-      <Link>Content\sounds\button-30.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\ContentBuild\sounds\cloak_enable.xnb">
-      <Link>Content\sounds\cloak_enable.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\ContentBuild\sounds\engine_run.xnb">
-      <Link>Content\sounds\engine_run.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\ContentBuild\sounds\hit1.xnb">
-      <Link>Content\sounds\hit1.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\ContentBuild\sounds\hit2.xnb">
-      <Link>Content\sounds\hit2.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\ContentBuild\sounds\hit3.xnb">
-      <Link>Content\sounds\hit3.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\ContentBuild\sounds\hit4.xnb">
-      <Link>Content\sounds\hit4.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\ContentBuild\sounds\metalhit2.xnb">
-      <Link>Content\sounds\metalhit2.xnb</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="..\ContentBuild\effects\v4\blur.mgfxo">
       <Link>Content\effects\blur.mgfxo</Link>
     </Content>
@@ -864,32 +551,266 @@
     <Content Include="..\ContentBuild\effects\v4\wall.mgfxo">
       <Link>Content\effects\wall.mgfxo</Link>
     </Content>
-    <Content Include="..\ICGame\Content\Levels\level1.eql">
-      <Link>Content\Levels\level1.eql</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\ICGame\Content\Levels\level2.eql">
-      <Link>Content\Levels\level2.eql</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="..\ContentBuild\effects\v4\saf.mgfxo">
       <Link>Content\effects\saf.mgfxo</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="..\ContentBuild\fonts\Impact.xnb">
+      <Link>Content\fonts\Impact.xnb</Link>
+    </None>
+    <None Include="..\ContentBuild\fonts\SpriteFont1.xnb">
+      <Link>Content\fonts\SpriteFont1.xnb</Link>
+    </None>
+    <None Include="..\ContentBuild\images\background.xnb">
+      <Link>Content\images\background.xnb</Link>
+    </None>
+    <None Include="..\ContentBuild\images\color_bridge.xnb">
+      <Link>Content\images\color_bridge.xnb</Link>
+    </None>
+    <None Include="..\ContentBuild\images\color_button.xnb">
+      <Link>Content\images\color_button.xnb</Link>
+    </None>
+    <None Include="..\ContentBuild\images\color_crate.xnb">
+      <Link>Content\images\color_crate.xnb</Link>
+    </None>
+    <None Include="..\ContentBuild\images\color_door_inner.xnb">
+      <Link>Content\images\color_door_inner.xnb</Link>
+    </None>
+    <None Include="..\ContentBuild\images\color_door_outer.xnb">
+      <Link>Content\images\color_door_outer.xnb</Link>
+    </None>
+    <None Include="..\ContentBuild\images\color_pipe.xnb">
+      <Link>Content\images\color_pipe.xnb</Link>
+    </None>
+    <None Include="..\ContentBuild\images\color_robo.xnb">
+      <Link>Content\images\color_robo.xnb</Link>
+    </None>
+    <None Include="..\ContentBuild\images\color_uplatform.xnb">
+      <Link>Content\images\color_uplatform.xnb</Link>
+    </None>
+    <None Include="..\ContentBuild\images\cursor_arrow.xnb">
+      <Link>Content\images\cursor_arrow.xnb</Link>
+    </None>
+    <None Include="..\ContentBuild\images\cursor_hand_closed.xnb">
+      <Link>Content\images\cursor_hand_closed.xnb</Link>
+    </None>
+    <None Include="..\ContentBuild\images\cursor_hand_open.xnb">
+      <Link>Content\images\cursor_hand_open.xnb</Link>
+    </None>
+    <None Include="..\ContentBuild\images\empty_dark_blue.xnb">
+      <Link>Content\images\empty_dark_blue.xnb</Link>
+    </None>
+    <None Include="..\ContentBuild\images\empty_dark_gray.xnb">
+      <Link>Content\images\empty_dark_gray.xnb</Link>
+    </None>
+    <None Include="..\ContentBuild\images\empty_gray.xnb">
+      <Link>Content\images\empty_gray.xnb</Link>
+    </None>
+    <None Include="..\ContentBuild\images\empty_normals.xnb">
+      <Link>Content\images\empty_normals.xnb</Link>
+    </None>
+    <None Include="..\ContentBuild\images\empty_specular.xnb">
+      <Link>Content\images\empty_specular.xnb</Link>
+    </None>
+    <None Include="..\ContentBuild\images\empty_white.xnb">
+      <Link>Content\images\empty_white.xnb</Link>
+    </None>
+    <None Include="..\ContentBuild\images\menu\level_cube_locked_text.xnb">
+      <Link>Content\images\menu\level_cube_locked_text.xnb</Link>
+    </None>
+    <None Include="..\ContentBuild\images\menu\level_cube_tutorial_text.xnb">
+      <Link>Content\images\menu\level_cube_tutorial_text.xnb</Link>
+    </None>
+    <None Include="..\ContentBuild\images\menu\main_cube_text.xnb">
+      <Link>Content\images\menu\main_cube_text.xnb</Link>
+    </None>
+    <None Include="..\ContentBuild\images\menu\main_cube_text_flat.xnb">
+      <Link>Content\images\menu\main_cube_text_flat.xnb</Link>
+    </None>
+    <None Include="..\ContentBuild\images\menu\menu_cube_DIFF.xnb">
+      <Link>Content\images\menu\menu_cube_DIFF.xnb</Link>
+    </None>
+    <None Include="..\ContentBuild\images\menu\menu_cube_flat_DIFF.xnb">
+      <Link>Content\images\menu\menu_cube_flat_DIFF.xnb</Link>
+    </None>
+    <None Include="..\ContentBuild\images\menu\menu_cube_NORM.xnb">
+      <Link>Content\images\menu\menu_cube_NORM.xnb</Link>
+    </None>
+    <None Include="..\ContentBuild\images\menu\menu_cube_NORM_NRM.xnb">
+      <Link>Content\images\menu\menu_cube_NORM_NRM.xnb</Link>
+    </None>
+    <None Include="..\ContentBuild\images\menu\menu_cube_no_text.xnb">
+      <Link>Content\images\menu\menu_cube_no_text.xnb</Link>
+    </None>
+    <None Include="..\ContentBuild\images\menu\menu_cube_OCC.xnb">
+      <Link>Content\images\menu\menu_cube_OCC.xnb</Link>
+    </None>
+    <None Include="..\ContentBuild\images\menu\menu_cube_SPEC.xnb">
+      <Link>Content\images\menu\menu_cube_SPEC.xnb</Link>
+    </None>
+    <None Include="..\ContentBuild\images\menu\metro\Background.xnb">
+      <Link>Content\images\menu\metro\Background.xnb</Link>
+    </None>
+    <None Include="..\ContentBuild\images\menu\metro\color_hint_bubble.xnb">
+      <Link>Content\images\menu\metro\color_hint_bubble.xnb</Link>
+    </None>
+    <None Include="..\ContentBuild\images\menu\metro\ig_background.xnb">
+      <Link>Content\images\menu\metro\ig_background.xnb</Link>
+    </None>
+    <None Include="..\ContentBuild\images\menu\metro\ig_highlight.xnb">
+      <Link>Content\images\menu\metro\ig_highlight.xnb</Link>
+    </None>
+    <None Include="..\ContentBuild\images\menu\metro\ig_item_continue.xnb">
+      <Link>Content\images\menu\metro\ig_item_continue.xnb</Link>
+    </None>
+    <None Include="..\ContentBuild\images\menu\metro\ig_item_exit.xnb">
+      <Link>Content\images\menu\metro\ig_item_exit.xnb</Link>
+    </None>
+    <None Include="..\ContentBuild\images\menu\metro\ig_title.xnb">
+      <Link>Content\images\menu\metro\ig_title.xnb</Link>
+    </None>
+    <None Include="..\ContentBuild\images\menu\metro\tooltip_bottom.xnb">
+      <Link>Content\images\menu\metro\tooltip_bottom.xnb</Link>
+    </None>
+    <None Include="..\ContentBuild\images\menu\metro\tooltip_middle.xnb">
+      <Link>Content\images\menu\metro\tooltip_middle.xnb</Link>
+    </None>
+    <None Include="..\ContentBuild\images\menu\metro\tooltip_top.xnb">
+      <Link>Content\images\menu\metro\tooltip_top.xnb</Link>
+    </None>
+    <None Include="..\ContentBuild\images\menu\options_cube_sounds-off.xnb">
+      <Link>Content\images\menu\options_cube_sounds-off.xnb</Link>
+    </None>
+    <None Include="..\ContentBuild\images\menu\options_cube_sounds-on.xnb">
+      <Link>Content\images\menu\options_cube_sounds-on.xnb</Link>
+    </None>
+    <None Include="..\ContentBuild\images\tooltip_double_line.xnb">
+      <Link>Content\images\tooltip_double_line.xnb</Link>
+    </None>
+    <None Include="..\ContentBuild\images\tooltip_single_line.xnb">
+      <Link>Content\images\tooltip_single_line.xnb</Link>
+    </None>
+    <None Include="..\ContentBuild\images\waves-noalpha.xnb">
+      <Link>Content\images\waves-noalpha.xnb</Link>
+    </None>
+    <None Include="..\ContentBuild\images\waves.xnb">
+      <Link>Content\images\waves.xnb</Link>
+    </None>
+    <None Include="..\ContentBuild\models\blob.xnb">
+      <Link>Content\models\blob.xnb</Link>
+    </None>
+    <None Include="..\ContentBuild\models\button_body.xnb">
+      <Link>Content\models\button_body.xnb</Link>
+    </None>
+    <None Include="..\ContentBuild\models\button_head.xnb">
+      <Link>Content\models\button_head.xnb</Link>
+    </None>
+    <None Include="..\ContentBuild\models\crate00.xnb">
+      <Link>Content\models\crate00.xnb</Link>
+    </None>
+    <None Include="..\ContentBuild\models\door_inner.xnb">
+      <Link>Content\models\door_inner.xnb</Link>
+    </None>
+    <None Include="..\ContentBuild\models\door_outer.xnb">
+      <Link>Content\models\door_outer.xnb</Link>
+    </None>
+    <None Include="..\ContentBuild\models\floor_tile.xnb">
+      <Link>Content\models\floor_tile.xnb</Link>
+    </None>
+    <None Include="..\ContentBuild\models\floor_tile_1.xnb">
+      <Link>Content\models\floor_tile_1.xnb</Link>
+    </None>
+    <None Include="..\ContentBuild\models\menu_cube.xnb">
+      <Link>Content\models\menu_cube.xnb</Link>
+    </None>
+    <None Include="..\ContentBuild\models\pipe.xnb">
+      <Link>Content\models\pipe.xnb</Link>
+    </None>
+    <None Include="..\ContentBuild\models\pyramid.xnb">
+      <Link>Content\models\pyramid.xnb</Link>
+    </None>
+    <None Include="..\ContentBuild\models\quad.xnb">
+      <Link>Content\models\quad.xnb</Link>
+    </None>
+    <None Include="..\ContentBuild\models\robo_body.xnb">
+      <Link>Content\models\robo_body.xnb</Link>
+    </None>
+    <None Include="..\ContentBuild\models\robo_link.xnb">
+      <Link>Content\models\robo_link.xnb</Link>
+    </None>
+    <None Include="..\ContentBuild\models\robo_wheel.xnb">
+      <Link>Content\models\robo_wheel.xnb</Link>
+    </None>
+    <None Include="..\ContentBuild\models\saf.xnb">
+      <Link>Content\models\saf.xnb</Link>
+    </None>
+    <None Include="..\ContentBuild\models\sphere.xnb">
+      <Link>Content\models\sphere.xnb</Link>
+    </None>
+    <None Include="..\ContentBuild\models\upgrade_platform.xnb">
+      <Link>Content\models\upgrade_platform.xnb</Link>
+    </None>
+    <None Include="..\ContentBuild\models\wall_tile.xnb">
+      <Link>Content\models\wall_tile.xnb</Link>
+    </None>
+    <None Include="..\ContentBuild\movies\PurpleStarFlight.xnb">
+      <Link>Content\movies\PurpleStarFlight.xnb</Link>
+    </None>
+    <None Include="..\ContentBuild\music\Beluga_-_Lost_In_Outer_Space.xnb">
+      <Link>Content\music\Beluga_-_Lost_In_Outer_Space.xnb</Link>
+    </None>
+    <None Include="..\ContentBuild\music\proto1_menu.xnb">
+      <Link>Content\music\proto1_menu.xnb</Link>
+    </None>
+    <None Include="..\ContentBuild\sounds\bang.xnb">
+      <Link>Content\sounds\bang.xnb</Link>
+    </None>
+    <None Include="..\ContentBuild\sounds\button-27.xnb">
+      <Link>Content\sounds\button-27.xnb</Link>
+    </None>
+    <None Include="..\ContentBuild\sounds\button-30.xnb">
+      <Link>Content\sounds\button-30.xnb</Link>
+    </None>
+    <None Include="..\ContentBuild\sounds\cloak_enable.xnb">
+      <Link>Content\sounds\cloak_enable.xnb</Link>
+    </None>
+    <None Include="..\ContentBuild\sounds\engine_run.xnb">
+      <Link>Content\sounds\engine_run.xnb</Link>
+    </None>
+    <None Include="..\ContentBuild\sounds\hit1.xnb">
+      <Link>Content\sounds\hit1.xnb</Link>
+    </None>
+    <None Include="..\ContentBuild\sounds\hit2.xnb">
+      <Link>Content\sounds\hit2.xnb</Link>
+    </None>
+    <None Include="..\ContentBuild\sounds\hit3.xnb">
+      <Link>Content\sounds\hit3.xnb</Link>
+    </None>
+    <None Include="..\ContentBuild\sounds\hit4.xnb">
+      <Link>Content\sounds\hit4.xnb</Link>
+    </None>
+    <None Include="..\ContentBuild\sounds\metalhit2.xnb">
+      <Link>Content\sounds\metalhit2.xnb</Link>
+    </None>
+    <None Include="..\Equitrilium\Content\Levels\level1.eql">
+      <Link>Content\Levels\level1.eql</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\Equitrilium\Content\Levels\level2.eql">
+      <Link>Content\Levels\level2.eql</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Equitrilium.Windows8_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="..\ContentBuild\movies\PurpleStarFlight.wmv">
       <Link>Content\movies\PurpleStarFlight.wmv</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="..\ContentBuild\music\Beluga_-_Lost_In_Outer_Space.wma">
       <Link>Content\music\Beluga_-_Lost_In_Outer_Space.wma</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="..\ContentBuild\music\proto1_menu.wma">
       <Link>Content\music\proto1_menu.wma</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Logo.png" />
     <Content Include="Assets\SmallLogo.png" />
@@ -935,6 +856,108 @@
   <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">
     <VisualStudioVersion>11.0</VisualStudioVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug_TUTORIAL|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug_TUTORIAL\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug_TUTORIAL|ARM'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\ARM\Debug_TUTORIAL\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <NoStdLib>true</NoStdLib>
+    <DebugType>full</DebugType>
+    <PlatformTarget>ARM</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug_TUTORIAL|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug_TUTORIAL\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <NoStdLib>true</NoStdLib>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug_TUTORIAL|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug_TUTORIAL\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;NETFX_CORE;TUTORIAL</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <NoStdLib>true</NoStdLib>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug_EDITOR|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug_EDITOR\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug_EDITOR|ARM'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\ARM\Debug_EDITOR\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <NoStdLib>true</NoStdLib>
+    <DebugType>full</DebugType>
+    <PlatformTarget>ARM</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug_EDITOR|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug_EDITOR\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <NoStdLib>true</NoStdLib>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug_EDITOR|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug_EDITOR\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;NETFX_CORE;EDITOR</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <NoStdLib>true</NoStdLib>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

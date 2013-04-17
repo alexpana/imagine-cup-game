@@ -10,20 +10,20 @@ setlocal ENABLEDELAYEDEXPANSION
 echo [Compile Content Phase] ---- Building content project ...
 mkdir /p ContentBuild
 
-msbuild /property:XNAContentPipelineTargetPlatform="Windows" /p:Configuration=Release /property:XNAContentPipelineTargetProfile=Reach ICGameContent/ICGameContent.contentproj /p:OutputPath=ContentBuild
+msbuild /property:XNAContentPipelineTargetPlatform="Windows" /p:Configuration=Release /property:XNAContentPipelineTargetProfile=Reach Equitrilium.Content/Equitrilium.Content.contentproj /p:OutputPath=ContentBuild
 
 echo [Compile Content Phase] ---- Copying results from the content project ....
-xcopy /y /d /i /s ICGameContent\ContentBuild\Content\* ContentBuild\
+xcopy /y /d /i /s Equitrilium.Content\ContentBuild\Content\* ContentBuild\
 
 
 echo [Compile Content Phase] ---- Compiling shaders ...
 if not exist ContentBuild\effects\v4 mkdir ContentBuild\effects\v4
 
-for /r %%i in (ICGameContent\effects\*.fx) do (
-	set EffV4InPath=ICGameContent\effects\v4\%%~ni.fx
+for /r %%i in (Equitrilium.Content\effects\*.fx) do (
+	set EffV4InPath=Equitrilium.Content\effects\v4\%%~ni.fx
 	set EffV4OutPath=ContentBuild\effects\v4\%%~ni.mgfxo
 	
-	set EffInPath=ICGameContent\effects\%%~ni.fx
+	set EffInPath=Equitrilium.Content\effects\%%~ni.fx
 	set EffOutPath=ContentBuild\effects\%%~ni.mgfxo
 	
 	rem SHADER MODEL >= 4.0
@@ -37,7 +37,7 @@ for /r %%i in (ICGameContent\effects\*.fx) do (
 
 echo [Compile Content Phase] ---- Cleanup ...
 
-rm ICGameContent\cachefile-*.txt
+rm Equitrilium.Content\cachefile-*.txt
 goto :success
 
 

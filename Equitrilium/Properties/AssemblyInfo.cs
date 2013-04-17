@@ -6,10 +6,10 @@ using System.Runtime.InteropServices;
 // associated with an assembly.
 
 [assembly: AssemblyTitle( "Equitrilium" )]
-[assembly: AssemblyProduct( "ICGame" )]
+[assembly: AssemblyProduct( "Equitrilium" )]
 [assembly: AssemblyDescription( "" )]
-[assembly: AssemblyCompany( "" )]
-[assembly: AssemblyCopyright( "Copyright ©  2012" )]
+[assembly: AssemblyCompany( "Vertex Army" )]
+[assembly: AssemblyCopyright( "Copyright © Vertex Army 2013" )]
 [assembly: AssemblyTrademark( "" )]
 [assembly: AssemblyCulture( "" )]
 

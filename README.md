@@ -15,7 +15,7 @@ d) Timotei Dolean
 4) Invoke the "xna-setup/copy_xna.cmd" file (tools repository), by right-clicking on it, and chosing 'Run as administrator'.
 4b) If you have installed VS 2010 Express edition, add the following line (replace with your install path) at the beginning of the 'copy_xna.cmd' file:
 	SET VS100COMNTOOLS=c:\Program Files (x86)\Microsoft Visual Studio 10.0\Common7\Tools\
-5) Open the solution file "ICGame.sln"
+5) Open the solution file "Equitrilium.sln"
 6) Go to: "Tools", "Import and Export settings".
 7) Choose "Import", "Next"
 8) Choose "Yes, save my current settings", "Next"

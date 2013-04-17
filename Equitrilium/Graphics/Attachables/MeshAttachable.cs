@@ -46,7 +46,7 @@ namespace VertexArmy.Graphics.Attachables
 		{
 			Material depth = Renderer.Instance.GetDepthBufferMaterial();
 			Renderer.Instance.SetGlobalMaterialParameters( depth );
-
+			depth.Apply();
 
 			foreach ( ModelMesh m in Model.Meshes )
 			{
@@ -56,7 +56,7 @@ namespace VertexArmy.Graphics.Attachables
 				}
 			}
 
-			depth.Apply();
+			
 			foreach ( ModelMesh m in Model.Meshes )
 			{
 				m.Draw();
@@ -66,7 +66,7 @@ namespace VertexArmy.Graphics.Attachables
 			{
 				foreach ( ModelMeshPart part in m.MeshParts )
 				{
-					part.Effect = Material.Effect;
+					part.Effect = null;
 				}
 			}
 		}
@@ -109,7 +109,7 @@ namespace VertexArmy.Graphics.Attachables
 				{
 					foreach ( ModelMeshPart part in m.MeshParts )
 					{
-						part.Effect = Material.Effect;
+						part.Effect = null;
 					}
 				}
 
@@ -126,7 +126,23 @@ namespace VertexArmy.Graphics.Attachables
 
 			foreach ( ModelMesh m in Model.Meshes )
 			{
+				foreach ( ModelMeshPart part in m.MeshParts )
+				{
+					part.Effect = Material.Effect;
+				}
+			}
+
+			foreach ( ModelMesh m in Model.Meshes )
+			{
 				m.Draw();
+			}
+
+			foreach ( ModelMesh m in Model.Meshes )
+			{
+				foreach ( ModelMeshPart part in m.MeshParts )
+				{
+					part.Effect = null;
+				}
 			}
 		}
 

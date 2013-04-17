@@ -213,9 +213,8 @@ namespace VertexArmy.Global.Managers
 		private void RenderWithoutDof( float dt )
 		{
 			RenderColorRenderTarget( dt );
-			Platform.Instance.Device.Clear( ClearOptions.Target | ClearOptions.DepthBuffer, Color.DarkSlateBlue, 1.0f, 0 );
-
-			//Platform.Instance.Device.BlendState = BlendState.Opaque;
+			
+			Platform.Instance.Device.BlendState = BlendState.Opaque;
 			Platform.Instance.Device.RasterizerState = RasterizerState.CullCounterClockwise;
 
 
@@ -235,8 +234,6 @@ namespace VertexArmy.Global.Managers
 			RenderDepthRenderTarget( dt );
 			RenderColorRenderTarget( dt );
 
-
-			Platform.Instance.Device.Clear( ClearOptions.Target | ClearOptions.DepthBuffer, Color.DarkSlateBlue, 1.0f, 0 );
 
 			Platform.Instance.Device.BlendState = BlendState.Opaque;
 			Platform.Instance.Device.RasterizerState = RasterizerState.CullCounterClockwise;
@@ -313,11 +310,9 @@ namespace VertexArmy.Global.Managers
 			RenderTarget2D colorRenderTarget = GetColorRt();
 			Platform.Instance.Device.SetRenderTarget( colorRenderTarget );
 
-			Platform.Instance.Device.Clear( ClearOptions.Target, Color.DarkSlateBlue, 1.0f, 0 );
+			Platform.Instance.Device.Clear( ClearOptions.Target | ClearOptions.DepthBuffer, Color.DarkSlateBlue, 1.0f, 0 );
 
 			DrawBackground();
-			Platform.Instance.Device.Clear( ClearOptions.DepthBuffer, Color.DarkSlateBlue, 1.0f, 0 );
-
 			DrawScene( dt );
 
 			Renderer.Instance.CurrentFrame = colorRenderTarget;
@@ -464,9 +459,6 @@ namespace VertexArmy.Global.Managers
 
 		public void SortByLayer()
 		{
-			//hack to fix SAF node transparency
-
-
 			_registeredNodes.Sort( ( a, b ) => ( a.GetLayer() - b.GetLayer() ) );
 		}
 

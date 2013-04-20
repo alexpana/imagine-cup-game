@@ -507,6 +507,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Windows8\LocalStorageExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -842,10 +843,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Equitrilium.Windows8.Common\Equitrilium.Windows8.Common.csproj">
-      <Project>{a3bb3502-7d40-4903-a5a7-1ce351ea86c4}</Project>
-      <Name>Equitrilium.Windows8.Common</Name>
-    </ProjectReference>
     <ProjectReference Include="..\FarseerPhysics.Windows8\FarseerPhysics.Windows8.csproj">
       <Project>{f230fcde-a853-4c21-83b1-f236d6daf3ee}</Project>
       <Name>FarseerPhysics.Windows8</Name>

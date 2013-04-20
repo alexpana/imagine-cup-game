@@ -100,6 +100,9 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="..\Equitrilium.Windows8\Windows8\LocalStorageExtensions.cs">
+      <Link>LocalStorageExtensions.cs</Link>
+    </Compile>
     <Compile Include="..\FarseerPhysics\Collision\Collision.cs">
       <Link>Collision\Collision.cs</Link>
     </Compile>
@@ -436,12 +439,6 @@
     <Reference Include="SharpDX.XInput">
       <HintPath>..\_external\MonoGame.Windows8\SharpDX.XInput.dll</HintPath>
     </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Equitrilium.Windows8.Common\Equitrilium.Windows8.Common.csproj">
-      <Project>{a3bb3502-7d40-4903-a5a7-1ce351ea86c4}</Project>
-      <Name>Equitrilium.Windows8.Common</Name>
-    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">
     <VisualStudioVersion>11.0</VisualStudioVersion>

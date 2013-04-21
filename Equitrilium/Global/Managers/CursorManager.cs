@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
+using UnifiedInputSystem.Events;
 using VertexArmy.Global.Behaviours;
 using VertexArmy.Graphics;
 
@@ -81,8 +81,8 @@ namespace VertexArmy.Global.Managers
 
 		public void Update()
 		{
-			_cursorPosition.X = Mouse.GetState().X;
-			_cursorPosition.Y = Mouse.GetState().Y;
+			var locationEvent = Platform.Instance.InputAggregator.GetEvent<LocationEvent>();
+			_cursorPosition = locationEvent.Location;
 		}
 
 		public void Render()

@@ -6,6 +6,7 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
+using UnifiedInputSystem.Events;
 using VertexArmy.Content.Prefabs;
 using VertexArmy.Global;
 using VertexArmy.Global.Managers;
@@ -87,9 +88,8 @@ namespace VertexArmy.States.Menu
 		{
 			if ( _platform.Input.IsLeftPointerFirstTimePressed )
 			{
-				var mouseX = ( int ) _platform.Input.PointerPosition.X;
-				var mouseY = ( int ) _platform.Input.PointerPosition.Y;
-				List<SceneNode> nodes = SceneManager.Instance.IntersectScreenRayWithSceneNodes( mouseX, mouseY );
+				var locationEvent = _platform.InputAggregator.GetEvent<LocationEvent>();
+				List<SceneNode> nodes = SceneManager.Instance.IntersectScreenRayWithSceneNodes( locationEvent.Location );
 				if ( nodes.Count > 0 )
 				{
 					ActivateSelectedItem();
@@ -121,7 +121,7 @@ namespace VertexArmy.States.Menu
 				ActivateSelectedItem();
 			}
 			else if ( _platform.Input.IsKeyPressed( Keys.Escape, false ) ||
-			          _platform.Input.IsKeyPressed( Keys.Back, false ) )
+					  _platform.Input.IsKeyPressed( Keys.Back, false ) )
 			{
 				if ( _activeCube.PreviousMenu != null )
 				{

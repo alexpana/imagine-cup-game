@@ -213,7 +213,7 @@ namespace VertexArmy.Global.Managers
 		private void RenderWithoutDof( float dt )
 		{
 			RenderColorRenderTarget( dt );
-			
+
 			Platform.Instance.Device.BlendState = BlendState.Opaque;
 			Platform.Instance.Device.RasterizerState = RasterizerState.CullCounterClockwise;
 

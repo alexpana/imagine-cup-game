@@ -1,5 +1,7 @@
 using FarseerPhysics.Dynamics;
 using Microsoft.Xna.Framework;
+using UnifiedInputSystem;
+using UnifiedInputSystem.Mouse;
 using VertexArmy.Content.Materials;
 using VertexArmy.Content.Prefabs;
 using VertexArmy.Global;
@@ -7,6 +9,7 @@ using VertexArmy.Global.Managers;
 using VertexArmy.Input;
 using VertexArmy.States;
 using VertexArmy.Utilities;
+
 #if WINDOWS
 using Microsoft.Xna.Framework.GamerServices;
 #endif
@@ -17,21 +20,16 @@ namespace VertexArmy
 	{
 		public MainGame()
 		{
+			Platform.Instance.Game = this;
+
 			Platform.Instance.DeviceManager = new GraphicsDeviceManager( this )
 			{
 				PreferredBackBufferWidth = 1024,
 				PreferredBackBufferHeight = 768,
 				IsFullScreen = false
 			};
-			Platform.Instance.PhysicsWorld = new World( new Vector2( 0f, 9.82f ) );
-
-			Platform.Instance.Settings = new Settings();
-			Platform.Instance.Settings.Load();
-			Platform.Instance.SoundManager = new SoundManager( Platform.Instance.Settings );
-			Platform.Instance.Game = this;
 
 			Content.RootDirectory = "Content";
-			UnitsConverter.SetDisplayUnitToSimUnitRatio( 64 );
 
 #if WINDOWS
 			Components.Add( new GamerServicesComponent( this ) );
@@ -41,8 +39,15 @@ namespace VertexArmy
 		protected override void Initialize()
 		{
 			base.Initialize();
+			Platform.Instance.PhysicsWorld = new World( new Vector2( 0f, 9.82f ) );
 
-			Platform.Instance.Input = new PCInputSystem();
+			Platform.Instance.Settings = new Settings();
+			Platform.Instance.Settings.Load();
+			Platform.Instance.SoundManager = new SoundManager( Platform.Instance.Settings );
+			UnitsConverter.SetDisplayUnitToSimUnitRatio( 64 );
+
+			InitializeInput();
+
 			PhysicsContactManager.Instance.Initialize();
 #if TEST_LEVEL_LOADING
 	// This is for testing the level loading part. Do not modify this!
@@ -56,6 +61,17 @@ namespace VertexArmy
 #else
 			StateManager.Instance.ChangeState( GameState.Menu );
 #endif
+		}
+
+		private void InitializeInput()
+		{
+			Platform.Instance.Input = new PCInputSystem();
+
+			InputAggregator inputAggregator = new InputAggregator();
+
+			inputAggregator.Add( new MouseInputProcessor( new MouseInputStream() ) );
+
+			Platform.Instance.InputAggregator = inputAggregator;
 		}
 
 		protected override void LoadContent()
@@ -109,6 +125,7 @@ namespace VertexArmy
 			base.Update( gameTime );
 
 			Platform.Instance.Input.Update( gameTime );
+			Platform.Instance.InputAggregator.Update(new Time(gameTime));
 			CursorManager.Instance.Update();
 
 			if ( StateManager.Instance.CurrentGameState != null )

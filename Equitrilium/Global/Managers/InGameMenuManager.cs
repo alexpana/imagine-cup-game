@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using UnifiedInputSystem.Events;
 
 namespace VertexArmy.Global.Managers
 {
@@ -133,9 +134,10 @@ namespace VertexArmy.Global.Managers
 
 		private void CheckSelectedItem()
 		{
-			Vector2 cursor = Platform.Instance.Input.PointerPosition - _metrics.GetMenuOffset();
+			var locationEvent = Platform.Instance.InputAggregator.GetEvent<LocationEvent>();
+			Vector2 cursor = locationEvent.Location - _metrics.GetMenuOffset();
 
-			if ( Platform.Instance.Input.PointerDelta.Length() > 0 )
+			if ( locationEvent.Delta.Length() > 0 )
 			{
 				if ( PointIntersectsMenuItem( cursor, MenuItem.Continue ) )
 				{

@@ -40,7 +40,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\x86\Debug</OutputPath>
-    <DefineConstants>TRACE;DEBUG;WINDOWS;USE_GEARSET;ALLOW_HACKS</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;WINDOWS;XNA;ALLOW_HACKS</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoStdLib>true</NoStdLib>
@@ -52,7 +52,7 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\x86\Release</OutputPath>
-    <DefineConstants>TRACE;WINDOWS</DefineConstants>
+    <DefineConstants>TRACE;WINDOWS;XNA</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoStdLib>true</NoStdLib>
@@ -63,7 +63,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug_LEVEL_LOADING|x86'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\x86\Debug_LEVEL_LOADING\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;WINDOWS;USE_GEARSET;TEST_LEVEL_LOADING</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;WINDOWS;XNA;TEST_LEVEL_LOADING</DefineConstants>
     <NoStdLib>true</NoStdLib>
     <DebugType>full</DebugType>
     <PlatformTarget>x86</PlatformTarget>
@@ -73,7 +73,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug_MODEL_VIEW|x86'">
     <OutputPath>bin\x86\Debug_MODEL_VIEW\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;WINDOWS;USE_GEARSET;MODEL_VIEW</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;WINDOWS;XNA;MODEL_VIEW</DefineConstants>
     <PlatformTarget>x86</PlatformTarget>
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <DebugType>full</DebugType>
@@ -82,7 +82,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug_EDITOR|x86'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\x86\Debug_EDITOR\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;WINDOWS;USE_GEARSET;ALLOW_HACKS;EDITOR</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;WINDOWS;XNA;ALLOW_HACKS;EDITOR</DefineConstants>
     <NoStdLib>true</NoStdLib>
     <DebugType>full</DebugType>
     <PlatformTarget>x86</PlatformTarget>
@@ -93,7 +93,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug_TUTORIAL|x86'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\x86\Debug_TUTORIAL\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;WINDOWS;USE_GEARSET;ALLOW_HACKS;TUTORIAL</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;WINDOWS;XNA;ALLOW_HACKS;TUTORIAL</DefineConstants>
     <NoStdLib>true</NoStdLib>
     <DebugType>full</DebugType>
     <PlatformTarget>x86</PlatformTarget>
@@ -272,6 +272,10 @@
     <ProjectReference Include="..\FarseerPhysics\FarseerPhysics.csproj">
       <Project>{0a850700-1abb-4288-a391-6726b90ebeb9}</Project>
       <Name>FarseerPhysics</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnifiedInputSystem\UnifiedInputSystem.csproj">
+      <Project>{362144c7-b8ad-433d-b0fb-1849dd7afe26}</Project>
+      <Name>UnifiedInputSystem</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

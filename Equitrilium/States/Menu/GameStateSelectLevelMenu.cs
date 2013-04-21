@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
+using UnifiedInputSystem.Events;
 using VertexArmy.Content.Prefabs;
 using VertexArmy.Global;
 using VertexArmy.Global.Managers;
@@ -16,7 +17,7 @@ namespace VertexArmy.States.Menu
 		private int _selectedCubeIndex;
 		private MenuCube _activeCube;
 		private Vector3 _lightPos = new Vector3( 0, 40000, 20000 );
-		private SceneNode _lastNodeUnderPointer = null;
+		private SceneNode _lastNodeUnderPointer;
 
 		private readonly float _cubeRotationDelta = MathHelper.ToRadians( 0.5f );
 
@@ -35,9 +36,10 @@ namespace VertexArmy.States.Menu
 
 			SceneNode nodeUnderPointer = null;
 
-			if ( Platform.Instance.Input.PointerDelta.Length() > 0 )
+			var locationEvent = Platform.Instance.InputAggregator.GetEvent<LocationEvent>();
+			if ( locationEvent.Delta.Length() > 0 )
 			{
-				List<SceneNode> nodes = SceneManager.Instance.IntersectScreenRayWithSceneNodes( Platform.Instance.Input.PointerPosition );
+				List<SceneNode> nodes = SceneManager.Instance.IntersectScreenRayWithSceneNodes( locationEvent.Location );
 				if ( nodes.Count > 0 )
 				{
 					nodeUnderPointer = nodes[0];
@@ -91,7 +93,7 @@ namespace VertexArmy.States.Menu
 			}
 
 			if ( Platform.Instance.Input.IsKeyPressed( Keys.Back, false ) ||
-			     Platform.Instance.Input.IsKeyPressed( Keys.Escape, false ) )
+				 Platform.Instance.Input.IsKeyPressed( Keys.Escape, false ) )
 			{
 				StateManager.Instance.ChangeState( GameState.Menu );
 			}
@@ -100,7 +102,7 @@ namespace VertexArmy.States.Menu
 		private void ActivateSelectedItem()
 		{
 			if ( _activeCube.Items != null &&
-			     _activeCube.Items.Count > 0 )
+				 _activeCube.Items.Count > 0 )
 			{
 				_activeCube.Items[0].Activate();
 			}
@@ -152,7 +154,7 @@ namespace VertexArmy.States.Menu
 			};
 			lockedLevel1Cube.Spawn( 0f );
 
-			
+
 
 			//var lockedLevel2Cube = CreateLevelMenuCube( "level_cube_locked_text" );
 			//lockedLevel2Cube.Spawn( 50f );

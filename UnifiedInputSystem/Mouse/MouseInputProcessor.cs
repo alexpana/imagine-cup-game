@@ -25,7 +25,7 @@ namespace UnifiedInputSystem.Mouse
 		public void Update( Time time )
 		{
 			_inputStream.Update( time );
-			_currentPayload = _previousPayload;
+			_currentPayload = _inputStream.GetState();
 
 			List<IInputEvent> events = new List<IInputEvent>();
 

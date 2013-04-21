@@ -3,13 +3,11 @@ using FarseerPhysics.Dynamics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using UnifiedInputSystem;
 using VertexArmy.Global.Managers;
 using VertexArmy.Input;
-
 #if NETFX_CORE
 using System.IO;
-
-
 #endif
 
 namespace VertexArmy.Global
@@ -54,8 +52,8 @@ namespace VertexArmy.Global
 #endif
 		}
 
-
 		public IInputSystem Input { get; set; }
+		public InputAggregator InputAggregator { get; set; }
 
 		public World PhysicsWorld { get; set; }
 

@@ -236,9 +236,7 @@
     <Compile Include="States\GameStateTutorial.cs" />
     <Compile Include="States\GameStatePhysicsRobot.cs" />
     <Compile Include="States\GameState.cs" />
-    <Compile Include="States\GameStateLevelLoading.cs" />
     <Compile Include="States\IGameState.cs" />
-    <Compile Include="States\GameStateLoading.cs" />
     <Compile Include="States\Menu\BaseMenuGameState.cs" />
     <Compile Include="States\Menu\GameStateSelectLevelMenu.cs" />
     <Compile Include="States\Menu\SwitchMenuItem.cs" />
@@ -251,7 +249,6 @@
     <Compile Include="States\GameStateModelViewer.cs" />
     <Compile Include="States\GameStatePaused.cs" />
     <Compile Include="Global\Platform.cs" />
-    <Compile Include="States\GameStateRoomPreview.cs" />
     <Compile Include="Utilities\DictionaryExtensions.cs" />
     <Compile Include="Utilities\RandomExtensions.cs" />
     <Compile Include="Utilities\TransformUtility.cs" />

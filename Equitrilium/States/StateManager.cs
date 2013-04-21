@@ -64,18 +64,12 @@ namespace VertexArmy.States
 		{
 			switch ( state )
 			{
-				case GameState.Loading:
-					return new GameStateLoading( contentManager );
 				case GameState.Menu:
 					return new GameStateMenu( contentManager );
 				case GameState.Pause:
 					return new GameStatePaused( contentManager );
-				case GameState.RoomPreview:
-					return new GameStateRoomPreview( contentManager );
 				case GameState.ModelView:
 					return new GameStateModelViewer( contentManager );
-				case GameState.LevelLoading:
-					return new GameStateLevelLoading( contentManager );
 				case GameState.PhysicsPresentationRobot:
 					return new GameStatePhysicsRobot( contentManager );
 				case GameState.TutorialLevel:

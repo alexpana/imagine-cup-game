@@ -442,12 +442,6 @@
     <Compile Include="..\Equitrilium\States\GameStateEditor.cs">
       <Link>States\GameStateEditor.cs</Link>
     </Compile>
-    <Compile Include="..\Equitrilium\States\GameStateLevelLoading.cs">
-      <Link>States\GameStateLevelLoading.cs</Link>
-    </Compile>
-    <Compile Include="..\Equitrilium\States\GameStateLoading.cs">
-      <Link>States\GameStateLoading.cs</Link>
-    </Compile>
     <Compile Include="..\Equitrilium\States\GameStateModelViewer.cs">
       <Link>States\GameStateModelViewer.cs</Link>
     </Compile>
@@ -456,9 +450,6 @@
     </Compile>
     <Compile Include="..\Equitrilium\States\GameStatePhysicsRobot.cs">
       <Link>States\GameStatePhysicsRobot.cs</Link>
-    </Compile>
-    <Compile Include="..\Equitrilium\States\GameStateRoomPreview.cs">
-      <Link>States\GameStateRoomPreview.cs</Link>
     </Compile>
     <Compile Include="..\Equitrilium\States\GameStateTutorial.cs">
       <Link>States\GameStateTutorial.cs</Link>

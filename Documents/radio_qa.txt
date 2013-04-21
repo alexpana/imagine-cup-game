@@ -1,0 +1,38 @@
+Cum ati inceput sa lucrati la proiect?
+---------------------------------------------------------------
+La inceputul verii trecute, mama mea imi arata la televizor o stire despre echipa care a castigat finala globala maginecup. Stiam despre ce este vorba, si imi propusesem la inceputul facultatii sa particip, dar am amanat in fiecare an gandindu-ma ca nu am suficienta experienta.
+Anul asta a fost diferit. Am realizat doua lucruri: primul este ca timpul trece si voi ajunge sa termin facultatea fara sa particip, iar al doilea a fost ca experienta sa formeaza incercand. Daca nu particip niciodata, nu castig experienta. Iar daca as participa in ultimul an de facultate, as putea avea suprize la partea de organizare. M-am decis ca indiferent daca castigam sau nu, cu siguranta castigam experienta pentru anul viitor.
+
+De ce un joc?
+---------------------------------------------------------------
+Fiecare din membrii echipei a avut cel putin o experienta deosebita cu un joc. Personal, eu consider jocurile sa fie o forma de arta si as vrea sa discut putin despre asta. Arta este considerat mediul prin care oamenii transmit sentimente. Printre altele puten enumera literatura, artele plastice ca pictura si sculptura si nu in ultimul rand muzica. Daca ne gandim putin, jocurile contin toate aceste forme de arta in diverse proportii bineinteles. Povestile care stau in spatele unor jocuri sunt adevarate opere literare. Unele povesti sunt complet originale, altele inspirate din literatura ????. Artele plastice sunt cel mai evident reprezentate prin grafica. Fie ca este 2D sau 3D, am avut ocazia sa privesc jocuri care sunt nimic mai putin decat capodopere artistice. Muzica este intotdeauna acolo. Se schimba dupa cum atmosfera jocului, completeaza momentele dramatice, anticipeaza pericolul samd. Unele jocuri au coloana sonora interpretata de orchestre reale. Altele sunt sintetizate prin software de catre unul sau doi oameni. Cert este ca in compania jocului se publica des si coloana sonora. Toate aceste arte impreuna au o forta extraordinara. Jocurile au puterea de a transmite mesaje profunde si fiecare dintre noi a simtit aceast lucru intr-un fel sau altul. Arta transmite mesaje diferite fiecarei persoane.
+
+Ne puteti da exemple de jocuri care v-au afectat in asa mod?
+---------------------------------------------------------------
+Witcher...
+
+Despre ce este jocul vostru?
+---------------------------------------------------------------
+Despre un robotel caruia noi ii zicem Ed.
+
+Cum v-a venit idea de joc?
+---------------------------------------------------------------
+A fost un proces evolutiv. Ne-a luat cea mai mare parte din timp sa gasim o idee potrivita. Cautam ceva simplu, usor de inteles si de invatat, distractiv, care sa stimuleze creativitatea si imaginatia. In plus, cautam ceva care sa poata fi extins dupa ce povestea originala se termina ( adica sa poata fi jucat in continuare cu alt set de puzzle-uri ). Consideram ca acestea sunt cele mai importante aspecte si am reusit sa le atingem. Ideea originala a pornit de la o lume bidimensionala care sa fie simulata fizic. Apoi am avut tot felul de idei, unele am incercat sa le implementam, altele nu. Unele au fost adaptate si transformate, si nici noi nu mai tinem minte exact drumul pe care am ajuns aici. Ce e cert e ca undeva la fundatia tuturor ideilor au stat patratele. Una din idei a fost sa avem un roi de patrate pe care le controlezi si pe care le poti folosi pentru a construi componente. In fine, pastram unele idei pentru jocurile viitoare.
+
+Ce v-a motivat pe parcurs?
+---------------------------------------------------------------
+Pe parcurs ne-am motivat reciproc. Asta a tinut echipa impreuna. Fiind patru membrii, in fiecare situatie se gasea cineva care sa-i impinga pe ceilalti de la spate. Pentru mine acea persoana a fost, de foarte multe ori, Andi. Nu cred ca am fi ajuns nicaieri fara pisalogelile lui. Nu in ultimul rand am fost motivati de progresul jocului. Am avut o dezvoltare iterativa, adica dupa fiecare zi in care lucram la joc impreuna se vedeau imbunatatirile. Jocul devenea mai frumos, mai jucabil, mai distractiv. In timp ce-l jucam ne veneau idei despre cum sa-l imbunatatim. Ideile le sortam, le ordonam in functie de prioritate, si apoi le implementam la urmatoarea sesiune de programare.
+
+Cum vi s-a parut experienta Imagine Cup? -- HELP NEEDED
+---------------------------------------------------------------
+Extraordinara. Nimic nu se compara cu satisfactia pe care o ai cand cineva iti apreciaza munca. Am avut oameni care inainte de prezentare au venit la noi pentru a incerca jocul
+
+Ce planuri de viitor aveti?
+---------------------------------------------------------------
+
+Credeti ca veti trece de etapa online? De ce?
+---------------------------------------------------------------
+ImagineCup Info
+Deja cu o traditie de unsprezece ani in Romania, Imagine Cup este cea mai importanta competitie de tehnologie adresata studentilor. In fiecare an, competitia le ofera tinerilor posibilitatea de a rezolva unele dintre cele mai importante probleme ale lumii cu ajutorul tehnologiilor digitale si, in acelasi timp, contribuie la crearea de noi start-up-uri în economie. In 2013, finala globala Imagine Cup va avea loc în St. Petersburg, în perioada 8 – 11 iulie.
+
+Microsoft ofera granturi de peste 300.000 $ pentru castigatorii concursului, iar anii trecuti ne-au aratat ca studentii romani sunt pregatiti sa urce pe podium. De altfel, echipele din Romania au fost prezente printre finalisti in mare parte din cele 11 editii ale Imagine Cup desfasurate pana acum.

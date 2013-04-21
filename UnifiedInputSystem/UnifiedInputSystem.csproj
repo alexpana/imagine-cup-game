@@ -60,6 +60,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Events\GestureEvent.cs" />
+    <Compile Include="Events\GestureSource.cs" />
     <Compile Include="Events\GestureType.cs" />
     <Compile Include="Events\IInputEvent.cs" />
     <Compile Include="Events\InputAggregatorGestureExtensions.cs" />

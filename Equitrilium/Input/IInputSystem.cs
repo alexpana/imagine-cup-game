@@ -13,7 +13,7 @@ namespace VertexArmy.Input
 		//		bool WasRightPointerPressed { get; }
 
 		//bool IsLeftPointerFirstTimePressed { get; }
-		//bool IsRightPointerFirstTimePressed { get; }
+		bool IsRightPointerFirstTimePressed { get; }
 
 		//Vector2 PointerPosition { get; }
 		//Vector2 PointerDelta { get; }

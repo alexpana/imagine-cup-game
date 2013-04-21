@@ -102,6 +102,9 @@
     <Compile Include="..\UnifiedInputSystem\Events\GestureEvent.cs">
       <Link>Events\GestureEvent.cs</Link>
     </Compile>
+    <Compile Include="..\UnifiedInputSystem\Events\GestureSource.cs">
+      <Link>Events\GestureSource.cs</Link>
+    </Compile>
     <Compile Include="..\UnifiedInputSystem\Events\GestureType.cs">
       <Link>Events\GestureType.cs</Link>
     </Compile>

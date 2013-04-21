@@ -37,7 +37,14 @@ namespace UnifiedInputSystem.Mouse
 			{
 				GestureType gesture = _previousPayload.LeftButtonPressed ? GestureType.HoldActivate : GestureType.Activate;
 
-				events.Add( new GestureEvent( gesture, _currentPayload.Position ) );
+				events.Add( new GestureEvent( gesture, GestureSource.Left, _currentPayload.Position ) );
+			}
+
+			if ( _currentPayload.RightButtonPressed )
+			{
+				GestureType gesture = _previousPayload.RightButtonPressed ? GestureType.HoldActivate : GestureType.Activate;
+
+				events.Add( new GestureEvent( gesture, GestureSource.Right, _currentPayload.Position ) );
 			}
 
 			_lastEvents = events;

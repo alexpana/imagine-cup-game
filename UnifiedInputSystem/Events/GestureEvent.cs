@@ -1,5 +1,4 @@
-﻿
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 
 namespace UnifiedInputSystem.Events
 {
@@ -8,10 +7,11 @@ namespace UnifiedInputSystem.Events
 	/// </summary>
 	public class GestureEvent : IInputEvent
 	{
-		public GestureEvent( GestureType type, Vector2 position )
+		public GestureEvent( GestureType type, GestureSource source, Vector2 position )
 		{
 			Gesture = type;
 			Location = position;
+			Source = source;
 		}
 
 		/// <summary>
@@ -23,5 +23,10 @@ namespace UnifiedInputSystem.Events
 		/// The location where the gesture has happened
 		/// </summary>
 		public Vector2 Location { get; private set; }
+
+		/// <summary>
+		/// The source of the gesture
+		/// </summary>
+		public GestureSource Source { get; private set; }
 	}
 }

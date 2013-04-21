@@ -174,7 +174,8 @@ namespace VertexArmy.Global.Managers
 		{
 			CheckSelectedItem();
 
-			if ( Platform.Instance.Input.IsLeftPointerFirstTimePressed || Platform.Instance.Input.IsKeyPressed( Keys.Enter, false ) )
+			if ( Platform.Instance.InputAggregator.GetGesture( GestureType.Activate ) != null ||
+				Platform.Instance.Input.IsKeyPressed( Keys.Enter, false ) )
 			{
 				CallbackSelection();
 			}

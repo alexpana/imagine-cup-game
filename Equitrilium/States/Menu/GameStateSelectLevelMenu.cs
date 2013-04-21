@@ -87,7 +87,8 @@ namespace VertexArmy.States.Menu
 				ActivateSelectedItem();
 			}
 
-			if ( Platform.Instance.Input.IsLeftPointerFirstTimePressed && _lastNodeUnderPointer != null )
+			if ( Platform.Instance.InputAggregator.GetGesture( GestureType.Activate ) != null &&
+				_lastNodeUnderPointer != null )
 			{
 				ActivateSelectedItem();
 			}

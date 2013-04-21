@@ -33,6 +33,13 @@ namespace UnifiedInputSystem.Mouse
 				_currentPayload.Position,
 				_currentPayload.Position - _previousPayload.Position ) );
 
+			if ( _currentPayload.LeftButtonPressed )
+			{
+				GestureType gesture = _previousPayload.LeftButtonPressed ? GestureType.HoldActivate : GestureType.Activate;
+
+				events.Add( new GestureEvent( gesture, _currentPayload.Position ) );
+			}
+
 			_lastEvents = events;
 			_previousPayload = _currentPayload;
 		}

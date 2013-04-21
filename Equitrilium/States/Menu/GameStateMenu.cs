@@ -86,10 +86,10 @@ namespace VertexArmy.States.Menu
 
 		private void HandleMouseInput()
 		{
-			if ( _platform.Input.IsLeftPointerFirstTimePressed )
+			var gestureEvent = _platform.InputAggregator.GetGesture( GestureType.Activate );
+			if ( gestureEvent != null )
 			{
-				var locationEvent = _platform.InputAggregator.GetEvent<LocationEvent>();
-				List<SceneNode> nodes = SceneManager.Instance.IntersectScreenRayWithSceneNodes( locationEvent.Location );
+				List<SceneNode> nodes = SceneManager.Instance.IntersectScreenRayWithSceneNodes( gestureEvent.Location );
 				if ( nodes.Count > 0 )
 				{
 					ActivateSelectedItem();

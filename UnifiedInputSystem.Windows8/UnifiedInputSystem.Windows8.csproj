@@ -99,8 +99,17 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="..\UnifiedInputSystem\Events\GestureEvent.cs">
+      <Link>Events\GestureEvent.cs</Link>
+    </Compile>
+    <Compile Include="..\UnifiedInputSystem\Events\GestureType.cs">
+      <Link>Events\GestureType.cs</Link>
+    </Compile>
     <Compile Include="..\UnifiedInputSystem\Events\IInputEvent.cs">
       <Link>Events\IInputEvent.cs</Link>
+    </Compile>
+    <Compile Include="..\UnifiedInputSystem\Events\InputAggregatorGestureExtensions.cs">
+      <Link>Events\InputAggregatorGestureExtensions.cs</Link>
     </Compile>
     <Compile Include="..\UnifiedInputSystem\Events\LocationEvent.cs">
       <Link>Events\LocationEvent.cs</Link>

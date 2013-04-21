@@ -41,21 +41,21 @@ namespace UnifiedInputSystem
 		/// <summary>
 		/// Gets the first event of the specified type, or null if none exists
 		/// </summary>
-		/// <typeparam name="T">The type of the input event to filter by</typeparam>
+		/// <typeparam name="TEventType">The type of the input event to filter by</typeparam>
 		/// <returns>An <see cref="IInputEvent"/> or null if none exists</returns>
-		public T GetEvent<T>() where T : IInputEvent
+		public TEventType GetEvent<TEventType>() where TEventType : IInputEvent
 		{
-			return GetEvents<T>().FirstOrDefault();
+			return GetEvents<TEventType>().FirstOrDefault();
 		}
 
 		/// <summary>
 		/// Gets all events of the specified type
 		/// </summary>
-		/// <typeparam name="T">The type of the input event to filter by</typeparam>
+		/// <typeparam name="TEventType">The type of the input event to filter by</typeparam>
 		/// <returns>A list of <see cref="IInputEvent"/>s</returns>
-		public IEnumerable<T> GetEvents<T>() where T : IInputEvent
+		public IEnumerable<TEventType> GetEvents<TEventType>() where TEventType : IInputEvent
 		{
-			return _processors.SelectMany( p => p.GetEvents().OfType<T>() );
+			return _processors.SelectMany( p => p.GetEvents().OfType<TEventType>() );
 		}
 
 		/// <summary>

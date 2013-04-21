@@ -1,6 +1,8 @@
-﻿using Microsoft.Xna.Framework;
+﻿#if XNA
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using XnaMouse = Microsoft.Xna.Framework.Input.Mouse;
+#endif
 
 namespace UnifiedInputSystem.Mouse
 {
@@ -10,6 +12,7 @@ namespace UnifiedInputSystem.Mouse
 
 		public void Update( Time time )
 		{
+#if XNA
 			var state = XnaMouse.GetState();
 
 			_currentPayload = new MousePayload
@@ -19,6 +22,9 @@ namespace UnifiedInputSystem.Mouse
 				RightButtonPressed = state.RightButton == ButtonState.Pressed,
 				ScrollDelta = state.ScrollWheelValue
 			};
+#else
+			throw new System.NotImplementedException("No implementation for this platform!");
+#endif
 		}
 
 		public MousePayload GetState()

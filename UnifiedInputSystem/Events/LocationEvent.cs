@@ -2,13 +2,16 @@
 
 namespace UnifiedInputSystem.Events
 {
-	public class LocationEvent : IInputEvent
+	public struct LocationEvent : IInputEvent
 	{
-		public LocationEvent( Vector2 location )
+		public LocationEvent( Vector2 location, Vector2 delta )
+			: this()
 		{
+			Delta = delta;
 			Location = location;
 		}
 
 		public Vector2 Location { get; private set; }
+		public Vector2 Delta { get; private set; }
 	}
 }

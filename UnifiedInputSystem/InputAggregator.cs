@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using UnifiedInputSystem.Events;
 
 namespace UnifiedInputSystem
 {
@@ -22,6 +24,11 @@ namespace UnifiedInputSystem
 			{
 				inputProcessor.Update( time );
 			}
+		}
+
+		public T GetEvent<T>() where T : IInputEvent
+		{
+			return _processors.SelectMany( p => p.GetEvents().OfType<T>() ).FirstOrDefault();
 		}
 	}
 }

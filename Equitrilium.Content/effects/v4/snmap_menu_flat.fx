@@ -68,8 +68,7 @@ sampler2D TextMapSampler = sampler_state
 	MipFilter = linear;
 	AddressU = Wrap;
     AddressV = Wrap;
-	//TODO check this
-	// MipLODBias = -1;
+	MipLODBias = -1;
 };
 
 VertexShaderOutput main_VS(VertexShaderInput input)

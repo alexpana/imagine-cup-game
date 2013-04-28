@@ -33,8 +33,7 @@ sampler2D ColorMapSampler = sampler_state
 	MipFilter = linear;
 	AddressU = Wrap;
     AddressV = Wrap;
-	//TODO: check this
-	//MipLODBias = -1;
+	MipLODBias = -1;
 };
 
 texture2D NormalMap;
@@ -44,8 +43,7 @@ sampler2D NormalMapSampler = sampler_state
 	MinFilter = linear;
 	MagFilter = linear;
 	MipFilter = linear;
-	//TODO: check this
-	//MipLODBias = -1;
+	MipLODBias = -1;
 };
 
 texture2D SpecularMap;
@@ -66,8 +64,7 @@ sampler2D TextMapSampler = sampler_state
 	MipFilter = linear;
 	AddressU = Wrap;
     AddressV = Wrap;
-	//TODO: check this
-	//MipLODBias = -1;
+	MipLODBias = -1;
 };
 
 VertexShaderOutput main_VS(VertexShaderInput input)

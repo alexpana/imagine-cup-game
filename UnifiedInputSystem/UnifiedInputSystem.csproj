@@ -64,7 +64,7 @@
     <Compile Include="Events\GestureType.cs" />
     <Compile Include="Events\IInputEvent.cs" />
     <Compile Include="Events\InputAggregatorGestureExtensions.cs" />
-    <Compile Include="Events\LocationEvent.cs" />
+    <Compile Include="Events\MovementEvent.cs" />
     <Compile Include="IInputProcessor.cs" />
     <Compile Include="IInputStream.cs" />
     <Compile Include="InputAggregator.cs" />

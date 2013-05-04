@@ -134,7 +134,7 @@ namespace VertexArmy.Global.Managers
 
 		private void CheckSelectedItem()
 		{
-			var locationEvent = Platform.Instance.InputAggregator.GetEvent<LocationEvent>();
+			var locationEvent = Platform.Instance.InputAggregator.GetEvent<MovementEvent>();
 			if ( locationEvent != null && locationEvent.Delta.Length() > 0 )
 			{
 				Vector2 cursor = locationEvent.Location - _metrics.GetMenuOffset();

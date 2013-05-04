@@ -29,7 +29,7 @@ namespace UnifiedInputSystem.Mouse
 
 			List<IInputEvent> events = new List<IInputEvent>();
 
-			events.Add( new LocationEvent(
+			events.Add( new MovementEvent(
 				_currentPayload.Position,
 				_currentPayload.Position - _previousPayload.Position ) );
 

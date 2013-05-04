@@ -1,5 +1,5 @@
 ﻿
-namespace UnifiedInputSystem.Events
+namespace UnifiedInputSystem.Input
 {
 	//TODO: get a better name (or a better representation)
 	/// <summary>

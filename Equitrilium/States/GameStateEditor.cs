@@ -3,12 +3,14 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Input;
+using UnifiedInputSystem;
+using UnifiedInputSystem.Extensions;
+using UnifiedInputSystem.Input;
 using VertexArmy.Content.Prefabs;
 using VertexArmy.GameWorld;
 using VertexArmy.Global;
 using VertexArmy.Global.Controllers;
 using VertexArmy.Global.Managers;
-using VertexArmy.Input;
 using VertexArmy.Physics.DebugView;
 using VertexArmy.Utilities;
 
@@ -34,7 +36,7 @@ namespace VertexArmy.States
 		private bool _levelLoaded;
 		private bool _saveAction;
 		private string _levelName;
-		private readonly IInputSystem _inputSystem;
+		private readonly InputAggregator _inputAggregator;
 
 		private float _debugViewGridstep;
 		private readonly Color _gridColor;
@@ -43,7 +45,7 @@ namespace VertexArmy.States
 		{
 			_contentManager = content;
 			_saveAction = false;
-			_inputSystem = Platform.Instance.Input;
+			_inputAggregator = Platform.Instance.InputAggregator;
 			_debugViewGridstep = UnitsConverter.ToSimUnits( 1f );
 			_gridColor = new Color( 128, 128, 128, 80 );
 			_debugViewGrid = true;
@@ -88,18 +90,18 @@ namespace VertexArmy.States
 				_actionToggleDebugView = false;
 			}
 
-			if ( _inputSystem.IsKeyPressed( Keys.G, false ) )
+			if ( _inputAggregator.HasEvent( Button.G, true ) )
 			{
 				_debugViewGrid = !_debugViewGrid;
 			}
 
 			// debug view segments
 			_debugViewGridstep = UnitsConverter.ToSimUnits( 1f );
-			if ( _inputSystem.IsKeyPressed( Keys.LeftControl ) || _inputSystem.IsKeyPressed( Keys.RightControl ) )
+			if ( _inputAggregator.HasEvent( Button.LeftControl ) || _inputAggregator.HasEvent( Button.RightControl ) )
 			{
 				_debugViewGridstep *= 2f;
 			}
-			else if ( _inputSystem.IsKeyPressed( Keys.LeftShift ) || _inputSystem.IsKeyPressed( Keys.RightShift ) )
+			else if ( _inputAggregator.HasEvent( Button.LeftShift ) || _inputAggregator.HasEvent( Button.RightShift ) )
 			{
 				_debugViewGridstep *= 0.1f;
 			}

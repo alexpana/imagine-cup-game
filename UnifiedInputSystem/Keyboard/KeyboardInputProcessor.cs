@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.Specialized;
 using UnifiedInputSystem.Events;
+using UnifiedInputSystem.Input;
 
 namespace UnifiedInputSystem.Keyboard
 {
@@ -32,11 +33,11 @@ namespace UnifiedInputSystem.Keyboard
 
 			var state = _inputStream.GetState();
 
-			List<KeyValuePair<Buttons, bool>> buttons = new List<KeyValuePair<Buttons, bool>>();
+			List<KeyValuePair<Button, bool>> buttons = new List<KeyValuePair<Button, bool>>();
 			foreach ( var button in state.Buttons )
 			{
 				_currentKeys[( int ) button] = true;
-				buttons.Add( new KeyValuePair<Buttons, bool>( button, _previousKeys[( int ) button] ) );
+				buttons.Add( new KeyValuePair<Button, bool>( button, _previousKeys[( int ) button] ) );
 			}
 
 			_lastEvents = new List<IInputEvent> { new ButtonsPressedEvent( buttons ) };

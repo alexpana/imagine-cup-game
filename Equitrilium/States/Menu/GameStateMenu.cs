@@ -4,9 +4,8 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.Input;
-using UnifiedInputSystem.Events;
 using UnifiedInputSystem.Extensions;
+using UnifiedInputSystem.Input;
 using VertexArmy.Content.Prefabs;
 using VertexArmy.Global;
 using VertexArmy.Global.Managers;
@@ -108,20 +107,20 @@ namespace VertexArmy.States.Menu
 
 		private void HandleKeyboardInput()
 		{
-			if ( _platform.Input.IsKeyPressed( Keys.Left, false ) )
+			if ( _platform.InputAggregator.HasEvent( Button.Left, true ) )
 			{
 				_activeCube.SelectPreviousItem();
 			}
-			else if ( _platform.Input.IsKeyPressed( Keys.Right, false ) )
+			else if ( _platform.InputAggregator.HasEvent( Button.Right, true ) )
 			{
 				_activeCube.SelectNextItem();
 			}
-			else if ( _platform.Input.IsKeyPressed( Keys.Enter, false ) )
+			else if ( _platform.InputAggregator.HasEvent( Button.Enter, true ) )
 			{
 				ActivateSelectedItem();
 			}
-			else if ( _platform.Input.IsKeyPressed( Keys.Escape, false ) ||
-					  _platform.Input.IsKeyPressed( Keys.Back, false ) )
+			else if ( _platform.InputAggregator.HasEvent( Button.Escape, true ) ||
+					  _platform.InputAggregator.HasEvent( Button.Back, true ) )
 			{
 				if ( _activeCube.PreviousMenu != null )
 				{

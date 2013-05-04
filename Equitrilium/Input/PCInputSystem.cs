@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
+
 namespace VertexArmy.Input
 {
 	/// <summary>

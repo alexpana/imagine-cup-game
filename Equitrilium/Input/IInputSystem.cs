@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
+
 
 namespace VertexArmy.Input
 {
@@ -19,6 +19,6 @@ namespace VertexArmy.Input
 		//Vector2 PointerDelta { get; }
 		int ScrollDelta { get; }
 
-		bool IsKeyPressed( Keys key, bool continuous = true );
+		//bool IsKeyPressed( Keys key, bool continuous = true );
 	}
 }

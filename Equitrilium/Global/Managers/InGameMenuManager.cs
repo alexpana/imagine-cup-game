@@ -1,9 +1,10 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
+
 using UnifiedInputSystem.Events;
 using UnifiedInputSystem.Extensions;
+using UnifiedInputSystem.Input;
 
 namespace VertexArmy.Global.Managers
 {
@@ -151,11 +152,11 @@ namespace VertexArmy.Global.Managers
 				}
 			}
 
-			if ( Platform.Instance.Input.IsKeyPressed( Keys.Down, false ) )
+			if ( Platform.Instance.InputAggregator.HasEvent( Button.Down, true ) )
 			{
 				MoveSelectionDown();
 			}
-			if ( Platform.Instance.Input.IsKeyPressed( Keys.Up, false ) )
+			if ( Platform.Instance.InputAggregator.HasEvent( Button.Up, true ) )
 			{
 				MoveSelectionUp();
 			}
@@ -176,7 +177,7 @@ namespace VertexArmy.Global.Managers
 			CheckSelectedItem();
 
 			if ( Platform.Instance.InputAggregator.GetGesture( GestureType.Activate ) != null ||
-				Platform.Instance.Input.IsKeyPressed( Keys.Enter, false ) )
+				Platform.Instance.InputAggregator.HasEvent( Button.Enter, true ) )
 			{
 				CallbackSelection();
 			}

@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using FarseerPhysics.Dynamics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using UnifiedInputSystem;
+using UnifiedInputSystem.Extensions;
+using UnifiedInputSystem.Input;
 using VertexArmy.GameWorld;
 using VertexArmy.Global.Behaviours;
 using VertexArmy.Global.Managers;
@@ -49,6 +52,7 @@ namespace VertexArmy.Global.Controllers
 		private readonly float _specialRotationSmallOperator;
 
 		private readonly IInputSystem _inputSystem;
+		private readonly InputAggregator _inputAggregator;
 		private const float OperationSmallIncrement = 0.1f;
 		private const float OperationBigIncrement = 2f;
 
@@ -68,6 +72,7 @@ namespace VertexArmy.Global.Controllers
 			_specialRotationBigOperator = ( float ) ( Math.PI / 6f );
 			_specialRotationSmallOperator = ( float ) ( Math.PI / 18f );
 
+			_inputAggregator = Platform.Instance.InputAggregator;
 			_inputSystem = Platform.Instance.Input;
 		}
 
@@ -182,11 +187,11 @@ namespace VertexArmy.Global.Controllers
 
 				if ( !newPosition.Equals( _selectedEntity.GetPosition() ) )
 				{
-					if ( _inputSystem.IsKeyPressed( Keys.LeftControl ) || _inputSystem.IsKeyPressed( Keys.RightControl ) )
+					if ( _inputAggregator.HasEvent( Button.LeftControl ) || _inputAggregator.HasEvent( Button.RightControl ) )
 					{
 						newPosition = TransformUtility.SnapToGridXY( newPosition, OperationBigIncrement );
 					}
-					else if ( _inputSystem.IsKeyPressed( Keys.LeftShift ) || _inputSystem.IsKeyPressed( Keys.RightShift ) )
+					else if ( _inputAggregator.HasEvent( Button.LeftShift ) || _inputAggregator.HasEvent( Button.RightShift ) )
 					{
 						newPosition = TransformUtility.SnapToGridXY( newPosition, OperationSmallIncrement );
 					}
@@ -203,39 +208,39 @@ namespace VertexArmy.Global.Controllers
 				Vector3 move = Vector3.Zero;
 				float snapStep = 1f;
 
-				if ( _inputSystem.IsKeyPressed( Keys.Up ) )
+				if ( _inputAggregator.HasEvent( Button.Up ) )
 				{
 					move += Vector3.UnitY;
 				}
-				else if ( _inputSystem.IsKeyPressed( Keys.Down ) )
+				else if ( _inputAggregator.HasEvent( Button.Down ) )
 				{
 					move -= Vector3.UnitY;
 				}
 
-				if ( _inputSystem.IsKeyPressed( Keys.Left ) )
+				if ( _inputAggregator.HasEvent( Button.Left ) )
 				{
 					move -= Vector3.UnitX;
 				}
-				else if ( _inputSystem.IsKeyPressed( Keys.Right ) )
+				else if ( _inputAggregator.HasEvent( Button.Right ) )
 				{
 					move += Vector3.UnitX;
 				}
 
-				if ( _inputSystem.IsKeyPressed( Keys.OemMinus ) )
+				if ( _inputAggregator.HasEvent( Button.Minus ) )
 				{
 					move -= Vector3.UnitZ;
 				}
-				else if ( _inputSystem.IsKeyPressed( Keys.OemPlus ) )
+				else if ( _inputAggregator.HasEvent( Button.Plus ) )
 				{
 					move += Vector3.UnitZ;
 				}
 
-				if ( _inputSystem.IsKeyPressed( Keys.LeftControl ) || _inputSystem.IsKeyPressed( Keys.RightControl ) )
+				if ( _inputAggregator.HasEvent( Button.LeftControl ) || _inputAggregator.HasEvent( Button.RightControl ) )
 				{
 					move *= OperationBigIncrement;
 					snapStep = OperationBigIncrement;
 				}
-				else if ( _inputSystem.IsKeyPressed( Keys.LeftShift ) || _inputSystem.IsKeyPressed( Keys.RightShift ) )
+				else if ( _inputAggregator.HasEvent( Button.LeftShift ) || _inputAggregator.HasEvent( Button.RightShift ) )
 				{
 					move *= OperationSmallIncrement;
 					snapStep = OperationSmallIncrement;
@@ -243,7 +248,7 @@ namespace VertexArmy.Global.Controllers
 
 				if ( !move.Equals( Vector3.Zero ) )
 				{
-					if ( _inputSystem.IsKeyPressed( Keys.Q ) )
+					if ( _inputAggregator.HasEvent( Button.Q ) )
 					{
 						move *= 5;
 					}
@@ -274,39 +279,39 @@ namespace VertexArmy.Global.Controllers
 
 				Quaternion externalRotation = Quaternion.Identity;
 
-				if ( _inputSystem.IsKeyPressed( Keys.Left ) )
+				if ( _inputAggregator.HasEvent( Button.Left ) )
 				{
 					rotate -= ( float ) dt.ElapsedGameTime.TotalSeconds / 4f;
 				}
-				else if ( _inputSystem.IsKeyPressed( Keys.Right ) )
+				else if ( _inputAggregator.HasEvent( Button.Right ) )
 				{
 					rotate += ( float ) dt.ElapsedGameTime.TotalSeconds / 4f;
 					;
 				}
 
 				/* TODO
-				if ( Keyboard.GetState().IsKeyDown( Keys.I ) )
+				if ( Keyboard.GetState().IsKeyDown( Buttons.I ) )
 				{
 					externalRotation = Quaternion.Slerp( _selectedEntity.GetExternalRotation(), Quaternion.CreateFromAxisAngle( Vector3.UnitY, 0f ), ( float ) ( dt.ElapsedGameTime.TotalMilliseconds / 120f ) );
 				}
-				else if ( Keyboard.GetState().IsKeyDown( Keys.O ) )
+				else if ( Keyboard.GetState().IsKeyDown( Buttons.O ) )
 				{
 					externalRotation = Quaternion.Slerp( _selectedEntity.GetExternalRotation(), Quaternion.CreateFromAxisAngle( Vector3.UnitY, 84.78f ), ( float ) ( dt.ElapsedGameTime.TotalMilliseconds / 120f ) );
 				}
 				 */
 
-				if ( _inputSystem.IsKeyPressed( Keys.LeftControl ) || _inputSystem.IsKeyPressed( Keys.RightControl ) )
+				if ( _inputAggregator.HasEvent( Button.LeftControl ) || _inputAggregator.HasEvent( Button.RightControl ) )
 				{
 					rotate = Math.Sign( rotate ) * _specialRotationBigOperator;
 				}
-				else if ( _inputSystem.IsKeyPressed( Keys.LeftShift ) || _inputSystem.IsKeyPressed( Keys.RightShift ) )
+				else if ( _inputAggregator.HasEvent( Button.LeftShift ) || _inputAggregator.HasEvent( Button.RightShift ) )
 				{
 					rotate = Math.Sign( rotate ) * _specialRotationSmallOperator;
 				}
 
 				if ( rotate != 0 )
 				{
-					if ( _inputSystem.IsKeyPressed( Keys.Q ) )
+					if ( _inputAggregator.HasEvent( Button.Q ) )
 					{
 						rotate *= 5;
 					}
@@ -315,11 +320,11 @@ namespace VertexArmy.Global.Controllers
 						float lastRotation = _selectedEntity.GetRotationRadians();
 						float newRotation = lastRotation + rotate;
 
-						if ( _inputSystem.IsKeyPressed( Keys.LeftControl ) || _inputSystem.IsKeyPressed( Keys.RightControl ) )
+						if ( _inputAggregator.HasEvent( Button.LeftControl ) || _inputAggregator.HasEvent( Button.RightControl ) )
 						{
 							newRotation = _specialRotationBigOperator * ( float ) Math.Round( newRotation / _specialRotationBigOperator );
 						}
-						else if ( _inputSystem.IsKeyPressed( Keys.LeftShift ) || _inputSystem.IsKeyPressed( Keys.RightShift ) )
+						else if ( _inputAggregator.HasEvent( Button.LeftShift ) || _inputAggregator.HasEvent( Button.RightShift ) )
 						{
 							newRotation = _specialRotationSmallOperator * ( float ) Math.Round( newRotation / _specialRotationSmallOperator );
 						}
@@ -327,7 +332,7 @@ namespace VertexArmy.Global.Controllers
 						_rotateTime = dt.TotalGameTime.TotalMilliseconds;
 						_selectedEntity.SetRotation( newRotation );
 					}
-					else if ( dt.TotalGameTime.TotalMilliseconds - _rotateTime > _rotateDelay || _inputSystem.IsKeyPressed( Keys.Q ) )
+					else if ( dt.TotalGameTime.TotalMilliseconds - _rotateTime > _rotateDelay || _inputAggregator.HasEvent( Button.Q ) )
 					{
 						_selectedEntity.SetRotation( _selectedEntity.GetRotationRadians() + rotate );
 					}
@@ -345,7 +350,7 @@ namespace VertexArmy.Global.Controllers
 						_externalRotateTime = dt.TotalGameTime.TotalMilliseconds;
 						_selectedEntity.SetExternalRotation( externalRotation );
 					}
-					else if ( dt.TotalGameTime.TotalMilliseconds - _externalRotateTime > _externalRotateDelay || _inputSystem.IsKeyPressed( Keys.Q ) )
+					else if ( dt.TotalGameTime.TotalMilliseconds - _externalRotateTime > _externalRotateDelay || _inputAggregator.HasEvent( Button.Q ) )
 					{
 						_selectedEntity.SetExternalRotation( externalRotation );
 					}
@@ -363,38 +368,38 @@ namespace VertexArmy.Global.Controllers
 			{
 				Vector3 scale = Vector3.Zero;
 
-				if ( _inputSystem.IsKeyPressed( Keys.Up ) )
+				if ( _inputAggregator.HasEvent( Button.Up ) )
 				{
 					scale += Vector3.UnitY / 2;
 				}
-				else if ( _inputSystem.IsKeyPressed( Keys.Down ) )
+				else if ( _inputAggregator.HasEvent( Button.Down ) )
 				{
 					scale -= Vector3.UnitY / 2;
 				}
 
-				if ( _inputSystem.IsKeyPressed( Keys.Left ) )
+				if ( _inputAggregator.HasEvent( Button.Left ) )
 				{
 					scale -= Vector3.UnitX / 2;
 				}
-				else if ( _inputSystem.IsKeyPressed( Keys.Right ) )
+				else if ( _inputAggregator.HasEvent( Button.Right ) )
 				{
 					scale += Vector3.UnitX / 2;
 				}
 
-				if ( _inputSystem.IsKeyPressed( Keys.OemMinus ) )
+				if ( _inputAggregator.HasEvent( Button.Minus ) )
 				{
 					scale -= Vector3.UnitZ / 2;
 				}
-				else if ( _inputSystem.IsKeyPressed( Keys.OemPlus ) )
+				else if ( _inputAggregator.HasEvent( Button.Plus ) )
 				{
 					scale += Vector3.UnitZ / 2;
 				}
 
-				if ( _inputSystem.IsKeyPressed( Keys.LeftControl ) || _inputSystem.IsKeyPressed( Keys.RightControl ) )
+				if ( _inputAggregator.HasEvent( Button.LeftControl ) || _inputAggregator.HasEvent( Button.RightControl ) )
 				{
 					scale *= OperationBigIncrement;
 				}
-				else if ( _inputSystem.IsKeyPressed( Keys.LeftShift ) || _inputSystem.IsKeyPressed( Keys.RightShift ) )
+				else if ( _inputAggregator.HasEvent( Button.LeftShift ) || _inputAggregator.HasEvent( Button.RightShift ) )
 				{
 					scale *= OperationSmallIncrement;
 				}
@@ -483,11 +488,11 @@ namespace VertexArmy.Global.Controllers
 					Vector3 m3D = SceneManager.Instance.IntersectScreenRayWithPlane( _lastSelectedZ );
 					Vector3 position = new Vector3( m3D.X, m3D.Y, _lastSelectedZ );
 
-					if ( _inputSystem.IsKeyPressed( Keys.LeftControl ) || _inputSystem.IsKeyPressed( Keys.RightControl ) )
+					if ( _inputAggregator.HasEvent( Button.LeftControl ) || _inputAggregator.HasEvent( Button.RightControl ) )
 					{
 						position = TransformUtility.SnapToGridXY( position, OperationBigIncrement );
 					}
-					else if ( _inputSystem.IsKeyPressed( Keys.LeftShift ) || _inputSystem.IsKeyPressed( Keys.RightShift ) )
+					else if ( _inputAggregator.HasEvent( Button.LeftShift ) || _inputAggregator.HasEvent( Button.RightShift ) )
 					{
 						position = TransformUtility.SnapToGridXY( position, OperationSmallIncrement );
 					}
@@ -508,31 +513,31 @@ namespace VertexArmy.Global.Controllers
 		{
 			if ( _state.Equals( EditorState.Selected ) && _selectedEntity != null )
 			{
-				if ( _inputSystem.IsKeyPressed( Keys.D1 ) )
+				if ( _inputAggregator.HasEvent( Button.D1 ) )
 				{
 					_lastLayerSelected = Category.Cat1;
 					_selectedEntity.PhysicsEntity.SetCollisionLayer( Category.Cat1 );
 				}
 
-				if ( _inputSystem.IsKeyPressed( Keys.D2 ) )
+				if ( _inputAggregator.HasEvent( Button.D2 ) )
 				{
 					_lastLayerSelected = Category.Cat2;
 					_selectedEntity.PhysicsEntity.SetCollisionLayer( Category.Cat2 );
 				}
 
-				if ( _inputSystem.IsKeyPressed( Keys.D3 ) )
+				if ( _inputAggregator.HasEvent( Button.D3 ) )
 				{
 					_lastLayerSelected = Category.Cat3;
 					_selectedEntity.PhysicsEntity.SetCollisionLayer( Category.Cat3 );
 				}
 
-				if ( _inputSystem.IsKeyPressed( Keys.D4 ) )
+				if ( _inputAggregator.HasEvent( Button.D4 ) )
 				{
 					_lastLayerSelected = Category.Cat4;
 					_selectedEntity.PhysicsEntity.SetCollisionLayer( Category.Cat4 );
 				}
 
-				if ( _inputSystem.IsKeyPressed( Keys.D5 ) )
+				if ( _inputAggregator.HasEvent( Button.D5 ) )
 				{
 					_lastLayerSelected = Category.Cat5;
 					_selectedEntity.PhysicsEntity.SetCollisionLayer( Category.Cat5 );
@@ -555,7 +560,7 @@ namespace VertexArmy.Global.Controllers
 			SetCategoryProcess( dt );
 			ShowInfoProcess( dt );
 
-			if ( _state.Equals( EditorState.Selected ) && _inputSystem.IsKeyPressed( Keys.Delete ) )
+			if ( _state.Equals( EditorState.Selected ) && _inputAggregator.HasEvent( Button.Delete ) )
 			{
 				GameWorldManager.Instance.RemoveEntity( _selectedEntity.Name );
 				_state = EditorState.None;

@@ -1,7 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
+using UnifiedInputSystem.Extensions;
+using UnifiedInputSystem.Input;
 using VertexArmy.Global;
 using VertexArmy.Global.Managers;
 using VertexArmy.Graphics;
@@ -25,7 +26,7 @@ namespace VertexArmy.States
 
 		public void OnUpdate( GameTime gameTime )
 		{
-			if ( Platform.Instance.Input.IsKeyPressed( Keys.Escape, false ) )
+			if ( Platform.Instance.InputAggregator.HasEvent( Button.Escape, false ) )
 			{
 				OnContinueAction();
 			}

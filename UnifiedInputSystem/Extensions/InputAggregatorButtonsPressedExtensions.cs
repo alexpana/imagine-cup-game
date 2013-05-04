@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnifiedInputSystem.Events;
+using UnifiedInputSystem.Input;
 
 namespace UnifiedInputSystem.Extensions
 {
@@ -12,10 +13,10 @@ namespace UnifiedInputSystem.Extensions
 		/// </summary>
 		/// <returns>An <see cref="IInputEvent"/> or null if none exists</returns>
 		public static bool HasEvent( this InputAggregator inputAggregator,
-			Buttons button, bool firstTime = false )
+			Button button, bool firstTime = false )
 		{
 			return inputAggregator.GetEvents<ButtonsPressedEvent>().
-				FirstOrDefault( ev => ev.PressedButtons.Contains( new KeyValuePair<Buttons, bool>( button, firstTime ) ) ) != null;
+				FirstOrDefault( ev => ev.PressedButtons.Contains( new KeyValuePair<Button, bool>( button, firstTime ) ) ) != null;
 		}
 	}
 }

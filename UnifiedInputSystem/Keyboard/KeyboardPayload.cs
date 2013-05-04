@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
-using UnifiedInputSystem.Events;
+using UnifiedInputSystem.Input;
 
 namespace UnifiedInputSystem.Keyboard
 {
 	public class KeyboardPayload
 	{
-		public List<Buttons> Buttons { get; set; }
+		public List<Button> Buttons { get; set; }
 	}
 }

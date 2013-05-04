@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.Input;
 using UnifiedInputSystem.Events;
 using UnifiedInputSystem.Extensions;
+using UnifiedInputSystem.Input;
 using VertexArmy.Content.Prefabs;
 using VertexArmy.Global;
 using VertexArmy.Global.Managers;
@@ -65,7 +65,8 @@ namespace VertexArmy.States.Menu
 						Quaternion.CreateFromAxisAngle( Vector3.UnitY, _cubeRotationDelta ) ) );
 			}
 
-			if ( Platform.Instance.Input.IsKeyPressed( Keys.Right, false ) || Platform.Instance.Input.ScrollDelta < 0 )
+			if ( Platform.Instance.InputAggregator.HasEvent( Button.Right, true ) ||
+				Platform.Instance.Input.ScrollDelta < 0 )
 			{
 				if ( _selectedCubeIndex < _levelCubes.Count - 1 )
 				{
@@ -74,7 +75,8 @@ namespace VertexArmy.States.Menu
 				}
 			}
 
-			if ( Platform.Instance.Input.IsKeyPressed( Keys.Left, false ) || Platform.Instance.Input.ScrollDelta > 0 )
+			if ( Platform.Instance.InputAggregator.HasEvent( Button.Left, true ) ||
+				Platform.Instance.Input.ScrollDelta > 0 )
 			{
 				if ( _selectedCubeIndex > 0 )
 				{
@@ -83,7 +85,7 @@ namespace VertexArmy.States.Menu
 				}
 			}
 
-			if ( Platform.Instance.Input.IsKeyPressed( Keys.Enter, false ) )
+			if ( Platform.Instance.InputAggregator.HasEvent( Button.Enter, true ) )
 			{
 				ActivateSelectedItem();
 			}
@@ -94,8 +96,8 @@ namespace VertexArmy.States.Menu
 				ActivateSelectedItem();
 			}
 
-			if ( Platform.Instance.Input.IsKeyPressed( Keys.Back, false ) ||
-				 Platform.Instance.Input.IsKeyPressed( Keys.Escape, false ) )
+			if ( Platform.Instance.InputAggregator.HasEvent( Button.Back, true ) ||
+				 Platform.Instance.InputAggregator.HasEvent( Button.Escape, true ) )
 			{
 				StateManager.Instance.ChangeState( GameState.Menu );
 			}

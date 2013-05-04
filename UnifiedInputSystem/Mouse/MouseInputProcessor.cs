@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnifiedInputSystem.Events;
+using UnifiedInputSystem.Input;
 
 namespace UnifiedInputSystem.Mouse
 {

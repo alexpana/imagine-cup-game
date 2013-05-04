@@ -6,6 +6,8 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using UnifiedInputSystem.Extensions;
+using UnifiedInputSystem.Input;
 using VertexArmy.Content.Prefabs;
 using VertexArmy.GameWorld;
 using VertexArmy.Global;
@@ -55,7 +57,7 @@ namespace VertexArmy.States
 					ResetGameState();
 				}
 #if DEBUG
-				if ( Platform.Instance.Input.IsKeyPressed( Keys.Up ) )
+				if ( Platform.Instance.InputAggregator.HasEvent( Button.Up ) )
 				{
 					if ( Robot.PhysicsEntity.GetCollisionLayer().Equals( Category.Cat1 ) )
 					{
@@ -64,7 +66,7 @@ namespace VertexArmy.States
 						Robot.SetPosition( new Vector3( position.X, position.Y, -800 ) );
 					}
 				}
-				if ( Platform.Instance.Input.IsKeyPressed( Keys.Down ) )
+				if ( Platform.Instance.InputAggregator.HasEvent( Button.Down ) )
 				{
 					if ( Robot.PhysicsEntity.GetCollisionLayer().Equals( Category.Cat2 ) )
 					{
@@ -75,13 +77,13 @@ namespace VertexArmy.States
 				}
 #endif
 
-				if ( Platform.Instance.Input.IsKeyPressed( Keys.R, false ) )
+				if ( Platform.Instance.InputAggregator.HasEvent( Button.R, false ) )
 				{
 					ResetGameState();
 				}
 			}
 #if DEBUG
-			if ( Platform.Instance.Input.IsKeyPressed( Keys.D, false ) )
+			if ( Platform.Instance.InputAggregator.HasEvent( Button.D, false ) )
 			{
 				_debugViewState = !_debugViewState;
 			}

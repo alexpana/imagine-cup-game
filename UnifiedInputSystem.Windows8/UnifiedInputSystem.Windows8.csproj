@@ -99,20 +99,11 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="..\UnifiedInputSystem\Events\Buttons.cs">
-      <Link>Events\Buttons.cs</Link>
-    </Compile>
     <Compile Include="..\UnifiedInputSystem\Events\ButtonsPressedEvent.cs">
       <Link>Events\ButtonsPressedEvent.cs</Link>
     </Compile>
     <Compile Include="..\UnifiedInputSystem\Events\GestureEvent.cs">
       <Link>Events\GestureEvent.cs</Link>
-    </Compile>
-    <Compile Include="..\UnifiedInputSystem\Events\GestureSource.cs">
-      <Link>Events\GestureSource.cs</Link>
-    </Compile>
-    <Compile Include="..\UnifiedInputSystem\Events\GestureType.cs">
-      <Link>Events\GestureType.cs</Link>
     </Compile>
     <Compile Include="..\UnifiedInputSystem\Events\IInputEvent.cs">
       <Link>Events\IInputEvent.cs</Link>
@@ -134,6 +125,15 @@
     </Compile>
     <Compile Include="..\UnifiedInputSystem\InputAggregator.cs">
       <Link>InputAggregator.cs</Link>
+    </Compile>
+    <Compile Include="..\UnifiedInputSystem\Input\Button.cs">
+      <Link>Input\Button.cs</Link>
+    </Compile>
+    <Compile Include="..\UnifiedInputSystem\Input\GestureSource.cs">
+      <Link>Input\GestureSource.cs</Link>
+    </Compile>
+    <Compile Include="..\UnifiedInputSystem\Input\GestureType.cs">
+      <Link>Input\GestureType.cs</Link>
     </Compile>
     <Compile Include="..\UnifiedInputSystem\Keyboard\KeyboardInputProcessor.cs">
       <Link>Keyboard\KeyboardInputProcessor.cs</Link>

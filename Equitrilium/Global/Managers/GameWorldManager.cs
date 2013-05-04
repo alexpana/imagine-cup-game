@@ -28,7 +28,7 @@ namespace VertexArmy.Global.Managers
 		}
 
 		public void SpawnEntity( string prefabName, string entityName, Vector3 position, float scale = 1f, Category layer = Category.Cat1,
-		                         GameEntityParameters parameters = null )
+								 GameEntityParameters parameters = null )
 		{
 			SpawnEntity( PrefabRepository.Instance.GetPrefab( prefabName ), entityName, position, Vector3.One * scale, layer, parameters );
 		}
@@ -39,7 +39,7 @@ namespace VertexArmy.Global.Managers
 		}
 
 		public void SpawnEntity( string prefabName, string entityName, Vector3 position, Vector3 scale, Category layer = Category.Cat1,
-		                         GameEntityParameters parameters = null )
+								 GameEntityParameters parameters = null )
 		{
 			SpawnEntity( PrefabRepository.Instance.GetPrefab( prefabName ), entityName, position, Vector3.One * scale, layer, parameters );
 		}
@@ -50,7 +50,7 @@ namespace VertexArmy.Global.Managers
 		}
 
 		public void SpawnEntity( PrefabEntity prefab, string entityName, Vector3 position, float scale = 1f, Category layer = Category.Cat1,
-		                         GameEntityParameters parameters = null )
+								 GameEntityParameters parameters = null )
 		{
 			SpawnEntity( prefab, entityName, position, Vector3.One * scale, layer, parameters );
 		}
@@ -61,7 +61,7 @@ namespace VertexArmy.Global.Managers
 		}
 
 		public void SpawnEntity( PrefabEntity prefab, string entityName, Vector3 position, Vector3 scale, Category layer = Category.Cat1,
-		                         GameEntityParameters parameters = null )
+								 GameEntityParameters parameters = null )
 		{
 			GameEntity entity = prefab.CreateGameEntity( this, scale, parameters );
 			entity.Name = entityName;

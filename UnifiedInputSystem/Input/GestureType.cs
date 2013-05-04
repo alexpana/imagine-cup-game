@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace UnifiedInputSystem.Events
+namespace UnifiedInputSystem.Input
 {
 	/// <summary>
 	/// The type of the gesture

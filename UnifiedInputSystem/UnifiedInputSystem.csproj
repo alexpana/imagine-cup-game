@@ -59,13 +59,13 @@
     <Reference Include="System.Net" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Events\Buttons.cs" />
+    <Compile Include="Input\Button.cs" />
     <Compile Include="Events\ButtonsPressedEvent.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Events\GestureEvent.cs" />
-    <Compile Include="Events\GestureSource.cs" />
-    <Compile Include="Events\GestureType.cs" />
+    <Compile Include="Input\GestureSource.cs" />
+    <Compile Include="Input\GestureType.cs" />
     <Compile Include="Events\IInputEvent.cs" />
     <Compile Include="Extensions\InputAggregatorGestureExtensions.cs" />
     <Compile Include="Events\MovementEvent.cs" />

@@ -1,10 +1,11 @@
 ﻿
-namespace UnifiedInputSystem.Events
+namespace UnifiedInputSystem.Input
 {
-	public enum Buttons
+	public enum Button
 	{
 		None = 0,
 
+		Back = 8,
 		Tab = 9,
 		Enter = 13,
 		Pause = 19,

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using System.Runtime.Serialization.Json;
 
 namespace VertexArmy.Serialization
@@ -11,10 +9,7 @@ namespace VertexArmy.Serialization
 
 		public JsonSerializer()
 		{
-			_serializer = new DataContractJsonSerializer( typeof( T ),
-				new List<Type>
-				{
-				} );
+			_serializer = new DataContractJsonSerializer( typeof( T ) );
 		}
 
 		public void WriteObject( T obj, Stream stream )

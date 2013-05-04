@@ -190,7 +190,7 @@ namespace VertexArmy.States
 
 			Robot.RegisterComponent(
 				"control",
-				new CarControlComponent( new List<string> { "GearJoint1", "GearJoint2", "GearJoint3" }, new List<float>() { 7f, 7f, 7f } )
+				new CarControlComponent( new List<string> { "GearJoint1", "GearJoint2", "GearJoint3" }, new List<float> { 7f, 7f, 7f } )
 				);
 
 
@@ -211,7 +211,7 @@ namespace VertexArmy.States
 				new BodyTriggerAreaComponent( new Vector2( 250f, 1200f ), AirPipeTrigger )
 				);
 
-			GameWorldManager.Instance.SpawnEntity( "Trigger", "endGame", new Vector3( -797f, 575f, 0f ), 1f );
+			GameWorldManager.Instance.SpawnEntity( "Trigger", "endGame", new Vector3( -797f, 575f, 0f ) );
 			GameWorldManager.Instance.GetEntity( "endGame" ).RegisterComponent(
 				"trigger",
 				new BodyTriggerAreaComponent( new Vector2( 150f, 100f ), Robot.MainBody, EndGame )

@@ -6,7 +6,7 @@
 		{
 			if ( value.Contains( "." ) )
 			{
-				char[] splitPattern = new char[1] { '.' };
+				char[] splitPattern = new char[] { '.' };
 				return value.Split( splitPattern, 2 );
 			}
 

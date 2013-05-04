@@ -28,7 +28,7 @@ namespace VertexArmy.Content.Prefabs
 				Shapes = new List<ShapePrefab> { crateShape },
 				Restitution = 0.1f,
 				Static = false,
-				CollisionSounds = new List<string>() { "sounds/hit1", "sounds/hit2", "sounds/hit3", "sounds/hit4" }
+				CollisionSounds = new List<string> { "sounds/hit1", "sounds/hit2", "sounds/hit3", "sounds/hit4" }
 			};
 
 			crate.RegisterBody( crateBody, true );

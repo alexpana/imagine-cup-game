@@ -301,7 +301,7 @@ namespace VertexArmy.Global.Managers
 		private void DrawBackground()
 		{
 			_spriteBatch.Begin( SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.None, RasterizerState.CullCounterClockwise, null );
-			_spriteBatch.Draw( _backgroundSprite, new Rectangle( ( int ) 0, 0, _backgroundSprite.Width, _backgroundSprite.Height ), Color.White );
+			_spriteBatch.Draw( _backgroundSprite, new Rectangle( 0, 0, _backgroundSprite.Width, _backgroundSprite.Height ), Color.White );
 			_spriteBatch.End();
 		}
 

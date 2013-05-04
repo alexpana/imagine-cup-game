@@ -21,7 +21,6 @@ namespace VertexArmy.Global.Controllers.Components
 		public const float RepulsiveForce = 8f;
 
 		private Vector2 _oldPosition, _followPosition;
-		private float _distanceSim;
 		private Category _collisionCategory;
 
 		public Body Cone;
@@ -52,7 +51,7 @@ namespace VertexArmy.Global.Controllers.Components
 			FixtureFactory.AttachPolygon( coneShape, 0f, Cone );
 
 			_oldPosition = Vector2.Zero;
-			_distanceSim = UnitsConverter.ToSimUnits( Distance );
+			UnitsConverter.ToSimUnits( Distance );
 
 			if ( GameWorldManager.Instance.GetEntity( "saf1" ) == null )
 			{
@@ -86,39 +85,30 @@ namespace VertexArmy.Global.Controllers.Components
 				Vector3 newPosition3D = UnitsConverter.ToSimUnits( Entity.GetPosition() );
 				Cone.Position = new Vector2( newPosition3D.X, newPosition3D.Y );
 
-				if ( true )
+				Vector3 followPosition3D = UnitsConverter.ToSimUnits( SceneManager.Instance.IntersectScreenRayWithPlane( Entity.GetPosition().Z ) );
+				_followPosition = new Vector2( followPosition3D.X, followPosition3D.Y );
+
+				Vector2 direction = _followPosition - Cone.Position;
+				direction.Normalize();
+
+				Cone.Rotation = ( float ) Math.Acos( direction.X ) * Math.Sign( ( float ) Math.Asin( direction.Y ) );
+				if ( Mouse.GetState().LeftButton.Equals( ButtonState.Pressed ) )
 				{
-					//double dTime = ( data[1] as ParameterGameTime ).Value.ElapsedGameTime.TotalSeconds;
-
-					Vector3 followPosition3D = UnitsConverter.ToSimUnits( SceneManager.Instance.IntersectScreenRayWithPlane( Entity.GetPosition().Z ) );
-					_followPosition = new Vector2( followPosition3D.X, followPosition3D.Y );
-
-					Vector2 direction = _followPosition - Cone.Position;
-					direction.Normalize();
-
-					Cone.Rotation = ( float ) Math.Acos( direction.X ) * Math.Sign( ( float ) Math.Asin( direction.Y ) );
-					if ( Mouse.GetState().LeftButton.Equals( ButtonState.Pressed ) )
-					{
-						ConeEntity.SetPosition( new Vector3( UnitsConverter.ToDisplayUnits( Cone.Position ), Entity.GetPosition().Z ) );
-						ConeEntity.SetRotation( UnitsConverter.To3DRotation( Cone.Rotation ) );
-						( ( MeshAttachable ) ConeEntity.SceneNodes["Mesh"].Attachable[0] ).Material.SetParameter( "fVel", new Vector2( 0.0000f, 0.00025f ) );
-						ConeEntity.SceneNodes["Mesh"].Invisible = false;
-					}
-					else if ( Mouse.GetState().RightButton.Equals( ButtonState.Pressed ) )
-					{
-						ConeEntity.SetPosition( new Vector3( UnitsConverter.ToDisplayUnits( Cone.Position ), Entity.GetPosition().Z ) );
-						ConeEntity.SetRotation( UnitsConverter.To3DRotation( Cone.Rotation ) );
-						( ( MeshAttachable ) ConeEntity.SceneNodes["Mesh"].Attachable[0] ).Material.SetParameter( "fVel", new Vector2( 0.0000f, -0.00025f ) );
-						ConeEntity.SceneNodes["Mesh"].Invisible = false;
-					}
-					else
-					{
-						ConeEntity.SceneNodes["Mesh"].Invisible = true;
-					}
+					ConeEntity.SetPosition( new Vector3( UnitsConverter.ToDisplayUnits( Cone.Position ), Entity.GetPosition().Z ) );
+					ConeEntity.SetRotation( UnitsConverter.To3DRotation( Cone.Rotation ) );
+					( ( MeshAttachable ) ConeEntity.SceneNodes["Mesh"].Attachable[0] ).Material.SetParameter( "fVel", new Vector2( 0.0000f, 0.00025f ) );
+					ConeEntity.SceneNodes["Mesh"].Invisible = false;
+				}
+				else if ( Mouse.GetState().RightButton.Equals( ButtonState.Pressed ) )
+				{
+					ConeEntity.SetPosition( new Vector3( UnitsConverter.ToDisplayUnits( Cone.Position ), Entity.GetPosition().Z ) );
+					ConeEntity.SetRotation( UnitsConverter.To3DRotation( Cone.Rotation ) );
+					( ( MeshAttachable ) ConeEntity.SceneNodes["Mesh"].Attachable[0] ).Material.SetParameter( "fVel", new Vector2( 0.0000f, -0.00025f ) );
+					ConeEntity.SceneNodes["Mesh"].Invisible = false;
 				}
 				else
 				{
-					Cone.Rotation = Entity.GetRotationRadians();
+					ConeEntity.SceneNodes["Mesh"].Invisible = true;
 				}
 			}
 		}

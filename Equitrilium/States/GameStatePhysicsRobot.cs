@@ -52,8 +52,6 @@ namespace VertexArmy.States
 
 			if ( Robot != null )
 			{
-				bool moving = false;
-
 				if ( !_cameraMoving && Math.Abs( _cameraPosition - Robot.GetPosition().X ) > _cameraError )
 				{
 					_cameraMoving = true;
@@ -272,7 +270,7 @@ namespace VertexArmy.States
 			Robot.RegisterComponent( "force", new SentientForceComponent() );
 			Robot.RegisterComponent(
 				"control",
-				new CarControlComponent( new List<string> { "GearJoint1", "GearJoint2", "GearJoint3" }, new List<float>() { 5f, 5f, 5f } )
+				new CarControlComponent( new List<string> { "GearJoint1", "GearJoint2", "GearJoint3" }, new List<float> { 5f, 5f, 5f } )
 				);
 
 			CameraController camControl = new CameraController( GameWorldManager.Instance.GetEntity( "robot1" ), SceneManager.Instance.GetCurrentCamera() );

@@ -9,18 +9,16 @@ namespace VertexArmy.States
 	internal class GameStateModelViewer : PlayableGameState
 	{
 		private Quaternion _modelRotation;
-		private float _modelScale = 10.0f;
 
-		private bool _dragging = false;
-		private int _frames = 0;
-		private const int _frameFreeze = 25;
+		private bool _dragging;
 		private Vector2 _lastMousePos;
 
-		public GameStateModelViewer( ContentManager content )
+		public GameStateModelViewer( ContentManager contentManager )
 		{
+
 		}
 
-		private void _rotate( float delta, Vector3 axis )
+		private void Rotate( float delta, Vector3 axis )
 		{
 			Vector3 localAxis;
 			if ( axis.Equals( new Vector3( 0, 1, 0 ) ) )
@@ -80,11 +78,8 @@ namespace VertexArmy.States
 				_lastMousePos.Y = Mouse.GetState().Y;
 			}
 
-			int wheel = Mouse.GetState().ScrollWheelValue;
-			_modelScale = Mouse.GetState().ScrollWheelValue / 10;
-
-			_rotate( 0.01f * mouseDelta.X, Vector3.UnitY );
-			_rotate( 0.01f * mouseDelta.Y, Vector3.UnitX );
+			Rotate( 0.01f * mouseDelta.X, Vector3.UnitY );
+			Rotate( 0.01f * mouseDelta.Y, Vector3.UnitX );
 
 			GameWorldManager.Instance.GetEntity( "saf1" ).SetRotation( _modelRotation );
 			GameWorldManager.Instance.GetEntity( "camera1" ).SetPosition(

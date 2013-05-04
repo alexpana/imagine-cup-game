@@ -13,7 +13,7 @@ namespace VertexArmy.Content.Materials
 			Effect effect = Platform.Instance.LoadEffect( "saf" );
 			material.Effect = effect;
 
-			material.State = new BlendState()
+			material.State = new BlendState
 			{
 				AlphaSourceBlend = Blend.SourceAlpha,
 				AlphaDestinationBlend = Blend.InverseSourceAlpha,

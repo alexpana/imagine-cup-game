@@ -182,7 +182,7 @@ namespace VertexArmy.Global.Hints
 		{
 			foreach ( var thinkingBubble in ThinkingBubbles )
 			{
-				HintManager.Instance.RenderTexture( _bubbleTexture, thinkingBubble.Position, null, Color.White * thinkingBubble.Alpha, 0, Vector2.Zero, thinkingBubble.Scale, SpriteEffects.None, 0 );
+				HintManager.Instance.RenderTexture( _bubbleTexture, thinkingBubble.Position, null, Color.White * thinkingBubble.Alpha, 0, Vector2.Zero, thinkingBubble.Scale );
 			}
 
 			Vector2 offset = new Vector2( 20, 16 );

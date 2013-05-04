@@ -23,10 +23,7 @@ namespace VertexArmy.States
 		private DebugViewXNA _debugView;
 		private Matrix _projection;
 		private Matrix _view;
-
-		public GameEntity Robot;
-		public GameEntity Camera;
-
+		
 		private LevelPrefab _level;
 
 		private bool _actionToggleDebugView;

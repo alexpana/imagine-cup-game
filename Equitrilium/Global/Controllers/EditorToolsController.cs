@@ -286,7 +286,6 @@ namespace VertexArmy.Global.Controllers
 				else if ( _inputAggregator.HasEvent( Button.Right ) )
 				{
 					rotate += ( float ) dt.ElapsedGameTime.TotalSeconds / 4f;
-					;
 				}
 
 				/* TODO

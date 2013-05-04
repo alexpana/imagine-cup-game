@@ -26,7 +26,7 @@ namespace VertexArmy.Global.Hints
 
 		public void Render()
 		{
-			HintManager.Instance.RenderTexture( _background, _position, null, Color.White, 0, new Vector2( 0, 0 ), 1 );
+			HintManager.Instance.RenderTexture( _background, _position, null, Color.White, 0, new Vector2( 0, 0 ) );
 		}
 
 		public Action DismissedCallback { get; set; }

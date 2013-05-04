@@ -39,7 +39,6 @@ namespace VertexArmy.Global.Managers
 		private static CursorManager _instance;
 		private ITransformable _cursorNode;
 		private bool _isVisible = true;
-		private bool _hideOnLeave = true;
 
 		// Unimplemented
 		//private static bool _constrainToWindow = true;

@@ -25,7 +25,7 @@ namespace VertexArmy.Global.Controllers.Components
 			{
 				BaseComponent comp = Data[0] as BaseComponent;
 
-				if ( comp != null && comp != null )
+				if ( comp != null )
 				{
 					if ( comp.Type.Equals( ComponentType.ButtonComponent ) )
 					{

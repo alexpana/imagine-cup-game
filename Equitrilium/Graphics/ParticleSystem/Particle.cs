@@ -4,7 +4,7 @@ namespace VertexArmy.Graphics.ParticleSystem
 {
 	internal class Particle
 	{
-		public ParticleEmitter Parent;
+		//public ParticleEmitter Parent;
 		public Vector3 Position { get; set; }
 		public float Lifetime { get; set; }
 		public float Age { get; set; }

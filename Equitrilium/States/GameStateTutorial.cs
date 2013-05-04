@@ -77,13 +77,13 @@ namespace VertexArmy.States
 				}
 #endif
 
-				if ( Platform.Instance.InputAggregator.HasEvent( Button.R, false ) )
+				if ( Platform.Instance.InputAggregator.HasEvent( Button.R, true ) )
 				{
 					ResetGameState();
 				}
 			}
 #if DEBUG
-			if ( Platform.Instance.InputAggregator.HasEvent( Button.D, false ) )
+			if ( Platform.Instance.InputAggregator.HasEvent( Button.D, true ) )
 			{
 				_debugViewState = !_debugViewState;
 			}

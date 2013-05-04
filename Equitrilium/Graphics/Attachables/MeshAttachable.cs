@@ -88,7 +88,7 @@ namespace VertexArmy.Graphics.Attachables
 				}
 
 
-				BlendState _safBlend = new BlendState()
+				BlendState _safBlend = new BlendState
 				{
 					AlphaSourceBlend = Blend.SourceAlpha,
 					AlphaDestinationBlend = Blend.InverseSourceAlpha,

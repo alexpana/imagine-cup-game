@@ -59,6 +59,7 @@
     <Reference Include="System.Net" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Events\ScrollEvent.cs" />
     <Compile Include="Input\Button.cs" />
     <Compile Include="Events\ButtonsPressedEvent.cs">
       <SubType>Code</SubType>

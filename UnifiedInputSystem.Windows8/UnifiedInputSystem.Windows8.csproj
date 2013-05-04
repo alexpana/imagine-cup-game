@@ -111,6 +111,9 @@
     <Compile Include="..\UnifiedInputSystem\Events\MovementEvent.cs">
       <Link>Events\MovementEvent.cs</Link>
     </Compile>
+    <Compile Include="..\UnifiedInputSystem\Events\ScrollEvent.cs">
+      <Link>Events\ScrollEvent.cs</Link>
+    </Compile>
     <Compile Include="..\UnifiedInputSystem\Extensions\InputAggregatorButtonsPressedExtensions.cs">
       <Link>Extensions\InputAggregatorButtonsPressedExtensions.cs</Link>
     </Compile>

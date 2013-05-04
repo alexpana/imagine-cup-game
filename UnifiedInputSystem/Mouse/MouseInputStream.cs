@@ -20,7 +20,7 @@ namespace UnifiedInputSystem.Mouse
 				Position = new Vector2( state.X, state.Y ),
 				LeftButtonPressed = state.LeftButton == ButtonState.Pressed,
 				RightButtonPressed = state.RightButton == ButtonState.Pressed,
-				ScrollDelta = state.ScrollWheelValue
+				ScrollValue = state.ScrollWheelValue
 			};
 #else
 			throw new System.NotImplementedException("No implementation for this platform!");

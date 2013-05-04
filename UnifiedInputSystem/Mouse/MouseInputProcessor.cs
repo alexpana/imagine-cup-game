@@ -34,6 +34,8 @@ namespace UnifiedInputSystem.Mouse
 				_currentPayload.Position,
 				_currentPayload.Position - _previousPayload.Position ) );
 
+			events.Add( new ScrollEvent( _currentPayload.ScrollValue - _previousPayload.ScrollValue ) );
+
 			if ( _currentPayload.LeftButtonPressed )
 			{
 				GestureType gesture = _previousPayload.LeftButtonPressed ? GestureType.HoldActivate : GestureType.Activate;

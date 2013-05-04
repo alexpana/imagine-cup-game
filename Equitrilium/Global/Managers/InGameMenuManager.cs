@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using UnifiedInputSystem.Events;
+using UnifiedInputSystem.Extensions;
 
 namespace VertexArmy.Global.Managers
 {

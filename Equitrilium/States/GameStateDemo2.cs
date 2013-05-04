@@ -52,8 +52,6 @@ namespace VertexArmy.States
 		public override void OnUpdate( GameTime gameTime )
 		{
 			base.OnUpdate( gameTime );
-#if ALLOW_HACKS
-#endif
 
 			if ( _gravityButton.ButtonState && !_gravityChanged )
 			{

@@ -4,6 +4,7 @@ using FarseerPhysics.Dynamics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using UnifiedInputSystem;
+using UnifiedInputSystem.Events;
 using UnifiedInputSystem.Extensions;
 using UnifiedInputSystem.Input;
 using VertexArmy.GameWorld;
@@ -11,7 +12,6 @@ using VertexArmy.Global.Behaviours;
 using VertexArmy.Global.Managers;
 using VertexArmy.Graphics;
 using VertexArmy.Graphics.Attachables;
-using VertexArmy.Input;
 using VertexArmy.Utilities;
 
 namespace VertexArmy.Global.Controllers
@@ -30,12 +30,12 @@ namespace VertexArmy.Global.Controllers
 
 
 		private int _clicks;
-		private const int _requiredClicks = 2;
-		private const double _clickInterval = 500.0;
-		private const double _moveDelay = 500.0;
-		private const double _rotateDelay = 500.0;
-		private const double _externalRotateDelay = 500.0;
-		private const double _scaleDelay = 500.0;
+		private const int RequiredClicks = 2;
+		private const double ClickInterval = 500.0;
+		private const double MoveDelay = 500.0;
+		private const double RotateDelay = 500.0;
+		private const double ExternalRotateDelay = 500.0;
+		private const double ScaleDelay = 500.0;
 		private bool _leftClick;
 
 		private bool _dragging;
@@ -45,13 +45,12 @@ namespace VertexArmy.Global.Controllers
 
 		private GameEntity _selectedEntity;
 		private GameEntity _tryEntity;
-		private GameEntity cursorLocation;
+		private GameEntity _cursorEntity;
 		private Category _lastLayerSelected;
 		private float _lastSelectedZ;
 		private readonly float _specialRotationBigOperator;
 		private readonly float _specialRotationSmallOperator;
 
-		private readonly IInputSystem _inputSystem;
 		private readonly InputAggregator _inputAggregator;
 		private const float OperationSmallIncrement = 0.1f;
 		private const float OperationBigIncrement = 2f;
@@ -72,23 +71,22 @@ namespace VertexArmy.Global.Controllers
 			_specialRotationBigOperator = ( float ) ( Math.PI / 6f );
 			_specialRotationSmallOperator = ( float ) ( Math.PI / 18f );
 
-			_inputAggregator = Platform.Instance.InputAggregator;
-			_inputSystem = Platform.Instance.Input;
+			_inputAggregator = Platform.Instance.Input;
 		}
 
 		private void SelectProcess( GameTime dt )
 		{
-			cursorLocation = TrySelectEntity();
+			_cursorEntity = TrySelectEntity();
 
-			if ( cursorLocation != null )
+			if ( _cursorEntity != null )
 			{
-				HintManager.Instance.SpawnHint( cursorLocation.Name, new Vector2( 20f, 728f ), 500, 6, null, 1 );
+				HintManager.Instance.SpawnHint( _cursorEntity.Name, new Vector2( 20f, 728f ), 500, 6, null, 1 );
 			}
 
 			if ( Mouse.GetState().LeftButton.Equals( ButtonState.Pressed ) && !_leftClick )
 			{
 				_leftClick = true;
-				GameEntity select = cursorLocation;
+				GameEntity select = _cursorEntity;
 				if ( _tryEntity == null )
 				{
 					_tryEntity = select;
@@ -107,7 +105,7 @@ namespace VertexArmy.Global.Controllers
 					}
 				}
 
-				if ( _state.Equals( EditorState.Selected ) && cursorLocation != null && cursorLocation.Equals( _selectedEntity ) )
+				if ( _state.Equals( EditorState.Selected ) && _cursorEntity != null && _cursorEntity.Equals( _selectedEntity ) )
 				{
 					Vector3 m3D = SceneManager.Instance.IntersectScreenRayWithPlane( _selectedEntity.GetPosition().Z );
 					_dragging = true;
@@ -123,13 +121,13 @@ namespace VertexArmy.Global.Controllers
 			}
 			else if ( Mouse.GetState().LeftButton.Equals( ButtonState.Released ) && !_leftClick )
 			{
-				if ( dt.TotalGameTime.TotalMilliseconds - _clickTime > _clickInterval )
+				if ( dt.TotalGameTime.TotalMilliseconds - _clickTime > ClickInterval )
 				{
 					_clicks = 0;
 				}
 			}
 
-			if ( _clicks == _requiredClicks )
+			if ( _clicks == RequiredClicks )
 			{
 				_clicks = 0;
 				if ( _selectedEntity != null && !_selectedEntity.Equals( _tryEntity ) )
@@ -258,7 +256,7 @@ namespace VertexArmy.Global.Controllers
 						_selectedEntity.SetPosition( TransformUtility.SnapToGridXY( _selectedEntity.GetPosition() + move, snapStep ) );
 						_lastSelectedZ = _selectedEntity.GetPosition().Z;
 					}
-					else if ( dt.TotalGameTime.TotalMilliseconds - _moveTime > _moveDelay || Keyboard.GetState().IsKeyDown( Keys.Q ) )
+					else if ( dt.TotalGameTime.TotalMilliseconds - _moveTime > MoveDelay || Keyboard.GetState().IsKeyDown( Keys.Q ) )
 					{
 						_selectedEntity.SetPosition( TransformUtility.SnapToGridXY( _selectedEntity.GetPosition() + move, snapStep ) );
 						_lastSelectedZ = _selectedEntity.GetPosition().Z;
@@ -331,7 +329,7 @@ namespace VertexArmy.Global.Controllers
 						_rotateTime = dt.TotalGameTime.TotalMilliseconds;
 						_selectedEntity.SetRotation( newRotation );
 					}
-					else if ( dt.TotalGameTime.TotalMilliseconds - _rotateTime > _rotateDelay || _inputAggregator.HasEvent( Button.Q ) )
+					else if ( dt.TotalGameTime.TotalMilliseconds - _rotateTime > RotateDelay || _inputAggregator.HasEvent( Button.Q ) )
 					{
 						_selectedEntity.SetRotation( _selectedEntity.GetRotationRadians() + rotate );
 					}
@@ -349,7 +347,7 @@ namespace VertexArmy.Global.Controllers
 						_externalRotateTime = dt.TotalGameTime.TotalMilliseconds;
 						_selectedEntity.SetExternalRotation( externalRotation );
 					}
-					else if ( dt.TotalGameTime.TotalMilliseconds - _externalRotateTime > _externalRotateDelay || _inputAggregator.HasEvent( Button.Q ) )
+					else if ( dt.TotalGameTime.TotalMilliseconds - _externalRotateTime > ExternalRotateDelay || _inputAggregator.HasEvent( Button.Q ) )
 					{
 						_selectedEntity.SetExternalRotation( externalRotation );
 					}
@@ -410,7 +408,7 @@ namespace VertexArmy.Global.Controllers
 						_scaleTime = dt.TotalGameTime.TotalMilliseconds;
 						SetScale( _selectedEntity.GetScale() + scale );
 					}
-					else if ( dt.TotalGameTime.TotalMilliseconds - _scaleTime > _scaleDelay )
+					else if ( dt.TotalGameTime.TotalMilliseconds - _scaleTime > ScaleDelay )
 					{
 						SetScale( _selectedEntity.GetScale() + scale );
 					}
@@ -455,10 +453,10 @@ namespace VertexArmy.Global.Controllers
 		{
 			if ( _state.Equals( EditorState.None ) && Keyboard.GetState().IsKeyDown( Keys.C ) )
 			{
-				int scrollDelta = _inputSystem.ScrollDelta;
-				if ( scrollDelta != 0 )
+				var scrollEvent = _inputAggregator.GetEvent<ScrollEvent>();
+				if ( scrollEvent != null && scrollEvent.Delta != 0 )
 				{
-					double scrollDirection = scrollDelta / 120.0;
+					double scrollDirection = scrollEvent.Delta / 120.0;
 					int direction;
 					if ( scrollDirection < 0 )
 					{
@@ -546,10 +544,10 @@ namespace VertexArmy.Global.Controllers
 
 		public void Update( GameTime dt )
 		{
-			cursorLocation = TrySelectEntity();
+			_cursorEntity = TrySelectEntity();
 
-			if ( cursorLocation != null )
-				HintManager.Instance.SpawnHint( cursorLocation.Name, new Vector2( 100f, 668f ), 100, 6, null, 1 );
+			if ( _cursorEntity != null )
+				HintManager.Instance.SpawnHint( _cursorEntity.Name, new Vector2( 100f, 668f ), 100, 6, null, 1 );
 
 			SelectProcess( dt );
 			MoveProcess( dt );

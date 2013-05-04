@@ -26,7 +26,7 @@ namespace VertexArmy.States
 
 		public void OnUpdate( GameTime gameTime )
 		{
-			if ( Platform.Instance.InputAggregator.HasEvent( Button.Escape, true ) )
+			if ( Platform.Instance.Input.HasEvent( Button.Escape, true ) )
 			{
 				OnContinueAction();
 			}

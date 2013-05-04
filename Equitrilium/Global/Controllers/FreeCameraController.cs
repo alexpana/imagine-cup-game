@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using UnifiedInputSystem.Events;
 using VertexArmy.Global.Behaviours;
 using VertexArmy.Graphics.Attachables;
 
@@ -9,7 +10,6 @@ namespace VertexArmy.Global.Controllers
 {
 	public class FreeCameraController : IController
 	{
-		private Vector3 _delta = Vector3.Zero;
 		private readonly Vector3 _screen;
 		private Vector2 _error, _error2;
 
@@ -35,12 +35,12 @@ namespace VertexArmy.Global.Controllers
 				return;
 			}
 
-			int scrollDelta = Platform.Instance.Input.ScrollDelta;
-			if ( scrollDelta != 0 )
+			var scrollEvent = Platform.Instance.Input.GetEvent<ScrollEvent>();
+			if ( scrollEvent != null && scrollEvent.Delta != 0 )
 			{
 				if ( Keyboard.GetState().IsKeyUp( Keys.C ) )
 				{
-					camera.Parent.SetPosition( camera.Parent.GetPosition() - scrollDelta * Vector3.UnitZ );
+					camera.Parent.SetPosition( camera.Parent.GetPosition() - scrollEvent.Delta * Vector3.UnitZ );
 				}
 			}
 

@@ -37,7 +37,7 @@ namespace VertexArmy.States.Menu
 
 			SceneNode nodeUnderPointer = null;
 
-			var locationEvent = Platform.Instance.InputAggregator.GetEvent<MovementEvent>();
+			var locationEvent = Platform.Instance.Input.GetEvent<MovementEvent>();
 			if ( locationEvent != null && locationEvent.Delta.Length() > 0 )
 			{
 				List<SceneNode> nodes = SceneManager.Instance.IntersectScreenRayWithSceneNodes( locationEvent.Location );
@@ -65,8 +65,9 @@ namespace VertexArmy.States.Menu
 						Quaternion.CreateFromAxisAngle( Vector3.UnitY, _cubeRotationDelta ) ) );
 			}
 
-			if ( Platform.Instance.InputAggregator.HasEvent( Button.Right, true ) ||
-				Platform.Instance.Input.ScrollDelta < 0 )
+			var scrollEvent = Platform.Instance.Input.GetEvent<ScrollEvent>();
+			if ( Platform.Instance.Input.HasEvent( Button.Right, true ) ||
+				scrollEvent != null && scrollEvent.Delta < 0 )
 			{
 				if ( _selectedCubeIndex < _levelCubes.Count - 1 )
 				{
@@ -75,8 +76,8 @@ namespace VertexArmy.States.Menu
 				}
 			}
 
-			if ( Platform.Instance.InputAggregator.HasEvent( Button.Left, true ) ||
-				Platform.Instance.Input.ScrollDelta > 0 )
+			if ( Platform.Instance.Input.HasEvent( Button.Left, true ) ||
+				scrollEvent != null && scrollEvent.Delta > 0 )
 			{
 				if ( _selectedCubeIndex > 0 )
 				{
@@ -85,19 +86,19 @@ namespace VertexArmy.States.Menu
 				}
 			}
 
-			if ( Platform.Instance.InputAggregator.HasEvent( Button.Enter, true ) )
+			if ( Platform.Instance.Input.HasEvent( Button.Enter, true ) )
 			{
 				ActivateSelectedItem();
 			}
 
-			if ( Platform.Instance.InputAggregator.GetGesture( GestureType.Activate ) != null &&
+			if ( Platform.Instance.Input.GetGesture( GestureType.Activate ) != null &&
 				_lastNodeUnderPointer != null )
 			{
 				ActivateSelectedItem();
 			}
 
-			if ( Platform.Instance.InputAggregator.HasEvent( Button.Back, true ) ||
-				 Platform.Instance.InputAggregator.HasEvent( Button.Escape, true ) )
+			if ( Platform.Instance.Input.HasEvent( Button.Back, true ) ||
+				 Platform.Instance.Input.HasEvent( Button.Escape, true ) )
 			{
 				StateManager.Instance.ChangeState( GameState.Menu );
 			}

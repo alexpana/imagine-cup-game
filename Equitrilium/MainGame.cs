@@ -7,7 +7,6 @@ using VertexArmy.Content.Materials;
 using VertexArmy.Content.Prefabs;
 using VertexArmy.Global;
 using VertexArmy.Global.Managers;
-using VertexArmy.Input;
 using VertexArmy.States;
 using VertexArmy.Utilities;
 
@@ -66,14 +65,12 @@ namespace VertexArmy
 
 		private void InitializeInput()
 		{
-			Platform.Instance.Input = new PCInputSystem();
-
 			InputAggregator inputAggregator = new InputAggregator();
 
 			inputAggregator.Add( new MouseInputProcessor( new MouseInputStream() ) );
 			inputAggregator.Add( new KeyboardProcessor( new KeyboardInputStream() ) );
 
-			Platform.Instance.InputAggregator = inputAggregator;
+			Platform.Instance.Input = inputAggregator;
 		}
 
 		protected override void LoadContent()
@@ -126,8 +123,7 @@ namespace VertexArmy
 		{
 			base.Update( gameTime );
 
-			Platform.Instance.Input.Update( gameTime );
-			Platform.Instance.InputAggregator.Update(new Time(gameTime));
+			Platform.Instance.Input.Update( new Time( gameTime ) );
 			CursorManager.Instance.Update();
 
 			if ( StateManager.Instance.CurrentGameState != null )

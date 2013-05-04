@@ -397,12 +397,6 @@
     <Compile Include="..\Equitrilium\Graphics\SceneNode.cs">
       <Link>Graphics\SceneNode.cs</Link>
     </Compile>
-    <Compile Include="..\Equitrilium\Input\IInputSystem.cs">
-      <Link>Input\IInputSystem.cs</Link>
-    </Compile>
-    <Compile Include="..\Equitrilium\Input\PCInputSystem.cs">
-      <Link>Input\PCInputSystem.cs</Link>
-    </Compile>
     <Compile Include="..\Equitrilium\Levels\Level.cs">
       <Link>Levels\Level.cs</Link>
     </Compile>

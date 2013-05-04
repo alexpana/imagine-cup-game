@@ -57,7 +57,7 @@ namespace VertexArmy.States
 					ResetGameState();
 				}
 #if DEBUG
-				if ( Platform.Instance.InputAggregator.HasEvent( Button.Up ) )
+				if ( Platform.Instance.Input.HasEvent( Button.Up ) )
 				{
 					if ( Robot.PhysicsEntity.GetCollisionLayer().Equals( Category.Cat1 ) )
 					{
@@ -66,7 +66,7 @@ namespace VertexArmy.States
 						Robot.SetPosition( new Vector3( position.X, position.Y, -800 ) );
 					}
 				}
-				if ( Platform.Instance.InputAggregator.HasEvent( Button.Down ) )
+				if ( Platform.Instance.Input.HasEvent( Button.Down ) )
 				{
 					if ( Robot.PhysicsEntity.GetCollisionLayer().Equals( Category.Cat2 ) )
 					{
@@ -77,13 +77,13 @@ namespace VertexArmy.States
 				}
 #endif
 
-				if ( Platform.Instance.InputAggregator.HasEvent( Button.R, true ) )
+				if ( Platform.Instance.Input.HasEvent( Button.R, true ) )
 				{
 					ResetGameState();
 				}
 			}
 #if DEBUG
-			if ( Platform.Instance.InputAggregator.HasEvent( Button.D, true ) )
+			if ( Platform.Instance.Input.HasEvent( Button.D, true ) )
 			{
 				_debugViewState = !_debugViewState;
 			}

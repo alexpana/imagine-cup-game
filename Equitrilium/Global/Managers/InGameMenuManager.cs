@@ -136,7 +136,7 @@ namespace VertexArmy.Global.Managers
 
 		private void CheckSelectedItem()
 		{
-			var locationEvent = Platform.Instance.InputAggregator.GetEvent<MovementEvent>();
+			var locationEvent = Platform.Instance.Input.GetEvent<MovementEvent>();
 			if ( locationEvent != null && locationEvent.Delta.Length() > 0 )
 			{
 				Vector2 cursor = locationEvent.Location - _metrics.GetMenuOffset();
@@ -152,11 +152,11 @@ namespace VertexArmy.Global.Managers
 				}
 			}
 
-			if ( Platform.Instance.InputAggregator.HasEvent( Button.Down, true ) )
+			if ( Platform.Instance.Input.HasEvent( Button.Down, true ) )
 			{
 				MoveSelectionDown();
 			}
-			if ( Platform.Instance.InputAggregator.HasEvent( Button.Up, true ) )
+			if ( Platform.Instance.Input.HasEvent( Button.Up, true ) )
 			{
 				MoveSelectionUp();
 			}
@@ -176,8 +176,8 @@ namespace VertexArmy.Global.Managers
 		{
 			CheckSelectedItem();
 
-			if ( Platform.Instance.InputAggregator.GetGesture( GestureType.Activate ) != null ||
-				Platform.Instance.InputAggregator.HasEvent( Button.Enter, true ) )
+			if ( Platform.Instance.Input.GetGesture( GestureType.Activate ) != null ||
+				Platform.Instance.Input.HasEvent( Button.Enter, true ) )
 			{
 				CallbackSelection();
 			}

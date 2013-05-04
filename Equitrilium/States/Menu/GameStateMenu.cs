@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
+using UnifiedInputSystem.Events;
 using UnifiedInputSystem.Extensions;
 using UnifiedInputSystem.Input;
 using VertexArmy.Content.Prefabs;
@@ -85,7 +86,7 @@ namespace VertexArmy.States.Menu
 
 		private void HandleMouseInput()
 		{
-			var gestureEvent = _platform.InputAggregator.GetGesture( GestureType.Activate );
+			var gestureEvent = _platform.Input.GetGesture( GestureType.Activate );
 			if ( gestureEvent != null )
 			{
 				List<SceneNode> nodes = SceneManager.Instance.IntersectScreenRayWithSceneNodes( gestureEvent.Location );
@@ -95,32 +96,36 @@ namespace VertexArmy.States.Menu
 				}
 			}
 
-			if ( _platform.Input.ScrollDelta < 0 )
+			var scrollEvent = _platform.Input.GetEvent<ScrollEvent>();
+			if ( scrollEvent != null )
 			{
-				_activeCube.SelectNextItem();
-			}
-			if ( _platform.Input.ScrollDelta > 0 )
-			{
-				_activeCube.SelectPreviousItem();
+				if ( scrollEvent.Delta < 0 )
+				{
+					_activeCube.SelectNextItem();
+				}
+				if ( scrollEvent.Delta > 0 )
+				{
+					_activeCube.SelectPreviousItem();
+				}
 			}
 		}
 
 		private void HandleKeyboardInput()
 		{
-			if ( _platform.InputAggregator.HasEvent( Button.Left, true ) )
+			if ( _platform.Input.HasEvent( Button.Left, true ) )
 			{
 				_activeCube.SelectPreviousItem();
 			}
-			else if ( _platform.InputAggregator.HasEvent( Button.Right, true ) )
+			else if ( _platform.Input.HasEvent( Button.Right, true ) )
 			{
 				_activeCube.SelectNextItem();
 			}
-			else if ( _platform.InputAggregator.HasEvent( Button.Enter, true ) )
+			else if ( _platform.Input.HasEvent( Button.Enter, true ) )
 			{
 				ActivateSelectedItem();
 			}
-			else if ( _platform.InputAggregator.HasEvent( Button.Escape, true ) ||
-					  _platform.InputAggregator.HasEvent( Button.Back, true ) )
+			else if ( _platform.Input.HasEvent( Button.Escape, true ) ||
+					  _platform.Input.HasEvent( Button.Back, true ) )
 			{
 				if ( _activeCube.PreviousMenu != null )
 				{

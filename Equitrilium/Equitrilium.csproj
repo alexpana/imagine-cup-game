@@ -217,8 +217,6 @@
     <Compile Include="Global\Managers\SceneManager.cs" />
     <Compile Include="Graphics\SceneNode.cs" />
     <Compile Include="Graphics\Attachables\MeshAttachable.cs" />
-    <Compile Include="Input\IInputSystem.cs" />
-    <Compile Include="Input\PCInputSystem.cs" />
     <Compile Include="Levels\Level.cs" />
     <Compile Include="Levels\LevelChunk.cs" />
     <Compile Include="Levels\LevelManager.cs" />

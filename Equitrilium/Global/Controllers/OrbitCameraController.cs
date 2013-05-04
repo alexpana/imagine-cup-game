@@ -45,7 +45,7 @@ namespace VertexArmy.Global.Controllers
 
 		private void ReadInput()
 		{
-			var inputEvent = Platform.Instance.InputAggregator.GetEvent<MovementEvent>();
+			var inputEvent = Platform.Instance.Input.GetEvent<MovementEvent>();
 
 			_rotations.X += inputEvent.Delta.X * 0.003f;
 			_rotations.Y += inputEvent.Delta.Y * 0.003f;

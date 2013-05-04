@@ -80,7 +80,7 @@ namespace VertexArmy.Global.Managers
 
 		public void Update()
 		{
-			var locationEvent = Platform.Instance.InputAggregator.GetEvent<MovementEvent>();
+			var locationEvent = Platform.Instance.Input.GetEvent<MovementEvent>();
 			if ( locationEvent != null )
 			{
 				_cursorPosition = locationEvent.Location;

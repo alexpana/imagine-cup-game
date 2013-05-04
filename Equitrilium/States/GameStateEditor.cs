@@ -42,7 +42,7 @@ namespace VertexArmy.States
 		{
 			_contentManager = content;
 			_saveAction = false;
-			_inputAggregator = Platform.Instance.InputAggregator;
+			_inputAggregator = Platform.Instance.Input;
 			_debugViewGridstep = UnitsConverter.ToSimUnits( 1f );
 			_gridColor = new Color( 128, 128, 128, 80 );
 			_debugViewGrid = true;

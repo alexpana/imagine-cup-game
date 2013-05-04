@@ -1,6 +1,7 @@
 using FarseerPhysics.Dynamics;
 using Microsoft.Xna.Framework;
 using UnifiedInputSystem;
+using UnifiedInputSystem.Keyboard;
 using UnifiedInputSystem.Mouse;
 using VertexArmy.Content.Materials;
 using VertexArmy.Content.Prefabs;
@@ -70,6 +71,7 @@ namespace VertexArmy
 			InputAggregator inputAggregator = new InputAggregator();
 
 			inputAggregator.Add( new MouseInputProcessor( new MouseInputStream() ) );
+			inputAggregator.Add( new KeyboardProcessor( new KeyboardInputStream() ) );
 
 			Platform.Instance.InputAggregator = inputAggregator;
 		}

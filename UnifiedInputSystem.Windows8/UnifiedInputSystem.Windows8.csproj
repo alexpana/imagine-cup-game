@@ -99,6 +99,12 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="..\UnifiedInputSystem\Events\Buttons.cs">
+      <Link>Events\Buttons.cs</Link>
+    </Compile>
+    <Compile Include="..\UnifiedInputSystem\Events\ButtonsPressedEvent.cs">
+      <Link>Events\ButtonsPressedEvent.cs</Link>
+    </Compile>
     <Compile Include="..\UnifiedInputSystem\Events\GestureEvent.cs">
       <Link>Events\GestureEvent.cs</Link>
     </Compile>
@@ -111,11 +117,14 @@
     <Compile Include="..\UnifiedInputSystem\Events\IInputEvent.cs">
       <Link>Events\IInputEvent.cs</Link>
     </Compile>
-    <Compile Include="..\UnifiedInputSystem\Events\InputAggregatorGestureExtensions.cs">
-      <Link>Events\InputAggregatorGestureExtensions.cs</Link>
+    <Compile Include="..\UnifiedInputSystem\Events\MovementEvent.cs">
+      <Link>Events\MovementEvent.cs</Link>
     </Compile>
-    <Compile Include="..\UnifiedInputSystem\Events\LocationEvent.cs">
-      <Link>Events\LocationEvent.cs</Link>
+    <Compile Include="..\UnifiedInputSystem\Extensions\InputAggregatorButtonsPressedExtensions.cs">
+      <Link>Extensions\InputAggregatorButtonsPressedExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\UnifiedInputSystem\Extensions\InputAggregatorGestureExtensions.cs">
+      <Link>Extensions\InputAggregatorGestureExtensions.cs</Link>
     </Compile>
     <Compile Include="..\UnifiedInputSystem\IInputProcessor.cs">
       <Link>IInputProcessor.cs</Link>
@@ -125,6 +134,15 @@
     </Compile>
     <Compile Include="..\UnifiedInputSystem\InputAggregator.cs">
       <Link>InputAggregator.cs</Link>
+    </Compile>
+    <Compile Include="..\UnifiedInputSystem\Keyboard\KeyboardInputProcessor.cs">
+      <Link>Keyboard\KeyboardInputProcessor.cs</Link>
+    </Compile>
+    <Compile Include="..\UnifiedInputSystem\Keyboard\KeyboardInputStream.cs">
+      <Link>Keyboard\KeyboardInputStream.cs</Link>
+    </Compile>
+    <Compile Include="..\UnifiedInputSystem\Keyboard\KeyboardPayload.cs">
+      <Link>Keyboard\KeyboardPayload.cs</Link>
     </Compile>
     <Compile Include="..\UnifiedInputSystem\Mouse\MouseInputProcessor.cs">
       <Link>Mouse\MouseInputProcessor.cs</Link>

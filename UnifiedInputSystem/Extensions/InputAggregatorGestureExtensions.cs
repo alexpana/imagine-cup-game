@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using UnifiedInputSystem.Events;
 
-namespace UnifiedInputSystem.Events
+namespace UnifiedInputSystem.Extensions
 {
 	public static class InputAggregatorGestureExtensions
 	{

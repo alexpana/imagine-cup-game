@@ -9,9 +9,8 @@ namespace UnifiedInputSystem.Extensions
 	public static class InputAggregatorButtonsPressedExtensions
 	{
 		/// <summary>
-		/// Gets the first event of the specified type, or null if none exists
+		/// Returns true if there is an event that has the specified button pressed, or false if none exists
 		/// </summary>
-		/// <returns>An <see cref="IInputEvent"/> or null if none exists</returns>
 		public static bool HasEvent( this InputAggregator inputAggregator,
 			Button button, bool firstTime = false )
 		{

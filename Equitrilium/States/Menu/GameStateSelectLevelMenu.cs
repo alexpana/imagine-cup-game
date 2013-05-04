@@ -37,7 +37,7 @@ namespace VertexArmy.States.Menu
 			SceneNode nodeUnderPointer = null;
 
 			var locationEvent = Platform.Instance.InputAggregator.GetEvent<LocationEvent>();
-			if ( locationEvent.Delta.Length() > 0 )
+			if ( locationEvent != null && locationEvent.Delta.Length() > 0 )
 			{
 				List<SceneNode> nodes = SceneManager.Instance.IntersectScreenRayWithSceneNodes( locationEvent.Location );
 				if ( nodes.Count > 0 )

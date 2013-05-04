@@ -135,10 +135,10 @@ namespace VertexArmy.Global.Managers
 		private void CheckSelectedItem()
 		{
 			var locationEvent = Platform.Instance.InputAggregator.GetEvent<LocationEvent>();
-			Vector2 cursor = locationEvent.Location - _metrics.GetMenuOffset();
-
-			if ( locationEvent.Delta.Length() > 0 )
+			if ( locationEvent != null && locationEvent.Delta.Length() > 0 )
 			{
+				Vector2 cursor = locationEvent.Location - _metrics.GetMenuOffset();
+
 				if ( PointIntersectsMenuItem( cursor, MenuItem.Continue ) )
 				{
 					_selectedItem = MenuItem.Continue;

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using System.Collections.Specialized;
 using UnifiedInputSystem.Events;
 using UnifiedInputSystem.Input;
+using UnifiedInputSystem.Utils;
 
 namespace UnifiedInputSystem.Keyboard
 {
@@ -10,15 +10,15 @@ namespace UnifiedInputSystem.Keyboard
 		private readonly KeyboardInputStream _inputStream;
 		private List<IInputEvent> _lastEvents;
 
-		private BitVector32 _previousKeys;
-		private BitVector32 _currentKeys;
+		private BitSet _previousKeys;
+		private BitSet _currentKeys;
 
 		public KeyboardProcessor( KeyboardInputStream inputStream )
 		{
 			_inputStream = inputStream;
 
-			_currentKeys = new BitVector32();
-			_previousKeys = new BitVector32();
+			_currentKeys = new BitSet();
+			_previousKeys = new BitSet();
 		}
 
 		public List<IInputEvent> GetEvents()
@@ -29,7 +29,7 @@ namespace UnifiedInputSystem.Keyboard
 		public void Update( Time time )
 		{
 			_inputStream.Update( time );
-			_currentKeys = new BitVector32();
+			_currentKeys = new BitSet();
 
 			var state = _inputStream.GetState();
 

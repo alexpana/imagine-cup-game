@@ -156,6 +156,9 @@
     <Compile Include="..\UnifiedInputSystem\Time.cs">
       <Link>Time.cs</Link>
     </Compile>
+    <Compile Include="..\UnifiedInputSystem\Utils\BitSet.cs">
+      <Link>Utils\BitSet.cs</Link>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

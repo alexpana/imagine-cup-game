@@ -132,8 +132,8 @@
     <Compile Include="..\UnifiedInputSystem\Mouse\MouseInputStream.cs">
       <Link>Mouse\MouseInputStream.cs</Link>
     </Compile>
-    <Compile Include="..\UnifiedInputSystem\Mouse\MouseState.cs">
-      <Link>Mouse\MouseState.cs</Link>
+    <Compile Include="..\UnifiedInputSystem\Mouse\MousePayload.cs">
+      <Link>Mouse\MousePayload.cs</Link>
     </Compile>
     <Compile Include="..\UnifiedInputSystem\Time.cs">
       <Link>Time.cs</Link>

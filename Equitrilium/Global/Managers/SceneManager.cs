@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
@@ -15,8 +14,11 @@ namespace VertexArmy.Global.Managers
 {
 	public class SceneManager : IUpdatable
 	{
-		private static volatile SceneManager _instance;
-		private static readonly object _syncRoot = new Object();
+		private static SceneManager _instance = new SceneManager();
+		public static SceneManager Instance
+		{
+			get { return _instance; }
+		}
 
 		private readonly List<SceneNode> _registeredNodes = new List<SceneNode>();
 
@@ -62,23 +64,6 @@ namespace VertexArmy.Global.Managers
 					Platform.Instance.Device.PresentationParameters.MultiSampleCount, RenderTargetUsage.PreserveContents );
 			}
 			return _depth;
-		}
-
-
-		public static SceneManager Instance
-		{
-			get
-			{
-				if ( _instance == null )
-				{
-					lock ( _syncRoot )
-					{
-						if ( _instance == null )
-							_instance = new SceneManager();
-					}
-				}
-				return _instance;
-			}
 		}
 
 		public SceneManager()

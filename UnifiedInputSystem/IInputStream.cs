@@ -4,7 +4,7 @@
 	/// Represents a stream of an input source for the system
 	/// <typeparam name="T">The type of the payload the stream carries</typeparam>
 	/// </summary>
-	interface IInputStream<T>
+	public interface IInputStream<T>
 	{
 		/// <summary>
 		/// Updates the stream's state

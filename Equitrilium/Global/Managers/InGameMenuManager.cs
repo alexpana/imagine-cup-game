@@ -152,11 +152,11 @@ namespace VertexArmy.Global.Managers
 				}
 			}
 
-			if ( Platform.Instance.Input.HasEvent( Button.Down, true ) )
+			if ( Platform.Instance.Input.HasEvent( UISButton.Down, true ) )
 			{
 				MoveSelectionDown();
 			}
-			if ( Platform.Instance.Input.HasEvent( Button.Up, true ) )
+			if ( Platform.Instance.Input.HasEvent( UISButton.Up, true ) )
 			{
 				MoveSelectionUp();
 			}
@@ -177,7 +177,7 @@ namespace VertexArmy.Global.Managers
 			CheckSelectedItem();
 
 			if ( Platform.Instance.Input.GetGesture( GestureType.Activate ) != null ||
-				Platform.Instance.Input.HasEvent( Button.Enter, true ) )
+				Platform.Instance.Input.HasEvent( UISButton.Enter, true ) )
 			{
 				CallbackSelection();
 			}

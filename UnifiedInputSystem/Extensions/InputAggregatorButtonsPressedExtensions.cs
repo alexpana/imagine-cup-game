@@ -12,10 +12,10 @@ namespace UnifiedInputSystem.Extensions
 		/// Returns true if there is an event that has the specified button pressed, or false if none exists
 		/// </summary>
 		public static bool HasEvent( this InputAggregator inputAggregator,
-			Button button, bool firstTime = false )
+			UISButton uisButton, bool firstTime = false )
 		{
 			return inputAggregator.GetEvents<ButtonsPressedEvent>().
-				FirstOrDefault( ev => ev.PressedButtons.Contains( new KeyValuePair<Button, bool>( button, firstTime ) ) ) != null;
+				FirstOrDefault( ev => ev.PressedButtons.Contains( new KeyValuePair<UISButton, bool>( uisButton, firstTime ) ) ) != null;
 		}
 	}
 }

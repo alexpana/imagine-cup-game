@@ -33,11 +33,11 @@ namespace UnifiedInputSystem.Keyboard
 
 			var state = _inputStream.GetState();
 
-			List<KeyValuePair<Button, bool>> buttons = new List<KeyValuePair<Button, bool>>();
+			List<KeyValuePair<UISButton, bool>> buttons = new List<KeyValuePair<UISButton, bool>>();
 			foreach ( var button in state.Buttons )
 			{
 				_currentKeys[( int ) button] = true;
-				buttons.Add( new KeyValuePair<Button, bool>( button, !_previousKeys[( int ) button] ) );
+				buttons.Add( new KeyValuePair<UISButton, bool>( button, !_previousKeys[( int ) button] ) );
 			}
 
 			_lastEvents = new List<IInputEvent> { new ButtonsPressedEvent( buttons ) };

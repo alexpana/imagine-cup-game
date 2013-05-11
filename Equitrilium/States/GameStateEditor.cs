@@ -87,18 +87,18 @@ namespace VertexArmy.States
 				_actionToggleDebugView = false;
 			}
 
-			if ( _inputAggregator.HasEvent( Button.G, true ) )
+			if ( _inputAggregator.HasEvent( UISButton.G, true ) )
 			{
 				_debugViewGrid = !_debugViewGrid;
 			}
 
 			// debug view segments
 			_debugViewGridstep = UnitsConverter.ToSimUnits( 1f );
-			if ( _inputAggregator.HasEvent( Button.LeftControl ) || _inputAggregator.HasEvent( Button.RightControl ) )
+			if ( _inputAggregator.HasEvent( UISButton.LeftControl ) || _inputAggregator.HasEvent( UISButton.RightControl ) )
 			{
 				_debugViewGridstep *= 2f;
 			}
-			else if ( _inputAggregator.HasEvent( Button.LeftShift ) || _inputAggregator.HasEvent( Button.RightShift ) )
+			else if ( _inputAggregator.HasEvent( UISButton.LeftShift ) || _inputAggregator.HasEvent( UISButton.RightShift ) )
 			{
 				_debugViewGridstep *= 0.1f;
 			}

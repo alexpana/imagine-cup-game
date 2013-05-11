@@ -60,7 +60,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Events\ScrollEvent.cs" />
-    <Compile Include="Input\Button.cs" />
+    <Compile Include="Input\UISButton.cs" />
     <Compile Include="Events\ButtonsPressedEvent.cs">
       <SubType>Code</SubType>
     </Compile>

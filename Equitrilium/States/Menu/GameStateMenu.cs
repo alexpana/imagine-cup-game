@@ -112,20 +112,20 @@ namespace VertexArmy.States.Menu
 
 		private void HandleKeyboardInput()
 		{
-			if ( _platform.Input.HasEvent( Button.Left, true ) )
+			if ( _platform.Input.HasEvent( UISButton.Left, true ) )
 			{
 				_activeCube.SelectPreviousItem();
 			}
-			else if ( _platform.Input.HasEvent( Button.Right, true ) )
+			else if ( _platform.Input.HasEvent( UISButton.Right, true ) )
 			{
 				_activeCube.SelectNextItem();
 			}
-			else if ( _platform.Input.HasEvent( Button.Enter, true ) )
+			else if ( _platform.Input.HasEvent( UISButton.Enter, true ) )
 			{
 				ActivateSelectedItem();
 			}
-			else if ( _platform.Input.HasEvent( Button.Escape, true ) ||
-					  _platform.Input.HasEvent( Button.Back, true ) )
+			else if ( _platform.Input.HasEvent( UISButton.Escape, true ) ||
+					  _platform.Input.HasEvent( UISButton.Back, true ) )
 			{
 				if ( _activeCube.PreviousMenu != null )
 				{

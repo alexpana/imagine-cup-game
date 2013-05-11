@@ -1,7 +1,7 @@
 ﻿
 namespace UnifiedInputSystem.Input
 {
-	public enum Button
+	public enum UISButton
 	{
 		None = 0,
 

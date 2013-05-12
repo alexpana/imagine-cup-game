@@ -1,6 +1,8 @@
-﻿using Microsoft.Xna.Framework;
+﻿#if WINDOWS
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
+using TomShane.Neoforce.Controls;
 using UnifiedInputSystem;
 using UnifiedInputSystem.Extensions;
 using UnifiedInputSystem.Input;
@@ -161,8 +163,7 @@ namespace VertexArmy.States
 		public override void OnEnter()
 		{
 			SceneManager.Instance.UsePostDraw = true;
-			_levelName = "level1";
-			OnLevelSelected();
+			CreateUI();
 		}
 
 		private void OnLevelSelected()
@@ -210,11 +211,85 @@ namespace VertexArmy.States
 			_contentManager.Unload();
 
 			HintManager.Instance.Clear();
+			DestroyUI();
 		}
 
 		public void LoadLastSateCallback()
 		{
 			GameWorldManager.Instance.LoadLastState();
 		}
+
+		#region GUI
+
+		private Window _window;
+
+		private void CreateUI()
+		{
+			var guiManager = Platform.Instance.GuiManager;
+
+			_window = new Window( guiManager ) { Text = "Type the level name to edit", Width = 300, Height = 150 };
+			_window.Init();
+			_window.Center();
+
+			Button okButton = new Button( guiManager );
+			okButton.Init();
+			TextBox levelNameTextBox = new TextBox( guiManager );
+			levelNameTextBox.Init();
+			Label label = new Label( guiManager )
+			{
+				Text = "Level name: ",
+				Left = 10,
+				Top = 20,
+				Width = 80,
+				Parent = _window
+			};
+			label.Init();
+
+			levelNameTextBox.KeyDown += ( sender, args ) =>
+			{
+				if ( args.Key == Keys.Enter )
+				{
+					okButton.SendMessage( Message.Click, new EventArgs() );
+				}
+			};
+
+			levelNameTextBox.Text = "level1";
+			levelNameTextBox.Left = label.Width + label.Left + 10;
+			levelNameTextBox.Top = 20;
+			levelNameTextBox.Parent = _window;
+			levelNameTextBox.Focused = true;
+
+			okButton.Click += ( sender, args ) =>
+			{
+				_levelName = levelNameTextBox.Text;
+				OnLevelSelected();
+				_window.Visible = false;
+			};
+
+			okButton.Text = "OK";
+			okButton.Left = ( _window.ClientWidth / 2 ) - ( okButton.Width / 2 );
+			okButton.Top = _window.ClientHeight - okButton.Height - 8;
+			okButton.Parent = _window;
+
+			_window.Add( label );
+			_window.Add( okButton );
+			_window.Add( levelNameTextBox );
+
+			guiManager.Add( _window );
+		}
+
+		private void DestroyUI()
+		{
+			if ( _window == null )
+			{
+				return;
+			}
+
+			Platform.Instance.GuiManager.Remove( _window );
+			_window = null;
+		}
+
+		#endregion
 	}
 }
+#endif

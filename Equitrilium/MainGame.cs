@@ -10,10 +10,6 @@ using VertexArmy.Global.Managers;
 using VertexArmy.States;
 using VertexArmy.Utilities;
 
-#if WINDOWS
-using Microsoft.Xna.Framework.GamerServices;
-#endif
-
 namespace VertexArmy
 {
 	public class MainGame : Game
@@ -30,10 +26,6 @@ namespace VertexArmy
 			};
 
 			Content.RootDirectory = "Content";
-
-#if WINDOWS
-			Components.Add( new GamerServicesComponent( this ) );
-#endif
 		}
 
 		protected override void Initialize()

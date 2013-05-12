@@ -1,13 +1,10 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Input;
 using UnifiedInputSystem;
 using UnifiedInputSystem.Extensions;
 using UnifiedInputSystem.Input;
 using VertexArmy.Content.Prefabs;
-using VertexArmy.GameWorld;
 using VertexArmy.Global;
 using VertexArmy.Global.Controllers;
 using VertexArmy.Global.Managers;
@@ -23,7 +20,7 @@ namespace VertexArmy.States
 		private DebugViewXNA _debugView;
 		private Matrix _projection;
 		private Matrix _view;
-		
+
 		private LevelPrefab _level;
 
 		private bool _actionToggleDebugView;
@@ -164,19 +161,12 @@ namespace VertexArmy.States
 		public override void OnEnter()
 		{
 			SceneManager.Instance.UsePostDraw = true;
-			Guide.BeginShowKeyboardInput( PlayerIndex.One, "Select level", "Specify the name of the level", "level1", LevelNameInputCallback, null );
+			_levelName = "level1";
+			OnLevelSelected();
 		}
 
-		private void LevelNameInputCallback( IAsyncResult ar )
+		private void OnLevelSelected()
 		{
-			_levelName = Guide.EndShowKeyboardInput( ar );
-
-			// nothing to do yet
-			if ( !ar.IsCompleted )
-			{
-				return;
-			}
-
 			_level = PrefabRepository.Instance.GetLevelPrefab( @"Content\Levels\" + _levelName + ".eql" );
 			GameWorldManager.Instance.SetState( _level._savedState );
 			GameWorldManager.Instance.LoadLastState();

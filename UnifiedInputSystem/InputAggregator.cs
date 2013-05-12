@@ -20,10 +20,28 @@ namespace UnifiedInputSystem
 		/// <summary>
 		/// Adds a new input source
 		/// </summary>
-		/// <param name="processor">The input processor</param>
+		/// <param name="processor">The input processor to add</param>
 		public void Add( IInputProcessor processor )
 		{
 			_processors.Add( processor );
+		}
+
+		/// <summary>
+		/// Adds a new input source to the front of the processors list
+		/// </summary>
+		/// <param name="processor">The input processor to add</param>
+		public void AddToFront( IInputProcessor processor )
+		{
+			_processors.Insert( 0, processor );
+		}
+
+		/// <summary>
+		/// Removes the specified processor
+		/// </summary>
+		/// <param name="processor">The input processor to remove</param>
+		public void Remove( IInputProcessor processor )
+		{
+			_processors.Remove( processor );
 		}
 
 		/// <summary>

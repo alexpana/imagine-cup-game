@@ -8,6 +8,7 @@ namespace UnifiedInputSystem.Input
 	public enum GestureSource
 	{
 		Left,
-		Right
+		Right,
+		None
 	}
 }

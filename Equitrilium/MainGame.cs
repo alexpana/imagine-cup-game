@@ -2,6 +2,7 @@ using FarseerPhysics.Dynamics;
 using Microsoft.Xna.Framework;
 using UnifiedInputSystem;
 using UnifiedInputSystem.Keyboard;
+using UnifiedInputSystem.Kinect;
 using UnifiedInputSystem.Mouse;
 using VertexArmy.Content.Materials;
 using VertexArmy.Content.Prefabs;
@@ -22,7 +23,8 @@ namespace VertexArmy
 		private readonly Manager _guiManager;
 #endif
 #if USE_KINECT
-		private readonly Kinect.KinectChooser _kinectChooser;
+		private Kinect.KinectChooser _kinectChooser;
+		private KinectInputProcessor _kinectInputProcessor;
 #endif
 
 		public MainGame()
@@ -43,23 +45,16 @@ namespace VertexArmy
 			Platform.Instance.GuiManager = _guiManager;
 #endif
 #if USE_KINECT
-			_kinectChooser = new Kinect.KinectChooser( this,
-				Microsoft.Kinect.ColorImageFormat.RgbResolution640x480Fps30,
-				Microsoft.Kinect.DepthImageFormat.Resolution640x480Fps30 );
+			SetupKinect();
 #endif
 		}
 
 		protected override void Initialize()
 		{
 			base.Initialize();
-
 #if WINDOWS
 			_guiManager.Initialize();
 #endif
-#if USE_KINECT
-			_kinectChooser.Initialize();
-#endif
-
 			Platform.Instance.PhysicsWorld = new World( new Vector2( 0f, 9.82f ) );
 
 			Platform.Instance.Settings = new Settings();
@@ -68,6 +63,11 @@ namespace VertexArmy
 			UnitsConverter.SetDisplayUnitToSimUnitRatio( 64 );
 
 			InitializeInput();
+
+#if USE_KINECT
+			_kinectChooser.Initialize();
+			_kinectChooser.DiscoverSensor();
+#endif
 
 			PhysicsContactManager.Instance.Initialize();
 #if TEST_LEVEL_LOADING
@@ -187,5 +187,32 @@ namespace VertexArmy
 
 			CursorManager.Instance.Render();
 		}
+
+#if USE_KINECT
+		private void SetupKinect()
+		{
+			_kinectChooser = new Kinect.KinectChooser( this,
+				Microsoft.Kinect.ColorImageFormat.RgbResolution640x480Fps30,
+				Microsoft.Kinect.DepthImageFormat.Resolution640x480Fps30 );
+			_kinectChooser.SensorChanged += ( sender, args ) =>
+			{
+				if ( _kinectChooser.Sensor == null )
+				{
+					if ( _kinectInputProcessor != null )
+					{
+						Platform.Instance.Input.Remove( _kinectInputProcessor );
+						_kinectInputProcessor = null;
+					}
+				}
+				else
+				{
+					_kinectInputProcessor = new KinectInputProcessor( new KinectInputStream( _kinectChooser.Sensor,
+						Platform.Instance.DeviceManager.PreferredBackBufferWidth,
+						Platform.Instance.DeviceManager.PreferredBackBufferHeight ) );
+					Platform.Instance.Input.AddToFront( _kinectInputProcessor );
+				}
+			};
+		}
+#endif
 	}
 }

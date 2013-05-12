@@ -64,7 +64,6 @@ namespace VertexArmy.Kinect
 			this.depthImageFormat = depthFormat;
 
 			KinectSensor.KinectSensors.StatusChanged += this.KinectSensors_StatusChanged;
-			this.DiscoverSensor();
 
 			this.statusMap.Add( KinectStatus.Connected, string.Empty );
 			this.statusMap.Add( KinectStatus.DeviceNotGenuine, "Device Not Genuine" );
@@ -78,10 +77,27 @@ namespace VertexArmy.Kinect
 			this.game = game;
 		}
 
+		private KinectSensor _sensor;
 		/// <summary>
 		/// Gets the selected KinectSensor.
 		/// </summary>
-		public KinectSensor Sensor { get; private set; }
+		public KinectSensor Sensor
+		{
+			get { return _sensor; }
+			private set
+			{
+				if ( _sensor != value )
+				{
+					_sensor = value;
+					if ( SensorChanged != null )
+					{
+						SensorChanged( this, EventArgs.Empty );
+					}
+				}
+			}
+		}
+
+		public EventHandler SensorChanged;
 
 		/// <summary>
 		/// Gets the last known status of the KinectSensor.
@@ -176,7 +192,7 @@ namespace VertexArmy.Kinect
 		/// Once a sensor is found, it will start the sensor with the
 		/// requested options.
 		/// </summary>
-		private void DiscoverSensor()
+		public void DiscoverSensor()
 		{
 			// Grab any available sensor
 			this.Sensor = KinectSensor.KinectSensors.FirstOrDefault();
@@ -191,8 +207,11 @@ namespace VertexArmy.Kinect
 					try
 					{
 						this.Sensor.SkeletonStream.Enable();
-						this.Sensor.ColorStream.Enable( this.colorImageFormat );
+						this.Sensor.SkeletonStream.TrackingMode = SkeletonTrackingMode.Seated;
+						//						this.Sensor.SkeletonStream.EnableTrackingInNearRange = true;
+						//this.Sensor.ColorStream.Enable( this.colorImageFormat );
 						this.Sensor.DepthStream.Enable( this.depthImageFormat );
+						//this.Sensor.DepthStream.Range = DepthRange.Near;
 
 						try
 						{

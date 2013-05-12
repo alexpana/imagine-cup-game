@@ -21,6 +21,9 @@ namespace VertexArmy
 #if WINDOWS
 		private readonly Manager _guiManager;
 #endif
+#if USE_KINECT
+		private readonly Kinect.KinectChooser _kinectChooser;
+#endif
 
 		public MainGame()
 		{
@@ -39,6 +42,11 @@ namespace VertexArmy
 			_guiManager = new Manager( this, Platform.Instance.DeviceManager );
 			Platform.Instance.GuiManager = _guiManager;
 #endif
+#if USE_KINECT
+			_kinectChooser = new Kinect.KinectChooser( this,
+				Microsoft.Kinect.ColorImageFormat.RgbResolution640x480Fps30,
+				Microsoft.Kinect.DepthImageFormat.Resolution640x480Fps30 );
+#endif
 		}
 
 		protected override void Initialize()
@@ -47,6 +55,9 @@ namespace VertexArmy
 
 #if WINDOWS
 			_guiManager.Initialize();
+#endif
+#if USE_KINECT
+			_kinectChooser.Initialize();
 #endif
 
 			Platform.Instance.PhysicsWorld = new World( new Vector2( 0f, 9.82f ) );
@@ -85,6 +96,10 @@ namespace VertexArmy
 
 		protected override void LoadContent()
 		{
+#if USE_KINECT
+			_kinectChooser.LoadContent();
+#endif
+
 			PrefabRepository.Instance.RegisterPrefab( "Robot", RobotPrefab.CreatePrefab() );
 			PrefabRepository.Instance.RegisterPrefab( "DamagedRobot1", DamagedRobot1Prefab.CreatePrefab() );
 			PrefabRepository.Instance.RegisterPrefab( "Crate", CratePrefab.CreatePrefab() );
@@ -127,12 +142,14 @@ namespace VertexArmy
 
 		protected override void UnloadContent()
 		{
+#if USE_KINECT
+			_kinectChooser.UnloadContent();
+#endif
 		}
 
 		protected override void Update( GameTime gameTime )
 		{
 			base.Update( gameTime );
-
 #if WINDOWS
 			_guiManager.Update( gameTime );
 #endif
@@ -163,6 +180,9 @@ namespace VertexArmy
 
 #if WINDOWS
 			_guiManager.EndDraw();
+#endif
+#if USE_KINECT
+			_kinectChooser.Draw( gameTime );
 #endif
 
 			CursorManager.Instance.Render();

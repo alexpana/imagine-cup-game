@@ -117,6 +117,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Kinect, Version=1.7.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files\Microsoft SDKs\Kinect\v1.7\Assemblies\Microsoft.Kinect.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Xna.Framework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86" />
     <Reference Include="Microsoft.Xna.Framework.Game, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86" />
     <Reference Include="Microsoft.Xna.Framework.Graphics, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86" />
@@ -230,6 +234,7 @@
     <Compile Include="Global\Managers\SceneManager.cs" />
     <Compile Include="Graphics\SceneNode.cs" />
     <Compile Include="Graphics\Attachables\MeshAttachable.cs" />
+    <Compile Include="Kinect\KinectChooser.cs" />
     <Compile Include="Levels\Level.cs" />
     <Compile Include="Levels\LevelChunk.cs" />
     <Compile Include="Levels\LevelManager.cs" />

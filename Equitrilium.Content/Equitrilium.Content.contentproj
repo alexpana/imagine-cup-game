@@ -296,6 +296,11 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="fonts\Segoe16.spritefont">
+      <Name>Segoe16</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+    </Compile>
     <None Include="movies\PurpleStarFlight.wmv">
       <Name>PurpleStarFlight</Name>
       <Importer>WmvImporter</Importer>
@@ -664,6 +669,13 @@
   <ItemGroup>
     <Compile Include="images\menu\level_cube_level2_text.png">
       <Name>level_cube_level2_text</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="images\KinectChooserBackground.png">
+      <Name>KinectChooserBackground</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

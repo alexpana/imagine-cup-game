@@ -1,13 +1,12 @@
-﻿using System;
+﻿#if WINDOWS
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Input;
+using TomShane.Neoforce.Controls;
 using UnifiedInputSystem;
 using UnifiedInputSystem.Extensions;
 using UnifiedInputSystem.Input;
 using VertexArmy.Content.Prefabs;
-using VertexArmy.GameWorld;
 using VertexArmy.Global;
 using VertexArmy.Global.Controllers;
 using VertexArmy.Global.Managers;
@@ -23,7 +22,7 @@ namespace VertexArmy.States
 		private DebugViewXNA _debugView;
 		private Matrix _projection;
 		private Matrix _view;
-		
+
 		private LevelPrefab _level;
 
 		private bool _actionToggleDebugView;
@@ -87,18 +86,18 @@ namespace VertexArmy.States
 				_actionToggleDebugView = false;
 			}
 
-			if ( _inputAggregator.HasEvent( Button.G, true ) )
+			if ( _inputAggregator.HasEvent( UISButton.G, true ) )
 			{
 				_debugViewGrid = !_debugViewGrid;
 			}
 
 			// debug view segments
 			_debugViewGridstep = UnitsConverter.ToSimUnits( 1f );
-			if ( _inputAggregator.HasEvent( Button.LeftControl ) || _inputAggregator.HasEvent( Button.RightControl ) )
+			if ( _inputAggregator.HasEvent( UISButton.LeftControl ) || _inputAggregator.HasEvent( UISButton.RightControl ) )
 			{
 				_debugViewGridstep *= 2f;
 			}
-			else if ( _inputAggregator.HasEvent( Button.LeftShift ) || _inputAggregator.HasEvent( Button.RightShift ) )
+			else if ( _inputAggregator.HasEvent( UISButton.LeftShift ) || _inputAggregator.HasEvent( UISButton.RightShift ) )
 			{
 				_debugViewGridstep *= 0.1f;
 			}
@@ -164,19 +163,11 @@ namespace VertexArmy.States
 		public override void OnEnter()
 		{
 			SceneManager.Instance.UsePostDraw = true;
-			Guide.BeginShowKeyboardInput( PlayerIndex.One, "Select level", "Specify the name of the level", "level1", LevelNameInputCallback, null );
+			CreateUI();
 		}
 
-		private void LevelNameInputCallback( IAsyncResult ar )
+		private void OnLevelSelected()
 		{
-			_levelName = Guide.EndShowKeyboardInput( ar );
-
-			// nothing to do yet
-			if ( !ar.IsCompleted )
-			{
-				return;
-			}
-
 			_level = PrefabRepository.Instance.GetLevelPrefab( @"Content\Levels\" + _levelName + ".eql" );
 			GameWorldManager.Instance.SetState( _level._savedState );
 			GameWorldManager.Instance.LoadLastState();
@@ -220,11 +211,85 @@ namespace VertexArmy.States
 			_contentManager.Unload();
 
 			HintManager.Instance.Clear();
+			DestroyUI();
 		}
 
 		public void LoadLastSateCallback()
 		{
 			GameWorldManager.Instance.LoadLastState();
 		}
+
+		#region GUI
+
+		private Window _window;
+
+		private void CreateUI()
+		{
+			var guiManager = Platform.Instance.GuiManager;
+
+			_window = new Window( guiManager ) { Text = "Type the level name to edit", Width = 300, Height = 150 };
+			_window.Init();
+			_window.Center();
+
+			Button okButton = new Button( guiManager );
+			okButton.Init();
+			TextBox levelNameTextBox = new TextBox( guiManager );
+			levelNameTextBox.Init();
+			Label label = new Label( guiManager )
+			{
+				Text = "Level name: ",
+				Left = 10,
+				Top = 20,
+				Width = 80,
+				Parent = _window
+			};
+			label.Init();
+
+			levelNameTextBox.KeyDown += ( sender, args ) =>
+			{
+				if ( args.Key == Keys.Enter )
+				{
+					okButton.SendMessage( Message.Click, new EventArgs() );
+				}
+			};
+
+			levelNameTextBox.Text = "level1";
+			levelNameTextBox.Left = label.Width + label.Left + 10;
+			levelNameTextBox.Top = 20;
+			levelNameTextBox.Parent = _window;
+			levelNameTextBox.Focused = true;
+
+			okButton.Click += ( sender, args ) =>
+			{
+				_levelName = levelNameTextBox.Text;
+				OnLevelSelected();
+				_window.Visible = false;
+			};
+
+			okButton.Text = "OK";
+			okButton.Left = ( _window.ClientWidth / 2 ) - ( okButton.Width / 2 );
+			okButton.Top = _window.ClientHeight - okButton.Height - 8;
+			okButton.Parent = _window;
+
+			_window.Add( label );
+			_window.Add( okButton );
+			_window.Add( levelNameTextBox );
+
+			guiManager.Add( _window );
+		}
+
+		private void DestroyUI()
+		{
+			if ( _window == null )
+			{
+				return;
+			}
+
+			Platform.Instance.GuiManager.Remove( _window );
+			_window = null;
+		}
+
+		#endregion
 	}
 }
+#endif

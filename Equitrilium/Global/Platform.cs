@@ -59,6 +59,11 @@ namespace VertexArmy.Global
 
 		public SoundManager SoundManager { get; set; }
 
+
+#if WINDOWS
+		public TomShane.Neoforce.Controls.Manager GuiManager { get; set; }
+#endif
+
 		public Random GlobalRandom = new Random();
 
 		#region Singleton

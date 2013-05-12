@@ -78,11 +78,13 @@ namespace VertexArmy.States
 					return new GameStateSelectLevelMenu( contentManager );
 				case GameState.Demo2:
 					return new GameStateDemo2( contentManager );
+#if WINDOWS
 				case GameState.Editor:
 					return new GameStateEditor( contentManager );
+#endif
+				default:
+					return new GameStateMenu( contentManager );
 			}
-
-			throw new NotImplementedException( "Unknown state!" );
 		}
 
 		public void OnFrameEndCommitStates()

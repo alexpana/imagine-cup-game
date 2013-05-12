@@ -15,10 +15,10 @@ namespace UnifiedInputSystem.Keyboard
 #if XNA
 			var state = XnaKeyboard.GetState();
 
-			List<Button> buttons = new List<Button>();
+			List<UISButton> buttons = new List<UISButton>();
 			foreach ( var key in state.GetPressedKeys() )
 			{
-				buttons.Add( ( Button ) key );
+				buttons.Add( ( UISButton ) key );
 			}
 
 			_currentPayload = new KeyboardPayload

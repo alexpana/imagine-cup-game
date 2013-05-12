@@ -11,13 +11,17 @@ using VertexArmy.States;
 using VertexArmy.Utilities;
 
 #if WINDOWS
-using Microsoft.Xna.Framework.GamerServices;
+using TomShane.Neoforce.Controls;
 #endif
 
 namespace VertexArmy
 {
 	public class MainGame : Game
 	{
+#if WINDOWS
+		private readonly Manager _guiManager;
+#endif
+
 		public MainGame()
 		{
 			Platform.Instance.Game = this;
@@ -32,13 +36,19 @@ namespace VertexArmy
 			Content.RootDirectory = "Content";
 
 #if WINDOWS
-			Components.Add( new GamerServicesComponent( this ) );
+			_guiManager = new Manager( this, Platform.Instance.DeviceManager );
+			Platform.Instance.GuiManager = _guiManager;
 #endif
 		}
 
 		protected override void Initialize()
 		{
 			base.Initialize();
+
+#if WINDOWS
+			_guiManager.Initialize();
+#endif
+
 			Platform.Instance.PhysicsWorld = new World( new Vector2( 0f, 9.82f ) );
 
 			Platform.Instance.Settings = new Settings();
@@ -123,6 +133,10 @@ namespace VertexArmy
 		{
 			base.Update( gameTime );
 
+#if WINDOWS
+			_guiManager.Update( gameTime );
+#endif
+
 			Platform.Instance.Input.Update( new Time( gameTime ) );
 			CursorManager.Instance.Update();
 
@@ -136,12 +150,20 @@ namespace VertexArmy
 
 		protected override void Draw( GameTime gameTime )
 		{
+
+#if WINDOWS
+			_guiManager.BeginDraw( gameTime );
+#endif
 			base.Draw( gameTime );
 
 			if ( StateManager.Instance.CurrentGameState != null )
 			{
 				StateManager.Instance.CurrentGameState.OnRender( gameTime );
 			}
+
+#if WINDOWS
+			_guiManager.EndDraw();
+#endif
 
 			CursorManager.Instance.Render();
 		}

@@ -185,11 +185,11 @@ namespace VertexArmy.Global.Controllers
 
 				if ( !newPosition.Equals( _selectedEntity.GetPosition() ) )
 				{
-					if ( _inputAggregator.HasEvent( Button.LeftControl ) || _inputAggregator.HasEvent( Button.RightControl ) )
+					if ( _inputAggregator.HasEvent( UISButton.LeftControl ) || _inputAggregator.HasEvent( UISButton.RightControl ) )
 					{
 						newPosition = TransformUtility.SnapToGridXY( newPosition, OperationBigIncrement );
 					}
-					else if ( _inputAggregator.HasEvent( Button.LeftShift ) || _inputAggregator.HasEvent( Button.RightShift ) )
+					else if ( _inputAggregator.HasEvent( UISButton.LeftShift ) || _inputAggregator.HasEvent( UISButton.RightShift ) )
 					{
 						newPosition = TransformUtility.SnapToGridXY( newPosition, OperationSmallIncrement );
 					}
@@ -206,39 +206,39 @@ namespace VertexArmy.Global.Controllers
 				Vector3 move = Vector3.Zero;
 				float snapStep = 1f;
 
-				if ( _inputAggregator.HasEvent( Button.Up ) )
+				if ( _inputAggregator.HasEvent( UISButton.Up ) )
 				{
 					move += Vector3.UnitY;
 				}
-				else if ( _inputAggregator.HasEvent( Button.Down ) )
+				else if ( _inputAggregator.HasEvent( UISButton.Down ) )
 				{
 					move -= Vector3.UnitY;
 				}
 
-				if ( _inputAggregator.HasEvent( Button.Left ) )
+				if ( _inputAggregator.HasEvent( UISButton.Left ) )
 				{
 					move -= Vector3.UnitX;
 				}
-				else if ( _inputAggregator.HasEvent( Button.Right ) )
+				else if ( _inputAggregator.HasEvent( UISButton.Right ) )
 				{
 					move += Vector3.UnitX;
 				}
 
-				if ( _inputAggregator.HasEvent( Button.Minus ) )
+				if ( _inputAggregator.HasEvent( UISButton.Minus ) )
 				{
 					move -= Vector3.UnitZ;
 				}
-				else if ( _inputAggregator.HasEvent( Button.Plus ) )
+				else if ( _inputAggregator.HasEvent( UISButton.Plus ) )
 				{
 					move += Vector3.UnitZ;
 				}
 
-				if ( _inputAggregator.HasEvent( Button.LeftControl ) || _inputAggregator.HasEvent( Button.RightControl ) )
+				if ( _inputAggregator.HasEvent( UISButton.LeftControl ) || _inputAggregator.HasEvent( UISButton.RightControl ) )
 				{
 					move *= OperationBigIncrement;
 					snapStep = OperationBigIncrement;
 				}
-				else if ( _inputAggregator.HasEvent( Button.LeftShift ) || _inputAggregator.HasEvent( Button.RightShift ) )
+				else if ( _inputAggregator.HasEvent( UISButton.LeftShift ) || _inputAggregator.HasEvent( UISButton.RightShift ) )
 				{
 					move *= OperationSmallIncrement;
 					snapStep = OperationSmallIncrement;
@@ -246,7 +246,7 @@ namespace VertexArmy.Global.Controllers
 
 				if ( !move.Equals( Vector3.Zero ) )
 				{
-					if ( _inputAggregator.HasEvent( Button.Q ) )
+					if ( _inputAggregator.HasEvent( UISButton.Q ) )
 					{
 						move *= 5;
 					}
@@ -277,11 +277,11 @@ namespace VertexArmy.Global.Controllers
 
 				Quaternion externalRotation = Quaternion.Identity;
 
-				if ( _inputAggregator.HasEvent( Button.Left ) )
+				if ( _inputAggregator.HasEvent( UISButton.Left ) )
 				{
 					rotate -= ( float ) dt.ElapsedGameTime.TotalSeconds / 4f;
 				}
-				else if ( _inputAggregator.HasEvent( Button.Right ) )
+				else if ( _inputAggregator.HasEvent( UISButton.Right ) )
 				{
 					rotate += ( float ) dt.ElapsedGameTime.TotalSeconds / 4f;
 				}
@@ -297,18 +297,18 @@ namespace VertexArmy.Global.Controllers
 				}
 				 */
 
-				if ( _inputAggregator.HasEvent( Button.LeftControl ) || _inputAggregator.HasEvent( Button.RightControl ) )
+				if ( _inputAggregator.HasEvent( UISButton.LeftControl ) || _inputAggregator.HasEvent( UISButton.RightControl ) )
 				{
 					rotate = Math.Sign( rotate ) * _specialRotationBigOperator;
 				}
-				else if ( _inputAggregator.HasEvent( Button.LeftShift ) || _inputAggregator.HasEvent( Button.RightShift ) )
+				else if ( _inputAggregator.HasEvent( UISButton.LeftShift ) || _inputAggregator.HasEvent( UISButton.RightShift ) )
 				{
 					rotate = Math.Sign( rotate ) * _specialRotationSmallOperator;
 				}
 
 				if ( rotate != 0 )
 				{
-					if ( _inputAggregator.HasEvent( Button.Q ) )
+					if ( _inputAggregator.HasEvent( UISButton.Q ) )
 					{
 						rotate *= 5;
 					}
@@ -317,11 +317,11 @@ namespace VertexArmy.Global.Controllers
 						float lastRotation = _selectedEntity.GetRotationRadians();
 						float newRotation = lastRotation + rotate;
 
-						if ( _inputAggregator.HasEvent( Button.LeftControl ) || _inputAggregator.HasEvent( Button.RightControl ) )
+						if ( _inputAggregator.HasEvent( UISButton.LeftControl ) || _inputAggregator.HasEvent( UISButton.RightControl ) )
 						{
 							newRotation = _specialRotationBigOperator * ( float ) Math.Round( newRotation / _specialRotationBigOperator );
 						}
-						else if ( _inputAggregator.HasEvent( Button.LeftShift ) || _inputAggregator.HasEvent( Button.RightShift ) )
+						else if ( _inputAggregator.HasEvent( UISButton.LeftShift ) || _inputAggregator.HasEvent( UISButton.RightShift ) )
 						{
 							newRotation = _specialRotationSmallOperator * ( float ) Math.Round( newRotation / _specialRotationSmallOperator );
 						}
@@ -329,7 +329,7 @@ namespace VertexArmy.Global.Controllers
 						_rotateTime = dt.TotalGameTime.TotalMilliseconds;
 						_selectedEntity.SetRotation( newRotation );
 					}
-					else if ( dt.TotalGameTime.TotalMilliseconds - _rotateTime > RotateDelay || _inputAggregator.HasEvent( Button.Q ) )
+					else if ( dt.TotalGameTime.TotalMilliseconds - _rotateTime > RotateDelay || _inputAggregator.HasEvent( UISButton.Q ) )
 					{
 						_selectedEntity.SetRotation( _selectedEntity.GetRotationRadians() + rotate );
 					}
@@ -347,7 +347,7 @@ namespace VertexArmy.Global.Controllers
 						_externalRotateTime = dt.TotalGameTime.TotalMilliseconds;
 						_selectedEntity.SetExternalRotation( externalRotation );
 					}
-					else if ( dt.TotalGameTime.TotalMilliseconds - _externalRotateTime > ExternalRotateDelay || _inputAggregator.HasEvent( Button.Q ) )
+					else if ( dt.TotalGameTime.TotalMilliseconds - _externalRotateTime > ExternalRotateDelay || _inputAggregator.HasEvent( UISButton.Q ) )
 					{
 						_selectedEntity.SetExternalRotation( externalRotation );
 					}
@@ -365,38 +365,38 @@ namespace VertexArmy.Global.Controllers
 			{
 				Vector3 scale = Vector3.Zero;
 
-				if ( _inputAggregator.HasEvent( Button.Up ) )
+				if ( _inputAggregator.HasEvent( UISButton.Up ) )
 				{
 					scale += Vector3.UnitY / 2;
 				}
-				else if ( _inputAggregator.HasEvent( Button.Down ) )
+				else if ( _inputAggregator.HasEvent( UISButton.Down ) )
 				{
 					scale -= Vector3.UnitY / 2;
 				}
 
-				if ( _inputAggregator.HasEvent( Button.Left ) )
+				if ( _inputAggregator.HasEvent( UISButton.Left ) )
 				{
 					scale -= Vector3.UnitX / 2;
 				}
-				else if ( _inputAggregator.HasEvent( Button.Right ) )
+				else if ( _inputAggregator.HasEvent( UISButton.Right ) )
 				{
 					scale += Vector3.UnitX / 2;
 				}
 
-				if ( _inputAggregator.HasEvent( Button.Minus ) )
+				if ( _inputAggregator.HasEvent( UISButton.Minus ) )
 				{
 					scale -= Vector3.UnitZ / 2;
 				}
-				else if ( _inputAggregator.HasEvent( Button.Plus ) )
+				else if ( _inputAggregator.HasEvent( UISButton.Plus ) )
 				{
 					scale += Vector3.UnitZ / 2;
 				}
 
-				if ( _inputAggregator.HasEvent( Button.LeftControl ) || _inputAggregator.HasEvent( Button.RightControl ) )
+				if ( _inputAggregator.HasEvent( UISButton.LeftControl ) || _inputAggregator.HasEvent( UISButton.RightControl ) )
 				{
 					scale *= OperationBigIncrement;
 				}
-				else if ( _inputAggregator.HasEvent( Button.LeftShift ) || _inputAggregator.HasEvent( Button.RightShift ) )
+				else if ( _inputAggregator.HasEvent( UISButton.LeftShift ) || _inputAggregator.HasEvent( UISButton.RightShift ) )
 				{
 					scale *= OperationSmallIncrement;
 				}
@@ -485,11 +485,11 @@ namespace VertexArmy.Global.Controllers
 					Vector3 m3D = SceneManager.Instance.IntersectScreenRayWithPlane( _lastSelectedZ );
 					Vector3 position = new Vector3( m3D.X, m3D.Y, _lastSelectedZ );
 
-					if ( _inputAggregator.HasEvent( Button.LeftControl ) || _inputAggregator.HasEvent( Button.RightControl ) )
+					if ( _inputAggregator.HasEvent( UISButton.LeftControl ) || _inputAggregator.HasEvent( UISButton.RightControl ) )
 					{
 						position = TransformUtility.SnapToGridXY( position, OperationBigIncrement );
 					}
-					else if ( _inputAggregator.HasEvent( Button.LeftShift ) || _inputAggregator.HasEvent( Button.RightShift ) )
+					else if ( _inputAggregator.HasEvent( UISButton.LeftShift ) || _inputAggregator.HasEvent( UISButton.RightShift ) )
 					{
 						position = TransformUtility.SnapToGridXY( position, OperationSmallIncrement );
 					}
@@ -510,31 +510,31 @@ namespace VertexArmy.Global.Controllers
 		{
 			if ( _state.Equals( EditorState.Selected ) && _selectedEntity != null )
 			{
-				if ( _inputAggregator.HasEvent( Button.D1 ) )
+				if ( _inputAggregator.HasEvent( UISButton.D1 ) )
 				{
 					_lastLayerSelected = Category.Cat1;
 					_selectedEntity.PhysicsEntity.SetCollisionLayer( Category.Cat1 );
 				}
 
-				if ( _inputAggregator.HasEvent( Button.D2 ) )
+				if ( _inputAggregator.HasEvent( UISButton.D2 ) )
 				{
 					_lastLayerSelected = Category.Cat2;
 					_selectedEntity.PhysicsEntity.SetCollisionLayer( Category.Cat2 );
 				}
 
-				if ( _inputAggregator.HasEvent( Button.D3 ) )
+				if ( _inputAggregator.HasEvent( UISButton.D3 ) )
 				{
 					_lastLayerSelected = Category.Cat3;
 					_selectedEntity.PhysicsEntity.SetCollisionLayer( Category.Cat3 );
 				}
 
-				if ( _inputAggregator.HasEvent( Button.D4 ) )
+				if ( _inputAggregator.HasEvent( UISButton.D4 ) )
 				{
 					_lastLayerSelected = Category.Cat4;
 					_selectedEntity.PhysicsEntity.SetCollisionLayer( Category.Cat4 );
 				}
 
-				if ( _inputAggregator.HasEvent( Button.D5 ) )
+				if ( _inputAggregator.HasEvent( UISButton.D5 ) )
 				{
 					_lastLayerSelected = Category.Cat5;
 					_selectedEntity.PhysicsEntity.SetCollisionLayer( Category.Cat5 );
@@ -557,7 +557,7 @@ namespace VertexArmy.Global.Controllers
 			SetCategoryProcess( dt );
 			ShowInfoProcess( dt );
 
-			if ( _state.Equals( EditorState.Selected ) && _inputAggregator.HasEvent( Button.Delete ) )
+			if ( _state.Equals( EditorState.Selected ) && _inputAggregator.HasEvent( UISButton.Delete ) )
 			{
 				GameWorldManager.Instance.RemoveEntity( _selectedEntity.Name );
 				_state = EditorState.None;

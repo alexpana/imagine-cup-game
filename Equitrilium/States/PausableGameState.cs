@@ -11,7 +11,7 @@ namespace VertexArmy.States
 		public virtual void OnUpdate( GameTime gameTime )
 		{
 			if ( GamePad.GetState( PlayerIndex.One ).Buttons.Back == ButtonState.Pressed ||
-				 Platform.Instance.Input.HasEvent( Button.Escape, true ) )
+				 Platform.Instance.Input.HasEvent( UISButton.Escape, true ) )
 			{
 				StateManager.Instance.PushState( GameState.Pause );
 			}

@@ -66,7 +66,7 @@ namespace VertexArmy.States.Menu
 			}
 
 			var scrollEvent = Platform.Instance.Input.GetEvent<ScrollEvent>();
-			if ( Platform.Instance.Input.HasEvent( Button.Right, true ) ||
+			if ( Platform.Instance.Input.HasEvent( UISButton.Right, true ) ||
 				scrollEvent != null && scrollEvent.Delta < 0 )
 			{
 				if ( _selectedCubeIndex < _levelCubes.Count - 1 )
@@ -76,7 +76,7 @@ namespace VertexArmy.States.Menu
 				}
 			}
 
-			if ( Platform.Instance.Input.HasEvent( Button.Left, true ) ||
+			if ( Platform.Instance.Input.HasEvent( UISButton.Left, true ) ||
 				scrollEvent != null && scrollEvent.Delta > 0 )
 			{
 				if ( _selectedCubeIndex > 0 )
@@ -86,7 +86,7 @@ namespace VertexArmy.States.Menu
 				}
 			}
 
-			if ( Platform.Instance.Input.HasEvent( Button.Enter, true ) )
+			if ( Platform.Instance.Input.HasEvent( UISButton.Enter, true ) )
 			{
 				ActivateSelectedItem();
 			}
@@ -97,8 +97,8 @@ namespace VertexArmy.States.Menu
 				ActivateSelectedItem();
 			}
 
-			if ( Platform.Instance.Input.HasEvent( Button.Back, true ) ||
-				 Platform.Instance.Input.HasEvent( Button.Escape, true ) )
+			if ( Platform.Instance.Input.HasEvent( UISButton.Back, true ) ||
+				 Platform.Instance.Input.HasEvent( UISButton.Escape, true ) )
 			{
 				StateManager.Instance.ChangeState( GameState.Menu );
 			}

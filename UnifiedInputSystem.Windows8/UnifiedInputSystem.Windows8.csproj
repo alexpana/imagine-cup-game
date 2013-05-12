@@ -129,14 +129,14 @@
     <Compile Include="..\UnifiedInputSystem\InputAggregator.cs">
       <Link>InputAggregator.cs</Link>
     </Compile>
-    <Compile Include="..\UnifiedInputSystem\Input\Button.cs">
-      <Link>Input\Button.cs</Link>
-    </Compile>
     <Compile Include="..\UnifiedInputSystem\Input\GestureSource.cs">
       <Link>Input\GestureSource.cs</Link>
     </Compile>
     <Compile Include="..\UnifiedInputSystem\Input\GestureType.cs">
       <Link>Input\GestureType.cs</Link>
+    </Compile>
+    <Compile Include="..\UnifiedInputSystem\Input\UISButton.cs">
+      <Link>Input\UISButton.cs</Link>
     </Compile>
     <Compile Include="..\UnifiedInputSystem\Keyboard\KeyboardInputProcessor.cs">
       <Link>Keyboard\KeyboardInputProcessor.cs</Link>

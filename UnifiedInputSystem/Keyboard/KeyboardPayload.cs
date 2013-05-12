@@ -5,6 +5,6 @@ namespace UnifiedInputSystem.Keyboard
 {
 	public class KeyboardPayload
 	{
-		public List<Button> Buttons { get; set; }
+		public List<UISButton> Buttons { get; set; }
 	}
 }

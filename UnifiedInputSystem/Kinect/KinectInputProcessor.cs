@@ -62,6 +62,14 @@ namespace UnifiedInputSystem.Kinect
 					previousHandPayload == null
 					? handPayload.Position
 					: previousHandPayload.Position - handPayload.Position ) );
+
+				if ( handPayload.PressExtent >= 1 )
+				{
+					events.Add( new GestureEvent(
+						previousHandPayload == null ? GestureType.Activate :
+							( previousHandPayload.PressExtent >= 1 ? GestureType.HoldActivate : GestureType.Activate ),
+						hand, handPayload.Position ) );
+				}
 			}
 		}
 

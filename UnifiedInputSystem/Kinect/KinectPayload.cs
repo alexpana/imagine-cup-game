@@ -27,6 +27,8 @@ namespace UnifiedInputSystem.Kinect
 		public Vector2 Position { get; set; }
 		public bool? GripState { get; set; }
 		public GestureSource Source { get; set; }
+
+		public double PressExtent { get; set; }
 	}
 }
 #endif

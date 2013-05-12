@@ -23,7 +23,7 @@ namespace VertexArmy
 #endif
 #if USE_KINECT
 		private Kinect.KinectChooser _kinectChooser;
-		private KinectInputProcessor _kinectInputProcessor;
+		private UnifiedInputSystem.Kinect.KinectInputProcessor _kinectInputProcessor;
 #endif
 
 		public MainGame()
@@ -202,7 +202,8 @@ namespace VertexArmy
 				}
 				else
 				{
-					_kinectInputProcessor = new KinectInputProcessor( new KinectInputStream( _kinectChooser.Sensor,
+					_kinectInputProcessor = new UnifiedInputSystem.Kinect.KinectInputProcessor(
+						new UnifiedInputSystem.Kinect.KinectInputStream( _kinectChooser.Sensor,
 						Platform.Instance.DeviceManager.PreferredBackBufferWidth,
 						Platform.Instance.DeviceManager.PreferredBackBufferHeight ) );
 					Platform.Instance.Input.AddToFront( _kinectInputProcessor );

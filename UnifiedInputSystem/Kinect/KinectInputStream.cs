@@ -166,6 +166,7 @@ namespace UnifiedInputSystem.Kinect
 								( float ) MathHelper.Clamp( pointer.X * _interactionRegionWidth, 0, _interactionRegionWidth ),
 								( float ) MathHelper.Clamp( pointer.Y * _interactionRegionHeight, 0, _interactionRegionHeight ) ),
 							GripState = gripState,
+							PressExtent = pointer.PressExtent,
 							Source = source
 						} );
 					}
@@ -189,9 +190,9 @@ namespace UnifiedInputSystem.Kinect
 			return new InteractionInfo
 			{
 				IsGripTarget = false,
-				IsPressTarget = false,
-				PressAttractionPointX = MathHelper.Clamp( x * _interactionRegionWidth, 0, _interactionRegionWidth ),
-				PressAttractionPointY = MathHelper.Clamp( y * _interactionRegionHeight, 0, _interactionRegionHeight )
+				//IsPressTarget = true,
+				//PressAttractionPointX = MathHelper.Clamp( x * _interactionRegionWidth, 0, _interactionRegionWidth ),
+				//PressAttractionPointY = MathHelper.Clamp( y * _interactionRegionHeight, 0, _interactionRegionHeight )
 			};
 		}
 	}

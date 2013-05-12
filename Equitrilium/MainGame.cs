@@ -2,7 +2,6 @@ using FarseerPhysics.Dynamics;
 using Microsoft.Xna.Framework;
 using UnifiedInputSystem;
 using UnifiedInputSystem.Keyboard;
-using UnifiedInputSystem.Kinect;
 using UnifiedInputSystem.Mouse;
 using VertexArmy.Content.Materials;
 using VertexArmy.Content.Prefabs;
@@ -70,10 +69,7 @@ namespace VertexArmy
 #endif
 
 			PhysicsContactManager.Instance.Initialize();
-#if TEST_LEVEL_LOADING
-	// This is for testing the level loading part. Do not modify this!
-			StateManager.Instance.ChangeState( GameState.LevelLoading );
-#elif MODEL_VIEW
+#if MODEL_VIEW
 			StateManager.Instance.ChangeState( GameState.ModelView );
 #elif EDITOR
 			StateManager.Instance.ChangeState( GameState.Editor );

@@ -18,7 +18,7 @@ namespace UnifiedInputSystem.Mouse
 			_lastEvents = new List<IInputEvent>();
 		}
 
-		public List<IInputEvent> GetEvents()
+		public IEnumerable<IInputEvent> GetEvents()
 		{
 			return _lastEvents;
 		}

@@ -19,7 +19,7 @@ namespace UnifiedInputSystem.Kinect
 			_kinectInputStream = inputStream;
 		}
 
-		public List<IInputEvent> GetEvents()
+		public IEnumerable<IInputEvent> GetEvents()
 		{
 			return _lastEvents;
 		}

@@ -1,5 +1,4 @@
 ﻿
-using System.Collections.Generic;
 using System.Linq;
 using UnifiedInputSystem.Events;
 using UnifiedInputSystem.Input;
@@ -15,7 +14,7 @@ namespace UnifiedInputSystem.Extensions
 			UISButton uisButton, bool firstTime = false )
 		{
 			return inputAggregator.GetEvents<ButtonsPressedEvent>().
-				FirstOrDefault( ev => ev.PressedButtons.Contains( new KeyValuePair<UISButton, bool>( uisButton, firstTime ) ) ) != null;
+				FirstOrDefault( ev => ev.PressedButtons.GetValue( uisButton ) == firstTime ) != null;
 		}
 	}
 }

@@ -12,7 +12,7 @@ namespace UnifiedInputSystem
 		/// Gets the events processed
 		/// </summary>
 		/// <returns>A list of input events</returns>
-		List<IInputEvent> GetEvents();
+		IEnumerable<IInputEvent> GetEvents();
 
 		/// <summary>
 		/// Updates the processor's state

@@ -8,7 +8,7 @@ namespace UnifiedInputSystem.Keyboard
 	public class KeyboardProcessor : IInputProcessor
 	{
 		private readonly KeyboardInputStream _inputStream;
-		private List<IInputEvent> _lastEvents;
+		private List<IInputEvent> _lastEvents = new List<IInputEvent>();
 
 		private BitSet _previousKeys;
 		private BitSet _currentKeys;
@@ -21,7 +21,7 @@ namespace UnifiedInputSystem.Keyboard
 			_previousKeys = new BitSet();
 		}
 
-		public List<IInputEvent> GetEvents()
+		public IEnumerable<IInputEvent> GetEvents()
 		{
 			return _lastEvents;
 		}
@@ -33,11 +33,11 @@ namespace UnifiedInputSystem.Keyboard
 
 			var state = _inputStream.GetState();
 
-			List<KeyValuePair<UISButton, bool>> buttons = new List<KeyValuePair<UISButton, bool>>();
+			Dictionary<UISButton, bool> buttons = new Dictionary<UISButton, bool>();
 			foreach ( var button in state.Buttons )
 			{
 				_currentKeys[( int ) button] = true;
-				buttons.Add( new KeyValuePair<UISButton, bool>( button, !_previousKeys[( int ) button] ) );
+				buttons[button] = !_previousKeys[( int ) button];
 			}
 
 			_lastEvents = new List<IInputEvent> { new ButtonsPressedEvent( buttons ) };

@@ -8,16 +8,16 @@ namespace UnifiedInputSystem.Events
 	/// </summary>
 	public class ButtonsPressedEvent : IInputEvent
 	{
-		public ButtonsPressedEvent( List<KeyValuePair<UISButton, bool>> buttons )
+		public ButtonsPressedEvent( Dictionary<UISButton, bool> buttons )
 		{
 			PressedButtons = buttons;
 		}
 
 		/// <summary>
-		/// Gets the list of key value pairs 
+		/// Gets the dictionary of pressed keys
 		/// Each pair has the button as key and a correspondent 
 		/// boolean that specifies if the button is new (was not pressed before)
 		/// </summary>
-		public List<KeyValuePair<UISButton, bool>> PressedButtons { get; private set; }
+		public Dictionary<UISButton, bool> PressedButtons { get; private set; }
 	}
 }

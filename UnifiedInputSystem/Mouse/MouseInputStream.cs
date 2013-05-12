@@ -31,5 +31,9 @@ namespace UnifiedInputSystem.Mouse
 		{
 			return _currentPayload;
 		}
+
+		public void Dispose()
+		{
+		}
 	}
 }

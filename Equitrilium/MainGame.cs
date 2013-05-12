@@ -1,3 +1,4 @@
+using System;
 using FarseerPhysics.Dynamics;
 using Microsoft.Xna.Framework;
 using UnifiedInputSystem;
@@ -24,6 +25,7 @@ namespace VertexArmy
 #if USE_KINECT
 		private Kinect.KinectChooser _kinectChooser;
 		private UnifiedInputSystem.Kinect.KinectInputProcessor _kinectInputProcessor;
+		private UnifiedInputSystem.Kinect.KinectInputStream _kinectInputStream;
 #endif
 
 		public MainGame()
@@ -197,15 +199,24 @@ namespace VertexArmy
 					if ( _kinectInputProcessor != null )
 					{
 						Platform.Instance.Input.Remove( _kinectInputProcessor );
+
+						_kinectInputStream.Dispose();
+
 						_kinectInputProcessor = null;
+						_kinectInputStream = null;
 					}
 				}
 				else
 				{
-					_kinectInputProcessor = new UnifiedInputSystem.Kinect.KinectInputProcessor(
-						new UnifiedInputSystem.Kinect.KinectInputStream( _kinectChooser.Sensor,
+					if ( _kinectInputStream != null )
+					{
+						throw new ArgumentException( "Cannot use two kinect streams at a time!" );
+					}
+
+					_kinectInputStream = new UnifiedInputSystem.Kinect.KinectInputStream( _kinectChooser.Sensor,
 						Platform.Instance.DeviceManager.PreferredBackBufferWidth,
-						Platform.Instance.DeviceManager.PreferredBackBufferHeight ) );
+						Platform.Instance.DeviceManager.PreferredBackBufferHeight );
+					_kinectInputProcessor = new UnifiedInputSystem.Kinect.KinectInputProcessor( _kinectInputStream );
 					Platform.Instance.Input.AddToFront( _kinectInputProcessor );
 				}
 			};

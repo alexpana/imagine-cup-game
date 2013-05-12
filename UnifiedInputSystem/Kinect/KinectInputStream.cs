@@ -50,7 +50,6 @@ namespace UnifiedInputSystem.Kinect
 			return _payload;
 		}
 
-		//TODO: cleanup!
 		private void InitializeInteractions( KinectSensor sensor )
 		{
 			_skeletons = new Skeleton[sensor.SkeletonStream.FrameSkeletonArrayLength];
@@ -62,6 +61,7 @@ namespace UnifiedInputSystem.Kinect
 			_interactionStream = new InteractionStream( sensor, this );
 			_interactionStream.InteractionFrameReady += InteractionStreamOnInteractionFrameReady;
 		}
+
 
 		private void SensorOnSkeletonFrameReady( object sender, SkeletonFrameReadyEventArgs skeletonFrameReadyEventArgs )
 		{
@@ -187,13 +187,30 @@ namespace UnifiedInputSystem.Kinect
 		public InteractionInfo GetInteractionInfoAtLocation( int skeletonTrackingId, InteractionHandType handType,
 			double x, double y )
 		{
-			return new InteractionInfo
+			return new InteractionInfo();
+		}
+
+		public void Dispose()
+		{
+			Dispose( true );
+			GC.SuppressFinalize( this );
+		}
+
+		~KinectInputStream()
+		{
+			Dispose( false );
+		}
+
+		protected virtual void Dispose( bool disposing )
+		{
+			if ( disposing )
 			{
-				IsGripTarget = false,
-				//IsPressTarget = true,
-				//PressAttractionPointX = MathHelper.Clamp( x * _interactionRegionWidth, 0, _interactionRegionWidth ),
-				//PressAttractionPointY = MathHelper.Clamp( y * _interactionRegionHeight, 0, _interactionRegionHeight )
-			};
+				_sensor.DepthFrameReady -= SensorOnDepthFrameReady;
+				_sensor.SkeletonFrameReady -= SensorOnSkeletonFrameReady;
+
+				_interactionStream.InteractionFrameReady -= InteractionStreamOnInteractionFrameReady;
+				_interactionStream.Dispose();
+			}
 		}
 	}
 }

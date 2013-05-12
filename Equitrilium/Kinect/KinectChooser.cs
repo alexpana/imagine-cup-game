@@ -184,6 +184,7 @@ namespace VertexArmy.Kinect
 			if ( this.Sensor != null )
 			{
 				this.Sensor.Stop();
+				this.Sensor = null;
 			}
 		}
 

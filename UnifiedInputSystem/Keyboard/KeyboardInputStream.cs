@@ -34,5 +34,9 @@ namespace UnifiedInputSystem.Keyboard
 		{
 			return _currentPayload;
 		}
+
+		public void Dispose()
+		{
+		}
 	}
 }

@@ -571,8 +571,11 @@ namespace VertexArmy.Global.Controllers
 				switch ( _state )
 				{
 					case EditorState.None:
-						_selectedEntity = _tryEntity;
-						_state = EditorState.Selected;
+						if ( _tryEntity != null )
+						{
+							_selectedEntity = _tryEntity;
+							_state = EditorState.Selected;
+						}
 						break;
 					case EditorState.Selected:
 						HintManager.Instance.SpawnHint( "Selected entity:" + _selectedEntity.Name + "\nPosition: " + _selectedEntity.GetPosition() + "\nCollision Layer: " + _selectedEntity.PhysicsEntity.GetCollisionLayer(), offset, 50, 5, null, 1 );

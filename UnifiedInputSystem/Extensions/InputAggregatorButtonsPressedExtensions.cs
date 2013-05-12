@@ -14,7 +14,15 @@ namespace UnifiedInputSystem.Extensions
 			UISButton uisButton, bool firstTime = false )
 		{
 			return inputAggregator.GetEvents<ButtonsPressedEvent>().
-				FirstOrDefault( ev => ev.PressedButtons.GetValue( uisButton ) == firstTime ) != null;
+				FirstOrDefault( ev =>
+				{
+					bool value;
+					if ( ev.PressedButtons.TryGetValue( uisButton, out value ) )
+					{
+						return value == firstTime;
+					}
+					return false;
+				} ) != null;
 		}
 	}
 }
